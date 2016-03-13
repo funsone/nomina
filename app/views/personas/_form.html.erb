@@ -1,0 +1,73 @@
+<%= form_for(@persona) do |f| %>
+  <% if @persona.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@persona.errors.count, "error") %> prohibited this persona from being saved:</h2>
+
+      <ul>
+      <% @persona.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tipo_cedula %><br>
+    <%= f.number_field :tipo_cedula %>
+  </div>
+  <div class="field">
+    <%= f.label :cedula %><br>
+    <%= f.number_field :cedula %>
+  </div>
+  <div class="field">
+    <%= f.label :nombres %><br>
+    <%= f.text_field :nombres %>
+  </div>
+  <div class="field">
+    <%= f.label :apellidos %><br>
+    <%= f.text_field :apellidos %>
+  </div>
+  <div class="field">
+    <%= f.label :lista_id %><br>
+    <%= f.text_field :lista_id %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono_fijo %><br>
+    <%= f.text_field :telefono_fijo %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono_movil %><br>
+    <%= f.text_field :telefono_movil %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_de_nacimiento %><br>
+    <%= f.date_select :fecha_de_nacimiento %>
+  </div>
+  <div class="field">
+    <%= f.label :correo %><br>
+    <%= f.text_field :correo %>
+  </div>
+  <div class="field">
+    <%= f.label :direccion %><br>
+    <%= f.text_field :direccion %>
+  </div>
+  <div class="field">
+    <%= f.label :sexo %><br>
+    <%= f.check_box :sexo %>
+  </div>
+  <div class="field">
+    <%= f.label :estado_civil %><br>
+    <%= f.number_field :estado_civil %>
+  </div>
+  <div class="field">
+    <%= f.label :grado %><br>
+    <%= f.number_field :grado %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.number_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
