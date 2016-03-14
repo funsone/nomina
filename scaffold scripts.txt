@@ -1,0 +1,4 @@
+rails g scaffold department nombre:string
+rails g scaffold payroll nombre:string
+rails g scaffold person payroll:references tipo_cedula:boolean nombres:string apellidos:string telefono_fijo:string telefono_movil:string fecha_de_nacimiento:date correo:string direccion:string sexo:boolean estado_civil:integer grado:integer status:integer
+rails g scaffold position titulo:string sueldo:decimal sueldo_minimo:boolean department:references

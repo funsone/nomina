@@ -1,0 +1,70 @@
+<%= form_for(@person) do |f| %>
+  <% if @person.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+      <% @person.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :payroll_id %><br>
+    <%= f.select :payroll_id,options_for_select(Payroll.all.map{|s|[s.nombre,s.id]}) %>
+  </div>
+  <div class="field">
+    <%= f.label :cedula %><br>
+    <%= f.select :tipo_cedula, options_for_select([["V-", "0"], ["E-", "1"]]) %>
+    <%= f.number_field :cedula %>
+  </div>
+  <div class="field">
+    <%= f.label :nombres %><br>
+    <%= f.text_field :nombres %>
+  </div>
+  <div class="field">
+    <%= f.label :apellidos %><br>
+    <%= f.text_field :apellidos %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono_fijo %><br>
+    <%= f.text_field :telefono_fijo %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono_movil %><br>
+    <%= f.text_field :telefono_movil %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_de_nacimiento %><br>
+    <%= f.date_select :fecha_de_nacimiento %>
+  </div>
+  <div class="field">
+    <%= f.label :correo %><br>
+    <%= f.text_field :correo %>
+  </div>
+  <div class="field">
+    <%= f.label :direccion %><br>
+    <%= f.text_field :direccion %>
+  </div>
+  <div class="field">
+    <%= f.label :sexo %><br>
+    <%= f.select :sexo, options_for_select([["hombre", "0"], ["mujer", "1"]]) %>
+  </div>
+  <div class="field">
+    <%= f.label :estado_civil %><br>
+    <%= f.number_field :estado_civil %>
+  </div>
+  <div class="field">
+    <%= f.label :grado %><br>
+    <%= f.number_field :grado %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.number_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

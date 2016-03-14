@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Titulo:</strong>
+  <%= @position.titulo %>
+</p>
+
+<p>
+  <strong>Sueldo:</strong>
+  <%= @position.sueldo %>
+</p>
+
+<p>
+  <strong>Sueldo minimo:</strong>
+  <%= @position.sueldo_minimo %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @position.department %>
+</p>
+
+<%= link_to 'Edit', edit_position_path(@position) %> |
+<%= link_to 'Back', positions_path %>

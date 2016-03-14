@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing People</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Payroll</th>
+      <th>Cedula</th>
+      <th>Nombres</th>
+      <th>Apellidos</th>
+      <th>Telefono fijo</th>
+      <th>Telefono movil</th>
+      <th>Fecha de nacimiento</th>
+      <th>Correo</th>
+      <th>Direccion</th>
+      <th>Sexo</th>
+      <th>Estado civil</th>
+      <th>Grado</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @people.each do |person| %>
+      <tr>
+        <td><%= person.payroll.nombre %></td>
+        <td><%= person.tipo_cedula %><%=person.cedula %></td>
+        <td><%= person.nombres %></td>
+        <td><%= person.apellidos %></td>
+        <td><%= person.telefono_fijo %></td>
+        <td><%= person.telefono_movil %></td>
+        <td><%= person.fecha_de_nacimiento %></td>
+        <td><%= person.correo %></td>
+        <td><%= person.direccion %></td>
+        <td><%= person.sexo %></td>
+        <td><%= person.estado_civil %></td>
+        <td><%= person.grado %></td>
+        <td><%= person.status %></td>
+        <td><%= link_to 'Show', person %></td>
+        <td><%= link_to 'Edit', edit_person_path(person) %></td>
+        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person', new_person_path %>
