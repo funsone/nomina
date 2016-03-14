@@ -13,29 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20160313222132) do
 
-  create_table "departamentos", force: :cascade do |t|
-    t.string   "nombre"
-    t.integer  "sede_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "departamentos", ["sede_id"], name: "index_departamentos_on_sede_id"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "departments", force: :cascade do |t|
     t.string   "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "lista", force: :cascade do |t|
-    t.string   "nombre"
-    t.integer  "sede_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "lista", ["sede_id"], name: "index_lista_on_sede_id"
 
   create_table "payrolls", force: :cascade do |t|
     t.string   "nombre"
@@ -62,28 +47,7 @@ ActiveRecord::Schema.define(version: 20160313222132) do
     t.string   "cedula"
   end
 
-  add_index "people", ["payroll_id"], name: "index_people_on_payroll_id"
-
-  create_table "personas", force: :cascade do |t|
-    t.integer  "tipo_cedula"
-    t.integer  "cedula"
-    t.string   "nombres"
-    t.string   "apellidos"
-    t.integer  "lista_id"
-    t.string   "telefono_fijo"
-    t.string   "telefono_movil"
-    t.date     "fecha_de_nacimiento"
-    t.string   "correo"
-    t.string   "direccion"
-    t.boolean  "sexo"
-    t.integer  "estado_civil"
-    t.integer  "grado"
-    t.integer  "status"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
-  add_index "personas", ["lista_id"], name: "index_personas_on_lista_id"
+  add_index "people", ["payroll_id"], name: "index_people_on_payroll_id", using: :btree
 
   create_table "positions", force: :cascade do |t|
     t.string   "titulo"
@@ -94,12 +58,8 @@ ActiveRecord::Schema.define(version: 20160313222132) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "positions", ["department_id"], name: "index_positions_on_department_id"
+  add_index "positions", ["department_id"], name: "index_positions_on_department_id", using: :btree
 
-  create_table "sedes", force: :cascade do |t|
-    t.string   "nombre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+  add_foreign_key "people", "payrolls"
+  add_foreign_key "positions", "departments"
 end
