@@ -2,6 +2,8 @@
 
 one:
   nombre: MyString
+  headquarter_id: 
 
 two:
   nombre: MyString
+  headquarter_id: 

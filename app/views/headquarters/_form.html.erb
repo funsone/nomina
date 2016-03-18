@@ -1,10 +1,10 @@
-<%= form_for(@payroll) do |f| %>
-  <% if @payroll.errors.any? %>
+<%= form_for(@headquarter) do |f| %>
+  <% if @headquarter.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@payroll.errors.count, "error") %> prohibited this payroll from being saved:</h2>
+      <h2><%= pluralize(@headquarter.errors.count, "error") %> prohibited this headquarter from being saved:</h2>
 
       <ul>
-      <% @payroll.errors.full_messages.each do |message| %>
+      <% @headquarter.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

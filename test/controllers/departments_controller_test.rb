@@ -18,7 +18,7 @@ class DepartmentsControllerTest < ActionController::TestCase
 
   test "should create department" do
     assert_difference('Department.count') do
-      post :create, department: { nombre: @department.nombre }
+      post :create, department: { headquarter_id: @department.headquarter_id, nombre: @department.nombre }
     end
 
     assert_redirected_to department_path(assigns(:department))
@@ -35,7 +35,7 @@ class DepartmentsControllerTest < ActionController::TestCase
   end
 
   test "should update department" do
-    patch :update, id: @department, department: { nombre: @department.nombre }
+    patch :update, id: @department, department: { headquarter_id: @department.headquarter_id, nombre: @department.nombre }
     assert_redirected_to department_path(assigns(:department))
   end
 
