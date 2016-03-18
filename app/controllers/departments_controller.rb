@@ -15,6 +15,9 @@ class DepartmentsController < ApplicationController
   # GET /departments/new
   def new
     @department = Department.new
+    unless Headquarter.first;
+      redirect_to headquarters_path;
+    end
   end
 
   # GET /departments/1/edit
@@ -24,6 +27,7 @@ class DepartmentsController < ApplicationController
   # POST /departments
   # POST /departments.json
   def create
+
     @department = Department.new(department_params)
 
     respond_to do |format|

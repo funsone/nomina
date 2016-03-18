@@ -16,8 +16,8 @@
     <%= f.text_field :nombre %>
   </div>
   <div class="field">
-    <%= f.label :headquarter_id %><br>
-    <%= f.text_field :headquarter_id %>
+    <%= f.label :headquarter_id %><br />
+    <%= f.select :headquarter_id , options_for_select(Headquarter.all.map{|s|[s.nombre, s.id]}) %>
   </div>
   <div class="actions">
     <%= f.submit %>
