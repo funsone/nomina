@@ -11,25 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318132833) do
+ActiveRecord::Schema.define(version: 20160319194255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "departments", force: :cascade do |t|
+  create_table "cargos", force: :cascade do |t|
     t.string   "nombre"
-    t.integer  "headquarter_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "departamento_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  add_index "departments", ["headquarter_id"], name: "index_departments_on_headquarter_id", using: :btree
+  add_index "cargos", ["departamento_id"], name: "index_cargos_on_departamento_id", using: :btree
 
-  create_table "headquarters", force: :cascade do |t|
+  create_table "departamentos", force: :cascade do |t|
     t.string   "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "departments", "headquarters"
+  create_table "sueldos", force: :cascade do |t|
+    t.decimal  "monto"
+    t.boolean  "activo"
+    t.integer  "cargo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "sueldos", ["cargo_id"], name: "index_sueldos_on_cargo_id", using: :btree
+
+  add_foreign_key "cargos", "departamentos"
+  add_foreign_key "sueldos", "cargos"
 end
