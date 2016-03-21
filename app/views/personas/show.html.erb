@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cedula:</strong>
+  <%= @persona.cedula %>
+</p>
+
+<p>
+  <strong>Tipo de cedula:</strong>
+  <%= @persona.tipo_de_cedula %>
+</p>
+
+<p>
+  <strong>Nombres:</strong>
+  <%= @persona.nombres %>
+</p>
+
+<p>
+  <strong>Apellidos:</strong>
+  <%= @persona.apellidos %>
+</p>
+
+<p>
+  <strong>Telefono fijo:</strong>
+  <%= @persona.telefono_fijo %>
+</p>
+
+<p>
+  <strong>Telefono movil:</strong>
+  <%= @persona.telefono_movil %>
+</p>
+
+<p>
+  <strong>Fecha de nacimiento:</strong>
+  <%= @persona.fecha_de_nacimiento %>
+</p>
+
+<p>
+  <strong>Correo:</strong>
+  <%= @persona.correo %>
+</p>
+
+<p>
+  <strong>Direccion:</strong>
+  <%= @persona.direccion %>
+</p>
+
+<p>
+  <strong>Sexo:</strong>
+  <%= @persona.sexo %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @persona.status %>
+</p>
+
+<p>
+  <strong>Cargo:</strong>
+  <%= @persona.cargo.nombre %>
+</p>
+
+<p>
+  <strong>Cargas familiares:</strong>
+  <%= @persona.cargas_familiares %>
+</p>
+
+<%= link_to 'Edit', edit_persona_path(@persona) %> |
+<%= link_to 'Back', personas_path %>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :personas
+  resources :tipos
   resources :cargos
   resources :departamentos
   # The priority is based upon order of creation: first created -> highest priority.

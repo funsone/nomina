@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fecha_inicio: 2016-03-21
+  fecha_fin: 2016-03-21
+  tipo_de_contrato: 1
+  sueldo_externo: 9.99
+  persona_id: 
+
+two:
+  fecha_inicio: 2016-03-21
+  fecha_fin: 2016-03-21
+  tipo_de_contrato: 1
+  sueldo_externo: 9.99
+  persona_id: 

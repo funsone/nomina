@@ -17,9 +17,12 @@
   </div>
   <div class="form-group">
     <%= f.label :departamento_id %><br>
-    <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}),{},:class =>"form-control")  %>
+    <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, params[:departamento_id]),{},:class =>"form-control")  %>
   </div>
-
+  <div class="form-group">
+    <%= f.label :tipo %><br>
+    <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, params[:tipo_id]),{},:class =>"form-control")  %>
+  </div>
   <h3>Sueldo</h3>
   <%= f.fields_for :sueldos  do |sueldo_builder|  %>
   <% if sueldo_builder.object.activo? %>

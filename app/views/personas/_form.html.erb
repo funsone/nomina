@@ -1,0 +1,82 @@
+<%= form_for @persona, :role => "form"  do |f| %>
+  <% if @persona.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@persona.errors.count, "error") %> prohibited this persona from being saved:</h2>
+
+      <ul>
+      <% @persona.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :cedula %><br>
+    <span class="col-md-4"><%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], params[:tipo_de_cedula]),{},:class =>"form-control")  %></span>
+  <span class="col-md-8"> <%= f.text_field :cedula ,:class => "form-control" %></span>
+  </div>
+  <div class="field">
+
+    <%= f.label :nombres %><br>
+    <%= f.text_field :nombres ,:class => "form-control" %></div>
+
+  <div class="field">
+    <%= f.label :apellidos %><br>
+    <%= f.text_field :apellidos ,:class => "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono_fijo %><br>
+    <%= f.telephone_field :telefono_fijo ,:class => "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono_movil %><br>
+    <%= f.telephone_field :telefono_movil ,:class => "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_de_nacimiento %><br>
+    <%= f.date_field :fecha_de_nacimiento ,:class => "form-control" %>
+  </div>
+  <div class="field">
+  <div class="field">
+    <%= f.label :sexo %><br>
+    <%= f.select(:sexo, options_for_select($dic["sexos"], params[:sexo]),{},:class =>"form-control")  %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.select(:status, options_for_select($dic["status"], params[:status]),{},:class =>"form-control")  %>
+  </div>
+  <div class="field">
+    <%= f.label :cargo_id %><br>
+    <% if f.object.cargo_id==nil
+       f.object.cargo_id=0 %>
+    <%= f.select(:cargo_id, options_for_select(Cargo.all.where("disponible=true or id=#{f.object.cargo_id}").map{|s|[s.nombre, s.id]}, params[:cargo_id]),{},:class =>"form-control")  %>
+<%end%>
+  </div>
+  <div class="field">
+    <%= f.label :cargas_familiares %><br>
+    <%= f.number_field :cargas_familiares ,:class => "form-control" %>
+  </div>
+  <h3>Contrato</h3>
+  <%= f.fields_for :contrato  do |contrato_builder|  %>
+    <div class="form-group" >
+      <%= contrato_builder.label :tipo_de_contrato %>
+      <%= contrato_builder.select(:tipo_de_contrato, options_for_select($dic["tipos_de_contrato"], params[:tipo_de_contrato]),{},:class =>"form-control" ) %>
+    </div>
+    <div class="form-group" >
+      <%= contrato_builder.label :fecha_inicio %>
+      <%= contrato_builder.date_field :fecha_inicio,:class => "form-control" %>
+    </div>
+    <div class="form-group" >
+      <%= contrato_builder.label :fecha_fin %>
+      <%= contrato_builder.date_field :fecha_fin,:class => "form-control" %>
+    </div>
+    <div class="form-group" >
+      <%= contrato_builder.label :sueldo_externo %>
+      <%= contrato_builder.text_field :sueldo_externo,:class => "form-control" %>
+    </div>
+    <% end %>
+  <div class="actions">
+    <%= f.submit :class => "btn btn-default"  %>
+  </div>
+<% end %>

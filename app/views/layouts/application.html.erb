@@ -11,16 +11,20 @@
     <nav class="navbar navbar-default" role="navigation">
       <div class="container">
         <ul class="nav navbar-nav">
-               
+
                <li><%= link_to "Inicio", "/"%></li>
                 <li><%= link_to "Departamentos", departamentos_path%></li>
+                <li ><%= link_to "Tipos", tipos_path%></li>
                <li ><%= link_to "Cargos", cargos_path%></li>
+               <li ><%= link_to "Personas", personas_path %></li>
+
              </ul>
       </div>
     </nav>
   </header>
-
+<article class="container">
 <%= yield %>
-
+</aticle>
+<footer></footer>
 </body>
 </html>
