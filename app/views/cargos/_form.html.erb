@@ -1,4 +1,4 @@
-<%= form_for(@cargo) do |f| %>
+<%= form_for @cargo ,:role => "form" do |f| %>
   <% if @cargo.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@cargo.errors.count, "error") %> prohibited this cargo from being saved:</h2>
@@ -11,23 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+    <%= f.text_field :nombre, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :departamento_id %><br>
-    <%= f.text_field :departamento_id %>
+    <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}),{},:class =>"form-control")  %>
   </div>
 
   <h3>Sueldo</h3>
-  <%= f.fields_for :sueldos do |sueldo_builder| %>
-    <div>
+  <%= f.fields_for :sueldos  do |sueldo_builder|  %>
+  <% if sueldo_builder.object.activo? %>
+    <div class="form-group" >
+
       <%= sueldo_builder.label :monto %>
-      <%= sueldo_builder.text_field :monto %>
+      <%= sueldo_builder.text_field :monto,:class => "form-control" %>
+
     </div>
+      <% end %>
     <% end %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => "btn btn-default" %>
   </div>
 <% end %>

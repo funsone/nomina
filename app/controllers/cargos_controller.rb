@@ -17,6 +17,7 @@ class CargosController < ApplicationController
   def new
     @cargo = Cargo.new
     @cargo.sueldos.build
+
   end
 
   # GET /cargos/1/edit
@@ -46,6 +47,11 @@ class CargosController < ApplicationController
   # PATCH/PUT /cargos/1.json
   def update
     respond_to do |format|
+      @cargo.sueldos.update_all(activo: false)
+      key , value =params[:cargo][:sueldos_attributes].first;
+
+      @cargo.sueldos.build.monto=params[:cargo][:sueldos_attributes][key][:monto];
+
       if @cargo.update(cargo_params)
         format.html { redirect_to @cargo, notice: 'Cargo was successfully updated.' }
         format.json { render :show, status: :ok, location: @cargo }
@@ -74,7 +80,7 @@ class CargosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cargo_params
-      params.require(:cargo).permit(:nombre, :departamento_id, sueldos_attributes:[:id, :monto])
+      params.require(:cargo).permit(:nombre, :departamento_id, sueldos_attributes:[ :id, :monto,:activo])
     end
 
 end

@@ -7,8 +7,31 @@
 
 <p>
   <strong>Departamento:</strong>
-  <%= @cargo.departamento %>
+  <%= @cargo.departamento.nombre %>
 </p>
+<p>
+  <strong>Sueldos:</strong>
+  <table class="table table-hover table-responsive table-condensed table-bordered">
+    <thead>
+      <tr>
+        <th>Monto</th>
+        <th>Fecha de cambio</th>
+        <th>Activo</th>
 
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @cargo.sueldos.order('activo DESC').each do |sueldo| %>
+        <tr>
+          <td><%= sueldo.monto %></td>
+          <th><%= sueldo.created_at.strftime("%d-%m-%Y %t") %></th>
+          <th><%= sueldo.activo %></th>
+
+        </tr>
+        <% end %>
+        </tbody
+      </table>
+</p>
 <%= link_to 'Edit', edit_cargo_path(@cargo) %> |
 <%= link_to 'Back', cargos_path %>

@@ -1,12 +1,13 @@
 <p id="notice"><%= notice %></p>
-
+<%= link_to 'New Cargo', new_cargo_path %>
 <h1>Listing Cargos</h1>
 
-<table>
+<table class="table table-hover table-responsive table-condensed table-bordered">
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Departamento</th>
+      <th> <%= link_to "Departamentos",departamentos_path%></th>
+      <th>Sueldos</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,7 +16,8 @@
     <% @cargos.each do |cargo| %>
       <tr>
         <td><%= cargo.nombre %></td>
-        <td><%= cargo.departamento %></td>
+        <td><%= cargo.departamento.nombre %></td>
+        <td><%= cargo.sueldos.last.monto %></td>
         <td><%= link_to 'Show', cargo %></td>
         <td><%= link_to 'Edit', edit_cargo_path(cargo) %></td>
         <td><%= link_to 'Destroy', cargo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -25,5 +27,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Cargo', new_cargo_path %>

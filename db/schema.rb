@@ -33,10 +33,10 @@ ActiveRecord::Schema.define(version: 20160319194255) do
 
   create_table "sueldos", force: :cascade do |t|
     t.decimal  "monto"
-    t.boolean  "activo"
+    t.boolean  "activo",     default: true
     t.integer  "cargo_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "sueldos", ["cargo_id"], name: "index_sueldos_on_cargo_id", using: :btree
