@@ -1,69 +1,46 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Cedula:</strong>
-  <%= @persona.cedula %>
-</p>
 
-<p>
-  <strong>Tipo de cedula:</strong>
-  <%= @persona.tipo_de_cedula %>
-</p>
+<div class="col-sm-12">
+  <div class="col-sm-9 "><h1><%= @persona.nombres + " " + @persona.apellidos%></h1>
 
-<p>
-  <strong>Nombres:</strong>
-  <%= @persona.nombres %>
-</p>
+    <p></p>
+  </div>
+  <div class"pull-right col-sm-3"><%= image_tag @persona.avatar.url(:thumb), class:"img-circle img-responsive" %></div>
+</div>
+<div class="col-sm-4">
+            <!--left col-->
+            <ul class="list-group">
+                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">status</strong></span> <%= $dic["status"].key(@persona.status) %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Departamento</strong></span> <%= @persona.cargo.departamento.nombre %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Cargo</strong></span> <%= @persona.cargo.nombre%></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Cedula</strong></span> <%= $dic["tipos_de_cedula"].key(@persona.tipo_de_cedula).to_s+@persona.cedula %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Nombres</strong></span> <%= @persona.nombres %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Apellidos</strong></span> <%= @persona.apellidos %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Telefonos</strong></span><%= @persona.telefono_fijo %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class=""></strong></span> <%= @persona.telefono_movil %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Correo</strong></span> <%= @persona.correo %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Fecha de nacimiento</strong></span> <%= @persona.fecha_de_nacimiento %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Direccion</strong></span><%= @persona.direccion %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Carga Familiar</strong></span> <%= @persona.cargas_familiares %></li>
+                  <li class="list-group-item text-right"><span class="pull-left"><strong class="">Sexo</strong></span><%= $dic["sexos"].key(@persona.sexo) %></li>
+              </ul>
+            </div>
+<div class="col-sm-8">
+  <ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="#">Asignaciones</a></li>
+  <li role="presentation"><a href="#">Dededucciones</a></li>
+  <li role="presentation"><a href="#">Total</a></li>
+  <li role="presentation" class="dropdown pull-right">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        Acciones <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Edit', edit_persona_path(@persona),class: "btn btn-default" %></li>
+        <li><%= link_to 'Back', personas_path,class: "btn btn-default" %></li>
+      </ul>
+    </li>
 
-<p>
-  <strong>Apellidos:</strong>
-  <%= @persona.apellidos %>
-</p>
-
-<p>
-  <strong>Telefono fijo:</strong>
-  <%= @persona.telefono_fijo %>
-</p>
-
-<p>
-  <strong>Telefono movil:</strong>
-  <%= @persona.telefono_movil %>
-</p>
-
-<p>
-  <strong>Fecha de nacimiento:</strong>
-  <%= @persona.fecha_de_nacimiento %>
-</p>
-
-<p>
-  <strong>Correo:</strong>
-  <%= @persona.correo %>
-</p>
-
-<p>
-  <strong>Direccion:</strong>
-  <%= @persona.direccion %>
-</p>
-
-<p>
-  <strong>Sexo:</strong>
-  <%= @persona.sexo %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @persona.status %>
-</p>
-
-<p>
-  <strong>Cargo:</strong>
-  <%= @persona.cargo.nombre %>
-</p>
-
-<p>
-  <strong>Cargas familiares:</strong>
-  <%= @persona.cargas_familiares %>
-</p>
-
-<%= link_to 'Edit', edit_persona_path(@persona) %> |
-<%= link_to 'Back', personas_path %>
+  </ul>
+</ul>
+</div>

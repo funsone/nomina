@@ -28,10 +28,12 @@ $dic=Hash["tipos_de_contrato" =>Hash["fijo"=>0,"temporal"=>1,"externo"=>2],
   # POST /personas.json
   def create
     @persona = Persona.new(persona_params)
-
+@persona.cargo.disponible=false
+@persona.cargo.save
     respond_to do |format|
       if @persona.save
-        Cargo.where(id: params[:cargo_id]).update_all(disponible: false);
+
+      #  Cargo.where(id: params[:cargo_id]).update_all(disponible: false);
         format.html { redirect_to @persona, notice: 'Persona was successfully created.' }
         format.json { render :show, status: :created, location: @persona }
       else
@@ -74,6 +76,6 @@ $dic=Hash["tipos_de_contrato" =>Hash["fijo"=>0,"temporal"=>1,"externo"=>2],
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def persona_params
-      params.require(:persona).permit(:cedula, :tipo_de_cedula, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :fecha_de_nacimiento, :correo, :direccion, :sexo, :status, :cargo_id, :cargas_familiares, contrato_attributes:[ :id, :tipo_de_contrato,:fecha_inicio,:fecha_fin,:sueldo_externo])
+      params.require(:persona).permit(:cedula, :tipo_de_cedula, :nombres, :apellidos, :telefono_fijo, :telefono_movil,:avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :status, :cargo_id, :cargas_familiares, contrato_attributes:[ :id, :tipo_de_contrato,:fecha_inicio,:fecha_fin,:sueldo_externo])
     end
 end
