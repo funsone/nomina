@@ -1,16 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @cargo.nombre %>
-</p>
 
-<p>
-  <strong>Departamento:</strong>
-  <%= @cargo.departamento.nombre %>
-</p>
-<p>
-  <strong>Sueldos:</strong>
+
+  <div class="col-md-12 page-header">
+  <h1><%= @cargo.nombre.upcase %></h1>
+  <% ocupado_por=Persona.where("cargo_id=#{@cargo.id}").first%>
+  <small>Departamento: <b><%= @cargo.departamento.nombre %></b></small>
+  <small>, Ocupado por: <b><%= ocupado_por.nombres + " "+ocupado_por.apellidos %></b></small>
+  <small>, Desde: <b><%= ocupado_por.contrato.fecha_inicio%></b></small>
+  </div>
+
+
+
+  <h3>Sueldos</h3>
   <table class="table table-hover table-responsive table-condensed table-bordered">
     <thead>
       <tr>
@@ -26,7 +28,11 @@
         <tr>
           <td><%= sueldo.monto %></td>
           <th><%= sueldo.created_at.strftime("%m-%Y") %></th>
-          <th><%= sueldo.activo %></th>
+          <th><%if sueldo.activo %>
+            <span class="fa fa-check-square"></span>
+          <%else%>
+            <span class="fa fa-minus-square"></span>
+          <%end%></th>
 
         </tr>
         <% end %>

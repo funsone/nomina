@@ -1,12 +1,11 @@
 
 
-<div class="col-sm-12">
-  <div class="col-sm-9 "><h1><%= @persona.nombres + " " + @persona.apellidos%></h1>
+<div class="col-sm-12 page-header">
+  <div class="col-sm-9 "><h1><%= (@persona.nombres + " " + @persona.apellidos).upcase%></h1>
 
     <p></p>
   </div>
-  <div class="img-rounded"></div>
-  <div class"pull-right col-sm-3"><%= image_tag @persona.avatar.url(:thumb), class:"img-circle  img-rounded img-responsive" %></div>
+  <div class"pull-right col-sm-3 thumbnail"><%= image_tag @persona.avatar.url(:thumb), class:"img-circle  img-rounded " %></div>
 </div>
 <div class="col-sm-4">
             <!--left col-->

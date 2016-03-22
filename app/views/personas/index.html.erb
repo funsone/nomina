@@ -11,11 +11,10 @@
       <th>Telefono movil</th>
       <th>Fecha de nacimiento</th>
       <th>Correo</th>
-      <th>Direccion</th>
       <th>Sexo</th>
       <th>Status</th>
       <th>Cargo</th>
-      <th>Cargas familiares</th>
+      <th>Sueldo</th>
       <th>Ver</th>
       <th>Editar</th>
       <th>Eliminar</th>
@@ -32,11 +31,10 @@
         <td><%= persona.telefono_movil %></td>
         <td><%= persona.fecha_de_nacimiento %></td>
         <td><%= persona.correo %></td>
-        <td><%= persona.direccion %></td>
         <td><%= $dic["sexos"].key(persona.sexo) %></td>
         <td><%= $dic["status"].key(persona.status) %></td>
         <td><%= persona.cargo.nombre %></td>
-        <td><%= persona.cargas_familiares %></td>
+        <td><%= persona.cargo.sueldos.last.monto %></td>
         <td><%= link_to '', persona,class: "glyphicon glyphicon-user" %></td>
         <td><%= link_to '', edit_persona_path(persona),class: "glyphicon glyphicon-pencil" %></td>
         <td><%= link_to '', persona,class: "glyphicon glyphicon-trash", method: :delete, data: { confirm: 'Are you sure?' } %></td>

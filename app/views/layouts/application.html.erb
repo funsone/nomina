@@ -1,46 +1,70 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Nomina</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <header>
-    <nav class="navbar navbar-default navbar-fixed-top collapse navbar-collapse" role="navigation">
-<div class="container-fluid">
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav ">
-            <li class="navbar-brand"><b>nominaX</b></li>
+  <head>
+    <title>Nomina</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top collapse navbar-collapse">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav ">
+              <li class="navbar-brand">
+                <b>nominaX</b>
+                FUNSONE</li>
 
-               <li><%= link_to "Inicio", "/"%></li>
-               <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-                <li><%= link_to "Departamentos", departamentos_path%></li>
-                <li ><%= link_to "Tipos", tipos_path%></li>
-               <li ><%= link_to "Cargos", cargos_path%></li>
-               <li ><%= link_to "Personas", personas_path %></li>
+              <li><%= link_to "Inicio", welcome_index_path%></li>
 
-             </ul>
-      </div>
-    </div>
-    </nav>
-  </header>
-<article class="container">
-  <%= flash_messages %>
-<%= yield %>
-</aticle>
-<footer></footer>
-</body>
+              <li><%= link_to "Departamentos", departamentos_path%></li>
+              <li ><%= link_to "Tipos", tipos_path%></li>
+              <li ><%= link_to "Cargos", cargos_path%></li>
+              <li ><%= link_to "Personas", personas_path %></li>
+
+<% if usuario_signed_in?%>
+
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">USUARIO
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="#"></a>
+      </li>
+      <li>
+        <a href="#">Another action</a>
+      </li>
+      <li>
+        <a href="#">Something else here</a>
+      </li>
+      <li role="separator" class="divider"></li>
+      <li>
+        <a href="#">Separated link</a>
+      </li>
+      <li role="separator" class="divider"></li>
+      <li>
+  <li class="navbar-right"><%= link_to "Cerrar sesion", destroy_usuario_session_path, method: :delete%></li>
+      </li>
+    </ul>
+  </li>
+<% else%>
+<li class="navbar-right"><%= link_to "Registrarse", new_usuario_registration_path%></li>
+<li class="navbar-right"><%= link_to "Iniciar sesion", new_usuario_session_path%></li>
+  <% end%>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <article class="container">
+      <%= flash_messages %>
+      <%= yield %>
+    </article>
+    <footer  class="footer navbar-fixed-bottom">
+      nomina x
+    </footer>
+  </body>
 </html>

@@ -35,6 +35,7 @@
       <% end %>
     <% end %>
   <div class="actions">
-    <%= f.submit :class => "btn btn-default" %>
+    <%= f.submit t("guardar"),:class => "btn btn-default" %>
+    <%= link_to t('volver'), cargos_path,:class => "btn btn-default"  %>
   </div>
 <% end %>

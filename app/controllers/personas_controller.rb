@@ -16,8 +16,16 @@ $dic=Hash["tipos_de_contrato" =>Hash["fijo"=>0,"temporal"=>1,"externo"=>2],
 
   # GET /personas/new
   def new
-    @persona = Persona.new
-    @persona.contrato= Contrato.new
+
+    if Cargo.where("disponible=true").length <=0
+      respond_to do |format|
+        format.html { redirect_to personas_url, notice: 'No hay cargo disponibles.'  }
+        format.json { render json: @persona.errors, status: "No hay cargos disponibles" }
+      end
+    else
+      @persona = Persona.new
+      @persona.contrato= Contrato.new
+    end
   end
 
   # GET /personas/1/edit

@@ -21,7 +21,11 @@
         <td><%= cargo.departamento.nombre %></td>
         <td><%= cargo.sueldos.last.monto %></td>
         <th><%= cargo.tipo.nombre%></th>
-        <th><%= cargo.disponible%></th>
+        <th><%if cargo.disponible %>
+          <span class="glyphicon glyphicon-ok"></span>
+        <%else%>
+          <span class="glyphicon glyphicon-remove"></span>
+        <%end%></th>
         <td><%= link_to 'Show', cargo %></td>
         <td><%= link_to 'Edit', edit_cargo_path(cargo) %></td>
         <td><%= link_to 'Destroy', cargo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
