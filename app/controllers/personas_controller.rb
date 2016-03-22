@@ -76,6 +76,6 @@ $dic=Hash["tipos_de_contrato" =>Hash["fijo"=>0,"temporal"=>1,"externo"=>2],
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def persona_params
-      params.require(:persona).permit(:cedula, :tipo_de_cedula, :nombres, :apellidos, :telefono_fijo, :telefono_movil,:avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :status, :cargo_id, :cargas_familiares, contrato_attributes:[ :id, :tipo_de_contrato,:fecha_inicio,:fecha_fin,:sueldo_externo])
+      params.require(:persona).permit(:cedula, :tipo_de_cedula,:cuenta,:nombres, :apellidos, :telefono_fijo, :telefono_movil,:avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :status, :cargo_id, :cargas_familiares, contrato_attributes:[ :id, :tipo_de_contrato,:fecha_inicio,:fecha_fin,:sueldo_externo])
     end
 end

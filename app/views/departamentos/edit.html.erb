@@ -1,6 +1,6 @@
-<h1>Editing Departamento</h1>
+<h1><%=t("dep_editar")%></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @departamento %> |
-<%= link_to 'Back', departamentos_path %>
+<%= link_to t("ver"), @departamento %> |
+<%= link_to t("volver"), departamentos_path %>

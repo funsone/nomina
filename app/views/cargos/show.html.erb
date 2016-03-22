@@ -15,9 +15,9 @@
     <thead>
       <tr>
         <th>Monto</th>
-        <th>Fecha de cambio</th>
+        <th>Fecha de vigencia</th>
         <th>Activo</th>
-       
+
       </tr>
     </thead>
 
@@ -25,7 +25,7 @@
       <% @cargo.sueldos.order('activo DESC').each do |sueldo| %>
         <tr>
           <td><%= sueldo.monto %></td>
-          <th><%= sueldo.created_at.strftime("%d-%m-%Y %t") %></th>
+          <th><%= sueldo.created_at.strftime("%m-%Y") %></th>
           <th><%= sueldo.activo %></th>
 
         </tr>

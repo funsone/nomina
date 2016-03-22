@@ -47,11 +47,14 @@ class CargosController < ApplicationController
   # PATCH/PUT /cargos/1.json
   def update
     respond_to do |format|
-      @cargo.sueldos.update_all(activo: false)
+
       key , value =params[:cargo][:sueldos_attributes].first;
-
+      if@cargo.sueldos.where(:created_at => Time.now.beginning_of_month..Time.now.end_of_month).length>0
+    
+    else
+      @cargo.sueldos.update_all(activo: false)
       @cargo.sueldos.build.monto=params[:cargo][:sueldos_attributes][key][:monto];
-
+end
       if @cargo.update(cargo_params)
         format.html { redirect_to @cargo, notice: 'Cargo was successfully updated.' }
         format.json { render :show, status: :ok, location: @cargo }

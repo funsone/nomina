@@ -11,11 +11,11 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+    <%= f.text_field :nombre ,class: "form-control"%>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit t("dep_crear") %>
   </div>
 <% end %>

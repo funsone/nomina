@@ -21,5 +21,15 @@
 
 en:
   hello: "Hello world"
-  department: "Departamento"
-  headquarter: "Sede"
+  nombre: "Nombre"
+  editar: "Editar"
+  eliminar: "Eliminar"
+  ver: "Ver"
+  volver: "Volver"
+  guardar: "guardar"
+  departamento: "Departamento"
+  dep_editar: "Editando departamento"
+  dep_msg_prohibido: " no se puede guardar este departamento"
+  dep_nuevo: "Nuevo departamento"
+  dep_lista: "Lista de dapartamentos"
+  dep_crear: "Crear departamento"

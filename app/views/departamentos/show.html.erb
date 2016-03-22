@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Nombre:</strong>
+  <strong><%= t('nombre') %></strong>
   <%= @departamento.nombre %>
 </p>
 
-<%= link_to 'Edit', edit_departamento_path(@departamento) %> |
-<%= link_to 'Back', departamentos_path %>
+<%= link_to t("editar"), edit_departamento_path(@departamento) %> |
+<%= link_to t("volver"), departamentos_path %>
