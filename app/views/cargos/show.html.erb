@@ -6,8 +6,10 @@
   <h1><%= @cargo.nombre.upcase %></h1>
   <% ocupado_por=Persona.where("cargo_id=#{@cargo.id}").first%>
   <small>Departamento: <b><%= @cargo.departamento.nombre %></b></small>
+  <%if ocupado_por%>
   <small>, Ocupado por: <b><%= ocupado_por.nombres + " "+ocupado_por.apellidos %></b></small>
   <small>, Desde: <b><%= ocupado_por.contrato.fecha_inicio%></b></small>
+<%end%>
   </div>
 
 

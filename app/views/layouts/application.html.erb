@@ -22,30 +22,22 @@
               <li ><%= link_to "Tipos", tipos_path%></li>
               <li ><%= link_to "Cargos", cargos_path%></li>
               <li ><%= link_to "Personas", personas_path %></li>
-
+<li role="separator" class="divider"></li>
 <% if usuario_signed_in?%>
 
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">USUARIO
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=  current_usuario.email%>
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
+
+
       <li>
-        <a href="#"></a>
-      </li>
-      <li>
-        <a href="#">Another action</a>
-      </li>
-      <li>
-        <a href="#">Something else here</a>
+        <%= link_to "Editar", edit_usuario_registration_path%>
       </li>
       <li role="separator" class="divider"></li>
       <li>
-        <a href="#">Separated link</a>
-      </li>
-      <li role="separator" class="divider"></li>
-      <li>
-  <li class="navbar-right"><%= link_to "Cerrar sesion", destroy_usuario_session_path, method: :delete%></li>
+  <li><%= link_to "Cerrar sesion", destroy_usuario_session_path, method: :delete%></li>
       </li>
     </ul>
   </li>
@@ -60,11 +52,24 @@
       </nav>
     </header>
     <article class="container">
-      <%= flash_messages %>
+      <% flash.each do |type, content| %>
+      <% if content.respond_to?('each')
+          content.each do |item| %>
+              <%= render 'layouts/alert',
+                  type: type,
+                  content: item %>
+          <% end %>
+      <% else %>
+          <%= render 'layouts/alert',
+                  type: type,
+                  content: content %>
+      <% end %>
+
+  <% end %>
       <%= yield %>
     </article>
     <footer  class="footer navbar-fixed-bottom">
-      nomina x
+      nominaX alpha
     </footer>
   </body>
 </html>

@@ -1,0 +1,38 @@
+<%= form_for(@concepto) do |f| %>
+  <% if @concepto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@concepto.errors.count, "error") %> prohibited this concepto from being saved:</h2>
+
+      <ul>
+      <% @concepto.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :formula %><br>
+    <%= f.text_field :formula %>
+  </div>
+  <div class="field">
+    <%= f.label :modalidad_de_pago %><br>
+    <%= f.text_field :modalidad_de_pago %>
+  </div>
+  <div class="field">
+   <%= label_tag 'Tipos' %><br />
+   <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
+      <div class="collection-check-box">
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
+ </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

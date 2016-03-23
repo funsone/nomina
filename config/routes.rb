@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :conceptos
   devise_for :usuarios
   get 'welcome/index'
 

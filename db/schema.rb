@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322185352) do
+ActiveRecord::Schema.define(version: 20160323010516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(version: 20160322185352) do
 
   add_index "cargos", ["departamento_id"], name: "index_cargos_on_departamento_id", using: :btree
   add_index "cargos", ["tipo_id"], name: "index_cargos_on_tipo_id", using: :btree
+
+  create_table "conceptos", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "formula"
+    t.integer  "modalidad_de_pago"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "conceptos_tipos", id: false, force: :cascade do |t|
+    t.integer "tipo_id",     null: false
+    t.integer "concepto_id", null: false
+  end
 
   create_table "contratos", force: :cascade do |t|
     t.date     "fecha_inicio"
@@ -87,6 +100,16 @@ ActiveRecord::Schema.define(version: 20160322185352) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "unions", force: :cascade do |t|
+    t.integer  "tipo_id"
+    t.integer  "concepto_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "unions", ["concepto_id"], name: "index_unions_on_concepto_id", using: :btree
+  add_index "unions", ["tipo_id"], name: "index_unions_on_tipo_id", using: :btree
+
   create_table "usuarios", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -111,4 +134,6 @@ ActiveRecord::Schema.define(version: 20160322185352) do
   add_foreign_key "contratos", "personas"
   add_foreign_key "personas", "cargos"
   add_foreign_key "sueldos", "cargos"
+  add_foreign_key "unions", "conceptos"
+  add_foreign_key "unions", "tipos"
 end

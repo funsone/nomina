@@ -38,6 +38,7 @@ $dic=Hash["tipos_de_contrato" =>Hash["fijo"=>0,"temporal"=>1,"externo"=>2],
     @persona = Persona.new(persona_params)
 @persona.cargo.disponible=false
 @persona.cargo.save
+
     respond_to do |format|
       if @persona.save
 

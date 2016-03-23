@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @concepto.nombre %>
+</p>
+
+<p>
+  <strong>Formula:</strong>
+  <%= @concepto.formula %>
+</p>
+
+<p>
+  <strong>Modalidad de pago:</strong>
+  <%= @concepto.modalidad_de_pago %>
+</p>
+
+<%= link_to 'Edit', edit_concepto_path(@concepto) %> |
+<%= link_to 'Back', conceptos_path %>
