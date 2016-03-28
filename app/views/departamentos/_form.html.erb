@@ -15,6 +15,10 @@
 <div class="form-group">
   <%= f.label :nombre %><br>
   <%= f.text_field :nombre ,class: "form-control"%>
+  <div class="form-group">
+    <%= f.label :dependencia_id %><br>
+<%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, params[:dependencia_id]),{},:class =>"form-control")  %></span>
+  </div>
 </div>
 <div class="actions">
   <%= f.submit t("dep_crear"), class:  "btn bnt-default" %>

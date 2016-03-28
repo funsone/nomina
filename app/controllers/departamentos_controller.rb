@@ -14,7 +14,14 @@ class DepartamentosController < ApplicationController
 
   # GET /departamentos/new
   def new
+    if Dependencia.all.length <=0
+    respond_to do |format|
+      format.html { redirect_to dependencias_url, notice: 'Es necesario agregar dependencia.'  }
+      format.json { render json: @persona.errors, status: "Es necesario agregar dependencia." }
+    end
+  else
     @departamento = Departamento.new
+    end
   end
 
   # GET /departamentos/1/edit

@@ -1,4 +1,4 @@
-<%= form_for @persona, :role => "form"  do |f| %>
+<%= simple_form_for @persona  do |f| %>
   <% if @persona.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@persona.errors.count, "error") %> prohibited this persona from being saved:</h2>
@@ -75,7 +75,7 @@
   </div>
 
   <div class"col-xs-offset-12"><h3>Contrato</h3></div>
-  <%= f.fields_for :contrato  do |contrato_builder|  %>
+  <%= f.simple_fields_for :contrato  do |contrato_builder|  %>
     <div class="col-xs-6 form-group" >
       <%= contrato_builder.label :tipo_de_contrato %>
       <%= contrato_builder.select(:tipo_de_contrato, options_for_select($dic["tipos_de_contrato"], @persona.contrato.tipo_de_contrato),{},:class =>"form-control" ) %>

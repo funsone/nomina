@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323010516) do
+ActiveRecord::Schema.define(version: 20160328182616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,15 @@ ActiveRecord::Schema.define(version: 20160323010516) do
   add_index "contratos", ["persona_id"], name: "index_contratos_on_persona_id", using: :btree
 
   create_table "departamentos", force: :cascade do |t|
+    t.string   "nombre"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "dependencia_id"
+  end
+
+  add_index "departamentos", ["dependencia_id"], name: "index_departamentos_on_dependencia_id", using: :btree
+
+  create_table "dependencias", force: :cascade do |t|
     t.string   "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -100,16 +109,6 @@ ActiveRecord::Schema.define(version: 20160323010516) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "unions", force: :cascade do |t|
-    t.integer  "tipo_id"
-    t.integer  "concepto_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "unions", ["concepto_id"], name: "index_unions_on_concepto_id", using: :btree
-  add_index "unions", ["tipo_id"], name: "index_unions_on_tipo_id", using: :btree
-
   create_table "usuarios", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -132,8 +131,7 @@ ActiveRecord::Schema.define(version: 20160323010516) do
   add_foreign_key "cargos", "departamentos"
   add_foreign_key "cargos", "tipos"
   add_foreign_key "contratos", "personas"
+  add_foreign_key "departamentos", "dependencias"
   add_foreign_key "personas", "cargos"
   add_foreign_key "sueldos", "cargos"
-  add_foreign_key "unions", "conceptos"
-  add_foreign_key "unions", "tipos"
 end

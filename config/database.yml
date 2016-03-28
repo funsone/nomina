@@ -10,8 +10,8 @@ default: &default
   database: nomina
   host: localhost
   timeout: 5000
-  user: postgres
-  password:
+  user: pos
+  password: 0
 
 
 development:
