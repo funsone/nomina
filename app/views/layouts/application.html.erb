@@ -8,68 +8,40 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-default navbar-fixed-top collapse navbar-collapse">
-        <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav ">
-              <li class="navbar-brand">
-                <b>nominaX</b>
-                FUNSONE</li>
-
-              <li><%= link_to "Inicio", welcome_index_path%></li>
-
-              <li><%= link_to "Departamentos", departamentos_path%></li>
-              <li ><%= link_to "Tipos", tipos_path%></li>
-              <li ><%= link_to "Cargos", cargos_path%></li>
-              <li ><%= link_to "Personas", personas_path %></li>
-<li role="separator" class="divider"></li>
-<% if usuario_signed_in?%>
-
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=  current_usuario.email%>
-      <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-
-
-      <li>
-        <%= link_to "Editar", edit_usuario_registration_path%>
-      </li>
-      <li role="separator" class="divider"></li>
-      <li>
-  <li><%= link_to "Cerrar sesion", destroy_usuario_session_path, method: :delete%></li>
-      </li>
-    </ul>
-  </li>
-<% else%>
-<li class="navbar-right"><%= link_to "Registrarse", new_usuario_registration_path%></li>
-<li class="navbar-right"><%= link_to "Iniciar sesion", new_usuario_session_path%></li>
-  <% end%>
-
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <%= render '/layouts/menu' %>
     </header>
-    <article class="container">
-      <% flash.each do |type, content| %>
-      <% if content.respond_to?('each')
-          content.each do |item| %>
-              <%= render 'layouts/alert',
-                  type: type,
-                  content: item %>
-          <% end %>
-      <% else %>
-          <%= render 'layouts/alert',
-                  type: type,
-                  content: content %>
-      <% end %>
+    <article>
 
-  <% end %>
-      <%= yield %>
+  <div id="page-wrapper" >
+      <div id="page-inner">
+          <div class="row">
+            <% flash.each do |type, content| %>
+            <% if content.respond_to?('each')
+                content.each do |item| %>
+                    <%= render 'layouts/alert',
+                        type: type,
+                        content: item %>
+                <% end %>
+            <% else %>
+                <%= render 'layouts/alert',
+                        type: type,
+                        content: content %>
+            <% end %>
+
+          <% end %>
+<div class="col-md-12"><%= yield %></div>
+
+
+          </div>
+           <!-- /. ROW  -->
+           <hr />
+
+</div>
+       <!-- /. PAGE INNER  -->
+      </div>
+   <!-- /. PAGE WRAPPER  -->
+  </div>
+
     </article>
-    <footer  class="footer navbar-fixed-bottom">
-      nominaX alpha
-    </footer>
   </body>
 </html>

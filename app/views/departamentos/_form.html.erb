@@ -1,26 +1,37 @@
-<%= form_for(@departamento) do |f| %>
-<% if @departamento.errors.any? %>
-<div id="error_explanation">
-  <h2><%= pluralize(@departamento.errors.count, "error") %>
-    prohibited this departamento from being saved:</h2>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Datos
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <%= form_for(@departamento) do |f| %>
+      <% if @departamento.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@departamento.errors.count, "error") %>
+          prohibited this departamento from being saved:</h2>
 
-  <ul>
-    <% @departamento.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
+        <ul>
+          <% @departamento.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
 
-<div class="form-group">
-  <%= f.label :nombre %><br>
-  <%= f.text_field :nombre ,class: "form-control"%>
-  <div class="form-group">
-    <%= f.label :dependencia_id %><br>
-<%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, params[:dependencia_id]),{},:class =>"form-control")  %></span>
+      <div class="form-group col-md-12">
+        <%= f.label :nombre %><br>
+        <%= f.text_field :nombre ,class: "form-control"%>
+        <div class="form-group">
+          <%= f.label :dependencia_id %><br>
+          <%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, params[:dependencia_id]),{},:class =>"form-control")  %></span>
+      </div>
+    </div>
+
+    <div class="actions col-md-12">
+      <%= f.submit "Guardar", class:  "btn bnt-default" %>
+      <%= link_to "Regresar", departamentos_path, class: "btn btn-default"  %>
+    </div>
   </div>
 </div>
-<div class="actions">
-  <%= f.submit t("dep_crear"), class:  "btn bnt-default" %>
 </div>
 <% end %>

@@ -1,49 +1,54 @@
-
 <h1>Listing Personas</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Advanced Tables
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
 
-<table class="table table-hover table-responsive table-bordered table-condensed">
-  <thead>
-    <tr>
-      <th>Cedula</th>
-      <th>Nombres</th>
-      <th>Apellidos</th>
-      <th>Telefono fijo</th>
-      <th>Telefono movil</th>
-      <th>Fecha de nacimiento</th>
-      <th>Correo</th>
-      <th>Sexo</th>
-      <th>Status</th>
-      <th>Cargo</th>
-      <th>Sueldo</th>
-      <th>Ver</th>
-      <th>Editar</th>
-      <th>Eliminar</th>
-    </tr>
-  </thead>
+      <table class="table table-hover table-bordered table-condensed table-striped" id="dataTables-example">
+        <thead>
+          <tr>
+            <th>Cedula</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Fecha de nacimiento</th>
+            <th>Correo</th>
+            <th>Status</th>
+            <th>Cargo</th>
+            <th>Sueldo</th>
+            <th>Ver</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
 
-  <tbody>
-    <% @personas.each do |persona| %>
-      <tr>
-        <td><%= $dic["tipos_de_cedula"].key(persona.tipo_de_cedula) + persona.cedula%></td>
-        <td><%= persona.nombres %></td>
-        <td><%= persona.apellidos %></td>
-        <td><%= persona.telefono_fijo %></td>
-        <td><%= persona.telefono_movil %></td>
-        <td><%= persona.fecha_de_nacimiento %></td>
-        <td><%= persona.correo %></td>
-        <td><%= $dic["sexos"].key(persona.sexo) %></td>
-        <td><%= $dic["status"].key(persona.status) %></td>
-        <td><%= persona.cargo.nombre %></td>
-        <td><%= persona.cargo.sueldos.last.monto %></td>
-        <td><%= link_to '', persona,class: "glyphicon glyphicon-user" %></td>
-        <td><%= link_to '', edit_persona_path(persona),class: "glyphicon glyphicon-pencil" %></td>
-        <td><%= link_to '', persona,class: "glyphicon glyphicon-trash", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <tbody>
+          <% @personas.each do |persona| %>
+          <tr>
+            <td><%= $dic["tipos_de_cedula"].key(persona.tipo_de_cedula) + persona.cedula%></td>
+            <td><%= persona.nombres %></td>
+            <td><%= persona.apellidos %></td>
+            <td><%= persona.fecha_de_nacimiento %></td>
+            <td><%= persona.correo %></td>
+            <td><%= $dic["status"].key(persona.status) %></td>
+            <td><%= persona.cargo.nombre %></td>
+            <td><%= persona.cargo.sueldos.last.monto %></td>
+            <td><%= link_to '', persona,class: "glyphicon glyphicon-user" %></td>
+            <td><%= link_to '', edit_persona_path(persona),class: "glyphicon glyphicon-pencil" %></td>
+            <td><%= link_to '', persona,class: "glyphicon glyphicon-trash", method: :delete, data: { confirm: 'Estas seguro?' } %></td>
 
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
 
-<br>
+    </div>
+  </div>
+</div>
+<script>
+
+  $('#dataTables-example').DataTable({responsive: true});
+</script>
 
 <%= link_to 'New Persona', new_persona_path %>

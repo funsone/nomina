@@ -1,27 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Dependencias</h1>
+<h1>Lista de Dependencias</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Advanced Tables
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-condensed table-striped" id="dataTables-example">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Ver</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        </thead>
 
-  <tbody>
-    <% @dependencias.each do |dependencia| %>
-      <tr>
-        <td><%= dependencia.nombre %></td>
-        <td><%= link_to 'Show', dependencia %></td>
-        <td><%= link_to 'Edit', edit_dependencia_path(dependencia) %></td>
-        <td><%= link_to 'Destroy', dependencia, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <tbody>
 
-<br>
+          <% @dependencias.each do |dependencia| %>
+          <tr>
+            <td><%= dependencia.nombre %></td>
+            <td><%= link_to '', dependencia,class: "glyphicon glyphicon-user" %></td>
+            <td><%= link_to '', edit_dependencia_path(dependencia),class: "glyphicon glyphicon-pencil" %></td>
+            <td><%= link_to '', dependencia,class: "glyphicon glyphicon-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'New Dependencia', new_dependencia_path %>
+<script>
+  $('#dataTables-example').DataTable({responsive: true});
+</script>
+
+<%= link_to 'Nueva Dependencia', new_dependencia_path, class:"btn btn-default" %>

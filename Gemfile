@@ -15,6 +15,7 @@ gem "paperclip", "~> 4.2"
 gem "font-awesome-rails"
 gem 'devise'
 gem 'simple_form'
+gem 'jquery-datatables-rails', '~> 3.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'bootstrap-sass', '~> 3.3.6'

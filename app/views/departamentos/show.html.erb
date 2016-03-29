@@ -1,8 +1,8 @@
 <p>
-  <strong><%= t('nombre') %></strong>
+  <strong><%= 'nombre' %></strong>
   <%= @departamento.nombre %>
 
 </p>
 
-<%= link_to t("editar"), edit_departamento_path(@departamento) %> |
-<%= link_to t("volver"), departamentos_path %>
+<%= link_to "Editar", edit_departamento_path(@departamento), class: "btn btn-default" %>
+<%= link_to "Regresar", departamentos_path, class: "btn btn-default" %>

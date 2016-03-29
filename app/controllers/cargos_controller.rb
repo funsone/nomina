@@ -4,6 +4,7 @@ class CargosController < ApplicationController
   # GET /cargos
   # GET /cargos.json
   def index
+
     @cargos = Cargo.all
 
   end
@@ -50,7 +51,7 @@ class CargosController < ApplicationController
 
       key , value =params[:cargo][:sueldos_attributes].first;
       if@cargo.sueldos.where(:created_at => Time.now.beginning_of_month..Time.now.end_of_month).length>0
-    
+
     else
       @cargo.sueldos.update_all(activo: false)
       @cargo.sueldos.build.monto=params[:cargo][:sueldos_attributes][key][:monto];
