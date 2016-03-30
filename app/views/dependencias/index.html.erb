@@ -1,9 +1,13 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Lista de Dependencias</h1>
+<div class="page-header">
+  <div class="pull-right">
+    <%= link_to 'Nueva Dependencia', new_dependencia_path, class:"btn btn-danger btn-md" %>
+  </div>
+  <h1>Dependencias</h1>
+</div>
 <div class="panel panel-default">
   <div class="panel-heading">
-    Advanced Tables
+    Lista de Dependencias
   </div>
   <div class="panel-body">
     <div class="table-responsive">
@@ -23,9 +27,9 @@
           <% @dependencias.each do |dependencia| %>
           <tr>
             <td><%= dependencia.nombre %></td>
-            <td><%= link_to '', dependencia,class: "glyphicon glyphicon-user" %></td>
-            <td><%= link_to '', edit_dependencia_path(dependencia),class: "glyphicon glyphicon-pencil" %></td>
-            <td><%= link_to '', dependencia,class: "glyphicon glyphicon-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+            <td><%= link_to '', dependencia,class: "fa fa-eye" %></td>
+            <td><%= link_to '', edit_dependencia_path(dependencia),class: "fa fa-pencil" %></td>
+            <td><%= link_to '', dependencia,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
           </tr>
           <% end %>
         </tbody>
@@ -37,5 +41,3 @@
 <script>
   $('#dataTables-example').DataTable({responsive: true});
 </script>
-
-<%= link_to 'Nueva Dependencia', new_dependencia_path, class:"btn btn-default" %>

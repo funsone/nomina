@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tipos</h1>
+<div class="page-header">
+<div class="pull-right">
+  <%= link_to 'Nuevo Tipo', new_tipo_path, class: "btn btn-danger btn-md" %>
+</div>
+  <h1>Tipos</h1>
+</div>
 <div class="panel panel-default">
   <div class="panel-heading">
     Lista de Tipos
@@ -22,9 +27,9 @@
           <% @tipos.each do |tipo| %>
           <tr>
             <td><%= tipo.nombre %></td>
-            <td><%= link_to '', tipo,class: "glyphicon glyphicon-user" %></td>
-            <td><%= link_to '', edit_tipo_path(tipo),class: "glyphicon glyphicon-pencil" %></td>
-            <td><%= link_to '', tipo,class: "glyphicon glyphicon-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+            <td><%= link_to '', tipo,class: "fa fa-eye" %></td>
+            <td><%= link_to '', edit_tipo_path(tipo),class: "fa fa-pencil" %></td>
+            <td><%= link_to '', tipo,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
           </tr>
           <% end %>
         </tbody>
@@ -37,5 +42,3 @@
 <script>
   $('#dataTables-example').DataTable({responsive: true});
 </script>
-
-<%= link_to 'Nuevo Tipo', new_tipo_path, class: "btn btn-default" %>
