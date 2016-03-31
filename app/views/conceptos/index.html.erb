@@ -1,31 +1,76 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Conceptos</h1>
+<div class="page-header">
+  <div class="pull-right">
+    <%= link_to "Nuevo Concepto", new_concepto_path, class: "btn btn-danger"  %>
+  </div>
+  <h1>Conceptos</h1>
+</div>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    Asignaciones
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-bordered table-condensed table-responsive table-bordered">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Formula</th>
+            <th>Modalidad de pago</th>
+            <th colspan="3">Acciones</th>
+          </tr>
+        </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Formula</th>
-      <th>Modalidad de pago</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        <tbody>
+          <%
+          asignaciones=@conceptos.where(tipo_de_concepto: 0).order("created_at")
+          asignaciones.each do |concepto| %>
+          <tr>
+            <td><%= concepto.nombre %></td>
+            <td><%= concepto.formula %></td>
+            <td><%= $dicc["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
+            <td><%= link_to '', concepto,class: "fa fa-eye" %></td>
+            <td><%= link_to '', edit_concepto_path(concepto),class: "fa fa-pencil" %></td>
+            <td><%= link_to '', concepto,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="panel panel-danger">
+  <div class="panel-heading">
+    Deducciones
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-bordered table-condensed table-responsive table-bordered">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Formula</th>
+            <th>Modalidad de pago</th>
+            <th colspan="3">Acciones</th>
+          </tr>
+        </thead>
 
-  <tbody>
-    <% @conceptos.each do |concepto| %>
-      <tr>
-        <td><%= concepto.nombre %></td>
-        <td><%= concepto.formula %></td>
-        <td><%= concepto.modalidad_de_pago %></td>
-        <td><%= link_to 'Show', concepto %></td>
-        <td><%= link_to 'Edit', edit_concepto_path(concepto) %></td>
-        <td><%= link_to 'Destroy', concepto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Concepto', new_concepto_path %>
+        <tbody>
+          <%
+  deducciones=@conceptos.where(tipo_de_concepto: 1).order("created_at")
+            deducciones.each do |concepto| %>
+          <tr>
+            <td><%= concepto.nombre %></td>
+            <td><%= concepto.formula %></td>
+            <td><%= $dicc["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
+            <td><%= link_to '', concepto,class: "fa fa-eye" %></td>
+            <td><%= link_to '', edit_concepto_path(concepto),class: "fa fa-pencil" %></td>
+            <td><%= link_to '', concepto,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

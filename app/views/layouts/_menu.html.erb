@@ -16,10 +16,8 @@ font-size: 16px;">
     <%if usuario_signed_in?%>
 
 
-      <%= "ultimo acceso: "+current_usuario.last_sign_in_at.in_time_zone("America/Caracas").to_s
-%>
-      <%= link_to "Cerrar sesion", destroy_usuario_session_path,method: :delete, class:"btn btn-danger square-btn-adjust"
-       %>
+      <%= "ultimo acceso: "+current_usuario.last_sign_in_at.in_time_zone("America/Caracas").to_s%>
+      <%= link_to "Cerrar sesion", destroy_usuario_session_path,method: :delete, class:"btn btn-danger square-btn-adjust"%>
 
     <%else %>
     <%=
@@ -67,16 +65,9 @@ font-size: 16px;">
           <%= link_to raw("<i class=\"fa fa-users fa-3x\"></i> EMPLEADOS"), personas_path%>
         </li>
         <li >
-          <a href="table.html">
-            <i class="fa fa-table fa-3x"></i>
-            Table Examples</a>
+          <%= link_to raw("<i class=\"fa fa-money fa-3x\"></i> CONCEPTOS"), conceptos_path%>
         </li>
-        <li >
-          <a href="form.html">
-            <i class="fa fa-edit fa-3x"></i>
-            Forms
-          </a>
-        </li>
+
 
         <li>
           <a href="#">

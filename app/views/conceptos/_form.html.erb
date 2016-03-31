@@ -1,38 +1,67 @@
 <%= form_for(@concepto) do |f| %>
-  <% if @concepto.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@concepto.errors.count, "error") %> prohibited this concepto from being saved:</h2>
+<% if @concepto.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@concepto.errors.count, "error") %>
+    prohibited this concepto from being saved:</h2>
 
-      <ul>
-      <% @concepto.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
-  </div>
-  <div class="field">
-    <%= f.label :formula %><br>
-    <%= f.text_field :formula %>
-  </div>
-  <div class="field">
-    <%= f.label :modalidad_de_pago %><br>
-    <%= f.text_field :modalidad_de_pago %>
-  </div>
-  <div class="field">
-   <%= label_tag 'Tipos' %><br />
-   <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
-      <div class="collection-check-box">
-        <%= b.check_box %>
-        <%= b.label %>
-      </div>
+  <ul>
+    <% @concepto.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
     <% end %>
- </div>
-  <div class="actions">
-    <%= f.submit %>
+  </ul>
+</div>
+<% end %>
+
+<div class="col-xs-6">
+  <%= f.label :nombre %><br>
+  <div class="form-group input-group">
+    <span class="input-group-addon">
+      <span class="fa fa-align-justify"></span>
+    </span>
+    <%= f.text_field :nombre, class: "form-control" %>
   </div>
+</div>
+
+<div class="col-xs-6">
+  <%= f.label :modalidad_de_pago  %>
+  <div class="form-group input-group">
+    <span class="input-group-addon">
+      <span class="fa fa-calendar-o"></span>
+    </span>
+    <%= f.select(:modalidad_de_pago , options_for_select($dicc["modos_de_pago"],@concepto.modalidad_de_pago),{},:class =>"form-control")  %>
+  </div>
+</div>
+<div class="col-xs-6">
+  <%= f.label :tipo_de_concepto  %>
+  <div class="form-group input-group">
+    <span class="input-group-addon">
+      <span class="fa fa-arrow-up"></span>
+      <span class="fa fa-arrow-down"></span>
+    </span>
+    <%= f.select(:tipo_de_concepto , options_for_select($dicc["tipos_de_conceptos"],@concepto.tipo_de_concepto),{},:class =>"form-control")  %>
+  </div>
+
+</div>
+<div class="col-xs-6">
+  <%= f.label :formula %><br>
+  <div class="form-group input-group">
+    <span class="input-group-addon">
+      <span class="fa fa-calculator"></span>
+    </span>
+    <%= f.text_area :formula, class: "form-control" %>
+  </div>
+</div>
+<div class="col-xs-12">
+  <%= label_tag 'Tipos' %><br/>
+  <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
+  <div class="collection-check-box form-group checkbox-inline">
+    <%= b.check_box class: ""%>
+    <%= b.label class: "" %>
+  </div>
+  <% end %>
+</div>
+<div class="actions boton">
+  <%= f.submit "Guardar",class: "btn btn-primary btn-md"%>
+  <%= link_to 'Regresar', conceptos_path,class: "btn btn-default btn-md"%>
+</div>
 <% end %>

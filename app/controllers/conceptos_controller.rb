@@ -1,6 +1,7 @@
 class ConceptosController < ApplicationController
   before_action :set_concepto, only: [:show, :edit, :update, :destroy]
-
+  $dicc=Hash["tipos_de_conceptos" =>Hash["Asignaciones"=>false,"deducciones"=>true],
+  "modos_de_pago" => Hash["Semanal"=>0,"Quincenal"=>1,"Mensual"=>2]]
   # GET /conceptos
   # GET /conceptos.json
   def index
@@ -80,6 +81,6 @@ class ConceptosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def concepto_params
-      params.require(:concepto).permit(:nombre, :formula, :modalidad_de_pago, tipo_ids: [])
+      params.require(:concepto).permit(:nombre, :formula, :modalidad_de_pago,:tipo_de_concepto, tipo_ids: [])
     end
 end
