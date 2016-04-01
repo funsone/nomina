@@ -11,13 +11,11 @@
   </div>
   <div class="panel-body">
     <div class="table-responsive">
-      <table class="table table-hover table-bordered table-condensed table-striped" id="dataTables-example">
+      <table class="table table-hover table-bordered table-condensed table-striped">
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Ver</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            <th colspan="3">Acciones</th>
           </tr>
 
         </thead>
@@ -27,9 +25,9 @@
           <% @dependencias.each do |dependencia| %>
           <tr>
             <td><%= dependencia.nombre %></td>
-            <td><%= link_to '', dependencia,class: "fa fa-eye" %></td>
-            <td><%= link_to '', edit_dependencia_path(dependencia),class: "fa fa-pencil" %></td>
-            <td><%= link_to '', dependencia,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+            <td><%= link_to '', dependencia,class: "fa fa-eye" %>
+            <%= link_to '', edit_dependencia_path(dependencia),class: "fa fa-pencil" %>
+            <%= link_to '', dependencia,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
           </tr>
           <% end %>
         </tbody>
@@ -37,7 +35,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $('#dataTables-example').DataTable({responsive: true});
-</script>

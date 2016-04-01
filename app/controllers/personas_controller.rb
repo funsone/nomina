@@ -6,7 +6,7 @@ $dic=Hash["tipos_de_contrato" =>Hash["fijo"=>0,"temporal"=>1,"externo"=>2],
   # GET /personas
   # GET /personas.json
   def index
-    @personas = Persona.all
+    @personas = Persona.order(:cedula).page params[:page]
   end
 
   # GET /personas/1

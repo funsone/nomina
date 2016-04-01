@@ -12,7 +12,7 @@
   <div class="panel-body">
     <div class="table-responsive">
 
-      <table class="table table-hover table-bordered table-condensed table-striped" id="dataTables-example">
+      <table class="table table-hover table-bordered table-condensed table-striped">
         <thead>
           <tr>
             <th>Cedula</th>
@@ -48,9 +48,7 @@
         </tbody>
       </table>
 
+<%= paginate @personas %>
     </div>
   </div>
 </div>
-<script>
-  $('#dataTables-example').DataTable({responsive: true});
-</script>

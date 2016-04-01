@@ -14,7 +14,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem "paperclip", "~> 4.2"
 gem "font-awesome-rails"
 gem 'devise'
-
+gem 'kaminari'
 gem 'simple_form'
 gem 'jquery-datatables-rails', '~> 3.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -47,7 +47,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
+gem 'hirb'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end

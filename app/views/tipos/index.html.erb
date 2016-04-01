@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <div class="page-header">
-<div class="pull-right">
-  <%= link_to 'Nuevo Tipo', new_tipo_path, class: "btn btn-danger btn-md" %>
-</div>
+  <div class="pull-right">
+    <%= link_to 'Nuevo Tipo', new_tipo_path, class: "btn btn-danger btn-md" %>
+  </div>
   <h1>Tipos</h1>
 </div>
 <div class="panel panel-default">
@@ -13,13 +13,11 @@
 
   <div class="panel-body">
     <div class="table-responsive">
-      <table class="table table-bordered table-condensed table-responsive table-bordered" id="dataTables-example">
+      <table class="table table-bordered table-condensed table-responsive table-bordered">
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Ver</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            <th colspan="3">Acciones</th>
           </tr>
         </thead>
 
@@ -27,9 +25,9 @@
           <% @tipos.each do |tipo| %>
           <tr>
             <td><%= tipo.nombre %></td>
-            <td><%= link_to '', tipo,class: "fa fa-eye" %></td>
-            <td><%= link_to '', edit_tipo_path(tipo),class: "fa fa-pencil" %></td>
-            <td><%= link_to '', tipo,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+            <td><%= link_to '', tipo,class: "fa fa-eye" %>
+              <%= link_to '', edit_tipo_path(tipo),class: "fa fa-pencil" %>
+              <%= link_to '', tipo,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
           </tr>
           <% end %>
         </tbody>
@@ -38,7 +36,3 @@
   </div>
 
 </div>
-
-<script>
-  $('#dataTables-example').DataTable({responsive: true});
-</script>

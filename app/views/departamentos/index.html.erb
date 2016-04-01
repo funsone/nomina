@@ -2,8 +2,8 @@
 
 <div class="page-header">
   <div class="pull-right">
-  <%= link_to "Nuevo Departamento", new_departamento_path, class: "btn btn-danger"  %>
-</div>
+    <%= link_to "Nuevo Departamento", new_departamento_path, class: "btn btn-danger"  %>
+  </div>
   <h1>Departamentos</h1>
 </div>
 <div class="panel panel-default">
@@ -12,14 +12,12 @@
   </div>
   <div class="panel-body">
     <div class="table-responsive">
-      <table class="table table-bordered table-condensed table-responsive table-bordered" id="dataTables-example">
+      <table class="table table-bordered table-condensed table-responsive table-bordered">
         <thead>
           <tr>
             <th><%=t("nombre")%></th>
             <th>Personas</th>
-            <th>Ver</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            <th colspan="3">Acciones</th>
           </tr>
         </thead>
 
@@ -27,10 +25,10 @@
           <% @departamentos.each do |departamento| %>
           <tr>
             <td><%= departamento.nombre %></td>
-            <th><%=Cargo.where("departamento_id=#{departamento.id} and disponible=false").length %></th>
-            <td><%= link_to '', departamento,class: "fa fa-eye" %></td>
-            <td><%= link_to '', edit_departamento_path(departamento),class: "fa fa-pencil" %></td>
-            <td><%= link_to '', departamento,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+            <td><%=Cargo.where("departamento_id=#{departamento.id} and disponible=false").length %></td>
+            <td><%= link_to '', departamento,class: "fa fa-eye" %>
+              <%= link_to '', edit_departamento_path(departamento),class: "fa fa-pencil" %>
+              <%= link_to '', departamento,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
           </tr>
           <% end %>
         </tbody>
@@ -38,7 +36,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $('#dataTables-example').DataTable({responsive: true});
-</script>
