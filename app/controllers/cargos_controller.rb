@@ -4,7 +4,7 @@ class CargosController < ApplicationController
   # GET /cargos
   # GET /cargos.json
   def index
-    @cargos = Cargo.all
+    @cargos = Cargo.order(:nombre).page params[:page]
   end
 
   # GET /cargos/1

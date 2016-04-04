@@ -43,7 +43,7 @@ $dic=Hash["tipos_de_contrato" =>Hash["fijo"=>0,"temporal"=>1,"externo"=>2],
       if @persona.save
 
       #  Cargo.where(id: params[:cargo_id]).update_all(disponible: false);
-        format.html { redirect_to @persona, notice: 'Persona was successfully created.' }
+        format.html { redirect_to @persona, notice: 'La persona fue contratada exitosamente.' }
         format.json { render :show, status: :created, location: @persona }
       else
         format.html { render :new }
@@ -57,7 +57,7 @@ $dic=Hash["tipos_de_contrato" =>Hash["fijo"=>0,"temporal"=>1,"externo"=>2],
   def update
     respond_to do |format|
       if @persona.update(persona_params)
-        format.html { redirect_to @persona, notice: 'Persona was successfully updated.' }
+        format.html { redirect_to @persona, notice: 'Los datos del empleado fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @persona }
       else
         format.html { render :edit }
@@ -72,7 +72,7 @@ $dic=Hash["tipos_de_contrato" =>Hash["fijo"=>0,"temporal"=>1,"externo"=>2],
     @persona.cargo.update(disponible: true)
     @persona.destroy
     respond_to do |format|
-      format.html { redirect_to personas_url, notice: 'Persona was successfully destroyed.' }
+      format.html { redirect_to personas_url, notice: 'El empleado fue despedido.' }
       format.json { head :no_content }
     end
   end

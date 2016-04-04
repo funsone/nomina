@@ -12,35 +12,32 @@
     </header>
     <article>
 
-  <div id="page-wrapper" >
-      <div id="page-inner">
+      <div id="page-wrapper">
+        <div id="page-inner">
           <div class="row">
             <% flash.each do |type, content| %>
             <% if content.respond_to?('each')
                 content.each do |item| %>
-                    <%= render 'layouts/alert',
+            <%= render 'layouts/alert',
                         type: type,
                         content: item %>
-                <% end %>
-            <% else %>
-                <%= render 'layouts/alert',
+            <% end %>
+          <% else %>
+            <%= render 'layouts/alert',
                         type: type,
                         content: content %>
             <% end %>
 
-          <% end %>
-<div class="col-md-12"><%= yield %></div>
-
+            <% end %>
+            <div class="col-md-12"><%= yield %></div>
 
           </div>
-           <!-- /. ROW  -->
-           <hr />
+          <!-- /. ROW  -->
+          <hr/>
 
-</div>
-       <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE INNER  -->
       </div>
-   <!-- /. PAGE WRAPPER  -->
-  </div>
 
     </article>
   </body>
