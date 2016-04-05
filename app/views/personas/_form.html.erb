@@ -162,7 +162,7 @@
     Contrato
   </div>
   <div class="panel-body">
-    <%= f.simple_fields_for :contrato  do |contrato_builder|  %>
+    <%= f.fields_for :contrato  do |contrato_builder|  %>
     <div class="col-xs-6">
       <%= contrato_builder.label :tipo_de_contrato %>
       <div class="form-group input-group">
@@ -197,7 +197,7 @@
           <span class="fa fa-money"></span>
         </span>
         <%= contrato_builder.text_field :sueldo_externo,:class => "form-control" %>
-        <span class="input-group-addon">BsF.</span>
+        <span class="input-group-addon">Bs.</span>
       </div>
     </div>
   </div>

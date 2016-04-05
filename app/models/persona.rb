@@ -10,5 +10,8 @@ class Persona < ActiveRecord::Base
   validates :correo, uniqueness: { case_sensitive: false, message: 'El correo ingresado ya existe.' }, format: { with: VALID_EMAIL_REGEX, message: 'El formato del correo es invalido' }
   validates :cedula, uniqueness: { case_sensitive: false, message: 'ya esta registrada.' }, numericality: { only_integer: true }
   validates :nombres, :apellidos, length: { in: 0..50 }
-  validates :telefono_fijo, :telefono_movil, length: { is: 11 }, numericality: { only_integer: true }, allow_blank: true
+  validates :status, :cuenta, numericality: { only_integer: true }
+  validates :telefono_fijo, :telefono_movil, length: { is: 11 }, allow_blank: true, numericality: { only_integer: true }
+  validates :cuenta, length: { is: 20 }
+  validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida. La persona debe ser mayor de edad.' }
 end
