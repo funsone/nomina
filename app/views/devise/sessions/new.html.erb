@@ -1,51 +1,40 @@
-<div class="top-content">
-
-    <div class="inner-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong>Bootstrap</strong> Login Form</h1>
-                    <div class="description">
-                      <p>
-                        Iniciar Sesion
-                      </p>
-                    </div>
-                </div>
+<div class="page-header">
+    <h1 class= "actions">INICIAR SESION</h1>
+  </div>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 form-box">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3>Login to our site</h3>
+              <p>Enter your username and password to log on:</p>
             </div>
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 form-box">
-                  <div class="form-top">
-                    <div class="form-top-left">
-                      <h3>Login to our site</h3>
-                        <p>Enter your username and password to log on:</p>
-                    </div>
-                    <div class="form-top-right">
-
-                    </div>
-                    </div>
-                    <div class="form-bottom">
-                      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                        <div class="field">
-                          <i class="fa fa-envelope"> Email</i>
-                          <%= f.email_field :email, autofocus: true, class:"form-username form-control" %>
-                        </div>
-
-                        <div class="field">
-                            <i class="fa fa-lock"> Contrasena</i>
-                          <%= f.password_field :password, autocomplete: "off", class:"form-username form-control" %>
-                        </div>
-
-                        <% if devise_mapping.rememberable? -%>
-                          <div class="field">
-                            <%= f.check_box :remember_me %>
-                            <%= f.label :remember_me %>
-                          </div>
-                        <% end -%>
-
-                        <div class="actions">
-                          <%= f.submit "Log in", class: "btn btn-submit" %>
-                        </div>
-                      <% end %>
-                </div>
-                </div>
+            <div class="form-top-right"></div>
+          </div>
+          <div class="form-bottom">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="field">
+              <i class="fa fa-envelope">
+                Email</i>
+              <%= f.email_field :email, autofocus: true, class:"form-username form-control" %>
             </div>
+
+            <div class="field">
+              <i class="fa fa-lock">
+                Contrasena</i>
+              <%= f.password_field :password, autocomplete: "off", class:"form-username form-control" %>
+            </div>
+
+            <% if devise_mapping.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+            <% end -%>
+
+            <div class="actions">
+              <%= f.submit "Ingresar", class: "btn btn-danger boton" %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>

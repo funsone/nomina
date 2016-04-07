@@ -14,13 +14,12 @@
       <table class="table table-bordered table-condensed table-responsive table-bordered">
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>
-              <%= link_to "Departamento",departamentos_path%></th>
-            <th>Sueldo</th>
-            <th>Tipo</th>
-            <th>Disponible</th>
-            <th colspan="3">Acciones</th>
+            <th class= "actions">Nombre</th>
+            <th class= "actions">Departamento</th>
+            <th class= "actions">Sueldo</th>
+            <th class= "actions">Tipo</th>
+            <th class= "actions">Disponible</th>
+            <th class= "actions">Acciones</th>
           </tr>
         </thead>
 
@@ -36,7 +35,7 @@
               <%else%>
               <span class="fa fa-remove"></span>
               <%end%></th>
-              <td><%= link_to '', cargo,class: "fa fa-eye" %>
+              <td class= "actions"><%= link_to '', cargo,class: "fa fa-eye" %>
               <%= link_to '', edit_cargo_path(cargo),class: "fa fa-pencil" %>
               <%= link_to '', cargo,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
           </tr>

@@ -1,45 +1,56 @@
 <p id="notice"><%= notice %></p>
 
-
-
-  <div class="col-md-12 page-header">
+<div class="page-header">
   <h1><%= @cargo.nombre.upcase %></h1>
   <% ocupado_por=Persona.where("cargo_id=#{@cargo.id}").first%>
-  <small>Departamento: <b><%= @cargo.departamento.nombre %></b></small>
-  <%if ocupado_por%>
-  <small>, Ocupado por: <b><%= ocupado_por.nombres + " "+ocupado_por.apellidos %></b></small>
-  <small>, Desde: <b><%= ocupado_por.contrato.fecha_inicio%></b></small>
-<%end%>
+  <h4>
+    <b>Departamento:</b>
+    <%= @cargo.departamento.nombre.upcase %>
+    <%if ocupado_por%>
+    ,
+    <b>Ocupado por:</b>
+    <%= (ocupado_por.nombres + " "+ocupado_por.apellidos).upcase %>
+    ,
+    <b>Desde:</b>
+    <%= ocupado_por.contrato.fecha_inicio%>
+    <%end%>
+  </h4>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Sueldos
   </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-responsive table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th class="actions">Monto</th>
+            <th class="actions">Fecha de vigencia</th>
+            <th class="actions">Activo</th>
+          </tr>
+        </thead>
 
-
-
-  <h3>Sueldos</h3>
-  <table class="table table-hover table-responsive table-condensed table-bordered">
-    <thead>
-      <tr>
-        <th>Monto</th>
-        <th>Fecha de vigencia</th>
-        <th>Activo</th>
-
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @cargo.sueldos.order('activo DESC').each do |sueldo| %>
-        <tr>
-          <td><%= sueldo.monto %></td>
-          <th><%= sueldo.created_at.strftime("%m-%Y") %></th>
-          <th><%if sueldo.activo %>
-            <span class="fa fa-check-square"></span>
-          <%else%>
-            <span class="fa fa-minus-square"></span>
-          <%end%></th>
-
-        </tr>
-        <% end %>
-        </tbody
+        <tbody>
+          <% @cargo.sueldos.order('activo DESC').each do |sueldo| %>
+          <tr>
+            <td><%= sueldo.monto %></td>
+            <th><%= sueldo.created_at.strftime("%m-%Y") %></th>
+            <th><%if sueldo.activo %>
+              <span class="fa fa-check-square"></span>
+              <%else%>
+              <span class="fa fa-minus-square"></span>
+              <%end%></th>
+          </tr>
+          <% end %>
+        </tbody>
       </table>
-</p>
-<%= link_to 'Edit', edit_cargo_path(@cargo) %> |
-<%= link_to 'Back', cargos_path %>
+    </div>
+  </div>
+</div>
+
+<div class="col-xs-12 actions"><br>
+  <%= link_to raw('<i class= "fa fa-pencil"></i> Editar'), edit_cargo_path(@cargo), class: "btn btn-success boton" %>
+  <%= link_to raw('<i class= "fa fa-arrow-circle-left"></i> Regresar'), cargos_path, class: "btn btn-default boton" %>
+</div>
