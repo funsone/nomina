@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331145216) do
+ActiveRecord::Schema.define(version: 20160411131850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,20 @@ ActiveRecord::Schema.define(version: 20160331145216) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "familiares", force: :cascade do |t|
+    t.integer  "cedula"
+    t.string   "nombres"
+    t.string   "apellidos"
+    t.date     "fecha_de_nacimiento"
+    t.boolean  "sexo"
+    t.string   "direccion"
+    t.integer  "persona_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "familiares", ["persona_id"], name: "index_familiares_on_persona_id", using: :btree
 
   create_table "personas", force: :cascade do |t|
     t.string   "cedula"
@@ -133,6 +147,7 @@ ActiveRecord::Schema.define(version: 20160331145216) do
   add_foreign_key "cargos", "tipos"
   add_foreign_key "contratos", "personas"
   add_foreign_key "departamentos", "dependencias"
+  add_foreign_key "familiares", "personas"
   add_foreign_key "personas", "cargos"
   add_foreign_key "sueldos", "cargos"
 end

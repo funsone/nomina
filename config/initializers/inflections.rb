@@ -16,4 +16,6 @@
 # end
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'dependencia', 'dependencias'
-end
+
+  inflect.irregular 'familiar', 'familiares'
+  end
