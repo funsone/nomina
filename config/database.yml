@@ -11,7 +11,7 @@ default: &default
   host: localhost
   timeout: 5000
   user: pos
-  password: 0
+  password: 
 
 
 development:

@@ -35,12 +35,12 @@ class PersonasController < ApplicationController
   # POST /personas.json
   def create
     @persona = Persona.new(persona_params)
-
     @persona.cargo.save
 
     respond_to do |format|
       if @persona.save
 @persona.cargo.disponible = false
+        @persona.cargo.disponible = false
         #  Cargo.where(id: params[:cargo_id]).update_all(disponible: false);
         format.html { redirect_to @persona, notice: 'La persona fue contratada exitosamente.' }
         format.json { render :show, status: :created, location: @persona }
