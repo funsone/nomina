@@ -1,0 +1,63 @@
+<div class="panel panel-default nested-fields">
+  <div class="panel-heading">
+    Familiar    <div class="pull-right"><%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%></div>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-4">
+      <%= f.label :cedula %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-user"></span>
+        </span>
+        <%= f.text_field :cedula,:class => "form-control" %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <%= f.label :nombres %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-align-justify"></span>
+        </span>
+        <%= f.text_field :nombres,:class => "form-control" %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <%= f.label :apellidos %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-align-justify"></span>
+        </span>
+        <%= f.text_field :apellidos,:class => "form-control" %>
+      </div>
+    </div>
+      <div class="col-sm-4">
+        <%= f.label :fecha_de_nacimiento %>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+          </span>
+          <%= f.date_field :fecha_de_nacimiento,:class => "form-control" %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <%= f.label :sexo %>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-venus-mars"></span>
+          </span>
+          <%= f.select(:sexo, options_for_select($dic["sexos"],f.object.sexo ),{},:class =>"form-control" ) %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <%= f.label :direccion %>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-home"></span>
+          </span>
+          <%= f.text_area :direccion,:class => "form-control" %>
+        </div>
+    </div>
+
+  </div>
+
+</div>

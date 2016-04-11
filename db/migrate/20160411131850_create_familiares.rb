@@ -5,7 +5,7 @@ class CreateFamiliares < ActiveRecord::Migration
       t.string :nombres
       t.string :apellidos
       t.date :fecha_de_nacimiento
-      t.boolean :sexo
+      t.integer :sexo
       t.string :direccion
       t.references :persona, index: true, foreign_key: true
 

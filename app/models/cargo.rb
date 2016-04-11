@@ -6,6 +6,6 @@ class Cargo < ActiveRecord::Base
   accepts_nested_attributes_for :sueldos
     paginates_per 10
       validates :nombre, uniqueness: { case_sensitive: false }, presence: true
-      
+
 
 end

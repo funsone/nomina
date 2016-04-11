@@ -127,7 +127,7 @@
           <span class="fa fa-briefcase"></span>
         </span>
         <% if f.object.cargo_id=f.object.cargo_id ? f.object.cargo_id : 0%>
-        <%= f.select(:cargo_id, options_for_select(Cargo.all.where("disponible=true or id=#{f.object.cargo_id}").map{|s|[s.nombre, s.id]}, params[:cargo_id]),{}, class: 'form-control')  %>
+        <%= f.select(:cargo_id, options_for_select(Cargo.all.where("disponible=true or id=#{f.object.cargo_id}").map{|s|[s.nombre, s.id]},f.object.cargo_id),{}, class: 'form-control')  %>
         <%end%>
       </div>
     </div>
@@ -197,9 +197,19 @@
   </div>
 </div>
 <% end%>
-<%=
-link_to_add_association 'agregar familiar', f, :familiares
-render 'familiar' %>
+
+  <%= f.fields_for :familiares do |fa| %>
+
+
+     <%= render 'familiar_fields', :f => fa %>
+     <% end %>
+     <div class="links">
+
+  <%= link_to_add_association raw('<i class="fa fa-plus"></i> Agregar Familiar'), f, :familiares, class: "links pull-right" %>
+</div>
+
+
+
 <div class="col-xs-12 actions"><br>
   <%= f.submit "Guardar", class:  "btn btn-primary btn-md boton" %>
   <%= link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), personas_path ,class: "btn btn-default btn-md boton"%>

@@ -35,12 +35,11 @@ class PersonasController < ApplicationController
   # POST /personas.json
   def create
     @persona = Persona.new(persona_params)
-    @persona.cargo.save
 
     respond_to do |format|
       if @persona.save
-@persona.cargo.disponible = false
         @persona.cargo.disponible = false
+        @persona.cargo.save
         #  Cargo.where(id: params[:cargo_id]).update_all(disponible: false);
         format.html { redirect_to @persona, notice: 'La persona fue contratada exitosamente.' }
         format.json { render :show, status: :created, location: @persona }
@@ -85,6 +84,6 @@ class PersonasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def persona_params
-    params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :status, :cargo_id, :cargas_familiares, contrato_attributes: [:id, :tipo_de_contrato, :fecha_inicio, :fecha_fin, :sueldo_externo], familiares_attributes: [:cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion])
+    params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :status, :cargo_id, :cargas_familiares, contrato_attributes: [:id, :tipo_de_contrato, :fecha_inicio, :fecha_fin, :sueldo_externo], familiares_attributes: [:id, :cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
   end
 end

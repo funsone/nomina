@@ -16,4 +16,5 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require cocoon
 //= require_tree .

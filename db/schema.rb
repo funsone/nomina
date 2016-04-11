@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20160411131850) do
     t.string   "nombres"
     t.string   "apellidos"
     t.date     "fecha_de_nacimiento"
-    t.boolean  "sexo"
+    t.integer  "sexo"
     t.string   "direccion"
     t.integer  "persona_id"
     t.datetime "created_at",          null: false
