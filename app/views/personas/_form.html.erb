@@ -31,9 +31,9 @@
           <span class="fa fa-user"></span>
         </span>
         <span class="input-group-addon">
-          <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},{:class =>""})  %>
+          <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},:class =>"",REQUIRED: "" ) %>
         </span>
-        <%= f.text_field :cedula ,:class => "form-control",label: false, error: "Campo obligarotio." %>
+        <%= f.telephone_field :cedula ,:class => "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}",REQUIRED: "", autofocus: "" %>
       </div>
     </div>
     <div class="col-xs-6 form-group">
@@ -53,7 +53,7 @@
         <span class="input-group-addon">
           <span class="fa fa-align-justify"></span>
         </span>
-        <%= f.text_field :nombres,:class => "form-control" %></div>
+        <%= f.text_field :nombres,:class => "form-control",maxlength: "50",REQUIRED: "" %></div>
     </div>
     <div class="col-xs-6">
       <%= f.label :apellidos %>
@@ -61,7 +61,7 @@
         <span class="input-group-addon">
           <span class="fa fa-align-justify"></span>
         </span>
-        <%= f.text_field :apellidos ,:class => "form-control" %>
+        <%= f.text_field :apellidos ,:class => "form-control",maxlength: "50",REQUIRED: "" %>
       </div>
     </div>
     <div class="col-xs-6">
@@ -70,7 +70,7 @@
         <span class="input-group-addon">
           <span class="fa fa-phone"></span>
         </span>
-        <%= f.telephone_field :telefono_fijo ,:class => "form-control" %>
+        <%= f.telephone_field :telefono_fijo ,:class => "form-control", :maxlength => "11", pattern:"[0-9]{11}" %>
       </div>
     </div>
     <div class="col-xs-6">
@@ -79,14 +79,14 @@
         <span class="input-group-addon">
           <span class="fa fa-mobile"></span>
         </span>
-        <%= f.telephone_field :telefono_movil ,:class => "form-control" %>
+        <%= f.telephone_field :telefono_movil ,:class => "form-control", :maxlength => "11", pattern:"[0-9]{11}"  %>
       </div>
     </div>
     <div class="col-xs-6">
       <%= f.label :correo %>
       <div class="form-group input-group">
         <span class="input-group-addon">@</span>
-        <%= f.email_field :correo ,:class => "form-control" %>
+        <%= f.email_field :correo ,:class => "form-control",REQUIRED: "" %>
       </div>
 
     </div>
@@ -97,7 +97,7 @@
         <span class="input-group-addon">
           <span class="fa fa-calendar"></span>
         </span>
-        <%= f.date_field :fecha_de_nacimiento ,:class => "form-control" %>
+        <%= f.date_field :fecha_de_nacimiento ,:class => "form-control",REQUIRED: "" %>
       </div>
     </div>
 
@@ -107,7 +107,7 @@
         <span class="input-group-addon">
           <span class="fa fa-venus-mars"></span>
         </span>
-        <%= f.select(:sexo, options_for_select($dic["sexos"],@persona.sexo),{},:class =>"form-control")  %>
+        <%= f.select(:sexo, options_for_select($dic["sexos"],@persona.sexo),{include_blank: 'Seleccione un sexo...'},:class =>"form-control",REQUIRED: "" )  %>
       </div>
     </div>
 
@@ -117,7 +117,7 @@
         <span class="input-group-addon">
           <span class="fa fa-check"></span>
         </span>
-        <%= f.select(:status, options_for_select($dic["status"], @persona.status),{}, :class =>"form-control")  %>
+        <%= f.select(:status, options_for_select($dic["status"], @persona.status),{}, :class =>"form-control",REQUIRED: "")  %>
       </div>
     </div>
     <div class="col-xs-6">
@@ -127,7 +127,7 @@
           <span class="fa fa-briefcase"></span>
         </span>
         <% if f.object.cargo_id=f.object.cargo_id ? f.object.cargo_id : 0%>
-        <%= f.select(:cargo_id, options_for_select(Cargo.all.where("disponible=true or id=#{f.object.cargo_id}").map{|s|[s.nombre, s.id]},f.object.cargo_id),{}, class: 'form-control')  %>
+        <%= f.select(:cargo_id, options_for_select(Cargo.all.where("disponible=true or id=#{f.object.cargo_id}").map{|s|[s.nombre, s.id]},f.object.cargo_id),{include_blank:'Seleccione unn cargo...'}, class: 'form-control',REQUIRED: "")  %>
         <%end%>
       </div>
     </div>
@@ -137,7 +137,7 @@
         <span class="input-group-addon">
           <span class="fa fa-university"></span>
         </span>
-        <%= f.number_field :cuenta ,:class => "form-control" %>
+        <%= f.telephone_field :cuenta ,:class => "form-control", maxlength: "20",minlength: "20", pattern:"[0-9]{20}",REQUIRED: ""%>
       </div>
     </div>
     <div class="col-xs-6 form-group">
@@ -146,7 +146,7 @@
         <span class="input-group-addon">
           <span class="fa fa-home"></span>
         </span>
-        <%= f.text_area :direccion ,:class => "form-control" %>
+        <%= f.text_area :direccion ,:class => "form-control",REQUIRED: "" %>
       </div>
     </div>
   </div>
@@ -163,7 +163,7 @@
         <span class="input-group-addon">
           <span class="fa fa-file-text-o"></span>
         </span>
-        <%= contrato_builder.select(:tipo_de_contrato, options_for_select($dic["tipos_de_contrato"], @persona.contrato.tipo_de_contrato),{},:class =>"form-control" ) %>
+        <%= contrato_builder.select(:tipo_de_contrato, options_for_select($dic["tipos_de_contrato"], @persona.contrato.tipo_de_contrato),{include_blank: 'Seleccione un tipo de contrato...'},:class =>"form-control",REQUIRED: "" ) %>
       </div>
     </div>
     <div class="col-xs-6">
@@ -172,7 +172,7 @@
         <span class="input-group-addon">
           <span class="fa fa-calendar"></span>
         </span>
-        <%= contrato_builder.date_field :fecha_inicio,:class => "form-control" %>
+        <%= contrato_builder.date_field :fecha_inicio,:class => "form-control",REQUIRED: "" %>
       </div>
     </div>
     <div class="col-xs-6">

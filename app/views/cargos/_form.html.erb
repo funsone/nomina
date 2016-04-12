@@ -13,15 +13,15 @@
 
   <div class="form-group">
     <%= f.label :nombre %><br>
-    <%= f.text_field :nombre, :class => "form-control" %>
+    <%= f.text_field :nombre, :class => "form-control", REQUIRED: "", autofocus:"" %>
   </div>
   <div class="form-group">
     <%= f.label :departamento_id %><br>
-    <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, params[:departamento_id]),{},:class =>"form-control")  %>
+    <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, params[:departamento_id]),{include_blank:'Seleccione una Departamento...'},:class =>"form-control", REQUIRED: "")  %>
   </div>
   <div class="form-group">
     <%= f.label :tipo %><br>
-    <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, params[:tipo_id]),{},:class =>"form-control")  %>
+    <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, params[:tipo_id]),{include_blank:'Seleccione un Tipo de Nomina...'},:class =>"form-control", REQUIRED: "")  %>
   </div>
   <h3>Sueldo</h3>
   <%= f.fields_for :sueldos  do |sueldo_builder|  %>
@@ -29,7 +29,7 @@
     <div class="form-group" >
 
       <%= sueldo_builder.label :monto %>
-      <%= sueldo_builder.text_field :monto,:class => "form-control" %>
+      <%= sueldo_builder.text_field :monto,:class => "form-control", REQUIRED: "" %>
 
     </div>
       <% end %>

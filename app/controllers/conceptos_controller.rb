@@ -1,7 +1,7 @@
 class ConceptosController < ApplicationController
   before_action :set_concepto, only: [:show, :edit, :update, :destroy]
-  $dicc=Hash["tipos_de_conceptos" =>Hash["Asignaciones"=>false,"deducciones"=>true],
-  "modos_de_pago" => Hash["Semanal"=>0,"Quincenal"=>1,"Mensual"=>2]]
+  $dicc=Hash["tipos_de_conceptos" =>Hash["Asignaciones"=>false,"Deducciones"=>true],
+  "modos_de_pago" => Hash["Primera Quincena"=>0,"Segunda Quincena"=>1,"Ambas"=>2]]
   # GET /conceptos
   # GET /conceptos.json
   def index

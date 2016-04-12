@@ -19,11 +19,11 @@
       <% end %>
       <div class="form-group col-md-12">
         <%= f.label :nombre %><br>
-        <%= f.text_field :nombre, class:"form-control" %>
+        <%= f.text_field :nombre, class:"form-control", REQUIRED: "", autofocus: ""%>
       </div>
       <div class="actions col-md-12">
         <%= f.submit "Guardar", class: "btn btn-default" %>
-        <%= link_to 'Regresar', dependencias_path, class: "btn btn-default" %>
+        <%= link_to 'Regresar', dependencias_path, class: "btn btn-default"%>
       </div>
 
 

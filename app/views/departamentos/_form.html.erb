@@ -20,10 +20,12 @@
 
       <div class="form-group col-md-12">
         <%= f.label :nombre %><br>
-        <%= f.text_field :nombre ,class: "form-control"%>
+        <%= f.text_field :nombre ,class: "form-control", REQUIRED: "", autofocus: "" %>
         <div class="form-group">
           <%= f.label :dependencia_id %><br>
-          <%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, params[:dependencia_id]),{},:class =>"form-control")  %></span>
+          <% if f.object.dependencia_id=f.object.dependencia_id ? f.object.dependencia_id : 0%>
+          <%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, f.object.dependencia_id),{include_blank:'Seleccione una Dependencia...'},:class =>"form-control", REQUIRED: "" )  %></span>
+  <%end%>
       </div>
     </div>
 

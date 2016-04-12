@@ -18,4 +18,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'dependencia', 'dependencias'
 
   inflect.irregular 'familiar', 'familiares'
+    inflect.irregular 'personal', 'personales'
   end
