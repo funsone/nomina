@@ -6,7 +6,8 @@ class PersonasController < ApplicationController
   # GET /personas
   # GET /personas.json
   def index
-    @personas = Persona.order(:cedula).page params[:page]
+    @personas = Persona.where(status:0).order(:cedula).paginate(:per_page => 1, :page => params[:page])
+    @personas_retiradas = Persona.where(status:1).order(:cedula).paginate(:per_page => 1, :page => params[:page])
   end
 
   # GET /personas/1
