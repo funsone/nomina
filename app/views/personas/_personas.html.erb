@@ -1,0 +1,35 @@
+<br>
+<div class="table-responsive">
+
+  <table class="table table-hover table-bordered table-condensed table-striped">
+    <thead>
+      <tr>
+        <th class="actions">Cedula</th>
+        <th class="actions">Nombres</th>
+        <th class="actions">Apellidos</th>
+        <th class="actions">Departamento</th>
+        <th class="actions">Cargo</th>
+        <th class="actions">Sueldo</th>
+        <th class="actions">Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% p.each do |persona| %>
+      <tr>
+        <td><%= $dic["tipos_de_cedula"].key(persona.tipo_de_cedula) + persona.cedula%></td>
+        <td><%= persona.nombres %></td>
+        <td><%= persona.apellidos %></td>
+        <td><%= persona.cargo.departamento.nombre %></td>
+        <td><%= persona.cargo.nombre %></td>
+        <td><%= persona.cargo.sueldos.last.monto %></td>
+        <td class="actions"><%= link_to '', persona,class: "fa fa-eye" %>
+          <%= link_to '', edit_persona_path(persona),class: "fa fa-pencil" %>
+          <%= link_to '', persona,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= will_paginate p%>
+</div>
