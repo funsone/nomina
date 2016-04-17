@@ -94,11 +94,11 @@ ActiveRecord::Schema.define(version: 20160411131850) do
     t.string   "correo"
     t.string   "direccion"
     t.integer  "sexo"
-    t.integer  "status"
+    t.string   "status",              default: "activo"
     t.integer  "cargo_id"
     t.integer  "cargas_familiares"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"

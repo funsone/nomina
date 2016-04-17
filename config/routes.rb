@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   devise_for :usuarios
   get 'welcome/index'
 
-  resources :personas
+  resources :personas do
+  member do
+    post 'jubilarse'
+  end
+end
   resources :tipos
   resources :cargos
   resources :departamentos

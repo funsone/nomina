@@ -1,22 +1,31 @@
 class PersonasController < ApplicationController
-  before_action :set_persona, only: [:show, :edit, :update, :destroy]
+  before_action :set_persona, only: [:show, :edit, :update, :destroy,:jubilarse]
   $dic = Hash['tipos_de_contrato' => Hash['Fijo' => 0, 'Temporal' => 1, 'Externo' => 2],
               'sexos' => Hash['Masculino' => 0, 'Femenino' => 1], 'status' => Hash['Activo' => 0, 'Retirado' => 1],
               'tipos_de_cedula' => Hash['V-' => 0, 'E-' => 1]]
   # GET /personas
   # GET /personas.json
   def index
-    @personas = Persona.where(status:0).order(:cedula).paginate(:per_page => 1, :page => params[:page])
-    @personas_retiradas = Persona.where(status:1).order(:cedula).paginate(:per_page => 1, :page => params[:page])
+    @personas = Persona.activo.order(:cedula).paginate(:per_page => 1, :page => params[:page])
+    @personas_retiradas = Persona.retirado.order(:cedula).paginate(:per_page => 1, :page => params[:page])
   end
 
   # GET /personas/1
   # GET /personas/1.json
   def show
   end
+  
+  def jubilarse
+    @persona.retirar!
+    respond_to do |format|
+      format.html { redirect_to @persona, notice: 'El empleado esta retirado' }
+      format.json { head :no_content }
+    end
+  end
 
   # GET /personas/new
   def new
+    @editable=true;
     if Cargo.where('disponible=true').length <= 0
       respond_to do |format|
         format.html { redirect_to personas_url, notice: 'No hay cargo disponibles.' }
@@ -30,8 +39,8 @@ class PersonasController < ApplicationController
 
   # GET /personas/1/edit
   def edit
+    @editable=false;
   end
-
   # POST /personas
   # POST /personas.json
   def create
@@ -85,6 +94,6 @@ class PersonasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def persona_params
-    params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :status, :cargo_id, :cargas_familiares, contrato_attributes: [:id, :tipo_de_contrato, :fecha_inicio, :fecha_fin, :sueldo_externo], familiares_attributes: [:id, :cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
+    params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :cargo_id, contrato_attributes: [:id, :tipo_de_contrato, :fecha_inicio, :fecha_fin, :sueldo_externo], familiares_attributes: [:id, :cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
   end
 end
