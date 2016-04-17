@@ -43,7 +43,7 @@
   <%= @persona.cargo.nombre%></li>
 <li class="list-group-item text-right">
   <span class="pull-left">
-    <strong class="">Sueldp</strong>
+    <strong class="">Sueldo base</strong>
   </span>
   <%= @persona.cargo.sueldos.last.monto%></li>
 
@@ -92,8 +92,35 @@
   <span class="pull-left">
     <strong class="">Sexo</strong>
   </span><%= $dic["sexos"].key(@persona.sexo) %></li>
-</ul>
+
+
+<li class="list-group-item text-muted" contenteditable="false">Contrato</li>
+<li class="list-group-item text-right">
+  <span class="pull-left">
+    <strong class="">Tipo</strong>
+  </span>
+  <%= $dic["tipos_de_contrato"].key(@persona.contrato.tipo_de_contrato)%></li>
+  <li class="list-group-item text-right">
+  <span class="pull-left">
+    <strong class="">Fecha de Inicio</strong>
+  </span>
+  <%= @persona.contrato.fecha_inicio%></li>
+  <% if @persona.contrato.tipo_de_contrato == 1%>
+    <li class="list-group-item text-right">
+  <span class="pull-left">
+    <strong class="">Fecha de fin</strong>
+  </span>
+  <%= @persona.contrato.fecha_fin%></li>
+  <%elsif @persona.contrato.tipo_de_contrato == 2%>
+    <li class="list-group-item text-right">
+  <span class="pull-left">
+    <strong class="">Sueldo Externo</strong>
+  </span>
+  <%= @persona.contrato.sueldo_externo%></li>
+  <%end%>
+  </ul>
 </div>
+
 <div class="col-sm-8">
 <%
   @asignaciones=@persona.cargo.tipo.conceptos.where(tipo_de_concepto: 0)
@@ -195,3 +222,4 @@
 </div>
 </div>
 </div>
+

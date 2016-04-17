@@ -16,11 +16,17 @@ class PersonasController < ApplicationController
   end
   
   def jubilarse
-    @persona.retirar!
+    
     respond_to do |format|
-      format.html { redirect_to @persona, notice: 'El empleado esta retirado' }
+      if @persona.retirar!
+format.html { redirect_to @persona, notice: 'El empleado esta retirado' }
       format.json { head :no_content }
+      else
+        format.html { render :new }
+        format.json { render json: @persona.errors, status:' elmpleado ya esta retirado.' }
+      end
     end
+
   end
 
   # GET /personas/new
