@@ -112,7 +112,8 @@
   </span>
   <%= @persona.contrato.fecha_fin%></li>
   <%elsif @persona.contrato.tipo_de_contrato == 2%>
-    <li class="list-group-item text-right">
+    <li class="list-group-0.
+    item text-right">
   <span class="pull-left">
     <strong class="">Sueldo Externo</strong>
   </span>
@@ -130,24 +131,13 @@
   @total_deducciones=0
 %>
 <div class="col-sm-12">
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Conceptos
-  </div>
-  <div class="panel-body">
-    <div class="col-sm-12">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          Asignaciones
-        </div>
-        <div class="panel-body">
-          <div class="table-responsive">
-
             <table class="table table-hover table-bordered table-condensed table-striped">
               <thead>
                 <tr>
-                  <th>Nombre</th>
-                  <th>Monto</th>
+                  <th>CONCEPTO</th>
+                  <th>ASIGNACION</th>
+                  <th>DEDUCCION</th>
+                  <th></th>
                 </tr>
               </thead>
 
@@ -159,40 +149,12 @@
                   <% @valor=eval(c.formula).to_d
 @total_asignaciones+=@valor
               %>
-                  <td><%=@valor.to_s+"  Bs."  %></td>
+                  <td><%=(@valor - 0.0005).round(2).to_s+"  Bs."  %></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <% end %>
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-        <div class="panel-footer">
-          Total de Asignaciones
-          <div class="pull-right"><%= @total_asignaciones.to_s+"  Bs." %></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12">
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          Deducciones
-        </div>
-        <div class="panel-body">
-          <div class="table-responsive">
-
-            <table class="table table-hover table-bordered table-condensed table-striped">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Monto</th>
-                </tr>
-              </thead>
-
-              <tbody>
-
-                <% @valor=0
+                  <% @valor=0
              @deducciones.each do |c| %>
 
                 <tr>
@@ -200,26 +162,24 @@
                   <% @valor=eval(c.formula).to_d
                     @total_deducciones+=@valor
                   %>
-                  <td><%=@valor.to_s+"  BsF."  %></td>
+                  <td></td>
+                  <td><%=(@valor - 0.0005).round(2).to_s+"  BsF."  %></td>
+                  <td></td>
                 </tr>
                 <% end %>
+                <tr>
+                  <th></th>
+                  <th><%= 
+                    (@total_asignaciones - 0.0005).round(2)%></th>
+                  <th><%= 
+                    (@total_deducciones - 0.0005).round(2)
+                  %></th>
+                  <th><%= ((@total_asignaciones- @total_deducciones) - 0.0005).round(2).to_s+"  BsF." %></th>
+                </tr>
               </tbody>
             </table>
-          </div>
-        </div>
-        <div class="panel-footer">
-          Total de Asignaciones
-          <div class="pull-right"><%= @total_deducciones.to_s+"  BsF." %></div>
-        </div>
-      </div>
-    </div>
 
-  </div>
-  <div class="panel-footer">
-    Total
-    <div class="pull-right"><%= (@total_asignaciones-@total_deducciones).to_s+"  BsF." %></div>
-  </div>
 </div>
 </div>
-</div>
+
 

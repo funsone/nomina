@@ -140,13 +140,33 @@
         <%= f.telephone_field :cuenta ,:class => "form-control", maxlength: "20",minlength: "20", pattern:"[0-9]{20}",REQUIRED: ""%>
       </div>
     </div>
-    <div class="col-xs-6 form-group">
+    <div class="col-lg-6">
       <%= f.label :direccion %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-home"></span>
         </span>
         <%= f.text_area :direccion ,:class => "form-control",REQUIRED: "" %>
+      </div>
+    </div>
+        <div class="col-xs-6 form-group">
+      <%= f.label 'Este empleado paga: ' %>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <%= f.check_box :FAOV ,REQUIRED: "" %>
+        </span>
+        
+        <input type="text" disabled value="<%= :FAOV %>" class="form-control"> 
+                <span class="input-group-addon">
+          <%= f.check_box :IVSS ,REQUIRED: "" %>
+        </span>
+        
+        <input type="text" disabled value="<%= :IVSS %>" class="form-control">
+                        <span class="input-group-addon">
+          <%= f.check_box :TSS ,REQUIRED: "" %>
+        </span>
+        
+        <input type="text" disabled value="<%= :TSS %>" class="form-control">
       </div>
     </div>
   </div>
