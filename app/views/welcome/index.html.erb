@@ -2,5 +2,13 @@
   <h1>Hello, world!</h1>
   <p>...</p>
   <div class="btn btn-primary"><%= link_to "Iniciar sesion", new_usuario_session_path%></div>
+  <% 
+#pruebaaa
+  @personas= Persona.all
+@personas.each do |persona|
+	persona.calculo
+  %>
+  <%= persona.nombres + " "+((persona.total) - 0.0005).round(2).to_s+"  BsF."%></br>
+  <%end%>
 
 </div>

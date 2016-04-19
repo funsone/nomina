@@ -1,6 +1,6 @@
 class Persona < ActiveRecord::Base
   include AASM
-  aasm column: "status" do 
+  aasm column: "status" do
 
     state :activo , initial:true
     state :suspendido
@@ -42,5 +42,53 @@ class Persona < ActiveRecord::Base
   validates :telefono_fijo, :telefono_movil, length: { is: 11 }, allow_blank: true, numericality: { only_integer: true }
   validates :cuenta, length: { is: 20 }
   validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida. La persona debe ser mayor de edad.' }
+  attr_accessor :asignaciones,:deducciones, :total,:total_asignaciones,:total_deducciones
+  def calculo
+    @MONTO= self.cargo.sueldos.last.monto
+    self.asignaciones = []
+    self.deducciones=[]
+    self.total_asignaciones=0
+    self.total_deducciones=0
+    a=[]
+    d=[]
+    a[0]=self.cargo.tipo.conceptos.where(tipo_de_concepto: 0)
+    a[1]=self.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')
+    d[0]=self.cargo.tipo.conceptos.where(tipo_de_concepto: 1)
+    d[1]=self.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')
 
+    i=0
+
+    a.each do |c|
+      c.each do |j|
+        valor=eval(j.formula).to_d
+        self.total_asignaciones+=valor
+        if ! defined? j.conceptopersonal
+          nombre=  j.nombre
+        else
+          nombre=j.conceptopersonal.nombre
+        end        
+        self.asignaciones[i]=Hash["nombre", nombre, "valor", (valor - 0.0005).round(2).to_s+"  Bs."]
+        i+=1
+      end
+    end
+    i=0
+
+    d.each do |c|
+      c.each do |j|
+        valor=eval(j.formula).to_d
+        self.total_deducciones+=valor
+        if ! defined? j.conceptopersonal
+          nombre=  j.nombre
+        else
+          nombre=j.conceptopersonal.nombre
+        end
+
+        self.deducciones[i]=Hash["nombre", nombre, "valor", (valor - 0.0005).round(2).to_s+"  Bs."]
+        i+=1
+      end
+    end
+
+
+    self.total=self.total_asignaciones-self.total_deducciones
+  end
 end

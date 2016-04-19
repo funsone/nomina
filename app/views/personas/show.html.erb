@@ -3,12 +3,11 @@
   <div class="col-sm-10 ">
     <h2><%= (@persona.nombres + " " + @persona.apellidos).upcase%></h2>
   </div>
-
   <div class="col-sm-2 pull-right">
     <div class="btn-group">
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-        Opciones
-        <span class="caret"></span>
+      Opciones
+      <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
         <li><%= link_to 'Editar', edit_persona_path(@persona)%></li>
@@ -17,197 +16,143 @@
       </ul>
     </div>
   </div>
-
 </div>
-
-
 </div>
 <div class="col-sm-4">
 <!--left col-->
 <ul class="list-group">
-<li class="list-group-item text-muted" contenteditable="false">Perfil</li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">status</strong>
-  </span>
-  <%= @persona.status %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Departamento</strong>
-  </span>
-  <%= @persona.cargo.departamento.nombre %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Cargo</strong>
-  </span>
-  <%= @persona.cargo.nombre%></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Sueldo base</strong>
-  </span>
-  <%= @persona.cargo.sueldos.last.monto%></li>
-
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Cedula</strong>
-  </span>
-  <%= $dic["tipos_de_cedula"].key(@persona.tipo_de_cedula).to_s+@persona.cedula %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Nombres</strong>
-  </span>
-  <%= @persona.nombres %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Apellidos</strong>
-  </span>
-  <%= @persona.apellidos %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Telefonos</strong>
-  </span><%= @persona.telefono_fijo %><br>
-  <%= @persona.telefono_movil %></li></li>
-
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Correo</strong>
-  </span>
-  <%= @persona.correo %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Cuenta</strong>
-  </span>
-  <%= @persona.cuenta %></li>
-
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Fecha de nacimiento</strong>
-  </span>
-  <%= @persona.fecha_de_nacimiento %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Direccion</strong>
-  </span><%= @persona.direccion %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Sexo</strong>
-  </span><%= $dic["sexos"].key(@persona.sexo) %></li>
-
-
-<li class="list-group-item text-muted" contenteditable="false">Contrato</li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Tipo</strong>
-  </span>
-  <%= $dic["tipos_de_contrato"].key(@persona.contrato.tipo_de_contrato)%></li>
+  <li class="list-group-item text-muted" contenteditable="false">Perfil</li>
   <li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Fecha de Inicio</strong>
-  </span>
-  <%= @persona.contrato.fecha_inicio%></li>
-  <% if @persona.contrato.tipo_de_contrato == 1%>
+    <span class="pull-left">
+      <strong class="">status</strong>
+    </span>
+  <%= @persona.status %></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Departamento</strong>
+    </span>
+  <%= @persona.cargo.departamento.nombre %></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Cargo</strong>
+    </span>
+  <%= @persona.cargo.nombre%></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Sueldo base</strong>
+    </span>
+  <%= @persona.cargo.sueldos.last.monto%></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Cedula</strong>
+    </span>
+  <%= $dic["tipos_de_cedula"].key(@persona.tipo_de_cedula).to_s+@persona.cedula %></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Nombres</strong>
+    </span>
+  <%= @persona.nombres %></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Apellidos</strong>
+    </span>
+  <%= @persona.apellidos %></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Telefonos</strong>
+    </span><%= @persona.telefono_fijo %><br>
+  <%= @persona.telefono_movil %></li></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Correo</strong>
+    </span>
+  <%= @persona.correo %></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Cuenta</strong>
+    </span>
+  <%= @persona.cuenta %></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Fecha de nacimiento</strong>
+    </span>
+  <%= @persona.fecha_de_nacimiento %></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Direccion</strong>
+    </span><%= @persona.direccion %></li>
     <li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Fecha de fin</strong>
-  </span>
-  <%= @persona.contrato.fecha_fin%></li>
-  <%elsif @persona.contrato.tipo_de_contrato == 2%>
-    <li class="list-group-0.
-    item text-right">
-  <span class="pull-left">
-    <strong class="">Sueldo Externo</strong>
-  </span>
-  <%= @persona.contrato.sueldo_externo%></li>
-  <%end%>
-  </ul>
-</div>
-
-<div class="col-sm-8">
-<%
-  @asignaciones=@persona.cargo.tipo.conceptos.where(tipo_de_concepto: 0)
-  @asignacionesp=@persona.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')
-
-  @deducciones=@persona.cargo.tipo.conceptos.where(tipo_de_concepto: 1)
-  @deduccionesp=@persona.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')
-  @MONTO= @persona.cargo.sueldos.last.monto
-  @total_asignaciones=0
-  @total_deducciones=0
-%>
-<div class="col-sm-12">
-            <table class="table table-hover table-condensed">
-              <thead>
-                <tr>
-                  <th>CONCEPTO</th>
-                  <th>ASIGNACION</th>
-                  <th>DEDUCCION</th>
-                  <th>TOTAL</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <% @asignaciones.each do |c| %>
-
-                <tr>
-                  <td><%= c.nombre%></td>
-                  <% @valor=eval(c.formula).to_d
-@total_asignaciones+=@valor
-              %>
-                  <td><%=(@valor - 0.0005).round(2).to_s+"  Bs."  %></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <% end %>
-                                <% @asignacionesp.each do |c| %>
-
-                <tr>
-                  <td><%= c.conceptopersonal.nombre%></td>
-                  <% @valor=eval(c.formula).to_d
-@total_asignaciones+=@valor
-              %>
-                  <td><%=(@valor - 0.0005).round(2).to_s+"  Bs."  %></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <% end %>
-                  <% @valor=0
-             @deducciones.each do |c| %>
-
-                <tr>
-                  <td><%= c.nombre%></td>
-                  <% @valor=eval(c.formula).to_d
-                    @total_deducciones+=@valor
-                  %>
-                  <td></td>
-                  <td><%=(@valor - 0.0005).round(2).to_s+"  BsF."  %></td>
-                  <td></td>
-                </tr>
-                <% end %>
-                 <% @deduccionesp.each do |c| %>
-
-                <tr>
-                  <td><%= c.conceptopersonal.nombre%></td>
-                  <% @valor=eval(c.formula).to_d
-@total_deducciones+=@valor
-              %>
-                  <td></td>
-                  <td><%=(@valor - 0.0005).round(2).to_s+"  Bs."  %></td>
-                  
-                  <td></td>
-                </tr>
-                <% end %>
-                <tr>
-                  <th></th>
-                  <th><%= 
-                    (@total_asignaciones - 0.0005).round(2)%></th>
-                  <th><%= 
-                    (@total_deducciones - 0.0005).round(2)
-                  %></th>
-                  <th><%= ((@total_asignaciones- @total_deducciones) - 0.0005).round(2).to_s+"  BsF." %></th>
-                </tr>
-              </tbody>
-            </table>
-
-</div>
-</div>
-
-
+      <span class="pull-left">
+        <strong class="">Sexo</strong>
+      </span><%= $dic["sexos"].key(@persona.sexo) %></li>
+      <li class="list-group-item text-muted" contenteditable="false">Contrato</li>
+      <li class="list-group-item text-right">
+        <span class="pull-left">
+          <strong class="">Tipo</strong>
+        </span>
+      <%= $dic["tipos_de_contrato"].key(@persona.contrato.tipo_de_contrato)%></li>
+      <li class="list-group-item text-right">
+        <span class="pull-left">
+          <strong class="">Fecha de Inicio</strong>
+        </span>
+      <%= @persona.contrato.fecha_inicio%></li>
+      <% if @persona.contrato.tipo_de_contrato == 1%>
+      <li class="list-group-item text-right">
+        <span class="pull-left">
+          <strong class="">Fecha de fin</strong>
+        </span>
+      <%= @persona.contrato.fecha_fin%></li>
+      <%elsif @persona.contrato.tipo_de_contrato == 2%>
+      <li class="list-group-0.
+        item text-right">
+        <span class="pull-left">
+          <strong class="">Sueldo Externo</strong>
+        </span>
+      <%= @persona.contrato.sueldo_externo%></li>
+      <%end%>
+    </ul>
+  </div>
+  <div class="col-sm-8">
+    <div class="col-sm-12">
+      <table class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th>CONCEPTO</th>
+            <th>ASIGNACION</th>
+            <th>DEDUCCION</th>
+            <th>TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @persona.asignaciones.each do |c| %>
+          <tr>
+            <td><%= c['nombre']%></td>
+            <td><%=c['valor']%></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <% end %>
+          
+          <% @valor=0
+          @persona.deducciones.each do |c| %>
+          <tr>
+            <td><%= c['nombre']%></td>
+            <td></td>
+            <td><%=c['valor']%></td>
+            <td></td>
+          </tr>
+          <% end %>
+          
+          <tr>
+            <th></th>
+            <th><%=
+            (@persona.total_asignaciones - 0.0005).round(2)%></th>
+            <th><%=
+              (@persona.total_deducciones - 0.0005).round(2)
+            %></th>
+            <th><%= ((@persona.total) - 0.0005).round(2).to_s+"  BsF." %></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

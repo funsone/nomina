@@ -13,6 +13,7 @@ class PersonasController < ApplicationController
   # GET /personas/1.json
 
   def show
+    @persona.calculo
   end
 
 
