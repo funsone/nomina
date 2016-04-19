@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @conceptopersonal.nombre %>
+</p>
+
+<p>
+  <strong>Tipo de concepto:</strong>
+  <%= $dicc["tipos_de_conceptos"].key(@conceptopersonal.tipo_de_concepto) %>
+</p>
+
+<%= link_to 'Edit', edit_conceptopersonal_path(@conceptopersonal) %> |
+<%= link_to 'Back', conceptospersonales_path %>

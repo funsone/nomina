@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  references: 
+  formula: MyString
+  modalidad_de_pago: 1
+  references: 
+
+two:
+  references: 
+  formula: MyString
+  modalidad_de_pago: 1
+  references: 

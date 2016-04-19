@@ -1,0 +1,40 @@
+<%= form_for(@conceptopersonal) do |f| %>
+<% if @conceptopersonal.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@conceptopersonal.errors.count, "error") %>
+    prohibited this concepto from being saved:</h2>
+
+  <ul>
+    <% @conceptopersonalerrors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="col-xs-6">
+  <%= f.label :nombre %><br>
+  <div class="form-group input-group">
+    <span class="input-group-addon">
+      <span class="fa fa-align-justify"></span>
+    </span>
+    <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
+  </div>
+</div>
+
+<div class="col-xs-6">
+  <%= f.label :tipo_de_concepto  %>
+  <div class="form-group input-group">
+    <span class="input-group-addon">
+      <span class="fa fa-arrow-up"></span>
+      <span class="fa fa-arrow-down"></span>
+    </span>
+    <%= f.select(:tipo_de_concepto , options_for_select($dicc["tipos_de_conceptos"],@conceptopersonal.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control", REQUIRED: "")  %>
+  </div>
+
+</div>
+<div class="actions boton">
+  <%= f.submit "Guardar",class: "btn btn-primary btn-md"%>
+  <%= link_to 'Regresar', conceptospersonales_path,class: "btn btn-default btn-md"%>
+</div>
+<% end %>

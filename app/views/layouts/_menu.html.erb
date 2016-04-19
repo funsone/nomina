@@ -54,48 +54,30 @@ font-size: 16px;">
             </li>
           </ul>
         </li>
-        <li>
+        
+          <li>
+        <a href="#">
+            <i class="fa fa-money fa-2x"></i>
+            CONCEPTOS<span class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level">
+            <li>
+              <%= link_to "Globales", conceptos_path%>
+            </li>
+            <li>
+              <%= link_to "Personales", conceptospersonales_path%>
+            </li>
+          </ul>
+        </li>
+        <li><li>
             <%= link_to raw("<i class=\"fa fa-briefcase fa-2x\"></i> CARGOS"), cargos_path%>
         </li>
         <li >
           <%= link_to raw("<i class=\"fa fa-users fa-2x\"></i> EMPLEADOS"), personas_path%>
         </li>
-        <li >
-          <%= link_to raw("<i class=\"fa fa-money fa-2x\"></i> CONCEPTOS"), conceptos_path%>
-        </li>
 
 
-        <li>
-          <a href="#">
-            <i class="fa fa-sitemap fa-2x"></i>
-            Multi-Level Dropdown<span class="fa arrow"></span>
-          </a>
-          <ul class="nav nav-second-level">
-            <li>
-              <a href="#">Second Level Link</a>
-            </li>
-            <li>
-              <a href="#">Second Level Link</a>
-            </li>
-            <li>
-              <a href="#">Second Level Link<span class="fa arrow"></span>
-              </a>
-              <ul class="nav nav-third-level">
-                <li>
-                  <a href="#">Third Level Link</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Link</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Link</a>
-                </li>
-
-              </ul>
-
-            </li>
-          </ul>
-        </li>
+        
         <li >
           <a class="active-menu" href="blank.html">
             <i class="fa fa-square-o fa-2x"></i>

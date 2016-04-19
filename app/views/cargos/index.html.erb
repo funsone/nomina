@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <div class="page-header">
   <div class="pull-right">
-    <%= link_to "Nuevo Cargo", new_cargo_path, class: "btn btn-danger"  %>
+    <%= link_to "Nuevo Cargo",new_cargo_path, class: "btn btn-danger"  %>
   </div>
   <h1>Cargos</h1>
 </div>
@@ -22,11 +22,10 @@
             <th class= "actions">Acciones</th>
           </tr>
         </thead>
-
         <tbody>
           <% @cargos.each do |cargo| %>
           <tr>
-            <td><%= cargo.nombre %></td>
+            <td><%= cargo.nombre  %></td>
             <td><%= cargo.departamento.nombre %></td>
             <td><%= cargo.sueldos.last.monto %></td>
             <th><%= cargo.tipo.nombre %></th>
@@ -34,10 +33,10 @@
               <span class="fa fa-check"></span>
               <%else%>
               <span class="fa fa-remove"></span>
-              <%end%></th>
-              <td class= "actions"><%= link_to '', cargo,class: "fa fa-eye" %>
+            <%end%></th>
+            <td class= "actions"><%= link_to '', cargo,class: "fa fa-eye" %>
               <%= link_to '', edit_cargo_path(cargo),class: "fa fa-pencil" %>
-              <%= link_to '', cargo,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+            <%= link_to '', cargo,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
           </tr>
           <% end %>
         </tbody>

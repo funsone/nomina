@@ -125,19 +125,22 @@
 <div class="col-sm-8">
 <%
   @asignaciones=@persona.cargo.tipo.conceptos.where(tipo_de_concepto: 0)
+  @asignacionesp=@persona.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')
+
   @deducciones=@persona.cargo.tipo.conceptos.where(tipo_de_concepto: 1)
+  @deduccionesp=@persona.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')
   @MONTO= @persona.cargo.sueldos.last.monto
   @total_asignaciones=0
   @total_deducciones=0
 %>
 <div class="col-sm-12">
-            <table class="table table-hover table-bordered table-condensed table-striped">
+            <table class="table table-hover table-condensed">
               <thead>
                 <tr>
                   <th>CONCEPTO</th>
                   <th>ASIGNACION</th>
                   <th>DEDUCCION</th>
-                  <th></th>
+                  <th>TOTAL</th>
                 </tr>
               </thead>
 
@@ -146,6 +149,18 @@
 
                 <tr>
                   <td><%= c.nombre%></td>
+                  <% @valor=eval(c.formula).to_d
+@total_asignaciones+=@valor
+              %>
+                  <td><%=(@valor - 0.0005).round(2).to_s+"  Bs."  %></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <% end %>
+                                <% @asignacionesp.each do |c| %>
+
+                <tr>
+                  <td><%= c.conceptopersonal.nombre%></td>
                   <% @valor=eval(c.formula).to_d
 @total_asignaciones+=@valor
               %>
@@ -164,6 +179,19 @@
                   %>
                   <td></td>
                   <td><%=(@valor - 0.0005).round(2).to_s+"  BsF."  %></td>
+                  <td></td>
+                </tr>
+                <% end %>
+                 <% @deduccionesp.each do |c| %>
+
+                <tr>
+                  <td><%= c.conceptopersonal.nombre%></td>
+                  <% @valor=eval(c.formula).to_d
+@total_deducciones+=@valor
+              %>
+                  <td></td>
+                  <td><%=(@valor - 0.0005).round(2).to_s+"  Bs."  %></td>
+                  
                   <td></td>
                 </tr>
                 <% end %>

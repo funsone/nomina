@@ -1,8 +1,7 @@
 class PersonasController < ApplicationController
   before_action :set_persona, only: [:show, :edit, :update, :destroy,:jubilarse]
-  $dic = Hash['tipos_de_contrato' => Hash['Fijo' => 0, 'Temporal' => 1, 'Externo' => 2],
-              'sexos' => Hash['Masculino' => 0, 'Femenino' => 1],
-              'tipos_de_cedula' => Hash['V-' => 0, 'E-' => 1]]
+
+
   # GET /personas
   # GET /personas.json
   def index
@@ -12,15 +11,18 @@ class PersonasController < ApplicationController
 
   # GET /personas/1
   # GET /personas/1.json
+
   def show
   end
-  
+
+
+
   def jubilarse
-    
+
     respond_to do |format|
       if @persona.retirar!
-format.html { redirect_to @persona, notice: 'El empleado esta retirado' }
-      format.json { head :no_content }
+        format.html { redirect_to @persona, notice: 'El empleado esta retirado' }
+        format.json { head :no_content }
       else
         format.html { render :new }
         format.json { render json: @persona.errors, status:' elmpleado ya esta retirado.' }
@@ -100,6 +102,8 @@ format.html { redirect_to @persona, notice: 'El empleado esta retirado' }
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def persona_params
-    params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta,:FAOV, :TSS,:IVSS, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :cargo_id, contrato_attributes: [:id, :tipo_de_contrato, :fecha_inicio, :fecha_fin, :sueldo_externo], familiares_attributes: [:id, :cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
+    params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta,:FAOV, :TSS,:IVSS, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :cargo_id,
+                                    registrosconceptos_attributes: [:id,:formula, :conceptopersonal_id, :modalidad_de_pago],
+                                    contrato_attributes: [:id, :fecha_inicio, :fecha_fin, :sueldo_externo,:tipo_de_contrato], familiares_attributes: [:id, :cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
   end
 end

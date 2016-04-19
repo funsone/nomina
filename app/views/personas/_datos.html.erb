@@ -1,0 +1,190 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Datos Personales
+  </div>
+  <div class="panel-body">
+    <div class="col-xs-6 ">
+      <%= f.label :cedula%>
+      <%if @editable %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-user"></span>
+        </span>
+        <span class="input-group-addon">
+          
+          <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},:class =>"",REQUIRED: "" ) %>
+        </span>
+        <%= f.telephone_field :cedula ,:class => "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}",REQUIRED: "", autofocus: "" %>
+      </div>
+      <%else %>
+      </br>
+      <span class="fa fa-user"></span>
+      <%= $dic["tipos_de_cedula"].key(f.object.tipo_de_cedula) + f.object.cedula%>
+      <%end%>
+    </div>
+    <div class="col-xs-6 form-group">
+      <%= f.label "Fotografia" %><br>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-image"></span>
+        </span>
+        <%= f.file_field  :avatar, class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= f.label :nombres %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-align-justify"></span>
+        </span>
+      <%= f.text_field :nombres,:class => "form-control",maxlength: "50",REQUIRED: "" %></div>
+    </div>
+    <div class="col-xs-6">
+      <%= f.label :apellidos %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-align-justify"></span>
+        </span>
+        <%= f.text_field :apellidos ,:class => "form-control",maxlength: "50",REQUIRED: "" %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= f.label :telefono_fijo %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-phone"></span>
+        </span>
+        <%= f.telephone_field :telefono_fijo ,:class => "form-control", :maxlength => "11", pattern:"[0-9]{11}" %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= f.label :telefono_movil %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-mobile"></span>
+        </span>
+        <%= f.telephone_field :telefono_movil ,:class => "form-control", :maxlength => "11", pattern:"[0-9]{11}"  %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= f.label :correo %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">@</span>
+        <%= f.email_field :correo ,:class => "form-control",REQUIRED: "" %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= f.label :fecha_de_nacimiento %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-calendar"></span>
+        </span>
+        <%= f.date_field :fecha_de_nacimiento ,:class => "form-control",REQUIRED: "" %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= f.label :sexo %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-venus-mars"></span>
+        </span>
+        <%= f.select(:sexo, options_for_select($dic["sexos"],@persona.sexo),{include_blank: 'Seleccione un sexo...'},:class =>"form-control",REQUIRED: "" )  %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= f.label :cargo_id %><br>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-briefcase"></span>
+        </span>
+        <% if f.object.cargo_id=f.object.cargo_id ? f.object.cargo_id : 0%>
+        <%= f.select(:cargo_id, options_for_select(Cargo.all.where("disponible=true or id=#{f.object.cargo_id}").map{|s|[s.nombre, s.id]},f.object.cargo_id),{include_blank:'Seleccione unn cargo...'}, class: 'form-control',REQUIRED: "")  %>
+        <%end%>
+      </div>
+    </div>
+    <div class="col-xs-6 form-group">
+      <%= f.label :cuenta %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-university"></span>
+        </span>
+        <%= f.telephone_field :cuenta ,:class => "form-control", maxlength: "20",minlength: "20", pattern:"[0-9]{20}",REQUIRED: ""%>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <%= f.label :direccion %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-home"></span>
+        </span>
+        <%= f.text_area :direccion ,:class => "form-control",REQUIRED: "" %>
+      </div>
+    </div>
+    <div class="col-xs-6 form-group">
+      <%= f.label 'Este empleado paga: ' %>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <%= f.check_box :FAOV ,REQUIRED: "" %>
+        </span>
+        
+        <input type="text" disabled value="<%= :FAOV %>" class="form-control">
+        <span class="input-group-addon">
+          <%= f.check_box :IVSS ,REQUIRED: "" %>
+        </span>
+        
+        <input type="text" disabled value="<%= :IVSS %>" class="form-control">
+        <span class="input-group-addon">
+          <%= f.check_box :TSS ,REQUIRED: "" %>
+        </span>
+        
+        <input type="text" disabled value="<%= :TSS %>" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Contrato
+  </div>
+  <div class="panel-body">
+    <%= f.fields_for :contrato  do |contrato_builder|  %>
+    <div class="col-xs-6">
+      <%= contrato_builder.label :tipo_de_contrato %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-file-text-o"></span>
+        </span>
+        <%= contrato_builder.select(:tipo_de_contrato, options_for_select($dic["tipos_de_contrato"], @persona.contrato.tipo_de_contrato),{include_blank: 'Seleccione un tipo de contrato...'},:class =>"form-control",REQUIRED: "" ) %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= contrato_builder.label :fecha_inicio %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-calendar"></span>
+        </span>
+        <%= contrato_builder.date_field :fecha_inicio,:class => "form-control",REQUIRED: "" %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= contrato_builder.label :fecha_fin %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-calendar"></span>
+        </span>
+        <%= contrato_builder.date_field :fecha_fin,:class => "form-control" %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= contrato_builder.label :sueldo_externo %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-money"></span>
+        </span>
+        <%= contrato_builder.text_field :sueldo_externo,:class => "form-control" %>
+        <span class="input-group-addon">Bs.</span>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

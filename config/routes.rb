@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :conceptospersonales
+  resources :conceptopersonales
   resources :dependencias
   resources :conceptos
   devise_for :usuarios

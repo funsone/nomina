@@ -1,0 +1,37 @@
+<div class="panel panel-default nested-fields">
+  <div class="panel-heading">
+    Concepto   <div class="pull-right"><%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%></div>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-4">
+      <%= f.label :conceptopersonal %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-user"></span>
+        </span>
+        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione unn cargo...'}, class: 'form-control',REQUIRED: "")  %>
+      </div>
+    </div>
+        <div class="col-sm-4">
+      <%= f.label :modalidad_de_pago %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-user"></span>
+        </span>
+        
+    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione un sexo...'},:class =>"form-control",REQUIRED: "" )  %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <%= f.label :formula %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-align-justify"></span>
+        </span>
+        <%= f.text_field :formula,:class => "form-control" %>
+      </div>
+    </div>
+
+  </div>
+
+</div>
