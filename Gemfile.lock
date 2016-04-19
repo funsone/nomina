@@ -72,6 +72,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    dotiw (3.1.1)
+      actionpack (>= 3)
+      i18n
     erubis (2.7.0)
     execjs (2.6.0)
     font-awesome-rails (4.5.0.1)
@@ -200,6 +203,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   date_validator
   devise
+  dotiw
   font-awesome-rails
   hirb
   jbuilder (~> 2.0)

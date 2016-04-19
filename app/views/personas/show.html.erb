@@ -96,6 +96,11 @@
           <strong class="">Fecha de Inicio</strong>
         </span>
       <%= @persona.contrato.fecha_inicio%></li>
+      <li class="list-group-item text-right">
+        <span class="pull-left">
+          <strong class="">Años de servicio</strong>
+        </span>
+      <%= distance_of_time_in_words_hash(@persona.contrato.fecha_inicio,Time.now)[:years]%></li>
       <% if @persona.contrato.tipo_de_contrato == 1%>
       <li class="list-group-item text-right">
         <span class="pull-left">
@@ -103,8 +108,7 @@
         </span>
       <%= @persona.contrato.fecha_fin%></li>
       <%elsif @persona.contrato.tipo_de_contrato == 2%>
-      <li class="list-group-0.
-        item text-right">
+      <li class="list-group-item text-right">
         <span class="pull-left">
           <strong class="">Sueldo Externo</strong>
         </span>
@@ -133,7 +137,7 @@
           </tr>
           <% end %>
           
-          <% @valor=0
+         <% @valor=0
           @persona.deducciones.each do |c| %>
           <tr>
             <td><%= c['nombre']%></td>

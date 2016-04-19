@@ -7,16 +7,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">NominaX</a>
+      <a class="navbar-brand" href="index.html">NOMINA</a>
     </div>
     <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
 font-size: 16px;">
+
+
+<%= $dic["quincena"].key($quincena)+'('+$ahora.strftime("%d-%B-%Y")+') '%>
+
     <%if usuario_signed_in?%>
 
-
-      <%= "ultimo acceso: "+current_usuario.last_sign_in_at.in_time_zone("America/Caracas").to_s%>
       <%= link_to "Cerrar sesion", destroy_usuario_session_path,method: :delete, class:"btn btn-danger square-btn-adjust"%>
 
     <%else %>

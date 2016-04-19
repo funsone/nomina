@@ -49,46 +49,101 @@ class Persona < ActiveRecord::Base
     self.deducciones=[]
     self.total_asignaciones=0
     self.total_deducciones=0
-    a=[]
-    d=[]
-    a[0]=self.cargo.tipo.conceptos.where(tipo_de_concepto: 0)
-    a[1]=self.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')
-    d[0]=self.cargo.tipo.conceptos.where(tipo_de_concepto: 1)
-    d[1]=self.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')
+
+    a=self.cargo.tipo.conceptos.where(tipo_de_concepto: 0)
+    ap=self.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')
+    d=self.cargo.tipo.conceptos.where(tipo_de_concepto: 1)
+    dp=self.registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')
 
     i=0
 
-    a.each do |c|
-      c.each do |j|
+    a.each do |j|
+      if j.modalidad_de_pago==$quincena or j.modalidad_de_pago==2
         valor=eval(j.formula).to_d
         self.total_asignaciones+=valor
-        if ! defined? j.conceptopersonal
-          nombre=  j.nombre
-        else
-          nombre=j.conceptopersonal.nombre
-        end        
-        self.asignaciones[i]=Hash["nombre", nombre, "valor", (valor - 0.0005).round(2).to_s+"  Bs."]
+        self.asignaciones[i]=Hash["nombre", j.nombre, "valor", (valor - 0.0005).round(2).to_s+"  Bs."]
         i+=1
       end
     end
-    i=0
 
-    d.each do |c|
-      c.each do |j|
-        valor=eval(j.formula).to_d
-        self.total_deducciones+=valor
-        if ! defined? j.conceptopersonal
-          nombre=  j.nombre
-        else
-          nombre=j.conceptopersonal.nombre
+    ap.each do |j|
+      aplicar=false
+      case j.modalidad_de_pago
+      when 0
+        quincena=j.created_at.day<=15 ? 0:1
+        if quincena==$quincena and $ahora.month==j.created_at.month
+          aplicar=true
+        end
+      when 1
+        quincena=j.created_at.day<=15 ? 0:1
+        if quincena!=$quincena and ($ahora.month==j.created_at.month or $ahora.month==j.created_at.month+1.month)
+
+          aplicar=true
         end
 
-        self.deducciones[i]=Hash["nombre", nombre, "valor", (valor - 0.0005).round(2).to_s+"  Bs."]
+      when 2..4
+        if j.modalidad_de_pago==$quincena+2 or j.modalidad_de_pago==4
+          aplicar=true
+        end
+
+      end
+      if aplicar==true
+        valor=eval(j.formula).to_d
+        self.total_asignaciones+=valor
+        self.asignaciones[i]=Hash["nombre", j.conceptopersonal.nombre, "valor", (valor - 0.0005).round(2).to_s+"  Bs."+j.modalidad_de_pago.to_s]
+        i+=1
+      end
+    end
+i=0
+
+    d.each do |j|
+      if j.modalidad_de_pago==$quincena or j.modalidad_de_pago==2
+        valor=eval(j.formula).to_d
+        self.total_deducciones+=valor
+        self.deducciones[i]=Hash["nombre", j.nombre, "valor", (valor - 0.0005).round(2).to_s+"  Bs."]
+        i+=1
+      end
+    end
+
+    dp.each do |j|
+      aplicar=false
+      case j.modalidad_de_pago
+      when 0
+        quincena=j.created_at.day<=15 ? 0:1
+        if quincena==$quincena and $ahora.month==j.created_at.month
+          aplicar=true
+        end
+      when 1
+        quincena=j.created_at.day<=15 ? 0:1
+        if quincena!=$quincena and ($ahora.month==j.created_at.month or $ahora.month==j.created_at.month+1.month)
+
+          aplicar=true
+        end
+
+      when 2..4
+        if j.modalidad_de_pago==$quincena+2 or j.modalidad_de_pago==4
+          aplicar=true
+        end
+
+      end
+      if aplicar==true
+        valor=eval(j.formula).to_d
+        self.total_deducciones+=valor
+        self.deducciones[i]=Hash["nombre", j.conceptopersonal.nombre, "valor", (valor - 0.0005).round(2).to_s+"  Bs."+j.modalidad_de_pago.to_s]
         i+=1
       end
     end
 
 
+    tipo_de_contrato=self.contrato.tipo_de_contrato
+    if tipo_de_contrato==2
+      self.deducciones[i]=Hash["nombre", "COMISION DE SERVICIO", "valor", (self.contrato.sueldo_externo - 0.0005).round(2).to_s+"  Bs."]
+      self.total_deducciones+=self.contrato.sueldo_externo
+    end
     self.total=self.total_asignaciones-self.total_deducciones
+    if tipo_de_contrato==2 and self.total<0
+      self.total=0;
+    end
   end
+
 end
