@@ -9,7 +9,7 @@
         <span class="input-group-addon">
           <span class="fa fa-user"></span>
         </span>
-        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione unn cargo...'}, class: 'form-control',REQUIRED: "")  %>
+        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control',REQUIRED: "")  %>
       </div>
     </div>
         <div class="col-sm-4">
@@ -19,7 +19,7 @@
           <span class="fa fa-user"></span>
         </span>
         
-    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione un sexo...'},:class =>"form-control",REQUIRED: "" )  %>
+    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione el modo de pago...'},:class =>"form-control",REQUIRED: "" )  %>
       </div>
     </div>
     <div class="col-sm-4">

@@ -27,7 +27,7 @@
           <tr>
             <td><%= concepto.nombre %></td>
             <td><%= concepto.formula %></td>
-            <td><%= $dicc["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
+            <td><%= $dic["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
             <td><%= link_to '', concepto,class: "fa fa-eye" %></td>
             <td><%= link_to '', edit_concepto_path(concepto),class: "fa fa-pencil" %></td>
             <td><%= link_to '', concepto,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
@@ -61,7 +61,7 @@
           <tr>
             <td><%= concepto.nombre %></td>
             <td><%= concepto.formula %></td>
-            <td><%= $dicc["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
+            <td><%= $dic["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
             <td><%= link_to '', concepto,class: "fa fa-eye" %></td>
             <td><%= link_to '', edit_concepto_path(concepto),class: "fa fa-pencil" %></td>
             <td><%= link_to '', concepto,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
