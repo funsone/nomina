@@ -103,6 +103,15 @@
         <%end%>
       </div>
     </div>
+    <div class="col-lg-6">
+      <%= f.label :sueldo_integral %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-money"></span>
+        </span>
+        <%= f.number_field :sueldo_integral ,:class => "form-control",REQUIRED: "" %>
+      </div>
+        </div>
     <div class="col-xs-6 form-group">
       <%= f.label :cuenta %>
       <div class="form-group input-group">

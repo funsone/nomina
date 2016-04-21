@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <div class="page-header">
   <div class="pull-right">
     <%= link_to 'Nueva Dependencia', new_dependencia_path, class:"btn btn-danger btn-md" %>
@@ -9,6 +8,7 @@
   <div class="panel-heading">
     Lista de Dependencias
   </div>
+  <%if Dependencia.all.length>0%>
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-hover table-bordered table-condensed table-striped">
@@ -35,4 +35,9 @@
       <%= paginate @dependencias %>
     </div>
   </div>
+  <%elsif%>
+  <div class="actions">
+    <h4>"No hay dependencias disponibles"</h4>
+  </div>
+  <%end%>
 </div>

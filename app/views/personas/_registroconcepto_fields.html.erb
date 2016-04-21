@@ -4,19 +4,19 @@
   </div>
   <div class="panel-body">
     <div class="col-sm-4">
-      <%= f.label 'Concepto Personal' %>
+      <%= f.label "Concepto Personal" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
-          <span class="fa fa-user"></span>
+          <span class="fa fa-align-justify"></span>
         </span>
         <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control',REQUIRED: "")  %>
       </div>
     </div>
         <div class="col-sm-4">
-      <%= f.label :modalidad_de_pago %>
+      <%= f.label "Modalidad de Pago" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
-          <span class="fa fa-user"></span>
+          <span class="fa fa-calendar-o"></span>
         </span>
 
     <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione el modo de pago...'},:class =>"form-control",REQUIRED: "" )  %>
@@ -26,9 +26,9 @@
       <%= f.label :formula %>
       <div class="form-group input-group">
         <span class="input-group-addon">
-          <span class="fa fa-align-justify"></span>
+          <span class="fa fa-calculator"></span>
         </span>
-        <%= f.text_field :formula,:class => "form-control" %>
+        <%= f.text_field :formula,:class => "form-control", REQUIRED:"" %>
       </div>
     </div>
 

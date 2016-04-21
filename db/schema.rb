@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20160418155732) do
     t.string   "status",              default: "activo"
     t.integer  "cargo_id"
     t.integer  "cargas_familiares"
+    t.decimal  "sueldo_integral"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.string   "avatar_file_name"

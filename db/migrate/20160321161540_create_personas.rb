@@ -14,7 +14,7 @@ class CreatePersonas < ActiveRecord::Migration
       t.string :status, default: "activo"
       t.references :cargo, index: true, foreign_key: true
       t.integer :cargas_familiares
-
+      t.decimal :sueldo_integral
       t.timestamps null: false
     end
   end

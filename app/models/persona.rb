@@ -36,7 +36,7 @@ class Persona < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   paginates_per 1
   attr_readonly :tipo_de_cedula, :cedula
-  validates :tipo_de_cedula, :cedula, :nombres, :apellidos, :correo, :fecha_de_nacimiento, :sexo, :cargo, :cuenta, :direccion, presence: true
+  validates :tipo_de_cedula, :cedula, :nombres, :apellidos, :correo, :fecha_de_nacimiento, :sexo, :cargo, :cuenta, :direccion, :sueldo_integral, presence: true
   validates :correo, uniqueness: { case_sensitive: false, message: 'El correo ingresado ya existe.' }, format: { with: VALID_EMAIL_REGEX, message: 'El formato del correo es invalido' }
   validates :cedula, uniqueness: { case_sensitive: false, message: 'ya esta registrada.' }, numericality: { only_integer: true }
   validates :nombres, :apellidos, length: { in: 0..50 }
@@ -44,9 +44,11 @@ class Persona < ActiveRecord::Base
   validates :telefono_fijo, :telefono_movil, length: { is: 11 }, allow_blank: true, numericality: { only_integer: true }
   validates :cuenta, length: { is: 20 }
   validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida. La persona debe ser mayor de edad.' }
+  validates :sueldo_integral, numericality: true
   attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones
   def calculo
-    @MONTO = cargo.sueldos.last.monto
+    @SUELDO = cargo.sueldos.last.monto
+    @SUELDO_INTEGRAL = self.sueldo_integral
     self.asignaciones = []
     self.deducciones = []
     self.total_asignaciones = 0

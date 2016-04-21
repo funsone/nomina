@@ -8,6 +8,7 @@
   <div class="panel-heading">
     Lista de Departamentos
   </div>
+  <%if Departamento.all.length>0%>
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-bordered table-condensed table-responsive table-bordered">
@@ -34,4 +35,9 @@
       <%= paginate @departamentos %>
     </div>
   </div>
+  <%elsif%>
+  <div class="actions">
+    <h4>"No hay departamentos disponibles"</h4>
+  </div>
+  <%end%>
 </div>

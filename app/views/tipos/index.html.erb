@@ -8,7 +8,7 @@
   <div class="panel-heading">
     Lista de Tipos
   </div>
-
+ <%if Tipo.all.length>0%>
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-bordered table-condensed table-responsive table-bordered">
@@ -33,5 +33,9 @@
       <%= paginate @tipos %>
     </div>
   </div>
-
+<%elsif%>
+  <div class="actions">
+    <h4>"No hay tipos de nomina disponibles"</h4>
+  </div>
+  <%end%>
 </div>
