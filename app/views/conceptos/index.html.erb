@@ -8,7 +8,7 @@
   <div class="panel-heading">
     Asignaciones
   </div>
-
+  <%if Concepto.all.where(tipo_de_concepto:0).length>0%>
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-bordered table-condensed table-responsive table-bordered">
@@ -17,7 +17,7 @@
             <th>Nombre</th>
             <th>Formula</th>
             <th>Modalidad de pago</th>
-            <th colspan="3">Acciones</th>
+            <th>Acciones</th>
           </tr>
         </thead>
 
@@ -38,11 +38,17 @@
       </table>
     </div>
   </div>
+  <%elsif%>
+  <div class="actions">
+    <h4>"No hay asignaciones disponibles"</h4>
+  </div>
+  <%end%>
 </div>
 <div class="panel panel-danger">
   <div class="panel-heading">
     Deducciones
   </div>
+    <%if Concepto.all.where(tipo_de_concepto:0).length>0%>
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-bordered table-condensed table-responsive table-bordered">
@@ -51,7 +57,7 @@
             <th>Nombre</th>
             <th>Formula</th>
             <th>Modalidad de pago</th>
-            <th colspan="3">Acciones</th>
+            <th>Acciones</th>
           </tr>
         </thead>
 
@@ -72,4 +78,9 @@
       </table>
     </div>
   </div>
+  <%elsif%>
+  <div class="actions">
+    <h4>"No hay deducciones disponibles"</h4>
+  </div>
+  <%end%>
 </div>

@@ -1,4 +1,5 @@
 <br>
+<%if p.length>0%>
 <div class="table-responsive">
 
   <table class="table table-hover table-bordered table-condensed table-striped">
@@ -32,3 +33,8 @@
 
   <%= will_paginate p%>
 </div>
+<%elsif%>
+<div class="actions">
+  <h4>"No hay empleados en esta seccion"</h4>
+</div>
+<%end%>

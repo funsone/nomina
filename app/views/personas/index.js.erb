@@ -1,5 +1,4 @@
 $('.sort_paginate_ajax_retirados').html("<%= escape_javascript(render "personas", :p => @personas_retiradas)%>");
 $('.sort_paginate_ajax_suspendidos').html("<%= escape_javascript(render "personas", :p => @personas_suspendidas)%>");
 $('.sort_paginate_ajax').html("<%= escape_javascript(render "personas", :p => @personas)%>");
-
 $(classes).click(function(){$.getScript(this.href); return false;} );
