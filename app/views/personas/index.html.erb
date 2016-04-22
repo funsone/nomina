@@ -7,15 +7,26 @@
 
 <div class="row">
   <div class="col-md-12 col-sm-12">
+  
+  
+  <div class="input-group">
+      <input type="text" class="form-control" placeholder="Buscar por cedula, nombres, apellidos..."  name="search" id="search" value="<%= params[:search]%>">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="boton_buscar">Buscar!</button>
+      </span>
+    </div>
+    
+    </br>
+  
     <ul class="nav nav-tabs">
       <li class="active">
-        <a href="#activos" data-toggle="tab">Activos (<%= Persona.activo.length %>)</a>
+        <a href="#activos" data-toggle="tab" id="activos_tab">Activos (<%= @personas.length %>)</a>
       </li>
       <li class="">
-        <a href="#suspendidos" data-toggle="tab">Suspendidos (<%= Persona.suspendido.length %>)</a>
+        <a href="#suspendidos" data-toggle="tab" id="suspendido_tab">Suspendidos (<%= @personas_suspendidas.length %>)</a>
       </li>
       <li class="">
-        <a href="#retirados" data-toggle="tab">Retirados (<%= Persona.retirado.length %>)</a>
+        <a href="#retirados" data-toggle="tab" id="retirados_tab">Retirados (<%= @personas_retiradas.length %>)</a>
       </li>
     </ul>
 
@@ -46,12 +57,22 @@
   var classes = ".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a, .sort_paginate_ajax_retirados th a, .sort_paginate_ajax_retirados .pagination a, .sort_paginate_ajax_suspendidos th a, .sort_paginate_ajax_suspendidos .pagination a";
 
   $(function () {
-    $('a[data-toggle="tab"').on('shown.bs.tab', function () {
+    $("#boton_buscar").click(function () {
 
-      $.getScript("/personas?page=1");
+      $.getScript("/personas?page=1&search="+$("#search").val());
       return false;
     });
+    $("#search").keyup(function () {
 
+      $.getScript("/personas?page=1&search="+$("#search").val());
+      return false;
+    });
+    $('a[data-toggle="tab"').on('shown.bs.tab', 
+function () {
+
+      $.getScript("/personas?page=1&search="+$("#search").val());
+      return false;
+    });
     $(classes).click(function () {
       $.getScript(this.href);
       return false;

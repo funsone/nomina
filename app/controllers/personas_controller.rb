@@ -4,9 +4,16 @@ class PersonasController < ApplicationController
   # GET /personas
   # GET /personas.json
   def index
+    if params[:search]!="" and params[:search]
+      @personas = Persona.activo.search(params[:search]).order(:cedula).paginate(per_page: 1, page: params[:page])
+    @personas_retiradas = Persona.retirado.search(params[:search]).order(:cedula).paginate(per_page: 1, page: params[:page])
+        @personas_suspendidas = Persona.suspendido.search(params[:search]).order(:cedula).paginate(per_page: 1, page: params[:page])
+    else
+
     @personas = Persona.activo.order(:cedula).paginate(per_page: 1, page: params[:page])
     @personas_retiradas = Persona.retirado.order(:cedula).paginate(per_page: 1, page: params[:page])
         @personas_suspendidas = Persona.suspendido.order(:cedula).paginate(per_page: 1, page: params[:page])
+  end
   end
 
   # GET /personas/1

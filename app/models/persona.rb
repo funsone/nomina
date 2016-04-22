@@ -46,6 +46,19 @@ class Persona < ActiveRecord::Base
   validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida. La persona debe ser mayor de edad.' }
   validates :sueldo_integral, numericality: true
   attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones
+def self.search(search)
+search=search.downcase
+ if search 
+
+    where('cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+
+  else
+
+    scoped
+
+  end
+
+end
   def calculo
     @SUELDO = cargo.sueldos.last.monto
     @SUELDO_INTEGRAL = self.sueldo_integral
