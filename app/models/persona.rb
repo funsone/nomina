@@ -1,4 +1,5 @@
 class Persona < ActiveRecord::Base
+  self.per_page = 1
   include AASM
   aasm column: 'status' do
     state :activo, initial: true
@@ -46,17 +47,20 @@ class Persona < ActiveRecord::Base
   validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida. La persona debe ser mayor de edad.' }
   validates :sueldo_integral, numericality: true
   attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones
-def self.search(search)
+def self.search(search,dep)
 search=search.downcase
- if search 
+if dep=="" and search==""
+  order(:cedula)
+elsif dep and dep!="" and search==""
+  joins(:cargo).where('"cargos"."departamento_id" = CAST(? AS INTEGER)',dep).order(:cedula)
+elsif dep and dep!=""
 
-    where('cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",dep).order(:cedula)
+elsif search and search!=""
 
-  else
+where('cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ? ', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").order(:cedula)
+end
 
-    scoped
-
-  end
 
 end
   def calculo

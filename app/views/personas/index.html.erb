@@ -6,76 +6,115 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12 col-sm-12">
-  
-  
-  <div class="input-group">
-      <input type="text" class="form-control" placeholder="Buscar por cedula, nombres, apellidos..."  name="search" id="search" value="<%= params[:search]%>">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" id="boton_buscar">Buscar!</button>
-      </span>
-    </div>
-    
-    </br>
-  
-    <ul class="nav nav-tabs">
-      <li class="active">
-        <a href="#activos" data-toggle="tab" id="activos_tab">Activos (<%= @personas.length %>)</a>
-      </li>
-      <li class="">
-        <a href="#suspendidos" data-toggle="tab" id="suspendido_tab">Suspendidos (<%= @personas_suspendidas.length %>)</a>
-      </li>
-      <li class="">
-        <a href="#retirados" data-toggle="tab" id="retirados_tab">Retirados (<%= @personas_retiradas.length %>)</a>
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item text-muted" contenteditable="false">Busqueda</li>
+      <li class="list-group-item ">
+
+        <div class="input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-search"></span>
+
+          </span>
+
+          <input type="text" class="form-control" placeholder="Buscar por cedula, nombres, apellidos..." name="search" id="search" value="<%= params[:search]%>">
+<input type="text" id="departamento_search" value="" hidden="hidden">
+          <div class="input-group-btn">
+            <button id="departamentos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos los departamentos
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li class=" disabled">
+                <a href="#" class="departamento" id="">Todos los departamentos</a>
+              </li>
+              <%@departamentos=Departamento.all
+
+              @departamentos.each do |c|%>
+              <%=  raw("<li><a href=\"#\" class=\"departamento\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
+              <%end%>
+
+            </ul>
+
+          </div>
+        </div>
       </li>
     </ul>
 
-    <div class="tab-content">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#activos" data-toggle="tab" id="activos_tab">Activos
+          <span class="badge"><%= @alength %>
+            <span></a>
+          </li>
+          <li class="">
+            <a href="#suspendidos" data-toggle="tab" id="suspendido_tab">Suspendidos
+              <span class="badge"><%= @slength %>
+                <span></a>
+              </li>
+              <li class="">
+                <a href="#retirados" data-toggle="tab" id="retirados_tab">Retirados
+                  <span class="badge"><%= @rlength %>
+                    <span></a>
+                  </li>
 
-      <div class="tab-pane fade active in" id="activos">
-        <div class="sort_paginate_ajax">
-          <%= render 'personas', :p => @personas %>
-        </div>
-      </div>
+                </ul>
 
-      <div class="tab-pane fade" id="suspendidos">
-        <div class="sort_paginate_ajax_suspendidos">
-          <%= render 'personas', :p => @personas_suspendidas %>
-        </div>
-      </div>
+                <div class="tab-content">
 
-      <div class="tab-pane fade" id="retirados">
-        <div class="sort_paginate_ajax_retirados">
-          <%= render 'personas', :p => @personas_retiradas %>
-        </div>
-      </div>
+                  <div class="tab-pane fade active in" id="activos">
+                    <div class="sort_paginate_ajax  text-center">
+                      <%= render 'personas', :p => @personas %>
+                    </div>
+                  </div>
 
-    </div>
-  </div>
-</div>
-<script>
-  var classes = ".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a, .sort_paginate_ajax_retirados th a, .sort_paginate_ajax_retirados .pagination a, .sort_paginate_ajax_suspendidos th a, .sort_paginate_ajax_suspendidos .pagination a";
+                  <div class="tab-pane fade" id="suspendidos">
+                    <div class="sort_paginate_ajax_suspendidos  text-center">
+                      <%= render 'personas', :p => @personas_suspendidas %>
+                    </div>
+                  </div>
 
-  $(function () {
-    $("#boton_buscar").click(function () {
+                  <div class="tab-pane fade" id="retirados">
+                    <div class="sort_paginate_ajax_retirados  text-center">
+                      <%= render 'personas', :p => @personas_retiradas %>
+                    </div>
+                  </div>
 
-      $.getScript("/personas?page=1&search="+$("#search").val());
-      return false;
-    });
-    $("#search").keyup(function () {
+                </div>
+              </div>
+            </div>
+            <script>
+              var classes = ".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a, .sort_paginate_ajax_retirados th a, .sort_paginate_ajax_retirados .pagination a, .sort_paginate_ajax_suspendidos th a, .sort_paginate_ajax_suspendidos .pagination a";
+              var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                  clearTimeout(timer);
+                  timer = setTimeout(callback, ms);
+                };
+              })();
 
-      $.getScript("/personas?page=1&search="+$("#search").val());
-      return false;
-    });
-    $('a[data-toggle="tab"').on('shown.bs.tab', 
-function () {
+              $(function () {
+                $(".departamento").click(function () {
+$(".departamento").parent().attr("class","");
+$(this).parent().attr("class","disabled")
+                  $("#departamentos").html($(this).html() + '<span class="caret"></span>');
+                  $("#departamento_search").val($(this).attr("id"));
+                  $.getScript("/personas?page=1&search=" + $("#search").val()+"&departamento=" + $("#departamento_search").val());
+                  return false;
+                });
+                $("#search").keyup(function () {
+                  delay(function () {
+                    $.getScript("/personas?page=1&search=" + $("#search").val()+"&departamento=" + $("#departamento_search").val());
+                    return false;
+                  }, 500);
+                });
+                $('a[data-toggle="tab"').on('shown.bs.tab', function () {
 
-      $.getScript("/personas?page=1&search="+$("#search").val());
-      return false;
-    });
-    $(classes).click(function () {
-      $.getScript(this.href);
-      return false;
-    });
-  });
-</script>
+                  $.getScript("/personas?page=1&search=" + $("#search").val()+"&departamento=" + $("#departamento_search").val());
+                  return false;
+                });
+                $(classes).click(function () {
+                  $.getScript(this.href);
+                  return false;
+                });
+              });
+            </script>

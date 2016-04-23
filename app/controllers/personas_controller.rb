@@ -4,16 +4,40 @@ class PersonasController < ApplicationController
   # GET /personas
   # GET /personas.json
   def index
-    if params[:search]!="" and params[:search]
-      @personas = Persona.activo.search(params[:search]).order(:cedula).paginate(per_page: 1, page: params[:page])
-    @personas_retiradas = Persona.retirado.search(params[:search]).order(:cedula).paginate(per_page: 1, page: params[:page])
-        @personas_suspendidas = Persona.suspendido.search(params[:search]).order(:cedula).paginate(per_page: 1, page: params[:page])
-    else
+    s=params[:search]
+    d=params[:departamento]
+    p=params[:page]
+    buscar=((s!="" and s )or d);
+  
+    @personas = buscar ? Persona.activo.search(s,d).paginate(page:p ) : Persona.activo.paginate(page: p)
+@alength= buscar ? Persona.activo.search(s,d).length : Persona.activo.length
+    @personas_retiradas = buscar ? Persona.retirado.search(s,d).paginate(page: p) : Persona.retirado.paginate(page: p)
+@slength= buscar ? Persona.suspendido.search(s,d).length : Persona.suspendido.length
+    @personas_suspendidas = buscar ? Persona.suspendido.search(s,d).paginate(page: p) : Persona.suspendido.paginate(page: p)
+    @rlength= buscar ? Persona.retirado.search(s,d).length : Persona.retirado.length
 
-    @personas = Persona.activo.order(:cedula).paginate(per_page: 1, page: params[:page])
-    @personas_retiradas = Persona.retirado.order(:cedula).paginate(per_page: 1, page: params[:page])
-        @personas_suspendidas = Persona.suspendido.order(:cedula).paginate(per_page: 1, page: params[:page])
-  end
+  #  if params[:search]!="" and params[:search]
+
+  #    @personas = Persona.activo.search(params[:search],params[:departamento]).paginate(page: params[:page])
+  #  @personas_retiradas = Persona.retirado.search(params[:search],params[:departamento]).paginate(page: params[:page])
+  #  @personas_suspendidas = Persona.suspendido.search(params[:search],params[:departamento]).paginate( page: params[:page])
+  #  @alength=Persona.activo.search(params[:search],params[:departamento]).length
+  #  @slength=Persona.suspendido.search(params[:search],params[:departamento]).length
+  #  @rlength=Persona.retirado.search(params[:search],params[:departamento]).length
+
+  #  else
+#
+#    @personas = Persona.activo.order(:cedula).paginate( page: params[:page])
+#    @personas_retiradas = Persona.retirado.order(:cedula).paginate( page: params[:page])
+#        @personas_suspendidas = Personauspendido.order(:cedula).paginate( page: params[:page])
+#        @alength=Persona.activo.length
+#        @slength=Persona.suspendido.length
+#        @rlength=Persona.retirado.length
+#    end.suspendido.order(:cedula).paginate( page: params[:page])
+#        @alength=Persona.activo.length
+#        @slength=Persona.suspendido.length
+#        @rlength=Persona.retirado.length
+#    end
   end
 
   # GET /personas/1

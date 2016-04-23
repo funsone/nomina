@@ -2,6 +2,6 @@ $('.sort_paginate_ajax_retirados').html("<%= escape_javascript(render "personas"
 $('.sort_paginate_ajax_suspendidos').html("<%= escape_javascript(render "personas", :p => @personas_suspendidas)%>");
 $('.sort_paginate_ajax').html("<%= escape_javascript(render "personas", :p => @personas)%>");
 $(classes).click(function(){$.getScript(this.href); return false;} );
-$('#activos_tab').html("<%= escape_javascript("Activos ("+@personas.length.to_s+")")%>");
-$('#suspendidos_tab').html("<%= escape_javascript("Suspendidos("+@personas_suspendidas.length.to_s+")")%>");
-$('#retirados_tab').html("<%= escape_javascript("Retirados("+@personas_retiradas.length.to_s+")")%>");
+$('#activos_tab').html("<%= escape_javascript(raw("Activos <span class=\"badge\">"+@alength.to_s+"</span>"))%>");
+$('#suspendidos_tab').html("<%= escape_javascript(raw("Suspendidos <span class=\"badge\">"+@slength.to_s+"</span>"))%>");
+$('#retirados_tab').html("<%= escape_javascript(raw("Retirados <span class=\"badge\">"+@rlength.to_s+"</span>"))%>");
