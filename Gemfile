@@ -11,6 +11,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'seed_dump'
+gem 'prawn'
+gem 'prawn-table'
 gem 'coffee-rails', '~> 4.1.0'
 gem "paperclip", "~> 4.2"
 gem "font-awesome-rails"

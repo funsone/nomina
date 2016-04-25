@@ -1,5 +1,6 @@
 class Persona < ActiveRecord::Base
   self.per_page = 1
+   attr_readonly :cedula
   include AASM
   aasm column: 'status' do
     state :activo, initial: true
@@ -32,7 +33,7 @@ class Persona < ActiveRecord::Base
   has_many :familiares, dependent: :destroy
   has_many :registrosconceptos
   accepts_nested_attributes_for :contrato, :familiares, :registrosconceptos, reject_if: :all_blank, allow_destroy: true
-  has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/images/:style/missing.png'
+  has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/assets/missing.png'
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   paginates_per 1

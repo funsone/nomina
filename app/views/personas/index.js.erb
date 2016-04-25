@@ -5,3 +5,4 @@ $(classes).click(function(){$.getScript(this.href); return false;} );
 $('#activos_tab').html("<%= escape_javascript(raw("Activos <span class=\"badge\">"+@alength.to_s+"</span>"))%>");
 $('#suspendidos_tab').html("<%= escape_javascript(raw("Suspendidos <span class=\"badge\">"+@slength.to_s+"</span>"))%>");
 $('#retirados_tab').html("<%= escape_javascript(raw("Retirados <span class=\"badge\">"+@rlength.to_s+"</span>"))%>");
+$("#search_icon").attr("class","fa fa-search")

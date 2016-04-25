@@ -1,5 +1,5 @@
 class PersonasController < ApplicationController
-  before_action :set_persona, only: [:show, :edit, :update, :destroy, :cambiarestado]
+  before_action :set_persona, only: [:show, :edit, :update, :destroy, :cambiarestado,:enviar]
 
   # GET /personas
   # GET /personas.json
@@ -8,7 +8,7 @@ class PersonasController < ApplicationController
     d=params[:departamento]
     p=params[:page]
     buscar=((s!="" and s )or d);
-  
+
     @personas = buscar ? Persona.activo.search(s,d).paginate(page:p ) : Persona.activo.paginate(page: p)
 @alength= buscar ? Persona.activo.search(s,d).length : Persona.activo.length
     @personas_retiradas = buscar ? Persona.retirado.search(s,d).paginate(page: p) : Persona.retirado.paginate(page: p)
@@ -42,9 +42,26 @@ class PersonasController < ApplicationController
 
   # GET /personas/1
   # GET /personas/1.json
-
+  def enviar
+@persona.calculo
+        #PersonaMailer.recibo(@persona).deliver_now
+        respond_to do |format|
+sleep(10)
+          format.json { head :no_content }
+  end
+  end
   def show
     @persona.calculo
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf=PersonaPdf.new(@persona)
+      send_data pdf.render, filename: "#{@persona.cedula}_recibo",
+                            type: "application/pdf",
+                            disposition: "inline"
+      end
+    end
   end
 
   def cambiarestado

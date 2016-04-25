@@ -1,33 +1,54 @@
 <div class="col-sm-12 page-header">
-  <div class="col-sm-2"><%= image_tag @persona.avatar.url(:thumb), class:"img-circle  img-rounded " %></div>
+  <div class="col-sm-2 user-image"><%= image_tag @persona.avatar.url(:thumb), class:"img-circle  img-rounded " %></div>
   <div class="col-sm-10 ">
     <h2><%= (@persona.nombres + " " + @persona.apellidos).upcase%></h2>
   </div>
-  <div class="col-sm-2 pull-right">
-    <div class="btn-group">
-      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-        Opciones
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><%= link_to 'Editar', edit_persona_path(@persona)%></li>
-        <li><%= link_to 'Regresar', personas_path%></li>
-        <% case @persona.status
-          when 'activo'
-        %>
-        <li><%= link_to 'Suspender', cambiarestado_persona_path(@persona, :estado =>3), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-        <li><%= link_to 'Retirar',  cambiarestado_persona_path(@persona, :estado =>0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-        <% when 'retirado'%>
 
-        <li><%= link_to 'Reingresar',  cambiarestado_persona_path(@persona, :estado =>2), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-        <% when 'suspendido'%>
-        <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, :estado =>1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-        <%end%>
-      </ul>
-    </div>
-  </div>
 </div>
+<div class=" col-md-12">
+
+
+<ul class="nav nav-pills nav-justified" >
+
+
+      <li  role="presentation"><%= link_to 'Editar', edit_persona_path(@persona)%></li>
+      <li role="presentation"><%= link_to 'Regresar', personas_path%></li>
+      <li role="presentation">
+
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recibo
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'Guardar recibo', persona_path(@persona,format: "pdf")%></li>
+          <li><%= link_to 'Enviar Recibo', enviar_persona_path(@persona), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+        </ul>
+      </li>
+<li role="presentation">
+
+  <a class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar estado
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <% case @persona.status
+      when 'activo'
+    %>
+    <li><%= link_to 'Suspender', cambiarestado_persona_path(@persona, :estado =>3), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+    <li><%= link_to 'Retirar',  cambiarestado_persona_path(@persona, :estado =>0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+    <% when 'retirado'%>
+
+    <li><%= link_to 'Reingresar',  cambiarestado_persona_path(@persona, :estado =>2), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+    <% when 'suspendido'%>
+    <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, :estado =>1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+    <%end%>
+
+  </ul>
+</li>
+
+</ul>
 </div>
+<p class="col-md-12">
+
+</p>
 <div class="col-sm-4">
 <!--left col-->
 <ul class="list-group">

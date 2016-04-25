@@ -19,11 +19,11 @@ font-size: 16px;">
 
     <%if usuario_signed_in?%>
 
-      <%= link_to "Cerrar sesion", destroy_usuario_session_path,method: :delete, class:"btn btn-danger square-btn-adjust"%>
+      <%= link_to "Cerrar sesion", destroy_usuario_session_path,method: :delete, class:"btn btn-danger"%>
 
     <%else %>
     <%=
-    link_to "Iniciar sesion", new_usuario_session_path, class:"btn btn-danger square-btn-adjust"
+    link_to "Iniciar sesion", new_usuario_session_path, class:"btn btn-danger"
     %>
     <%end %>
     </div>
@@ -56,7 +56,7 @@ font-size: 16px;">
             </li>
           </ul>
         </li>
-        
+
           <li>
         <a href="#">
             <i class="fa fa-money fa-2x"></i>
@@ -79,12 +79,8 @@ font-size: 16px;">
         </li>
 
 
-        
-        <li >
-          <a class="active-menu" href="blank.html">
-            <i class="fa fa-square-o fa-2x"></i>
-            Blank Page</a>
-        </li>
+
+      
         <%end %>
       </ul>
 

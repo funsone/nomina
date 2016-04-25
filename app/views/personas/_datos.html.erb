@@ -5,8 +5,6 @@
   </div>
   <div class="panel-body">
     <div class="col-xs-6 ">
-      <%= f.label :cedula%>
-      <%if @editable %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-user"></span>
@@ -15,13 +13,9 @@
 
           <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},:class =>"",REQUIRED: "" ) %>
         </span>
-        <%= f.telephone_field :cedula ,:class => "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}",REQUIRED: "", autofocus: "" %>
+        <%= f.telephone_field :cedula ,:class => "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}",REQUIRED: "","data-toggle"=>"popover", "data-trigger"=>"focus", :title=>"Numero de Cedula", "data-content"=>"Ej=241110078 , este campo no sera editable despues de guardar" %>
       </div>
-      <%else %>
-      </br>
-      <span class="fa fa-user"></span>
-      <%= $dic["tipos_de_cedula"].key(f.object.tipo_de_cedula) + f.object.cedula%>
-      <%end%>
+
     </div>
     <div class="col-xs-6 form-group">
       <%= f.label "Fotografia" %><br>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :personas do
   member do
     post 'cambiarestado'
+    post 'enviar'
   end
 end
   resources :tipos

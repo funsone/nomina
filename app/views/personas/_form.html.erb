@@ -66,10 +66,18 @@
     </div>
   </div>
 </div>
-
+<%= render 'layouts/modals', :f=>f%>
 <div class="col-xs-12 actions"><br>
-  <%= f.submit "Guardar", class:  "btn btn-primary btn-md boton" %>
+
+  <button type="button" class="btn btn-primary" id="guardar">
+  Guardar
+</button>
   <%= link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), personas_path ,class: "btn btn-default btn-md boton"%>
 
 </div>
 <% end %>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="popover"]').popover();
+});
+</script>

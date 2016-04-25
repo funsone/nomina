@@ -12,16 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require dataTables/jquery.dataTables
-//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require cocoon
 //= require_tree .
-
-$(function() {
-  $(".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a").on("click", function(){
-    $.getScript(this.href);
-    return false;
-  });
-});

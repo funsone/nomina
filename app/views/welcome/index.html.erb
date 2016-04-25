@@ -1,14 +1,69 @@
-<div class="jumbotron" style="background: url('/assets/banner.png') no-repeat center center;" >
-  <h1>Hello, world!</h1>
-  <p>...</p>
-  <div class="btn btn-primary"><%= link_to "Iniciar sesion", new_usuario_session_path%></div>
-  <% 
+<%= link_to "Iniciar sesion", new_usuario_session_path%>
+  <%
 #pruebaaa
   @personas= Persona.all
 @personas.each do |persona|
-	persona.calculo
-  %>
-  <%= persona.nombres + " "+((persona.total) - 0.0005).round(2).to_s+"  BsF."%></br>
-  <%end%>
 
+
+  %>
+<input type="hidden" class="persona" value="<%=persona.id%>">
+  <%end%>
+  <input type="button" id="enviar_recibos" value="Enviar recivos a todos">
+  <div class="modal fade" id="enviar" tabindex="-1" role="dialog" aria-labelledby="enviar" style="margin-top: 200px;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header  text-center">
+          <i class="fa fa-refresh fa-spin fa-5x fa-fw margin-bottom"></i>
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="modal-footer">
+          <div id="progreso" class="text-center">
+
+          </div>
+
+
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 </div>
+<script type="text/javascript">
+
+function s(x){
+$("#progreso").html("progreso: "+x+"/"+$('.persona').length)
+  $.ajax({
+  method: "POST",
+url: "/personas/"+$('.persona')[x].value+"/enviar",
+}).done(function() {
+
+  if(x<$('.persona').length )
+{
+
+  s(x+1);
+}else{
+
+  $('#enviar').modal('toggle');
+}
+});
+}
+    $(function () {
+      $('#enviar_recibos').click(function () {
+
+            $('#enviar').modal('toggle');
+            s(0);
+
+
+    });
+  });
+</script>
+<div class="col-lg-3 col-md-6">
+                    <div class="card card-inverse card-success">
+                        <div class="card-block bg-success">
+                            <div class="rotate">
+                                <i class="fa fa-user fa-5x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Users</h6>
+                            <h1 class="display-1"><%= @personas.length%></h1>
+                        </div>
+                    </div>
+                </div>
