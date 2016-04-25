@@ -35,11 +35,11 @@ $("#progreso").html("progreso: "+x+"/"+$('.persona').length)
   method: "POST",
 url: "/personas/"+$('.persona')[x].value+"/enviar",
 }).done(function() {
-
+x=x+1
   if(x<$('.persona').length )
 {
 
-  s(x+1);
+  s(x);
 }else{
 
   $('#enviar').modal('toggle');

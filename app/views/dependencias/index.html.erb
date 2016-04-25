@@ -4,18 +4,16 @@
   </div>
   <h1>Dependencias</h1>
 </div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Lista de Dependencias
-  </div>
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false">Lista de dependencias</li>
   <%if Dependencia.all.length>0%>
-  <div class="panel-body">
+  <li class="list-group-item text-center ">
     <div class="table-responsive">
       <table class="table table-hover table-bordered table-condensed table-striped">
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Acciones</th>
+            <th class= "actions" style= "width: 100px;">Acciones</th>
           </tr>
 
         </thead>
@@ -25,19 +23,20 @@
           <% @dependencias.each do |dependencia| %>
           <tr>
             <td><%= dependencia.nombre %></td>
-            <td><%= link_to '', dependencia,class: "fa fa-eye" %>
-            <%= link_to '', edit_dependencia_path(dependencia),class: "fa fa-pencil" %>
-            <%= link_to '', dependencia,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+            <td class= "actions"><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+
+          <%= link_to '', dependencia,class: "btn btn-default fa fa-eye " %>
+            <%= link_to '', edit_dependencia_path(dependencia),class: "btn btn-default fa fa-pencil" %>
+            <%= link_to '', dependencia,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div></td>
           </tr>
           <% end %>
         </tbody>
       </table>
-      <%= paginate @dependencias %>
     </div>
-  </div>
+  </li>
   <%elsif%>
   <div class="actions">
     <h4>"No hay dependencias disponibles"</h4>
   </div>
   <%end%>
-</div>
+</ul>

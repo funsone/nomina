@@ -4,19 +4,17 @@
   </div>
   <h1>Departamentos</h1>
 </div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Lista de Departamentos
-  </div>
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false">Lista de departamentos</li>
   <%if Departamento.all.length>0%>
-  <div class="panel-body">
+  <li class="list-group-item text-center ">
     <div class="table-responsive">
       <table class="table table-bordered table-condensed table-responsive table-bordered">
         <thead>
           <tr>
-            <th><%=t("nombre")%></th>
-            <th>Personas</th>
-            <th>Acciones</th>
+            <th class= "actions" ><%=t("nombre")%></th>
+            <th class= "actions" >Personas</th>
+            <th  class= "actions" style= "width: 100px;">Acciones</th>
           </tr>
         </thead>
 
@@ -25,19 +23,20 @@
           <tr>
             <td><%= departamento.nombre %></td>
             <td><%=Cargo.where("departamento_id=#{departamento.id} and disponible=false").length %></td>
-            <td><%= link_to '', departamento,class: "fa fa-eye" %>
-              <%= link_to '', edit_departamento_path(departamento),class: "fa fa-pencil" %>
-              <%= link_to '', departamento,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+            <td><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+
+          <%= link_to '', departamento,class: "btn btn-default fa fa-eye " %>
+            <%= link_to '', edit_departamento_path(departamento),class: "btn btn-default fa fa-pencil" %>
+            <%= link_to '', departamento,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div></td>
           </tr>
           <% end %>
         </tbody>
       </table>
-      <%= paginate @departamentos %>
     </div>
-  </div>
+  </li>
   <%elsif%>
   <div class="actions">
     <h4>"No hay departamentos disponibles"</h4>
   </div>
   <%end%>
-</div>
+</ul>

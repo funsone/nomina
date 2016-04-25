@@ -22,10 +22,7 @@
         <%= f.label :nombre %><br>
         <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
       </div>
-      <div class="actions col-md-12">
-        <%= f.submit "Guardar", class:"btn btn-default" %>
-        <%= link_to 'Regresar', tipos_path, class: "btn btn-default"  %>
-      </div>
+        <%= render 'layouts/botones', p: tipos_path  %>
     </div>
   </div>
 </div>

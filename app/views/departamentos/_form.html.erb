@@ -28,11 +28,7 @@
   <%end%>
       </div>
     </div>
-
-    <div class="actions col-md-12">
-      <%= f.submit "Guardar", class:  "btn btn-primary btn-md boton" %>
-      <%= link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), departamentos_path, class: "btn btn-default btn-md boton"  %>
-    </div>
+  <%= render 'layouts/botones', p: departamentos_path  %>
   </div>
 </div>
 </div>

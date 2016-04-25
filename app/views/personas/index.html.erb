@@ -11,32 +11,31 @@
       <li class="list-group-item text-muted" contenteditable="false">Busqueda</li>
       <li class="list-group-item ">
 
-<div class="input-group">
-        <div class="input-group-btn">
-          <button id="departamentos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos los departamentos
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li class=" disabled">
-              <a href="#" class="departamento" id="">Todos los departamentos</a>
-            </li>
-            <%@departamentos=Departamento.all
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button id="departamentos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos los departamentos
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li class=" disabled">
+                <a href="#" class="departamento" id="">Todos los departamentos</a>
+              </li>
+              <%@departamentos=Departamento.all
 
             @departamentos.each do |c|%>
-            <%=  raw("<li><a href=\"#\" class=\"departamento\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
-            <%end%>
+              <%=  raw("<li><a href=\"#\" class=\"departamento\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
+              <%end%>
 
-          </ul>
+            </ul>
 
-        </div>
+          </div>
           <input type="text" class="form-control" placeholder="Buscar por cedula, nombres, apellidos..." name="search" id="search" value="<%= params[:search]%>">
-<input type="text" id="departamento_search" value="" hidden="hidden">
+          <input type="text" id="departamento_search" value="" hidden="hidden">
 
+          <span class="input-group-addon">
+            <span id="search_icon" class="fa fa-search"></span>
 
-            <span class="input-group-addon">
-              <span  id="search_icon" class="fa fa-search"></span>
-
-            </span>
+          </span>
         </div>
       </li>
     </ul>
@@ -93,22 +92,19 @@
                 };
               })();
 
- function loading()
- {
-   $("#search_icon").attr("class","fa fa-refresh fa-spin fa-fw")
- }
- function query()
- {
-   loading();
-   return "/personas?page=1&search=" + $("#search").val()+"&departamento=" + $("#departamento_search").val();
+              function loading() {
+                $("#search_icon").attr("class", "fa fa-refresh fa-spin fa-fw")
+              }
+              function query() {
+                loading();
+                return "/personas?page=1&search=" + $("#search").val() + "&departamento=" + $("#departamento_search").val();
 
-
- }
+              }
               $(function () {
 
                 $(".departamento").click(function () {
-$(".departamento").parent().attr("class","");
-$(this).parent().attr("class","disabled")
+                  $(".departamento").parent().attr("class", "");
+                  $(this).parent().attr("class", "disabled")
                   $("#departamentos").html($(this).html() + '<span class="caret"></span>');
                   $("#departamento_search").val($(this).attr("id"));
                   $.getScript(query());

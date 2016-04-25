@@ -5,7 +5,7 @@ def initialize(p)
 
 image "app/assets/images/banner.png"
   text "NOMINA PERSONAL "+p.cargo.tipo.nombre.upcase,align: :center, size: 18
-  text $dic["quincena"].key($quincena).upcase+" DE "+ $ahora.strftime("%^B DE %y"),align: :center, size: 18
+  text $dic["quincena"].key($quincena).upcase+"DE "+$dic['meses'].key($ahora.month)+ $ahora.strftime(" DE %Y"),align: :center, size: 18
   table([["CEDULA: #{p.cedula}","NOMBRES: #{p.nombres},#{p.apellidos}","FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]],:cell_style => { :border_width => 0,size:10 }, :header => true)
   table([["CARGO: #{p.cargo.nombre.upcase}","BANCO DE VENEZUELA #{p.cuenta}","SUEDO BASICO: #{p.cargo.sueldos.last.monto}"]],:cell_style => { :border_width => 0,size:10 }, :header => true)
   table([[ "UBICACION: SEDE FUNSONE"]],:cell_style => { :border_width => 0,size:10 })
@@ -25,6 +25,5 @@ data+=[[c['nombre'].upcase,"",c['valor'],""]]
 
 
 table(data, :header => true,width: 500,:cell_style => { :size => 10 })
-image "app/assets/images/banner.png"
 end
 end

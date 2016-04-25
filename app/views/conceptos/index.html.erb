@@ -17,7 +17,7 @@
             <th>Nombre</th>
             <th>Formula</th>
             <th>Modalidad de pago</th>
-            <th>Acciones</th>
+            <thclass= "actions" style= "width: 100px;">Acciones</th>
           </tr>
         </thead>
 
@@ -29,9 +29,11 @@
             <td><%= concepto.nombre %></td>
             <td><%= concepto.formula %></td>
             <td><%= $dic["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
-            <td><%= link_to '', concepto,class: "fa fa-eye" %></td>
-            <td><%= link_to '', edit_concepto_path(concepto),class: "fa fa-pencil" %></td>
-            <td><%= link_to '', concepto,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+            <td><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+
+          <%= link_to '', concepto,class: "btn btn-default fa fa-eye " %>
+            <%= link_to '', edit_concepto_path(concepto),class: "btn btn-default fa fa-pencil" %>
+            <%= link_to '', concepto,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div></td>
           </tr>
           <% end %>
         </tbody>
@@ -48,7 +50,7 @@
   <div class="panel-heading">
     Deducciones
   </div>
-    <%if Concepto.all.where(tipo_de_concepto:0).length>0%>
+    <%if Concepto.all.where(tipo_de_concepto:1).length>0%>
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-bordered table-condensed table-responsive table-bordered">

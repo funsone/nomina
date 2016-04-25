@@ -66,15 +66,7 @@
     </div>
   </div>
 </div>
-<%= render 'layouts/modals', :f=>f%>
-<div class="col-xs-12 actions"><br>
-
-  <button type="button" class="btn btn-primary" id="guardar">
-  Guardar
-</button>
-  <%= link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), personas_path ,class: "btn btn-default btn-md boton"%>
-
-</div>
+  <%= render 'layouts/botones', p: personas_path  %>
 <% end %>
 <script type="text/javascript">
 $(function () {

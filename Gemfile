@@ -18,7 +18,6 @@ gem "paperclip", "~> 4.2"
 gem "font-awesome-rails"
 gem 'devise'
 gem 'will_paginate-bootstrap'
-gem 'kaminari'
 gem 'simple_form'
 gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'date_validator'

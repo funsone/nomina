@@ -3,50 +3,85 @@
     <%= link_to "Nuevo Cargo",new_cargo_path, class: "btn btn-danger"  %>
   </div>
   <h1>Cargos</h1>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Lista de Cargos
-  </div>
-  <%if Cargo.all.length>0%>
-  <div class="panel-body">
-    <div class="table-responsive">
-      <table class="table table-bordered table-condensed table-responsive table-bordered">
-        <thead>
-          <tr>
-            <th class= "actions">Nombre</th>
-            <th class= "actions">Departamento</th>
-            <th class= "actions">Sueldo</th>
-            <th class= "actions">Tipo</th>
-            <th class= "actions">Disponible</th>
-            <th class= "actions">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @cargos.each do |cargo| %>
-          <tr>
-            <td><%= cargo.nombre  %></td>
-            <td><%= cargo.departamento.nombre %></td>
-            <td><%= cargo.sueldos.last.monto %></td>
-            <th><%= cargo.tipo.nombre %></th>
-            <th><%if cargo.disponible %>
-              <span class="fa fa-check"></span>
-              <%else%>
-              <span class="fa fa-remove"></span>
-            <%end%></th>
-            <td class= "actions"><%= link_to '', cargo,class: "fa fa-eye" %>
-              <%= link_to '', edit_cargo_path(cargo),class: "fa fa-pencil" %>
-            <%= link_to '', cargo,class: "fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= paginate @cargos %>
+</div><ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false">Busqueda</li>
+  <li class="list-group-item ">
+
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button id="departamentos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos los departamentos
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li class=" disabled">
+            <a href="#" class="departamento" id="">Todos los departamentos</a>
+          </li>
+          <%@departamentos=Departamento.all
+
+        @departamentos.each do |c|%>
+          <%=  raw("<li><a href=\"#\" class=\"departamento\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
+          <%end%>
+
+        </ul>
+
+      </div>
+      <input type="text" class="form-control" placeholder="Buscar por nombre del cargo..." name="search" id="search" value="<%= params[:search]%>">
+      <input type="text" id="departamento_search" value="" hidden="hidden">
+
+      <span class="input-group-addon">
+        <span id="search_icon" class="fa fa-search"></span>
+
+
+      </span>
     </div>
+  </li>
+</ul>
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false">Lista de cargos</li>
+  <div class="sort_paginate_ajax  text-center">
+    <%= render 'cargo', :p => @cargos %>
   </div>
-  <%elsif%>
-  <div class="actions">
-    <h4>"No hay cargos disponibles"</h4>
-  </div>
-  <%end%>
-</div>
+
+</ul>
+<script>
+  var classes = ".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a";
+  var delay = (function () {
+    var timer = 0;
+    return function (callback, ms) {
+      clearTimeout(timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+
+  function loading() {
+    $("#search_icon").attr("class", "fa fa-refresh fa-spin fa-fw")
+  }
+  function query() {
+    loading();
+    return "/cargos?page=1&search=" + $("#search").val() + "&departamento=" + $("#departamento_search").val();
+
+  }
+  $(function () {
+
+    $(".departamento").click(function () {
+      $(".departamento").parent().attr("class", "");
+      $(this).parent().attr("class", "disabled")
+      $("#departamentos").html($(this).html() + '<span class="caret"></span>');
+      $("#departamento_search").val($(this).attr("id"));
+      $.getScript(query());
+
+      return false;
+    });
+    $("#search").keyup(function () {
+      delay(function () {
+        $.getScript(query());
+
+        return false;
+      }, 500);
+    });
+    $(classes).click(function () {
+      $.getScript(this.href);
+      return false;
+    });
+  });
+</script>

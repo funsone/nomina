@@ -60,8 +60,5 @@
   </div>
   <% end %>
 </div>
-<div class="actions boton">
-  <%= f.submit "Guardar",class: "btn btn-primary btn-md"%>
-  <%= link_to 'Regresar', conceptos_path,class: "btn btn-default btn-md"%>
-</div>
+  <%= render 'layouts/botones', p: conceptos_path  %>
 <% end %>

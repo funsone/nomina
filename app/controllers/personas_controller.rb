@@ -1,84 +1,100 @@
 class PersonasController < ApplicationController
-  before_action :set_persona, only: [:show, :edit, :update, :destroy, :cambiarestado,:enviar]
+  before_action :set_persona, only: [:show, :edit, :update, :destroy, :cambiarestado, :enviar]
 
   # GET /personas
   # GET /personas.json
   def index
-    s=params[:search]
-    d=params[:departamento]
-    p=params[:page]
-    buscar=((s!="" and s )or d);
+    s = params[:search]
+    d = params[:departamento]
+    p = params[:page]
+    buscar = ((s != '' && s) || d)
 
-    @personas = buscar ? Persona.activo.search(s,d).paginate(page:p ) : Persona.activo.paginate(page: p)
-@alength= buscar ? Persona.activo.search(s,d).length : Persona.activo.length
-    @personas_retiradas = buscar ? Persona.retirado.search(s,d).paginate(page: p) : Persona.retirado.paginate(page: p)
-@slength= buscar ? Persona.suspendido.search(s,d).length : Persona.suspendido.length
-    @personas_suspendidas = buscar ? Persona.suspendido.search(s,d).paginate(page: p) : Persona.suspendido.paginate(page: p)
-    @rlength= buscar ? Persona.retirado.search(s,d).length : Persona.retirado.length
+    @personas = buscar ? Persona.activo.search(s, d).paginate(page: p) : Persona.activo.paginate(page: p)
+    @alength = buscar ? Persona.activo.search(s, d).length : Persona.activo.length
+    @personas_retiradas = buscar ? Persona.retirado.search(s, d).paginate(page: p) : Persona.retirado.paginate(page: p)
+    @slength = buscar ? Persona.suspendido.search(s, d).length : Persona.suspendido.length
+    @personas_suspendidas = buscar ? Persona.suspendido.search(s, d).paginate(page: p) : Persona.suspendido.paginate(page: p)
+    @rlength = buscar ? Persona.retirado.search(s, d).length : Persona.retirado.length
 
-  #  if params[:search]!="" and params[:search]
+    #  if params[:search]!="" and params[:search]
 
-  #    @personas = Persona.activo.search(params[:search],params[:departamento]).paginate(page: params[:page])
-  #  @personas_retiradas = Persona.retirado.search(params[:search],params[:departamento]).paginate(page: params[:page])
-  #  @personas_suspendidas = Persona.suspendido.search(params[:search],params[:departamento]).paginate( page: params[:page])
-  #  @alength=Persona.activo.search(params[:search],params[:departamento]).length
-  #  @slength=Persona.suspendido.search(params[:search],params[:departamento]).length
-  #  @rlength=Persona.retirado.search(params[:search],params[:departamento]).length
+    #    @personas = Persona.activo.search(params[:search],params[:departamento]).paginate(page: params[:page])
+    #  @personas_retiradas = Persona.retirado.search(params[:search],params[:departamento]).paginate(page: params[:page])
+    #  @personas_suspendidas = Persona.suspendido.search(params[:search],params[:departamento]).paginate( page: params[:page])
+    #  @alength=Persona.activo.search(params[:search],params[:departamento]).length
+    #  @slength=Persona.suspendido.search(params[:search],params[:departamento]).length
+    #  @rlength=Persona.retirado.search(params[:search],params[:departamento]).length
 
-  #  else
-#
-#    @personas = Persona.activo.order(:cedula).paginate( page: params[:page])
-#    @personas_retiradas = Persona.retirado.order(:cedula).paginate( page: params[:page])
-#        @personas_suspendidas = Personauspendido.order(:cedula).paginate( page: params[:page])
-#        @alength=Persona.activo.length
-#        @slength=Persona.suspendido.length
-#        @rlength=Persona.retirado.length
-#    end.suspendido.order(:cedula).paginate( page: params[:page])
-#        @alength=Persona.activo.length
-#        @slength=Persona.suspendido.length
-#        @rlength=Persona.retirado.length
-#    end
+    #  else
+    #
+    #    @personas = Persona.activo.order(:cedula).paginate( page: params[:page])
+    #    @personas_retiradas = Persona.retirado.order(:cedula).paginate( page: params[:page])
+    #        @personas_suspendidas = Personauspendido.order(:cedula).paginate( page: params[:page])
+    #        @alength=Persona.activo.length
+    #        @slength=Persona.suspendido.length
+    #        @rlength=Persona.retirado.length
+    #    end.suspendido.order(:cedula).paginate( page: params[:page])
+    #        @alength=Persona.activo.length
+    #        @slength=Persona.suspendido.length
+    #        @rlength=Persona.retirado.length
+    #    end
   end
 
   # GET /personas/1
   # GET /personas/1.json
   def enviar
-@persona.calculo
-        #PersonaMailer.recibo(@persona).deliver_now
-        respond_to do |format|
-sleep(10)
-          format.json { head :no_content }
+    @persona.calculo
+    PersonaMailer.recibo(@persona).deliver_now
+    p = params[:redir] ? params[:redit] : ''
+    if p == ''
+
+      respond_to do |format|
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to @persona, notice: 'Recibo enviado' }
+      end
+    end
   end
-  end
+
   def show
     @persona.calculo
 
     respond_to do |format|
       format.html
       format.pdf do
-        pdf=PersonaPdf.new(@persona)
-      send_data pdf.render, filename: "#{@persona.cedula}_recibo",
-                            type: "application/pdf",
-                            disposition: "inline"
+        if params[:doc] == '0'
+          pdf = PersonaPdf.new(@persona)
+          send_data pdf.render, filename: "#{@persona.cedula}_recibo",
+                                type: 'application/pdf',
+                                disposition: 'inline'
+        elsif params[:doc] == '1'
+
+          pdf = ConstanciaPdf.new(@persona)
+          send_data pdf.render, filename: "#{@persona.cedula}_constancia",
+                                type: 'application/pdf',
+                                disposition: 'inline'
+        end
       end
     end
   end
 
   def cambiarestado
- msg= "El cambio de estado no puede ser procesado"
+    msg = 'El cambio de estado no puede ser procesado'
     case params[:estado]
     when '0'
       @persona.retirar!
-     msg= "El empleado se ha retirado"
+      msg = 'El empleado se ha retirado'
     when '1'
       @persona.reactivar!
-       msg= "El empleado a sido reactivado"
+      msg = 'El empleado a sido reactivado'
     when '2'
       @persona.reingresar!
-      msg= "El empleado a sido recontratado"
+      msg = 'El empleado a sido recontratado'
     when '3'
       @persona.suspender!
-  msg= "El empleado a sido suspendido"
+      msg = 'El empleado a sido suspendido'
     end
     respond_to do |format|
       format.html { redirect_to @persona, notice: msg }

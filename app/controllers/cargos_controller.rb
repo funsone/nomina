@@ -4,7 +4,14 @@ class CargosController < ApplicationController
   # GET /cargos
   # GET /cargos.json
   def index
-    @cargos = Cargo.order(:nombre).page params[:page]
+    
+    s = params[:search]
+    d = params[:departamento]
+    p = params[:page]
+    buscar = ((s != '' && s) || d)
+
+    @cargos = buscar ? Cargo.all.search(s, d).paginate(page: p) : Cargo.order(:nombre).paginate(page: p)
+
   end
 
   # GET /cargos/1
