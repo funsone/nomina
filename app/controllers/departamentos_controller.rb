@@ -35,7 +35,7 @@ class DepartamentosController < ApplicationController
 
     respond_to do |format|
       if @departamento.save
-        format.html { redirect_to @departamento, notice: 'Departamento was successfully created.' }
+        format.html { redirect_to @departamento, notice: 'El departamento fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @departamento }
       else
         format.html { render :new }
@@ -49,7 +49,7 @@ class DepartamentosController < ApplicationController
   def update
     respond_to do |format|
       if @departamento.update(departamento_params)
-        format.html { redirect_to @departamento, notice: 'Departamento was successfully updated.' }
+        format.html { redirect_to @departamento, notice: 'Los datos del departamento fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @departamento }
       else
         format.html { render :edit }
@@ -63,7 +63,7 @@ class DepartamentosController < ApplicationController
   def destroy
     @departamento.destroy
     respond_to do |format|
-      format.html { redirect_to departamentos_url, notice: 'Departamento was successfully destroyed.' }
+      format.html { redirect_to departamentos_url, notice: 'El departamento fue eliminado exitosamente.' }
       format.json { head :no_content }
     end
   end

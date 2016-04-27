@@ -34,7 +34,7 @@ class ConceptosController < ApplicationController
 
     respond_to do |format|
       if @concepto.save
-        format.html { redirect_to @concepto, notice: 'Concepto was successfully created.' }
+        format.html { redirect_to @concepto, notice: 'El concepto fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @concepto }
       else
         format.html { render :new }
@@ -53,7 +53,7 @@ class ConceptosController < ApplicationController
     end
     respond_to do |format|
       if @concepto.update(concepto_params)
-        format.html { redirect_to @concepto, notice: 'Concepto was successfully updated.' }
+        format.html { redirect_to @concepto, notice: 'Los datos del concepto fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @concepto }
       else
         format.html { render :edit }    if params[:concepto][:tipo_ids]
@@ -67,7 +67,7 @@ class ConceptosController < ApplicationController
   def destroy
     @concepto.destroy
     respond_to do |format|
-      format.html { redirect_to conceptos_url, notice: 'Concepto was successfully destroyed.' }
+      format.html { redirect_to conceptos_url, notice: 'El concepto fue eliminado exitosamente.' }
       format.json { head :no_content }
     end
   end

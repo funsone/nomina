@@ -1,5 +1,5 @@
-<div id="wrapper">
-  <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+<div id="posicionmenu">
+  <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0" >
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -10,24 +10,24 @@
       <a class="navbar-brand" href="index.html">NOMINA</a>
     </div>
     <div style="color: white;
-padding: 15px 50px 5px 50px;
-float: right;
-font-size: 16px;">
+      padding: 15px 50px 5px 50px;
+      float: right;
+      font-size: 16px;">
 
+      <%= $dic["quincena"].key($quincena)+'('+$ahora.strftime("%d-%B-%Y")+') '%>
 
-<%= $dic["quincena"].key($quincena)+'('+$ahora.strftime("%d-%B-%Y")+') '%>
-
-    <%if usuario_signed_in?%>
+      <%if usuario_signed_in?%>
 
       <%= link_to "Cerrar sesion", destroy_usuario_session_path,method: :delete, class:"btn btn-danger"%>
 
-    <%else %>
-    <%=
+      <%else %>
+      <%=
     link_to "Iniciar sesion", new_usuario_session_path, class:"btn btn-danger"
     %>
-    <%end %>
+      <%end %>
     </div>
   </nav>
+
   <!-- /. NAV TOP  -->
   <nav class="navbar-default navbar-side" role="navigation">
     <div class="sidebar-collapse">
@@ -35,12 +35,12 @@ font-size: 16px;">
         <li class="text-center">
           <img src="/assets/find_user.png" class="user-image img-responsive"/>
         </li>
-<%if usuario_signed_in?%>
+        <%if usuario_signed_in?%>
         <li>
           <%= link_to raw("<i class=\"fa fa-home fa-2x\"></i> INICIO"), welcome_index_path%>
         </li>
         <li>
-        <a href="#">
+          <a href="#">
             <i class="fa fa-building fa-2x"></i>
             ESTRUCTURAS<span class="fa arrow"></span>
           </a>
@@ -57,8 +57,8 @@ font-size: 16px;">
           </ul>
         </li>
 
-          <li>
-        <a href="#">
+        <li>
+          <a href="#">
             <i class="fa fa-money fa-2x"></i>
             CONCEPTOS<span class="fa arrow"></span>
           </a>
@@ -71,16 +71,14 @@ font-size: 16px;">
             </li>
           </ul>
         </li>
-        <li><li>
-            <%= link_to raw("<i class=\"fa fa-briefcase fa-2x\"></i> CARGOS"), cargos_path%>
+        <li>
+        <li>
+          <%= link_to raw("<i class=\"fa fa-briefcase fa-2x\"></i> CARGOS"), cargos_path%>
         </li>
         <li >
           <%= link_to raw("<i class=\"fa fa-users fa-2x\"></i> EMPLEADOS"), personas_path%>
         </li>
 
-
-
-      
         <%end %>
       </ul>
 

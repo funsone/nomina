@@ -21,24 +21,28 @@ body {
   font-family: 'Open Sans', sans-serif;
   background: #202020;
 }
+
 #wrapper {
   width: 100%;
-  z-index: 9999;
-  position: fixed;
   background: #202020;
 }
 #page-wrapper {
-  padding: 15px;
+  margin: 0 0 0 260px;
+  padding: 15px 30px;
   min-height: 600px;
   background: #F3F3F3;
 }
 #page-inner {
   width: 100%;
-  margin: 10px 20px 10px 0;
-  margin-top: 45px;
+  margin: 70px 20px 10px 0;
   background-color: #fff!important;
   padding: 10px;
   min-height: 1200px;
+}
+#posicionmenu {
+    width: 100%;
+  z-index: 9999;
+  position: fixed;
 }
 .text-center {
   text-align: center;

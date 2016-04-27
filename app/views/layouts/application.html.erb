@@ -7,90 +7,91 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header>
-      <%= render '/layouts/menu' %>
-    </header>
-    <article>
+    <div id="wrapper">
+
+     <%= render '/layouts/menu' %>
 
       <div id="page-wrapper">
         <div id="page-inner">
           <div class="row">
             <% flash.each do |type, content| %>
-            <% if content.respond_to?('each')
+              <% if content.respond_to?('each')
                 content.each do |item| %>
-            <%= render 'layouts/alert',
+                 <%= render 'layouts/alert',
                         type: type,
                         content: item %>
-            <% end %>
-          <% else %>
-            <%= render 'layouts/alert',
+                <% end %>
+              <% else %>
+                <%= render 'layouts/alert',
                         type: type,
                         content: content %>
-            <% end %>
+              <% end %>
 
             <% end %>
             <div class="col-md-12"><%= yield %></div>
 
           </div>
           <!-- /. ROW  -->
-          <hr/>
 
         </div>
         <!-- /. PAGE INNER  -->
       </div>
 
-    </article>
+    </div>
   </body>
   <script>
-function se()
-{
-var v=$("#persona_contrato_attributes_tipo_de_contrato").val() ;
+    function se() {
+      var v = $("#persona_contrato_attributes_tipo_de_contrato").val();
 
-switch(v)
-{
-case '0':{
+      switch (v) {
+        case '0':
+          {
 
-  $("#persona_contrato_attributes_fecha_fin").attr('disabled', true);
-  $("#persona_contrato_attributes_sueldo_externo").attr('disabled', true);
-  $("#persona_contrato_attributes_fecha_fin").val("");
-  $("#persona_contrato_attributes_sueldo_externo").val("");
-};break;
-  case '1':{
-
-    $("#persona_contrato_attributes_fecha_fin").attr('disabled', false);
-    $("#persona_contrato_attributes_sueldo_externo").attr('disabled', true);
-    $("#persona_contrato_attributes_sueldo_externo").val("");
-  };break;
-  case '2':{
-
-    $("#persona_contrato_attributes_fecha_fin").attr('disabled', true);
-    $("#persona_contrato_attributes_sueldo_externo").attr('disabled', false);
-    $("#persona_contrato_attributes_fecha_fin").val("");
-
-  };break;
-}
-}
-  $(function () {
-    se()
-    $('#main-menu').metisMenu();
-
-          var $this = $('#main-menu'),
-            resizeTimer,
-            self = this;
-
-          var initCollapse = function(el) {
-            if ($(window).width() >= 768) {
-              this.find('li').has('ul').children('a').off('click');
-            }
+            $("#persona_contrato_attributes_fecha_fin").attr('disabled', true);
+            $("#persona_contrato_attributes_sueldo_externo").attr('disabled', true);
+            $("#persona_contrato_attributes_fecha_fin").val("");
+            $("#persona_contrato_attributes_sueldo_externo").val("");
           };
+          break;
+        case '1':
+          {
 
-          $(window).resize(function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(self.initCollapse($this), 250);
-          });
+            $("#persona_contrato_attributes_fecha_fin").attr('disabled', false);
+            $("#persona_contrato_attributes_sueldo_externo").attr('disabled', true);
+            $("#persona_contrato_attributes_sueldo_externo").val("");
+          };
+          break;
+        case '2':
+          {
 
-    $('#persona_contrato_attributes_tipo_de_contrato').change(se);
-  });
+            $("#persona_contrato_attributes_fecha_fin").attr('disabled', true);
+            $("#persona_contrato_attributes_sueldo_externo").attr('disabled', false);
+            $("#persona_contrato_attributes_fecha_fin").val("");
 
-</script>
+          };
+          break;
+      }
+    }
+    $(function () {
+      se()
+      $('#main-menu').metisMenu();
+
+      var $this = $('#main-menu'),
+        resizeTimer,
+        self = this;
+
+      var initCollapse = function (el) {
+        if ($(window).width() >= 768) {
+          this.find('li').has('ul').children('a').off('click');
+        }
+      };
+
+      $(window).resize(function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(self.initCollapse($this), 250);
+      });
+
+      $('#persona_contrato_attributes_tipo_de_contrato').change(se);
+    });
+  </script>
 </html>

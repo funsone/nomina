@@ -73,7 +73,7 @@ class CargosController < ApplicationController
 
       end
       if @cargo.update(cargo_params)
-        format.html { redirect_to @cargo, notice: 'El cargo fue actualizado exitosamente.' }
+        format.html { redirect_to @cargo, notice: 'Los datos del cargo fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @cargo }
       else
         format.html { render :edit }

@@ -1,69 +1,117 @@
+<div class="page-header">
+  <h2>Admin Dashboard</h2>
+  <h5>Welcome Jhon Deo , Love to see you back.</h5>
+</div>
+
+<div class="row text-center">
+  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+      <span class="icon-box bg-color-red set-icon">
+        <i class="fa fa-building"></i>
+      </span>
+      <div class="text-box">
+        <p class="main-text"><%= Dependencia.all.length%></p>
+        <p class="text-muted">Dependencias</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+      <span class="icon-box bg-color-green set-icon">
+        <i class="fa fa-building-o"></i>
+      </span>
+      <div class="text-box">
+        <p class="main-text"><%= Departamento.all.length%></p>
+        <p class="text-muted">Departamento</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+      <span class="icon-box bg-color-blue set-icon">
+        <i class="fa fa-align-justify"></i>
+      </span>
+      <div class="text-box">
+        <p class="main-text"><%= Tipo.all.length%></p>
+        <p class="text-muted">Nominas</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+      <span class="icon-box bg-color-brown set-icon">
+        <i class="fa fa-briefcase"></i>
+      </span>
+      <div class="text-box">
+        <p class="main-text"><%= Cargo.all.length%></p>
+        <p class="text-muted">Cargos</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row text-center">
+  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+      <span class="icon-box bg-color-red set-icon">
+        <i class="fa fa-users"></i>
+      </span>
+      <div class="text-box">
+        <p class="main-text"><%= Persona.all.length%></p>
+        <p class="text-muted">Empleados</p>
+      </div>
+    </div>
+  </div>
+</div>
+ <hr /> 
+<br>
 <%= link_to "Iniciar sesion", new_usuario_session_path%>
-  <%
+<%
 #pruebaaa
   @personas= Persona.all
 @personas.each do |persona|
-
-
   %>
 <input type="hidden" class="persona" value="<%=persona.id%>">
-  <%end%>
-  <input type="button" id="enviar_recibos" value="Enviar recivos a todos">
-  <div class="modal fade" id="enviar" tabindex="-1" role="dialog" aria-labelledby="enviar" style="margin-top: 200px;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header  text-center">
-          <i class="fa fa-refresh fa-spin fa-5x fa-fw margin-bottom"></i>
-          <span class="sr-only">Loading...</span>
-        </div>
-        <div class="modal-footer">
-          <div id="progreso" class="text-center">
-
-          </div>
-
-
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+<%end%>
+<input type="button" id="enviar_recibos" value="Enviar recivos a todos">
+<div class="modal fade" id="enviar" tabindex="-1" role="dialog" aria-labelledby="enviar" style="margin-top: 200px;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header  text-center">
+        <i class="fa fa-refresh fa-spin fa-5x fa-fw margin-bottom"></i>
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="modal-footer">
+        <div id="progreso" class="text-center"></div>
+      </div>
+    </div>
+  </div>
 </div>
 <script type="text/javascript">
 
-function s(x){
-$("#progreso").html("progreso: "+x+"/"+$('.persona').length)
-  $.ajax({
-  method: "POST",
-url: "/personas/"+$('.persona')[x].value+"/enviar",
-}).done(function() {
-x=x+1
-  if(x<$('.persona').length )
-{
+  function s(x) {
+    $("#progreso").html("progreso: " + x + "/" + $('.persona').length)
+    $.ajax({
+      method: "POST",
+      url: "/personas/" + $('.persona')[x].value + "/enviar"
+    }).done(function () {
+      x = x + 1
+      if (x < $('.persona').length) {
 
-  s(x);
-}else{
+        s(x);
+      } else {
 
-  $('#enviar').modal('toggle');
-}
-});
-}
-    $(function () {
-      $('#enviar_recibos').click(function () {
+        $('#enviar').modal('toggle');
+      }
+    });
+  }
+  $(function () {
+    $('#enviar_recibos').click(function () {
 
-            $('#enviar').modal('toggle');
-            s(0);
-
+      $('#enviar').modal('toggle');
+      s(0);
 
     });
   });
 </script>
-<div class="col-lg-3 col-md-6">
-                    <div class="card card-inverse card-success">
-                        <div class="card-block bg-success">
-                            <div class="rotate">
-                                <i class="fa fa-user fa-5x"></i>
-                            </div>
-                            <h6 class="text-uppercase">Users</h6>
-                            <h1 class="display-1"><%= @personas.length%></h1>
-                        </div>
-                    </div>
-                </div>
+
+</div>

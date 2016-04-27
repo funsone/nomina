@@ -28,7 +28,7 @@ class DependenciasController < ApplicationController
 
     respond_to do |format|
       if @dependencia.save
-        format.html { redirect_to @dependencia, notice: 'Dependencia was successfully created.' }
+        format.html { redirect_to @dependencia, notice: 'La dependencia fue creada exitosamente.' }
         format.json { render :show, status: :created, location: @dependencia }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class DependenciasController < ApplicationController
   def update
     respond_to do |format|
       if @dependencia.update(dependencia_params)
-        format.html { redirect_to @dependencia, notice: 'Dependencia was successfully updated.' }
+        format.html { redirect_to @dependencia, notice: 'Los datos de la dependencia fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @dependencia }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class DependenciasController < ApplicationController
   def destroy
     @dependencia.destroy
     respond_to do |format|
-      format.html { redirect_to dependencias_url, notice: 'Dependencia was successfully destroyed.' }
+      format.html { redirect_to dependencias_url, notice: 'La dependencia fue eliminada exitosamente.' }
       format.json { head :no_content }
     end
   end
