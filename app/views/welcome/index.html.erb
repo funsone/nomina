@@ -62,9 +62,8 @@
     </div>
   </div>
 </div>
- <hr /> 
+ <hr />
 <br>
-<%= link_to "Iniciar sesion", new_usuario_session_path%>
 <%
 #pruebaaa
   @personas= Persona.all
@@ -100,14 +99,14 @@
         s(x);
       } else {
 
-        $('#enviar').modal('toggle');
+        $('#enviar').modal("hide");
       }
     });
   }
   $(function () {
     $('#enviar_recibos').click(function () {
 
-      $('#enviar').modal('toggle');
+      $('#enviar').modal({backdrop: false});
       s(0);
 
     });

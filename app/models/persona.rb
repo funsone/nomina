@@ -1,5 +1,5 @@
 class Persona < ActiveRecord::Base
-  self.per_page = 1
+  self.per_page = 10
   attr_readonly :cedula
   include AASM
   aasm column: 'status' do

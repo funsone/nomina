@@ -107,7 +107,7 @@ class PersonasController < ApplicationController
     @editable = true
     if Cargo.where('disponible=true').length <= 0
       respond_to do |format|
-        format.html { redirect_to personas_url, notice: 'No hay cargo disponibles.' }
+        format.html { redirect_to personas_url, alert: 'No hay cargo disponibles.' }
         format.json { render json: @persona.errors, status: 'No hay cargos disponibles' }
       end
     else

@@ -26,6 +26,8 @@ gem 'aasm'
 gem 'will_paginate', '~> 3.0.6'
 gem 'dotiw'
 gem 'tzinfo-data'
+gem 'puma'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'bootstrap-sass', '~> 3.3.6'
