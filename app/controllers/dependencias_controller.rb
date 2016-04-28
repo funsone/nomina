@@ -1,4 +1,6 @@
 class DependenciasController < ApplicationController
+  before_filter :authenticate_usuario!
+
   before_action :set_dependencia, only: [:show, :edit, :update, :destroy]
 
   # GET /dependencias

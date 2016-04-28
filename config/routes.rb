@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
+  resources :roles
   resources :conceptospersonales
   resources :conceptopersonales
   resources :dependencias
   resources :conceptos
   devise_for :usuarios
   get 'welcome/index'
-
+resources :settings
   resources :personas do
   member do
     post 'cambiarestado'

@@ -1,46 +1,52 @@
 <%if p.length>0%>
 <li class="list-group-item text-center ">
-  <div class="table-responsive">
-    <table class="table table-bordered table-condensed table-responsive table-bordered">
-      <thead>
-        <tr>
-          <th class= "actions">Nombre</th>
-          <th class= "actions">Departamento</th>
-          <th class= "actions">Sueldo</th>
-          <th class= "actions">Tipo</th>
-          <th class= "actions">Disponible</th>
-          <th class= "actions" style= "width: 100px;">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% p.each do |cargo| %>
-        <tr>
-          <td><%= cargo.nombre  %></td>
-          <td><%= cargo.departamento.nombre %></td>
-          <td><%= cargo.sueldos.last.monto %></td>
-          <td><%= cargo.tipo.nombre %></td>
-          <td><%if cargo.disponible %>
-            <span class="fa fa-check"></span>
-            <%else%>
-            <span class="fa fa-remove"></span>
-          <%end%></td>
-          <td class= "actions"><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+    <div class="table-responsive">
+        <table class="table table-bordered table-condensed table-responsive table-bordered">
+            <thead>
+                <tr>
+                    <th class="actions">Nombre</th>
+                    <th class="actions">Departamento</th>
+                    <th class="actions">Sueldo</th>
+                    <th class="actions">Tipo</th>
+                    <th class="actions">Disponible</th>
+                    <th class="actions" style="width: 100px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% p.each do |cargo| %>
+                <tr>
+                    <td><%= cargo.nombre  %></td>
+                    <td><%= cargo.departamento.nombre %></td>
+                    <td><%= cargo.sueldos.last.monto %></td>
+                    <td><%= cargo.tipo.nombre %></td>
+                    <td><%if cargo.disponible %>
+                        <span class="fa fa-check"></span>
+                        <%else%>
+                        <span class="fa fa-remove"></span>
+                        <%end%></td>
+                    <td class="actions">
+                        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 
-        <%= link_to '', cargo,class: "btn btn-default fa fa-eye " %>
-          <%= link_to '', edit_cargo_path(cargo),class: "btn btn-default fa fa-pencil" %>
-          <%= link_to '', cargo,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+                            <%= link_to '', cargo,class: "btn btn-default fa fa-eye " %>
+                            <% if can? :destroy, @cargo %>
+                            <%= link_to '', edit_cargo_path(cargo),class: "btn btn-default fa fa-pencil" %>
+                            <% end%>
+                            <% if can? :destroy, @cargo %>
+                            <%= link_to '', cargo,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div>
+                    </td>
+                    <% end%>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
     </div>
     <div class="pagination ">
-      <%= will_paginate p, renderer: BootstrapPagination::Rails %>
+        <%= will_paginate p, renderer: BootstrapPagination::Rails %>
     </div>
 
 </li>
-<%elsif%>
+<%else%>
 <div class="actions">
-  <h4>"No hay cargos disponibles"</h4>
+    <h4>"No hay cargos disponibles"</h4>
 </div>
 <%end%>

@@ -1,4 +1,5 @@
 class CargosController < ApplicationController
+  before_filter :authenticate_usuario!
   before_action :set_cargo, only: [:show, :edit, :update, :destroy]
 
   # GET /cargos
@@ -10,6 +11,8 @@ class CargosController < ApplicationController
     buscar = ((s != '' && s) || d)
 
     @cargos = buscar ? Cargo.all.search(s, d).paginate(page: p) : Cargo.order(:nombre).paginate(page: p)
+    authorize! :read, @cargos
+
   end
 
   # GET /cargos/1
@@ -19,17 +22,20 @@ class CargosController < ApplicationController
 
   # GET /cargos/new
   def new
+    authorize! :create, @cargo
     @cargo = Cargo.new
     @cargo.sueldos.build
   end
 
   # GET /cargos/1/edit
   def edit
+    authorize! :edit,@cargo
   end
 
   # POST /cargos
   # POST /cargos.json
   def create
+    authorize! :create, @cargo
     @cargo = Cargo.new(cargo_params)
     # @sueldo= Sueldo.new(cargo_params['sueldo_attributes'])
 
@@ -49,6 +55,7 @@ class CargosController < ApplicationController
   # PATCH/PUT /cargos/1
   # PATCH/PUT /cargos/1.json
   def update
+    authorize! :update,@cargo
     respond_to do |format|
       #  if !@cargo.sueldos.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).empty?
       nuevo= false
@@ -85,7 +92,7 @@ class CargosController < ApplicationController
   # DELETE /cargos/1
   # DELETE /cargos/1.json
   def destroy
-    @cargo.destroy
+    authorize! :destroy, @cargo.destroy
     respond_to do |format|
       format.html { redirect_to cargos_url, notice: 'El cargo fue eliminado exitosamente.' }
       format.json { head :no_content }

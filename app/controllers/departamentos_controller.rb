@@ -1,4 +1,6 @@
 class DepartamentosController < ApplicationController
+  before_filter :authenticate_usuario!
+
   before_action :set_departamento, only: [:show, :edit, :update, :destroy]
 
   # GET /departamentos

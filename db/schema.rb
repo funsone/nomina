@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418155732) do
+ActiveRecord::Schema.define(version: 20160428193138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,23 @@ ActiveRecord::Schema.define(version: 20160418155732) do
     t.datetime "updated_at",          null: false
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
+
   create_table "sueldos", force: :cascade do |t|
     t.decimal  "monto"
     t.boolean  "activo",          default: true
@@ -164,13 +181,14 @@ ActiveRecord::Schema.define(version: 20160418155732) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.string   "nombre"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "rol_id"
   end
 
   add_index "usuarios", ["email"], name: "index_usuarios_on_email", unique: true, using: :btree
   add_index "usuarios", ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true, using: :btree
+  add_index "usuarios", ["rol_id"], name: "index_usuarios_on_rol_id", using: :btree
 
   add_foreign_key "cargos", "departamentos"
   add_foreign_key "cargos", "tipos"
@@ -179,4 +197,5 @@ ActiveRecord::Schema.define(version: 20160418155732) do
   add_foreign_key "familiares", "personas"
   add_foreign_key "personas", "cargos"
   add_foreign_key "sueldos", "cargos"
+  add_foreign_key "usuarios", "roles"
 end

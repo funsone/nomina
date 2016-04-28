@@ -1,5 +1,13 @@
+Rol.create!(id: 1,nombre: "Admin")
+Rol.create!(id: 2,nombre: "Coordinador")
+Rol.create!(id: 3, nombre: "Regular")
+
 Usuario.create!(
-    email: 'admin@gmail.com', password: '12345678')
+    email: 'admin@gmail.com', password: '12345678', rol_id: 1)
+Usuario.create!(
+        email: 'cor@gmail.com', password: '12345678', rol_id: 2)
+Usuario.create!(
+            email: 'reg@gmail.com', password: '12345678', rol_id: 3)
 
 Dependencia.create!([
                         { nombre: 'UNIDAD GESTION ADMINISTRATIVA' },
@@ -19,7 +27,7 @@ prng = Random.new
 prng.rand(100)
 require 'securerandom'
 h = Hash['activo' =>1, 'suspendido' =>2,'retirado'=>3]
-2000.times do |x|
+100.times do |x|
     Cargo.create!(id: x, nombre: 'fds1' + x.to_s, departamento_id: prng.rand(1..3), tipo_id: prng.rand(1..3), disponible: false)
     Sueldo.create!(id: x, monto: '11.0', activo: true, cargo_id: x, sueldo_integral: '222.0')
     Persona.create!(id: x, cedula: '241100' + x.to_s, tipo_de_cedula: 1, nombres: SecureRandom.hex,

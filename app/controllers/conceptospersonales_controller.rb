@@ -1,5 +1,7 @@
 class ConceptospersonalesController < ApplicationController
   before_action :set_conceptopersonal, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_usuario!
+
   # GET /conceptospersonales
   # GET /conceptospersonales.json
   def index

@@ -1,4 +1,6 @@
 class ConceptosController < ApplicationController
+  before_filter :authenticate_usuario!
+
   before_action :set_concepto, only: [:show, :edit, :update, :destroy]
 
   # GET /conceptos
