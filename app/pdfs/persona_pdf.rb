@@ -2,6 +2,12 @@ class PersonaPdf <Prawn::Document
 def initialize(p)
 
   super(left_margin: 50)
+  font_families.update(
+    'Arial' => { :normal => 'public/fonts/eco.ttf',
+                 :bold   => 'public/fonts/eco.ttf' }
+)
+
+
 
 image "app/assets/images/banner.png", scale: 0.54, align: :center
 move_down 30

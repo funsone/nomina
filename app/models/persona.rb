@@ -31,7 +31,7 @@ class Persona < ActiveRecord::Base
   belongs_to :cargo
   has_one :contrato, dependent: :destroy
   has_many :familiares, dependent: :destroy
-  has_many :registrosconceptos
+  has_many :registrosconceptos, dependent: :destroy
   accepts_nested_attributes_for :contrato, :familiares, :registrosconceptos, reject_if: :all_blank, allow_destroy: true
   has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/assets/missing.png'
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -79,8 +79,9 @@ class Persona < ActiveRecord::Base
     a.each do |j|
       next unless j.modalidad_de_pago == $quincena || j.modalidad_de_pago == 2
       valor = eval(j.formula).to_d
+      valor_patrono = eval(j.formula_patrono).to_d
       self.total_asignaciones += valor
-      asignaciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.']
+      asignaciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.','valor_patrono', (valor_patrono - 0.0005).round(2).to_s + '  Bs.']
       i += 1
     end
     ap.each do |j|
@@ -106,8 +107,9 @@ class Persona < ActiveRecord::Base
       end
       next unless aplicar == true
       valor = eval(j.formula).to_d
+      valor_patrono = eval(j.formula_patrono).to_d
       self.total_asignaciones += valor
-      asignaciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.']
+      asignaciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.', 'valor_patrono', (valor_patrono - 0.0005).round(2).to_s + '  Bs.']
       i += 1
     end
     i = 0
@@ -130,8 +132,9 @@ class Persona < ActiveRecord::Base
       end
       next unless aplicar
       valor = eval(j.formula).to_d
+      valor_patrono = eval(j.formula).to_d
       self.total_deducciones += valor
-      deducciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.']
+      deducciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.','valor_patrono', (valor_patrono - 0.0005).round(2).to_s + '  Bs.']
       i += 1
     end
 
@@ -158,8 +161,9 @@ class Persona < ActiveRecord::Base
       end
       next unless aplicar == true
       valor = eval(j.formula).to_d
+      valor_patrono = eval(j.formula).to_d
       self.total_deducciones += valor
-      deducciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.']
+      deducciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.','valor_patrono', (valor_patrono - 0.0005).round(2).to_s + '  Bs.']
       i += 1
     end
 

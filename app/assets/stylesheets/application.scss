@@ -12,16 +12,19 @@
  *
  *= require_tree .
  *= require_self
- *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://fonts.googleapis.com/css?family=Oswald);
 body {
-  font-family: 'Open Sans', sans-serif;
+font-family: 'Noto Sans', sans-serif;
   background: #202020;
 }
-
+h1 {
+font-family: 'Oswald', sans-serif;
+}
 #wrapper {
   width: 100%;
   background: #202020;

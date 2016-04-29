@@ -10,6 +10,34 @@ class TiposController < ApplicationController
     # GET /tipos/1
     # GET /tipos/1.json
     def show
+        respond_to do |format|
+            format.html
+            format.pdf do
+              case params[:doc]
+                when '0'
+
+                    pdf = RecibosPdf.new(@tipo, 0)
+
+                    send_data pdf.render, filename: '1_recibo', type: 'application/pdf', disposition: 'inline'
+
+                when '1'
+
+                    pdf = RecibosPdf.new(@tipo, 1)
+                    send_data pdf.render, filename: '1_constancia', type: 'application/pdf', disposition: 'inline'
+
+                when '3'
+                  pdf = ConceptosPdf.new(@tipo,3)
+                  send_data pdf.render, filename: 'CONCEPTOS', type: 'application/pdf', disposition: 'inline'
+                when '4'
+                  pdf = ConceptosPdf.new(@tipo,4)
+                  send_data pdf.render, filename: 'CONCEPTOS_ECO', type: 'application/pdf', disposition: 'inline'
+                when '4'
+
+                when '5'
+
+              end
+            end
+        end
     end
 
     # GET /tipos/new
@@ -42,17 +70,12 @@ class TiposController < ApplicationController
     def update
         respond_to do |format|
             if @tipo.update(tipo_params)
-                format.html { redirect_to @tipo, notice: 'Los datos de la nomina fueron actualizados exitosamente.' }
-                format.json { render :show, status: :ok, location: @tipo }
-            else
-                format.html { render :edit }
-                format.json { render json: @tipo.errors, status: :unprocessable_entity }
+                format.html { redirect_to tipos_url, notice: 'La nomina fue eliminada exitosamente.' }
+                format.json { head :no_content }
             end
         end
     end
 
-    # DELETE /tipos/1
-    # DELETE /tipos/1.json
     def destroy
         @tipo.destroy
         respond_to do |format|

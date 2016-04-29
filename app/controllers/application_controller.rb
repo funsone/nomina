@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    before_filter :set_ahora
     # Prevent CSRF attacks by raising an exception.
     # For APIs, you may want to use :null_session instead.
     # encoding: utf-8
@@ -6,7 +7,7 @@ class ApplicationController < ActionController::Base
 
     def current_user
         current_usuario
-      end
+    end
     $dic = Hash['tipos_de_contrato' => Hash['Fijo' => 0, 'Temporal' => 1, 'Comision de servicio' => 2],
                 'sexos' => Hash['Masculino' => 0, 'Femenino' => 1],
                 'tipos_de_cedula' => Hash['V-' => 0, 'E-' => 1],
@@ -20,10 +21,13 @@ class ApplicationController < ActionController::Base
                                 'OCTUBRE' => 10, 'NOVIEMBRE' => 11, 'DICIEMBRE' => 12],
                 'condiciones' => Hash['Ninguna' => 0, 'FAOV' => 1, 'IVSS' => 2, 'TSS' => 3, 'CAJA DE AHORRO' => 4]]
 
-    $ahora = Time.now.in_time_zone('America/Caracas')
-    $quincena = ($ahora.day <= 15) ? 0 : 1
+    def set_ahora
+        $ahora = params[:ahora] ? params[:ahora].to_time : Time.now.in_time_zone('America/Caracas')
+        $quincena = ($ahora.day <= 15) ? 0 : 1
+    end
+
     rescue_from CanCan::AccessDenied do |_exception|
-        flash[:error] = 'Access denied.'
+        flash[:error] = 'Acceso denegado.'
         redirect_to root_url
     end
 end

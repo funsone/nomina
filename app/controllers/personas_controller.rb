@@ -177,7 +177,7 @@ class PersonasController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def persona_params
     params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta, :FAOV, :TSS, :IVSS, :caja_de_ahorro, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :cargo_id,
-                                    registrosconceptos_attributes: [:id, :formula, :conceptopersonal_id, :modalidad_de_pago, :_destroy],
+                                    registrosconceptos_attributes: [:id, :formula, :conceptopersonal_id,:formula_patrono, :modalidad_de_pago, :_destroy],
                                     contrato_attributes: [:id, :fecha_inicio, :fecha_fin, :sueldo_externo, :tipo_de_contrato], familiares_attributes: [:id, :cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
   end
 end

@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20160428193138) do
   create_table "registrosconceptos", force: :cascade do |t|
     t.integer  "conceptopersonal_id"
     t.string   "formula"
+    t.string   "formula_patrono"
     t.integer  "modalidad_de_pago"
     t.integer  "persona_id"
     t.datetime "created_at",          null: false
