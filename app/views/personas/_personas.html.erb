@@ -10,6 +10,8 @@
         <th>Departamento</th>
         <th>Cargo</th>
         <th>Sueldo</th>
+        <th class="actions">Reporte</th>
+
         <th class="actions">Acciones</th>
       </tr>
     </thead>
@@ -22,6 +24,16 @@
         <td><%= persona.cargo.departamento.nombre %></td>
         <td><%= persona.cargo.nombre %></td>
         <td><%= persona.cargo.sueldos.last.monto %></td>
+        <td>
+          <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+          <%= link_to ' Recibo', persona_path(persona,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
+          <%= link_to '', persona_path(persona,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+          </div>
+          <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+          <%= link_to ' Constancia', persona_path(persona,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
+          <%= link_to '', persona_path(persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+          </div>
+        </td>
         <td>
           <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 

@@ -46,10 +46,23 @@ class PersonasController < ApplicationController
   # GET /personas/1.json
   def enviar
     @persona.calculo
-    PersonaMailer.recibo(@persona).deliver_now
     p = params[:redir] ? params[:redit] : ''
     if p == ''
+    if(@persona.valido==false)
+        respond_to do |format|
+          format.json { head :no_content }
+          return 0
+        end
+    else
+        respond_to do |format|
+          format.html { redirect_to @persona, notice: 'La persona registros para esa fecha' }
+          return 0
+      end
+    end
+    end
+    PersonaMailer.recibo(@persona).deliver_now
 
+    if p == ''
       respond_to do |format|
         format.json { head :no_content }
       end
@@ -63,21 +76,35 @@ class PersonasController < ApplicationController
   def show
     @persona.calculo
 
-    respond_to do |format|
-      format.html
-      format.pdf do
-        if params[:doc] == '0'
-          pdf = PersonaPdf.new(@persona)
-          send_data pdf.render, filename: "#{@persona.cedula}_recibo",
-                                type: 'application/pdf',
-                                disposition: 'inline'
-        elsif params[:doc] == '1'
 
-          pdf = ConstanciaPdf.new(@persona)
-          send_data pdf.render, filename: "#{@persona.cedula}_constancia",
-                                type: 'application/pdf',
-                                disposition: 'inline'
-        end
+
+    respond_to do |format|
+
+      format.html {
+  if(@persona.valido==false)
+         redirect_to @persona, notice: 'La persona registros para esa fecha'
+  end
+       }
+
+      format.pdf do
+case params[:doc]
+when '0'
+  pdf = PersonaPdf.new(@persona,0)
+  file="Recibo_#{@persona.cedula}.pdf"
+when '1'
+  pdf = PersonaPdf.new(@persona,1)
+  file="Recibo_#{@persona.cedula}_ECO.pdf"
+when '2'
+  pdf = ConstanciaPdf.new(@persona,0)
+  file="ConstanciaTrabajo_#{@persona.cedula}.pdf"
+when '3'
+  pdf = ConstanciaPdf.new(@persona,1)
+  file="ConstanciaTrabajo_#{@persona.cedula}_ECO.pdf"
+end
+send_data pdf.render, filename: file,
+                      type: 'application/pdf',
+                      disposition: 'inline'
+
       end
     end
   end

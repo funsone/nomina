@@ -15,27 +15,20 @@ class TiposController < ApplicationController
             format.pdf do
               case params[:doc]
                 when '0'
-
                     pdf = RecibosPdf.new(@tipo, 0)
-
-                    send_data pdf.render, filename: '1_recibo', type: 'application/pdf', disposition: 'inline'
-
+                    file="Recibos_#{@tipo.nombre}"
                 when '1'
-
                     pdf = RecibosPdf.new(@tipo, 1)
-                    send_data pdf.render, filename: '1_constancia', type: 'application/pdf', disposition: 'inline'
-
-                when '3'
+                    file="Recibos_#{@tipo.nombre}_ECO"
+                when '4'
                   pdf = ConceptosPdf.new(@tipo,3)
-                  send_data pdf.render, filename: 'CONCEPTOS', type: 'application/pdf', disposition: 'inline'
-                when '4'
-                  pdf = ConceptosPdf.new(@tipo,4)
-                  send_data pdf.render, filename: 'CONCEPTOS_ECO', type: 'application/pdf', disposition: 'inline'
-                when '4'
-
+                  file="Conceptos_#{@tipo.nombre}"
                 when '5'
-
+                  pdf = ConceptosPdf.new(@tipo,4)
+                  file="Conceptos_#{@tipo.nombre}_ECO"
               end
+              send_data pdf.render, filename: file, type: 'application/pdf', disposition: 'inline'
+
             end
         end
     end

@@ -23,7 +23,7 @@
           <% @tipos.each do |tipo| %>
           <tr>
             <td><%= tipo.nombre %></td>
-            <td>
+            <td class="actions">
               <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 <%= link_to ' Recibos', tipo_path(tipo,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar recibos de pago de la nomina" %>
 <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
@@ -33,12 +33,12 @@
 <%= link_to '', "#",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
 </div>
 <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-<%= link_to ' Conceptos', tipo_path(tipo,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
-<%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+<%= link_to ' Conceptos', tipo_path(tipo,format: "pdf")+"?doc=4",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
+<%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=5",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
 </div>
 
             </td>
-            <td><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+            <td class="actions"><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 
             <%= link_to '', tipo,class: "btn btn-default fa fa-eye ","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Ver mas informacion" %>
             <%= link_to '', edit_tipo_path(tipo),class: "btn btn-default fa fa-pencil","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Editar" %>

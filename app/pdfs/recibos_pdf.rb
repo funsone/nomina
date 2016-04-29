@@ -8,9 +8,10 @@ class RecibosPdf < Prawn::Document
         end
         @cargos = tipo.cargos
         @cargos.each do |s|
+            next unless s.disponible==false
             p = s.persona
             p.calculo
-
+            next unless p.valido == true
             image banner, scale: 0.54, align: :center
             move_down 30
             text 'NOMINA PERSONAL ' + p.cargo.tipo.nombre.upcase, align: :center, size: 16

@@ -21,8 +21,10 @@ class ConceptosPdf < Prawn::Document
                 cargos = tipoo.cargos
 
                 cargos.each do |cargo|
+                    next unless cargo.disponible==false
                     p = cargo.persona
                     p.calculo
+                    next unless p.valido==true
                     p.asignaciones.each do |c|
                         next unless c['nombre'] == concepto.nombre
                         pc += 1
@@ -60,8 +62,9 @@ class ConceptosPdf < Prawn::Document
             data = [%w(C.I NOMBRES APORTE\ EMPLEADO APORTE\ EMPLEADOR TOTAL)]
             @registros.each do |registro|
                 p = registro.persona
-                next unless p.cargo.tipo.id == tipo.id
                 p.calculo
+                next unless p.cargo.tipo.id == tipo.id and p.valido==true
+
                 p.asignaciones.each do |c|
                     next unless c['nombre'] == conceptop.nombre
                     pc += 1

@@ -19,9 +19,22 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><%= link_to 'Guardar recibo', persona_path(@persona,format: "pdf")+"?doc=0"%></li>
-          <li><%= link_to 'Enviar Recibo', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: 'Esta seguro?' } %></li>
-          <li><%= link_to 'constancia', persona_path(@persona,format: "pdf")+"?doc=1"%></li>
+          <li class="text-center">
+          <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+          <%= link_to ' Recibo', persona_path(@persona,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
+          <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+          <%= link_to '', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: 'Esta seguro?' },class: "btn btn-default fa fa-envelope reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar Al correo electronico" %>
+
+          </div></li>
+          <li role="separator" class="divider"></li>
+
+          <li class="text-center"><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+          <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
+          <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+
+          </div></li>
+
+
         </ul>
       </li>
 <li role="presentation">

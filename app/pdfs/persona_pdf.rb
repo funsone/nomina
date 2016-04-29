@@ -1,15 +1,16 @@
 class PersonaPdf <Prawn::Document
-def initialize(p)
+def initialize(p,eco)
 
   super(left_margin: 50)
-  font_families.update(
-    'Arial' => { :normal => 'public/fonts/eco.ttf',
-                 :bold   => 'public/fonts/eco.ttf' }
-)
+
+  banner = 'app/assets/images/banner.png'
+  if eco == 1
+      font 'public/fonts/eco.ttf'
+      banner = 'app/assets/images/banner_bn.png'
+  end
 
 
-
-image "app/assets/images/banner.png", scale: 0.54, align: :center
+image banner, scale: 0.54, align: :center
 move_down 30
   text "NOMINA PERSONAL "+p.cargo.tipo.nombre.upcase,align: :center, size: 16
   text $dic["quincena"].key($quincena).upcase+"DE "+$dic['meses'].key($ahora.month)+ $ahora.strftime(" DE %Y"),align: :center, size: 18

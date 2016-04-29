@@ -45,7 +45,8 @@ class Persona < ActiveRecord::Base
   validates :telefono_fijo, :telefono_movil, length: { is: 11 }, allow_blank: true, numericality: { only_integer: true }
   validates :cuenta, length: { is: 20 }
   validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida. La persona debe ser mayor de edad.' }
-  attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones
+
+  attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones, :valido
   def self.search(search, dep)
     search = search.downcase
     if dep == '' && search == ''
@@ -62,8 +63,16 @@ class Persona < ActiveRecord::Base
   end
 
   def calculo
-    @SUELDO = cargo.sueldos.last.monto
-    @SUELDO_INTEGRAL = cargo.sueldos.last.sueldo_integral
+    fecha=($quincena==0) ? Date.civil($ahora.year,$ahora.month, 15) : Date.civil($ahora.year,$ahora.month, -1)
+  sueldos= cargo.sueldos.where("created_at < ?",fecha)
+
+    if !(sueldos.length > 0)
+      self.valido=false
+      return 0
+    end
+    self.valido=true
+    @SUELDO = sueldos.last.monto
+    @SUELDO_INTEGRAL = sueldos.last.sueldo_integral
     self.asignaciones = []
     self.deducciones = []
     self.total_asignaciones = 0
@@ -81,7 +90,7 @@ class Persona < ActiveRecord::Base
       valor = eval(j.formula).to_d
       valor_patrono = eval(j.formula_patrono).to_d
       self.total_asignaciones += valor
-      asignaciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.','valor_patrono', (valor_patrono - 0.0005).round(2).to_s + '  Bs.']
+      asignaciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s,'valor_patrono', (valor_patrono - 0.0005).round(2).to_s ]
       i += 1
     end
     ap.each do |j|
@@ -109,7 +118,7 @@ class Persona < ActiveRecord::Base
       valor = eval(j.formula).to_d
       valor_patrono = eval(j.formula_patrono).to_d
       self.total_asignaciones += valor
-      asignaciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.', 'valor_patrono', (valor_patrono - 0.0005).round(2).to_s + '  Bs.']
+      asignaciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s, 'valor_patrono', (valor_patrono - 0.0005).round(2).to_s ]
       i += 1
     end
     i = 0
@@ -134,7 +143,7 @@ class Persona < ActiveRecord::Base
       valor = eval(j.formula).to_d
       valor_patrono = eval(j.formula).to_d
       self.total_deducciones += valor
-      deducciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.','valor_patrono', (valor_patrono - 0.0005).round(2).to_s + '  Bs.']
+      deducciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s ,'valor_patrono', (valor_patrono - 0.0005).round(2).to_s]
       i += 1
     end
 
@@ -163,13 +172,13 @@ class Persona < ActiveRecord::Base
       valor = eval(j.formula).to_d
       valor_patrono = eval(j.formula).to_d
       self.total_deducciones += valor
-      deducciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.','valor_patrono', (valor_patrono - 0.0005).round(2).to_s + '  Bs.']
+      deducciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s,'valor_patrono', (valor_patrono - 0.0005).round(2).to_s]
       i += 1
     end
 
     tipo_de_contrato = contrato.tipo_de_contrato
     if tipo_de_contrato == 2
-      deducciones[i] = Hash['nombre', 'COMISION DE SERVICIO', 'valor', (contrato.sueldo_externo - 0.0005).round(2).to_s + '  Bs.']
+      deducciones[i] = Hash['nombre', 'COMISION DE SERVICIO', 'valor', (contrato.sueldo_externo - 0.0005).round(2).to_s]
       self.total_deducciones += contrato.sueldo_externo
     end
     self.total = self.total_asignaciones - self.total_deducciones
