@@ -1,0 +1,9 @@
+<div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+
+<%= link_to '', x,class: "btn btn-default fa fa-eye ","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Ver más informacion" %>
+<% if can? :edit, x %>
+<%= link_to '', y,class: "btn btn-default fa fa-pencil","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Modificar propiedades" %>
+<% end%>
+<% if can? :destroy, x %>
+<%= link_to '', x,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro que desea eliminar?' },"data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Eliminar elemento" %></div></td>
+<% end%>

@@ -2,17 +2,18 @@
 <%if p.length>0%>
 <div class="table-responsive">
 
-  <table class="table table-hover table-bordered table-condensed table-striped" style="font-size:	11px;">
+  <table class="table table-hover table-condensed table-striped" style="font-size:	11px;">
     <thead>
       <tr>
         <th>Cedula</th>
         <th>Nombres Completo</th>
         <th>Departamento</th>
         <th>Cargo</th>
+        <th>Nomina</th>
         <th>Sueldo</th>
-        <th class="actions">Reporte</th>
+        <th class="actions" style="width: 200px;">Reporte</th>
 
-        <th class="actions">Acciones</th>
+        <th class="actions" style="width: 80px;">Acciones</th>
       </tr>
     </thead>
 
@@ -23,6 +24,7 @@
         <td><%= persona.nombres.capitalize+" "+persona.apellidos.capitalize %></td>
         <td><%= persona.cargo.departamento.nombre %></td>
         <td><%= persona.cargo.nombre %></td>
+        <td><%= persona.cargo.tipo.nombre %></td>
         <td><%= persona.cargo.sueldos.last.monto %></td>
         <td>
           <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
@@ -35,11 +37,10 @@
           </div>
         </td>
         <td>
-          <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 
-        <%= link_to '', persona,class: "btn btn-default fa fa-eye " %>
-          <%= link_to '', edit_persona_path(persona),class: "btn btn-default fa fa-pencil" %>
-          <%= link_to '', persona,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div></td>
+
+        <%= render 'layouts/actions', :x => persona, :y => edit_persona_path(persona) %>
+        </td>
       </tr>
       <% end %>
     </tbody>

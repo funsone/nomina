@@ -41,6 +41,7 @@ class CargosController < ApplicationController
 
     respond_to do |format|
       if @cargo.save
+        log("Se ha credo el cargo: #{@cargo.nombre}", 1)
 
         format.html { redirect_to @cargo, notice: 'El cargo fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @cargo }
@@ -80,6 +81,8 @@ class CargosController < ApplicationController
 
       end
       if @cargo.update(cargo_params)
+        log("Se ha actualizado el cargo: #{@cargo.nombre}", 1)
+
         format.html { redirect_to @cargo, notice: 'Los datos del cargo fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @cargo }
       else
@@ -93,6 +96,8 @@ class CargosController < ApplicationController
   # DELETE /cargos/1.json
   def destroy
     authorize! :destroy, @cargo.destroy
+    log("Se eliminado el  cargo: #{@cargo.nombre}", 1)
+
     respond_to do |format|
       format.html { redirect_to cargos_url, notice: 'El cargo fue eliminado exitosamente.' }
       format.json { head :no_content }

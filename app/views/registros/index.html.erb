@@ -1,0 +1,32 @@
+<div class="page-header">
+  <div class="pull-right">
+    <%= link_to "Limpiar todos los registros", registro_path(0),class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %>
+  </div>
+  <h1>Registros</h1>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item text-muted" contenteditable="false">Leyenda <span class="fa fa-circle" style="color: green;">Creacion </span><span class="fa fa-circle" style="color: blue;"> Ediciones </span><span class="fa fa-circle" style="color: red;"> Eliminacion</span></li>
+      <li class="list-group-item ">
+<div class="table-responsive">
+  <div class="tab-pane fade active in" id="activos">
+    <div class="sort_paginate_ajax  text-center">
+      <%= render 'registros', :p => @registros %>
+    </div>
+</div>
+</li>
+</ul>
+<br>
+<script type="text/javascript">
+$(function () {
+
+
+
+  $(".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a").click(function () {
+    $.getScript(this.href);
+    return false;
+  });
+});
+
+</script>

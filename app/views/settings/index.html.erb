@@ -1,13 +1,28 @@
-<table>
+<div class="page-header">
+    <h1>Lista de configuraciones</h1>
+</div>
+<ul class="list-group">
+    <li class="list-group-item text-muted" contenteditable="false">Configuraciones</li>
+    <li class="list-group-item text-center ">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-condensed table-striped">
   <tr>
-    <th>Key</th>
-    <th></th>
+    <th class="actions">Variable</th>
+    <th class="actions">Valor</th>
+    <th class="actions">Editar</th>
   </tr>
   <% @settings.each do |key,value| %>
   <tr>
-    <td><%= key %></td>
+    <td><var><%= key %></var></td>
     <td><%= value %></td>
-    <td><%= link_to 'edit', edit_setting_path(key) %></td>
+
+    <td><% if can? :edit, @settings %>
+    <%= link_to '', edit_setting_path(key),class: "btn btn-default fa fa-pencil","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Modificar propiedades" %>
+    <% end%>
+
   </tr>
   <% end %>
 </table>
+</div>
+</li>
+</ul>

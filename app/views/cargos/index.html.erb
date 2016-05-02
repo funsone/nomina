@@ -1,7 +1,7 @@
 <div class="page-header">
-  <div class="pull-right">
-    <%= link_to "Nuevo Cargo",new_cargo_path, class: "btn btn-danger"  %>
-  </div>
+
+<%= render 'layouts/nuevo', :msg => "Nuevo cargo", :path=>new_cargo_path ,:x => @cargos%>
+
   <h1>Cargos</h1>
 </div><ul class="list-group">
   <li class="list-group-item text-muted" contenteditable="false">Busqueda</li>

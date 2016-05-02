@@ -22,7 +22,7 @@ body {
 font-family: 'Noto Sans', sans-serif;
   background: #202020;
 }
-h1 {
+h1,h2,h3,h4,h5,h6 {
 font-family: 'Oswald', sans-serif;
 }
 #wrapper {
@@ -250,7 +250,7 @@ p {
   text-shadow: none;
 }
 .sidebar-collapse > .nav > li > a {
-  padding: 15px 10px;
+  padding: 7px 7px;
 }
 .sidebar-collapse > .nav > li {
   border-bottom: 1px solid rgba(107, 108, 109, 0.19);

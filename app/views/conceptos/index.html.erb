@@ -1,7 +1,6 @@
 <div class="page-header">
-  <div class="pull-right">
-    <%= link_to "Nuevo Concepto", new_concepto_path, class: "btn btn-danger"  %>
-  </div>
+  <%= render 'layouts/nuevo', :msg => "Nuevo Concepto", :path=>new_concepto_path  ,:x =>@conceptos%>
+
   <h1>Conceptos</h1>
 </div>
 <div class="panel panel-success">
@@ -11,7 +10,7 @@
   <%if Concepto.all.where(tipo_de_concepto:0).length>0%>
   <div class="panel-body">
     <div class="table-responsive text-center">
-      <table class="table table-bordered table-condensed table-responsive table-bordered">
+      <table class="table  table-condensed table-hover table-responsive " style="font-size:	11px;">
         <thead>
           <tr>
             <th class= "actions">Nombre</th>
@@ -27,20 +26,19 @@
           asignaciones.each do |concepto| %>
           <tr>
             <td><%= concepto.nombre %></td>
-            <td><%= concepto.formula %></td>
+            <td><var><%= concepto.formula %></var></td>
             <td><%= $dic["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
-            <td><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+            <td>
+              <%= render 'layouts/actions', :x => concepto, :y => edit_concepto_path(concepto) %>
 
-          <%= link_to '', concepto,class: "btn btn-default fa fa-eye " %>
-            <%= link_to '', edit_concepto_path(concepto),class: "btn btn-default fa fa-pencil" %>
-            <%= link_to '', concepto,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div></td>
+          </td>
           </tr>
           <% end %>
         </tbody>
       </table>
     </div>
   </div>
-  <%elsif%>
+  <%else%>
   <div class="actions">
     <h4>"No hay asignaciones disponibles"</h4>
   </div>
@@ -53,7 +51,7 @@
     <%if Concepto.all.where(tipo_de_concepto:1).length>0%>
   <div class="panel-body">
     <div class="table-responsive text-center">
-      <table class="table table-bordered table-condensed table-responsive table-bordered">
+      <table class="table table-hover table-condensed table-responsive" style="font-size:	11px;">
         <thead>
           <tr>
             <th class= "actions">Nombre</th>
@@ -69,20 +67,17 @@
             deducciones.each do |concepto| %>
           <tr>
             <td><%= concepto.nombre %></td>
-            <td><%= concepto.formula %></td>
+            <td><var><%= concepto.formula %></var></td>
             <td><%= $dic["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
-            <td><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-
-            <%= link_to '', concepto,class: "btn btn-default fa fa-eye " %>
-            <%= link_to '', edit_concepto_path(concepto),class: "btn btn-default fa fa-pencil" %>
-            <%= link_to '', concepto,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div></td>
+            <td>              <%= render 'layouts/actions', :x => concepto, :y => edit_concepto_path(concepto) %>
+</td>
           </tr>
           <% end %>
         </tbody>
       </table>
     </div>
   </div>
-  <%elsif%>
+  <%else%>
   <div class="actions">
     <h4>"No hay deducciones disponibles"</h4>
   </div>

@@ -2,4 +2,44 @@
   <h1>Contratar Persona</h1>
 </div>
 
+
 <%= render 'form' %>
+<script>
+  function se() {
+    var v = $("#persona_contrato_attributes_tipo_de_contrato").val();
+
+    switch (v) {
+      case '0':
+        {
+
+          $("#persona_contrato_attributes_fecha_fin").attr('disabled', true);
+          $("#persona_contrato_attributes_sueldo_externo").attr('disabled', true);
+          $("#persona_contrato_attributes_fecha_fin").val("");
+          $("#persona_contrato_attributes_sueldo_externo").val("");
+        };
+        break;
+      case '1':
+        {
+
+          $("#persona_contrato_attributes_fecha_fin").attr('disabled', false);
+          $("#persona_contrato_attributes_sueldo_externo").attr('disabled', true);
+          $("#persona_contrato_attributes_sueldo_externo").val("");
+        };
+        break;
+      case '2':
+        {
+
+          $("#persona_contrato_attributes_fecha_fin").attr('disabled', true);
+          $("#persona_contrato_attributes_sueldo_externo").attr('disabled', false);
+          $("#persona_contrato_attributes_fecha_fin").val("");
+
+        };
+        break;
+    }
+  }
+  $(function () {
+    se()
+
+    $('#persona_contrato_attributes_tipo_de_contrato').change(se);
+  });
+</script>

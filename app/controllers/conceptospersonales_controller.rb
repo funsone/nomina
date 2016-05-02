@@ -29,6 +29,8 @@ class ConceptospersonalesController < ApplicationController
 
     respond_to do |format|
       if @conceptopersonal.save
+        log("Se ha definido el concepto personal: #{@conceptopersonal.nombre}", 1)
+
         format.html { redirect_to @conceptopersonal, notice: 'El concepto fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @conceptopersonal }
       else
@@ -43,6 +45,8 @@ class ConceptospersonalesController < ApplicationController
   def update
     respond_to do |format|
       if @conceptopersonal.update(conceptopersonal_params)
+        log("Se ha actualizado el concepto personal: #{@conceptopersonal.nombre}", 1)
+
         format.html { redirect_to @conceptopersonal, notice: 'Los datos del concepto fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @conceptopersonal }
       else
@@ -56,6 +60,8 @@ class ConceptospersonalesController < ApplicationController
   # DELETE /conceptospersonales/1.json
   def destroy
     @conceptopersonal.destroy
+    log("Se ha eliminado el concepto personal: #{@conceptopersonal.nombre}", 1)
+
     respond_to do |format|
       format.html { redirect_to conceptospersonales_url, notice: 'El concepto fue eliminado exitosamente.' }
       format.json { head :no_content }

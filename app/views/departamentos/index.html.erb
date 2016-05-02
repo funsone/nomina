@@ -1,7 +1,6 @@
 <div class="page-header">
-  <div class="pull-right">
-    <%= link_to "Nuevo Departamento", new_departamento_path, class: "btn btn-danger"  %>
-  </div>
+  <%= render 'layouts/nuevo', :msg => "Nuevo Departamento", :path=>new_departamento_path ,:x =>@departamentos %>
+
   <h1>Departamentos</h1>
 </div>
 <ul class="list-group">
@@ -23,18 +22,17 @@
           <tr>
             <td><%= departamento.nombre %></td>
             <td><%=Cargo.where("departamento_id=#{departamento.id} and disponible=false").length %></td>
-            <td><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+            <td>
+              <%= render 'layouts/actions', :x => departamento, :y => edit_departamento_path(departamento) %>
 
-          <%= link_to '', departamento,class: "btn btn-default fa fa-eye " %>
-            <%= link_to '', edit_departamento_path(departamento),class: "btn btn-default fa fa-pencil" %>
-            <%= link_to '', departamento,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div></td>
+            </td>
           </tr>
           <% end %>
         </tbody>
       </table>
     </div>
   </li>
-  <%elsif%>
+  <%else%>
   <div class="actions">
     <h4>"No hay departamentos disponibles"</h4>
   </div>

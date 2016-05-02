@@ -18,7 +18,7 @@
       float: right;
       font-size: 16px;">
 
-            <%= $dic["quincena"].key($quincena)+'('+$ahora.strftime("%d-%B-%Y")+') '%>
+            <%= $dic["quincena"].key($quincena)+'('+$ahora.strftime("%d-#{$dic["meses"].key($ahora.month)}-%Y")+') '%>
 
             <%if usuario_signed_in?%>
 
@@ -43,7 +43,7 @@
 
                         <span class="label label-success">
                             <i class="fa fa-dot-circle-o "></i>
-            
+
                             <%=current_usuario.rol.nombre%></span>
                             <span class="pull-right">  <%=current_usuario.email%></span>
                       </a>
@@ -64,15 +64,15 @@
                         <li>
                             <%= link_to "Departamentos", departamentos_path%>
                         </li>
-                        <li>
-                            <%= link_to "Nominas", tipos_path%>
-                        </li>
+
                     </ul>
                 </li>
-
+                <li>
+                    <%= link_to raw("<i class=\"fa fa-money fa-2x\"></i> NOMINAS"), tipos_path%>
+                </li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-money fa-2x"></i>
+                        <i class="fa fa-th-list fa-2x"></i>
                         CONCEPTOS<span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
@@ -92,11 +92,15 @@
                     <%= link_to raw("<i class=\"fa fa-users fa-2x\"></i> EMPLEADOS"), personas_path%>
                 </li>
                 <li>
+                    <%= link_to raw("<i class=\"fa fa-eye fa-2x\"></i> REGISTROS"), registros_path%>
+                </li>
+                <li>
                     <%= link_to raw("<i class=\"fa fa-cog fa-2x\"></i> CONFIGURACION"), settings_path%>
                 </li>
                 <li>
                     <%= link_to raw("<i class=\"fa fa-info-circle fa-2x\"></i> ACERCA DE..."), cargos_path%>
                 </li>
+
 
                 <%end %>
             </ul>

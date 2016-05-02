@@ -26,15 +26,11 @@
                         <%end%></td>
                     <td class="actions">
                         <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                        <%= render 'layouts/actions', :x => cargo, :y => edit_cargo_path(cargo) %>
 
-                            <%= link_to '', cargo,class: "btn btn-default fa fa-eye " %>
-                            <% if can? :destroy, @cargo %>
-                            <%= link_to '', edit_cargo_path(cargo),class: "btn btn-default fa fa-pencil" %>
-                            <% end%>
-                            <% if can? :destroy, @cargo %>
-                            <%= link_to '', cargo,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %></div>
+
                     </td>
-                    <% end%>
+
                 </tr>
                 <% end %>
             </tbody>

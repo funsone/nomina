@@ -36,6 +36,8 @@ class ConceptosController < ApplicationController
 
     respond_to do |format|
       if @concepto.save
+        log("Se ha creado el concepto: #{@concepto.nombre}", 1)
+
         format.html { redirect_to @concepto, notice: 'El concepto fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @concepto }
       else
@@ -55,6 +57,8 @@ class ConceptosController < ApplicationController
     end
     respond_to do |format|
       if @concepto.update(concepto_params)
+        log("Se ha actualizado el concepto: #{@concepto.nombre}", 1)
+
         format.html { redirect_to @concepto, notice: 'Los datos del concepto fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @concepto }
       else
@@ -68,6 +72,8 @@ class ConceptosController < ApplicationController
   # DELETE /conceptos/1.json
   def destroy
     @concepto.destroy
+    log("Se ha eliminado el concepto: #{@concepto.nombre}", 1)
+
     respond_to do |format|
       format.html { redirect_to conceptos_url, notice: 'El concepto fue eliminado exitosamente.' }
       format.json { head :no_content }

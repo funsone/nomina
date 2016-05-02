@@ -27,7 +27,7 @@ prng = Random.new
 prng.rand(100)
 require 'securerandom'
 h = Hash['activo' =>1, 'suspendido' =>2,'retirado'=>3]
-100.times do |x|
+5000.times do |x|
   x=x+1
     Cargo.create!( nombre: 'fds1' + x.to_s, departamento_id: prng.rand(1..3), tipo_id: prng.rand(1..3), disponible: false)
     Sueldo.create!(monto: '11.0', activo: true, cargo_id: x, sueldo_integral: '222.0')

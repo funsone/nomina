@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428193138) do
+ActiveRecord::Schema.define(version: 20160430204909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,16 @@ ActiveRecord::Schema.define(version: 20160428193138) do
 
   add_index "personas", ["cargo_id"], name: "index_personas_on_cargo_id", using: :btree
 
+  create_table "registros", force: :cascade do |t|
+    t.string   "descripcion"
+    t.integer  "usuario_id"
+    t.integer  "tipo_de_accion"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "registros", ["usuario_id"], name: "index_registros_on_usuario_id", using: :btree
+
   create_table "registrosconceptos", force: :cascade do |t|
     t.integer  "conceptopersonal_id"
     t.string   "formula"
@@ -197,6 +207,7 @@ ActiveRecord::Schema.define(version: 20160428193138) do
   add_foreign_key "departamentos", "dependencias"
   add_foreign_key "familiares", "personas"
   add_foreign_key "personas", "cargos"
+  add_foreign_key "registros", "usuarios"
   add_foreign_key "sueldos", "cargos"
   add_foreign_key "usuarios", "roles"
 end

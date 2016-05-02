@@ -1,62 +1,125 @@
 <div class="page-header">
-  <div class="pull-right">
-    <%= link_to 'Nuevo Tipo', new_tipo_path, class: "btn btn-danger btn-md" %>
-  </div>
-  <h1>Tipos de Nómina</h1>
+    <%= render 'layouts/nuevo', :msg => "Nueva Nomina", :path=>new_tipo_path, :x =>@tipos %>
+
+    <h1>Tipos de Nómina</h1>
 </div>
 
- <%if Tipo.all.length>0%>
- <ul class="list-group">
-   <li class="list-group-item text-muted" contenteditable="false">Busqueda</li>
-   <li class="list-group-item ">
-     <div class="table-responsive">
+<%if Tipo.all.length>0%>
+<ul class="list-group">
+    <li class="list-group-item text-muted" contenteditable="false">Busqueda</li>
+    <li class="list-group-item ">
+        <div class="table-responsive">
 
-       <table class="table table-hover table-bordered table-condensed table-striped" style="font-size:	11px;">
-         <thead>
-            <th class= "actions">Nombre</th>
-            <th class= "actions" style= "width: 350px;">Reportes</th>
-            <th class= "actions" style= "width: 100px;">Acciones</th>
-          </tr>
-        </thead>
+            <table class="table table-hover table-bordered table-condensed table-striped" style="font-size:	11px;">
+                <thead>
+                    <th class="actions">Nombre</th>
 
-        <tbody>
-          <% @tipos.each do |tipo| %>
-          <tr>
-            <td><%= tipo.nombre %></td>
-            <td class="actions">
-              <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-<%= link_to ' Recibos', tipo_path(tipo,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar recibos de pago de la nomina" %>
-<%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
-</div>
-<div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-<%= link_to ' Bancario', "#",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte bancario" %>
-<%= link_to '', "#",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
-</div>
-<div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-<%= link_to ' Conceptos', tipo_path(tipo,format: "pdf")+"?doc=4",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
-<%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=5",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
-</div>
+                    <th class="actions" style="width: 380px;">Reportes</th>
 
-            </td>
-            <td class="actions"><div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                    <th class="actions" style="width: 100px;">Acciones</th>
+                </tr>
+            </thead>
 
-            <%= link_to '', tipo,class: "btn btn-default fa fa-eye ","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Ver mas informacion" %>
-            <%= link_to '', edit_tipo_path(tipo),class: "btn btn-default fa fa-pencil","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Editar" %>
-            <%= link_to '', tipo,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' },"data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Eliminar nomina" %></div></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+            <tbody>
+                <% @tipos.each do |tipo| %>
+
+                <tr>
+                    <td><%= tipo.nombre %></td>
+                    <td class="actions">
+                        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                            <%= link_to ' Recibos', tipo_path(tipo,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar recibos de pago de la nomina" %>
+                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+<%= link_to ' Enviar', "#",class: "btn btn-default fa fa-envelope enviar_recibos","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar recibos a todos los empleados de la nomina.", id: tipo.id %>
+                        </div>
+                        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                            <%= link_to ' Bancario', "#",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte bancario" %>
+                            <%= link_to '', "#",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+                        </div>
+                        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                            <%= link_to ' Conceptos', tipo_path(tipo,format: "pdf")+"?doc=4",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
+                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=5",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+                        </div>
+
+                    </td>
+
+
+                      <%
+                #pruebaaa
+                cargos=tipo.cargos
+              cargos.each do |cargo|
+
+                if cargo.disponible==false
+                  p=cargo.persona
+                %>
+                      <input type="hidden" class="<%=tipo.id%>" value="<%=p.id%>">
+                      <%end%>
+                      <%end%>
+
+                    <td class="actions">
+                        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                            <%= render 'layouts/actions', :x => tipo, :y => edit_tipo_path(tipo) %>
+                        </tr>
+
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </li>
+      </br>
+      </br>
+      </br>
+    </ul>
+    <div class="modal fade" id="enviar" tabindex="-1" role="dialog" aria-labelledby="enviar" style="margin-top: 200px;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header  text-center">
+            <i class="fa fa-refresh fa-spin fa-5x fa-fw margin-bottom"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="modal-footer">
+            <div id="progreso" class="text-center"></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </li>
-</ul>
-<script type="text/javascript">
-$(function () {
-$('[data-toggle="tooltip"]').tooltip()
-})
-</script>
-<%else%>
-  <div class="actions">
-    <h4>"No hay tipos de nómina disponibles"</h4>
-  </div>
-  <%end%>
+    <script type="text/javascript">
+
+        function s(x,y) {
+            $("#progreso").html("progreso: " + x + "/" + $('.'+y).length)
+            $.ajax({
+                method: "POST",
+                url: "/personas/" + $('.'+y)[x].value + "/enviar"
+            }).done(function () {
+                x = x + 1
+                if (x < $('.'+y).length) {
+
+                    s(x);
+                } else {
+
+                    $('#enviar').modal("hide");
+                }
+            }).fail(function (){
+
+              $('#enviar').modal("hide");
+alert("Error al enviar correos.")
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('.enviar_recibos').click(function () {
+  if ($('.'+this.id).length>0) {
+                $('#enviar').modal({backdrop: false});
+                s(0,this.id);
+}else{alert("no existen empleados en la nomina");}
+            });
+
+        })
+    </script>
+    <%else%>
+    <div class="actions">
+        <h4>"No hay tipos de nómina disponibles"</h4>
+    </div>
+    <%end%>

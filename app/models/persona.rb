@@ -47,17 +47,31 @@ class Persona < ActiveRecord::Base
   validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida. La persona debe ser mayor de edad.' }
 
   attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones, :valido
-  def self.search(search, dep)
+  def self.search(search, dep, tipo)
     search = search.downcase
-    if dep == '' && search == ''
+    #sin filtro
+    if dep == '' && search == '' && tipo==''
       order(:cedula)
-    elsif dep && dep != '' && search == ''
+      #solo departaent
+    elsif dep && dep != '' && search == '' && tipo==''
       joins(:cargo).where('"cargos"."departamento_id" = CAST(? AS INTEGER)', dep).order(:cedula)
-    elsif dep && dep != ''
-
+      #solo tipo
+    elsif tipo && tipo != '' && search == '' && dep==''
+      joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER)', tipo).order(:cedula)
+      #tipo y depatamento
+    elsif tipo && tipo != '' && search == '' and dep && dep != ''
+      joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER) AND "cargos"."departamento_id" = CAST(? AS INTEGER) ', tipo,dep).order(:cedula)
+      #departamento y busqueda
+    elsif dep && dep != '' and search && search != ''
       joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep).order(:cedula)
+      #tipo y busqueda
+    elsif tipo && tipo != '' and search && search != ''
+      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", tipo).order(:cedula)
+      #tipo departamento y busqueda
+    elsif tipo && tipo != '' and dep && dep != '' and search && search != ''
+      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep,tipo).order(:cedula)
+#solo busqueda
     elsif search && search != ''
-
       where('cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ? ', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").order(:cedula)
     end
   end

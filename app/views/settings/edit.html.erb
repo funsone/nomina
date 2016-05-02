@@ -1,5 +1,13 @@
 <%= form_for(@setting, url:setting_path(@setting.var), method: 'patch') do |f| %>
-  <label><%= @setting.var %></label>
-  <%= f.text_area :value, rows: 10 %>
-  <%= f.submit %>
+  <div class="col-xs-12 form-group">
+      <%= f.label @setting.var  %><br>
+      <div class="form-group input-group">
+          <span class="input-group-addon">
+              <span class="fa fa-list"></span>
+          </span>
+<%= f.text_area :value,:class => "form-control", rows: 1 %>
+      </div>
+  </div>
+
+<%=render 'layouts/botones', :p => settings_path %>
 <% end %>

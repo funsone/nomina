@@ -1,7 +1,6 @@
 <div class="page-header">
-  <div class="pull-right">
-    <%= link_to "Contratar Persona", new_persona_path, class: "btn btn-danger"  %>
-  </div>
+  <%= render 'layouts/nuevo', :msg => "Contratar persona", :path=>new_persona_path ,:x =>@personas %>
+
   <h1>Empleados</h1>
 </div>
 
@@ -29,8 +28,26 @@
             </ul>
 
           </div>
+          <div class="input-group-btn">
+            <button id="tipos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos las nominas
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li class=" disabled">
+                <a href="#" class="tipo" id="">Todas las nominas</a>
+              </li>
+              <%@tipos=Tipo.all
+
+            @tipos.each do |c|%>
+              <%=  raw("<li><a href=\"#\" class=\"tipo\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
+              <%end%>
+
+            </ul>
+
+          </div>
           <input type="text" class="form-control" placeholder="Buscar por cedula, nombres, apellidos..." name="search" id="search" value="<%= params[:search]%>">
           <input type="text" id="departamento_search" value="" hidden="hidden">
+          <input type="text" id="tipo_search" value="" hidden="hidden">
 
           <span class="input-group-addon">
             <span id="search_icon" class="fa fa-search"></span>
@@ -97,7 +114,7 @@
               }
               function query() {
                 loading();
-                return "/personas?page=1&search=" + $("#search").val() + "&departamento=" + $("#departamento_search").val();
+                return "/personas?page=1&search=" + $("#search").val() + "&departamento=" + $("#departamento_search").val()+ "&tipo=" + $("#tipo_search").val();
 
               }
               $(function () {
@@ -107,6 +124,15 @@
                   $(this).parent().attr("class", "disabled")
                   $("#departamentos").html($(this).html() + '<span class="caret"></span>');
                   $("#departamento_search").val($(this).attr("id"));
+                  $.getScript(query());
+
+                  return false;
+                });
+                $(".tipo").click(function () {
+                  $(".tipo").parent().attr("class", "");
+                  $(this).parent().attr("class", "disabled")
+                  $("#tipos").html($(this).html() + '<span class="caret"></span>');
+                  $("#tipo_search").val($(this).attr("id"));
                   $.getScript(query());
 
                   return false;

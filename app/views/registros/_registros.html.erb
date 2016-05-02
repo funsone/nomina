@@ -1,0 +1,32 @@
+<%if p.length>0%>
+
+<table class="table table-hover table-condensed table-striped" style="font-size:	11px;">
+<thead>
+  <tr>
+
+
+    <th style="width: 75px" class="actions">Fecha</th>
+    <th class="actions">Usuario</th>
+    <th class="actions">Accion</th>
+  </tr>
+</thead>
+
+<tbody>
+  <% p.each do |registro| %>
+    <tr class="<%= $dic["tipo_de_accion"].key(registro.tipo_de_accion)%>">
+      <td><%= registro.created_at.strftime("%d-%m-%Y ") %></td>
+      <td><%= registro.usuario.rol.nombre+ ": "+registro.usuario.email %></td>
+      <td><%= raw(registro.descripcion) %></td>
+
+    </tr>
+  <% end %>
+</tbody>
+</table>
+<div class="pagination text-center">
+  <%= will_paginate p, renderer: BootstrapPagination::Rails %>
+</div>
+<%else%>
+<div class="actions">
+<h4>"No hay registros"</h4>
+</div>
+<%end%>
