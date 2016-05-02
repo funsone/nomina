@@ -1,9 +1,11 @@
 <div class="page-header">
 
-<%= render 'layouts/nuevo', :msg => "Nuevo cargo", :path=>new_cargo_path ,:x => @cargos%>
+  <%= render 'layouts/nuevo', :msg => "Nuevo cargo", :path=>new_cargo_path ,:x => @cargos%>
 
   <h1>Cargos</h1>
-</div><ul class="list-group">
+</div>
+<ul class="list-group">
+
   <li class="list-group-item text-muted" contenteditable="false">Busqueda</li>
   <li class="list-group-item ">
 
@@ -30,7 +32,6 @@
 
       <span class="input-group-addon">
         <span id="search_icon" class="fa fa-search"></span>
-
 
       </span>
     </div>

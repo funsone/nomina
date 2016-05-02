@@ -62,10 +62,10 @@ class Persona < ActiveRecord::Base
     elsif tipo && tipo != '' && search == '' and dep && dep != ''
       joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER) AND "cargos"."departamento_id" = CAST(? AS INTEGER) ', tipo,dep).order(:cedula)
       #departamento y busqueda
-    elsif dep && dep != '' and search && search != ''
+    elsif dep && dep != '' and search && search != '' and tipo==''
       joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep).order(:cedula)
       #tipo y busqueda
-    elsif tipo && tipo != '' and search && search != ''
+    elsif tipo && tipo != '' and search && search != '' and dep==''
       joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", tipo).order(:cedula)
       #tipo departamento y busqueda
     elsif tipo && tipo != '' and dep && dep != '' and search && search != ''

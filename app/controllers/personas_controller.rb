@@ -24,20 +24,7 @@ class PersonasController < ApplicationController
     # GET /personas/1.json
     def enviar
         @persona.calculo
-        p = params[:redir] ? params[:redit] : ''
-        if p == ''
-            if @persona.valido == false
-                respond_to do |format|
-                    format.json { head :no_content }
-                    return 0
-                end
-            else
-                respond_to do |format|
-                    format.html { redirect_to @persona, notice: 'La persona registros para esa fecha' }
-                    return 0
-                end
-            end
-        end
+        p = params[:redir] ? params[:redir] : ''
         PersonaMailer.recibo(@persona).deliver_now
 
         if p == ''

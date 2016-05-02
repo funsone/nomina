@@ -23,9 +23,9 @@ move_down 40
   move_down 20
   text "Constancia que expedimos el #{$ahora.strftime('%d de '+$dic['meses'].key($ahora.month).capitalize+' de %Y')}.",align: :justify, size: 16-tam, :leading => 7
 move_down 80
- text "T.S.U Alejandro Luis Rodríguez
-Cédula Identidad V-8.397.611
-Coordinador de Recursos Humanos", align: :center, size: 16-tam
+ text Settings.titulo_coordinador+" "+Settings.nombres_coordinador, align: :center, size: 16-tam
+ text "Cédula Identidad "+Settings.cedula_coordinador, align: :center, size: 16-tam
+text 'Coordinador de Recursos Humanos', align: :center, size: 16-tam
 
 image banner_abajo, :scale => 0.25, align: :center, :at => [bounds.left, 85]
 end

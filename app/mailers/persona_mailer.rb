@@ -8,7 +8,7 @@ class PersonaMailer < ApplicationMailer
   def recibo(persona)
     @greeting = "Hi"
 @persona=persona
-recibo = PersonaPdf.new(@persona)
+recibo = PersonaPdf.new(@persona,0)
 attachments["recibo.pdf"] = { :mime_type => 'application/pdf', :content => recibo.render }
 
     mail to: persona.correo, subject: "Recibo de pago"

@@ -49,7 +49,7 @@ class TiposController < ApplicationController
 
         respond_to do |format|
             if @tipo.save
-                format.html { redirect_to @tipo, notice: 'La nomina fue creada exitosamente.' }
+                format.html { redirect_to @tipo, notice: 'La nómina fue creada exitosamente.' }
                 format.json { render :show, status: :created, location: @tipo }
             else
                 format.html { render :new }
@@ -63,7 +63,7 @@ class TiposController < ApplicationController
     def update
         respond_to do |format|
             if @tipo.update(tipo_params)
-                format.html { redirect_to tipos_url, notice: 'La nomina fue eliminada exitosamente.' }
+                format.html { redirect_to tipos_url, notice: 'La nómina fue eliminada exitosamente.' }
                 format.json { head :no_content }
             end
         end
@@ -72,7 +72,7 @@ class TiposController < ApplicationController
     def destroy
         @tipo.destroy
         respond_to do |format|
-            format.html { redirect_to tipos_url, notice: 'La nomina fue eliminada exitosamente.' }
+            format.html { redirect_to tipos_url, notice: 'La nómina fue eliminada exitosamente.' }
             format.json { head :no_content }
         end
     end
