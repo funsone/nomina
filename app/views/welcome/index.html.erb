@@ -1,69 +1,79 @@
 <div class="page-header">
-  <h2>Pantalla inicial</h2><small>Bienvenido <%= current_usuario.email%></small>
+  <h2>Pantalla inicial</h2>
+  <small>Bienvenido
+    <%= current_usuario.email%></small>
 
 </div>
-
-<div class="row text-center">
-  <div class="col-md-3 col-sm-6 col-xs-6">
-    <div class="panel panel-back noti-box">
-      <span class="icon-box bg-color-red set-icon">
-        <i class="fa fa-building"></i>
-      </span>
-      <div class="text-box">
-        <p class="main-text"><%= Dependencia.all.length%></p>
-        <p class="text-muted">Dependencias</p>
-      </div>
+ <div class="row">
+<div class="col-md-3">
+  <div class="panel panel-primary text-center no-boder bg-color-red">
+    <div class="panel-body">
+      <i class="fa fa-building fa-5x"></i>
+      <h3><%= Dependencia.all.length%></h3>
     </div>
-  </div>
-  <div class="col-md-3 col-sm-6 col-xs-6">
-    <div class="panel panel-back noti-box">
-      <span class="icon-box bg-color-green set-icon">
-        <i class="fa fa-building-o"></i>
-      </span>
-      <div class="text-box">
-        <p class="main-text"><%= Departamento.all.length%></p>
-        <p class="text-muted">Departamento</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 col-sm-6 col-xs-6">
-    <div class="panel panel-back noti-box">
-      <span class="icon-box bg-color-blue set-icon">
-        <i class="fa fa-align-justify"></i>
-      </span>
-      <div class="text-box">
-        <p class="main-text"><%= Tipo.all.length%></p>
-        <p class="text-muted">Nóminas</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 col-sm-6 col-xs-6">
-    <div class="panel panel-back noti-box">
-      <span class="icon-box bg-color-brown set-icon">
-        <i class="fa fa-briefcase"></i>
-      </span>
-      <div class="text-box">
-        <p class="main-text"><%= Cargo.all.length%></p>
-        <p class="text-muted">Cargos</p>
-      </div>
+    <div class="panel-footer back-footer-red">
+      Dependencias
     </div>
   </div>
 </div>
-<div class="row text-center">
-  <div class="col-md-3 col-sm-6 col-xs-6">
-    <div class="panel panel-back noti-box">
-      <span class="icon-box bg-color-red set-icon">
-        <i class="fa fa-users"></i>
-      </span>
-      <div class="text-box">
-        <p class="main-text"><%= Persona.all.length%></p>
-        <p class="text-muted">Empleados</p>
-      </div>
+<div class="col-md-3">
+  <div class="panel panel-primary text-center no-boder bg-color-red">
+    <div class="panel-body">
+      <i class="fa fa-building-o fa-5x"></i>
+      <h3><%= Departamento.all.length%></h3>
+    </div>
+    <div class="panel-footer back-footer-red">
+      Departamentos
     </div>
   </div>
 </div>
- <hr />
-<br>
+<div class="col-md-3">
+  <div class="panel panel-primary text-center no-boder bg-color-red">
+    <div class="panel-body">
+      <i class="fa fa-list fa-5x"></i>
+      <h3><%= Tipo.all.length%></h3>
+    </div>
+    <div class="panel-footer back-footer-red">
+    Nóminas
+    </div>
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="panel panel-primary text-center no-boder bg-color-red">
+    <div class="panel-body">
+      <i class="fa fa-briefcase fa-5x"></i>
+      <h3><%= Cargo.all.where(disponible:true).length%></h3>
+    </div>
+    <div class="panel-footer back-footer-red">
+    Cargos Disponibles
+    </div>
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="panel panel-primary text-center no-boder bg-color-red">
+    <div class="panel-body">
+      <i class="fa fa-users fa-5x"></i>
+      <h3><%= Persona.all.length%></h3>
+    </div>
+    <div class="panel-footer back-footer-red">
+    Empleados
+    </div>
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="panel panel-primary text-center no-boder bg-color-red">
+    <div class="panel-body">
+      <i class="fa fa-envelope fa-5x"></i>
+      <h4>  <input  class="btn btn-default bg-color-red btn-xs " type="button" id="enviar_recibos" value="Enviar a todos"></h4>
+    </div>
+    <div class="panel-footer back-footer-red">
+    Reporte de Pago
+    </div>
+  </div>
+</div>
+</div>
+<hr />
+</br>
 <%
 #pruebaaa
   @personas= Persona.all
@@ -71,46 +81,45 @@
   %>
 <input type="hidden" class="persona" value="<%=persona.id%>">
 <%end%>
-<input type="button" id="enviar_recibos" value="Enviar recivos a todos">
 <div class="modal fade" id="enviar" tabindex="-1" role="dialog" aria-labelledby="enviar" style="margin-top: 200px;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header  text-center">
-        <i class="fa fa-refresh fa-spin fa-5x fa-fw margin-bottom"></i>
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="modal-footer">
-        <div id="progreso" class="text-center"></div>
-      </div>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header  text-center">
+      <i class="fa fa-refresh fa-spin fa-5x fa-fw margin-bottom"></i>
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="modal-footer">
+      <div id="progreso" class="text-center"></div>
     </div>
   </div>
 </div>
+</div>
 <script type="text/javascript">
 
-  function s(x) {
-    $("#progreso").html("progreso: " + x + "/" + $('.persona').length)
-    $.ajax({
-      method: "POST",
-      url: "/personas/" + $('.persona')[x].value + "/enviar"
-    }).done(function () {
-      x = x + 1
-      if (x < $('.persona').length) {
+function s(x) {
+  $("#progreso").html("progreso: " + x + "/" + $('.persona').length)
+  $.ajax({
+    method: "POST",
+    url: "/personas/" + $('.persona')[x].value + "/enviar"
+  }).done(function () {
+    x = x + 1
+    if (x < $('.persona').length) {
 
-        s(x);
-      } else {
+      s(x);
+    } else {
 
-        $('#enviar').modal("hide");
-      }
-    });
-  }
-  $(function () {
-    $('#enviar_recibos').click(function () {
-
-      $('#enviar').modal({backdrop: false});
-      s(0);
-
-    });
+      $('#enviar').modal("hide");
+    }
   });
+}
+$(function () {
+  $('#enviar_recibos').click(function () {
+
+    $('#enviar').modal({backdrop: false});
+    s(0);
+
+  });
+});
 </script>
 
 </div>

@@ -1,12 +1,13 @@
 <div class="page-header">
-  <%= render 'layouts/nuevo', :msg => "Nuevo dependencia", :path=>new_dependencia_path ,:x =>@dependencias %>
+  <%= render 'layouts/nuevo', :msg => "Nuevo dependencia", :path=>new_dependencia_path ,:x =>Dependencia %>
 
     <h1>Dependencias</h1>
 </div>
 <ul class="list-group">
     <li class="list-group-item text-muted" contenteditable="false">Lista de dependencias</li>
-    <%if Dependencia.all.length>0%>
+
     <li class="list-group-item text-center ">
+        <%if Dependencia.all.length>0%>
         <div class="table-responsive">
             <table class="table table-hover table-bordered table-condensed table-striped">
                 <thead>

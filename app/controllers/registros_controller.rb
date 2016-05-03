@@ -5,10 +5,13 @@ class RegistrosController < ApplicationController
   # GET /registros
   # GET /registros.json
   def index
+    authorize! :read, Registro
+
     p = params[:page]
     @registros = Registro.order("created_at DESC").paginate(page: p)
   end
   def destroy
+        authorize! :destroy, Registro
     Registro.destroy_all
     respond_to do |format|
       format.html { redirect_to registros_url, notice: 'Registro limpiado exitosamente.' }
@@ -18,6 +21,7 @@ class RegistrosController < ApplicationController
   # GET /registros/1
   # GET /registros/1.json
   def show
+    authorize! :read, Registro
     respond_to do |format|
       format.html { redirect_to registros_url}
       format.json { head :no_content }

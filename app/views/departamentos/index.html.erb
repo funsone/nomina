@@ -1,12 +1,13 @@
 <div class="page-header">
-  <%= render 'layouts/nuevo', :msg => "Nuevo Departamento", :path=>new_departamento_path ,:x =>@departamentos %>
+  <%= render 'layouts/nuevo', :msg => "Nuevo Departamento", :path=>new_departamento_path ,:x =>Departamento %>
 
   <h1>Departamentos</h1>
 </div>
 <ul class="list-group">
   <li class="list-group-item text-muted" contenteditable="false">Lista de departamentos</li>
-  <%if Departamento.all.length>0%>
+
   <li class="list-group-item text-center ">
+    <%if Departamento.all.length>0%>
     <div class="table-responsive">
       <table class="table table-bordered table-condensed table-responsive table-bordered">
         <thead>

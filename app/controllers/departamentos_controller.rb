@@ -16,6 +16,7 @@ class DepartamentosController < ApplicationController
 
   # GET /departamentos/new
   def new
+    authorize! :create, Departamento
     if Dependencia.all.length <=0
     respond_to do |format|
       format.html { redirect_to dependencias_url, notice: 'Es necesario agregar dependencia.'  }
@@ -28,15 +29,18 @@ class DepartamentosController < ApplicationController
 
   # GET /departamentos/1/edit
   def edit
+    authorize! :update, Departamento
   end
 
   # POST /departamentos
   # POST /departamentos.json
   def create
+    authorize! :create, Departamento
     @departamento = Departamento.new(departamento_params)
 
     respond_to do |format|
       if @departamento.save
+        log("Se a creado el departamento #{@lt}", 0)
         format.html { redirect_to @departamento, notice: 'El departamento fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @departamento }
       else
@@ -49,8 +53,10 @@ class DepartamentosController < ApplicationController
   # PATCH/PUT /departamentos/1
   # PATCH/PUT /departamentos/1.json
   def update
+    authorize! :update, Departamento
     respond_to do |format|
       if @departamento.update(departamento_params)
+        log("Se ha editado el departamento #{@lt}", 1)
         format.html { redirect_to @departamento, notice: 'Los datos del departamento fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @departamento }
       else
@@ -63,7 +69,9 @@ class DepartamentosController < ApplicationController
   # DELETE /departamentos/1
   # DELETE /departamentos/1.json
   def destroy
+    authorize! :destroy, Departamento
     @departamento.destroy
+    log("Se ha eliminado el departamento #{@departamento.nombre}", 2)
     respond_to do |format|
       format.html { redirect_to departamentos_url, notice: 'El departamento fue eliminado exitosamente.' }
       format.json { head :no_content }
@@ -73,7 +81,14 @@ class DepartamentosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_departamento
-      @departamento = Departamento.find(params[:id])
+      if !Departamento.where(id: params[:id]).empty?
+        @departamento= Departamento.find(params[:id])
+        @lt = '<a href="' + departamento_path(@departamento) + '"> ' + @departamento.nombre + '</a>'
+      else
+        respond_to do |format|
+          format.html { redirect_to departamentos_url, alert: 'Departamento no encontrado en la base de datos.' }
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

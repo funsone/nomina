@@ -9,12 +9,31 @@ class Ability
         if user.Admininistrador?
             can :manage, :all
         elsif user.Coordinador?
-            can :edit, :all
             can :read, :all
-            can :create, :all
-            can :update, :all
+            alias_action :create, :update, :destroy => :cud
+            alias_action :create, :update, :to => :cu
+            can :cu, Dependencia
+            can :cu, Departamento
+            can :cu, Persona
+            can :cu, Conceptopersonal
+            can :cu, Cargo
+            can :cu, Tipo
+            can :cud, Registroconcepto
+            can :cud, Familiar
+            cannot :read, Setting
         elsif user.Regular?
-            can :read, :all
+            can :read, Dependencia
+            can :read, Departamento
+            can :read, Persona
+            can :read, Concepto
+            can :read, Conceptopersonal
+            can :read, Cargo
+            can :read, Tipo
+            can :read, Registroconcepto
+            can :read, Familiar
+            cannot :read, Registro
+            cannot :read, Setting
+
         end
         #
         # The first argument to `can` is the action you are giving the user

@@ -1,13 +1,14 @@
 <div class="page-header">
-    <%= render 'layouts/nuevo', :msg => "Nueva Nómina", :path=>new_tipo_path, :x =>@tipos %>
+    <%= render 'layouts/nuevo', :msg => "Nueva Nómina", :path=>new_tipo_path, :x =>Tipo %>
 
     <h1>Tipos de Nómina</h1>
 </div>
 
-<%if Tipo.all.length>0%>
+
 <ul class="list-group">
-    <li class="list-group-item text-muted" contenteditable="false">Busqueda</li>
-    <li class="list-group-item ">
+    <li class="list-group-item text-muted" contenteditable="false">Lista de nóminas</li>
+    <li class="list-group-item text-center ">
+      <%if Tipo.all.length>0%>
         <div class="table-responsive">
 
             <table class="table table-hover table-bordered table-condensed table-striped" style="font-size:	11px;">

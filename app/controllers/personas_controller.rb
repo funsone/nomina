@@ -95,6 +95,7 @@ class PersonasController < ApplicationController
 
     # GET /personas/new
     def new
+      authorize! :create, Persona
         @editable = true
         if Cargo.where('disponible=true').length <= 0
             respond_to do |format|
@@ -109,12 +110,14 @@ class PersonasController < ApplicationController
 
     # GET /personas/1/edit
     def edit
+      authorize! :update, Persona
         @editable = false
     end
 
     # POST /personas
     # POST /personas.json
     def create
+          authorize! :create, Persona
         @persona = Persona.new(persona_params)
 
         respond_to do |format|
@@ -135,6 +138,7 @@ class PersonasController < ApplicationController
     # PATCH/PUT /personas/1
     # PATCH/PUT /personas/1.json
     def update
+          authorize! :update, Persona
         respond_to do |format|
             if @persona.update(persona_params)
                 log("Se ha editado a #{@lt}", 1)
@@ -150,6 +154,7 @@ class PersonasController < ApplicationController
     # DELETE /personas/1
     # DELETE /personas/1.json
     def destroy
+          authorize! :destroy, Persona
         @persona.cargo.update(disponible: true)
         @persona.destroy
         log("Se ha eliminado a #{@persona.cedula}", 2)
@@ -168,13 +173,9 @@ class PersonasController < ApplicationController
         @lt= '<a href="'+persona_path(@persona)+'"> '+@persona.cedula+'</a>'
       else
         respond_to do |format|
-            format.html { redirect_to personas_url, alert: 'Persona no encontrada la base de datos.' }
+            format.html { redirect_to personas_url, alert: 'Persona no encontrada en la base de datos.' }
           end
       end
-
-
-
-
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
