@@ -1,0 +1,382 @@
+[33mcommit 2186d3b11dafbde193a7fb2c93c125e82235cdf3[m
+Author: pc <vfss18@outlook.com>
+Date:   Tue May 3 14:28:53 2016 -0430
+
+    definir roles y acciones
+
+[33mcommit f8456871d16d23fc09ccf957136c39e2d5e654e1[m
+Author: pc <vfss18@outlook.com>
+Date:   Mon May 2 14:10:49 2016 -0430
+
+    arreglo envio mailer
+
+[33mcommit 54578dde0de7f8316d625cf81d4a9f066f89de6a[m
+Author: victor serrano <victorfidelserrano18@gmail.com>
+Date:   Sun May 1 20:59:40 2016 -0430
+
+    busquedas, configuraciones, registros, reportes
+
+[33mcommit 44a82bd5a69b474a71e3bad32815dad52fee99e7[m
+Author: victor serrano <victorfidelserrano18@gmail.com>
+Date:   Fri Apr 29 17:38:26 2016 -0430
+
+    reportes
+
+[33mcommit 9f20a55d5763ace22f8b005bd2f4623779724c21[m
+Author: victor serrano <victorfidelserrano18@gmail.com>
+Date:   Fri Apr 29 00:01:50 2016 -0430
+
+    reportes
+
+[33mcommit ee71a8277a6575966e93e0067280d8453b52d59e[m
+Author: victor serrano <victorfidelserrano18@gmail.com>
+Date:   Thu Apr 28 16:32:17 2016 -0430
+
+    roles, autenticacion, tabla de configuracion
+
+[33mcommit f920015fb0dcee1068af9e959dc7c64375e4eac0[m
+Author: victor serrano <victorfidelserrano18@gmail.com>
+Date:   Wed Apr 27 19:43:47 2016 -0430
+
+    bugfixes
+
+[33mcommit bef0f015714ddecbb217e0bc20f85378017a7863[m
+Author: pc <vfss18@outlook.com>
+Date:   Wed Apr 27 14:58:23 2016 -0430
+
+    arreglos en el welcome, arreglos en las vistas
+
+[33mcommit 798a18b29409978ce356a5dc792955a743e9f074[m
+Author: pc <vfss18@outlook.com>
+Date:   Mon May 16 14:50:48 2016 -0430
+
+    modificaciones a la tabla personas y conceptos, arreglo de formularios y agregar condiciones de pagos
+
+[33mcommit 9cda0c77c9af845e15ddf9a8450cd5c57b590b30[m
+Author: pc <vfss18@outlook.com>
+Date:   Mon Apr 25 14:51:45 2016 -0430
+
+    generar reportes constancia aplicacion de busqueda por cargo
+
+[33mcommit 5d2664c88da51d759da8dfea00c3c7442f959a1a[m
+Author: victor serrano <victorfidelserrano18@gmail.com>
+Date:   Sun Apr 24 19:31:01 2016 -0430
+
+    mailer, reportes
+
+[33mcommit 46bcea376a739bb4541bcf427f35307a381bfa3e[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Fri Apr 22 20:35:13 2016 -0430
+
+    busqueda de usuario
+
+[33mcommit c4ac41d6392de0104deffe3adae10f4c1bf63a58[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Fri Apr 22 11:43:34 2016 -0430
+
+    Busqueda persona
+
+[33mcommit 272391d5297dcc1620db337a0df9a494e81c1e44[m
+Author: pc <vfss18@outlook.com>
+Date:   Thu Apr 21 14:50:09 2016 -0430
+
+    validaciones y condiciones de existencia
+
+[33mcommit e00010e1f70e85d3eba27bda19bf5c11f969d822[m
+Author: monica <mchuamanilopez@gmail.com>
+Date:   Thu Apr 21 13:44:50 2016 -0430
+
+    agregada gema
+
+[33mcommit bc8a6948d2ca8ed0a62515e400c1dea6dec93b08[m
+Author: pc <vfss18@outlook.com>
+Date:   Thu Apr 21 13:09:00 2016 -0430
+
+    validaciones de campos faltantes
+
+[33mcommit 8c3759e34b33562a1e7379856cd29d277aa8a145[m
+Author: pc <vfss18@outlook.com>
+Date:   Sat May 28 14:51:06 2016 -0430
+
+    se definio los estados y las transiciones, arreglos de los conceptos personales, arreglos en las vistas
+
+[33mcommit acb54d31a6b267e8a37935948d52e804b3c7a213[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Tue Apr 19 18:39:19 2016 -0430
+
+    aplicacion de conceptos por fecha
+
+[33mcommit 3e9a3c5813c5b7ee150137282345dc4563087160[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Tue Apr 19 11:08:04 2016 -0430
+
+    logica del calculo de nomina al modelo
+
+[33mcommit c5387dc8cc5aead799a49923cc1c25b22dfbfe7f[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Mon Apr 18 22:06:53 2016 -0430
+
+    correciones
+
+[33mcommit bfa945a026164c342c550bc176fb39fd712f0467[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Mon Apr 18 20:49:28 2016 -0430
+
+    conceptos personales + bugfixes
+
+[33mcommit ff8f31672d6b041f2c69b861b3c3472d67aa32eb[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sun Apr 17 20:08:59 2016 -0430
+
+    agregar columnas faov ivss tss a personas
+
+[33mcommit f2b3c2f48dfb7acb43b325c949cd7c10e95aab4e[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sun Apr 17 18:13:34 2016 -0430
+
+    bugfixes
+
+[33mcommit 4c6b058fb8e4d5fbed943c5594d25bd47557c7e1[m
+Author: victor canaimita <victorfidelserrano18@gmail.com>
+Date:   Sun Apr 17 14:57:11 2016 -0430
+
+    AASM, campos no editables
+
+[33mcommit e4da6b92f7429572a7db47620816fb8b839cd616[m
+Author: pc <vfss18@outlook.com>
+Date:   Thu Apr 14 14:55:53 2016 -0430
+
+    arreglo de la paginacion ajax
+
+[33mcommit 7ff2cfbf0f8860ecf8a145a3c980055ea2c22560[m
+Author: pc <vfss18@outlook.com>
+Date:   Wed Apr 13 15:05:27 2016 -0430
+
+    agregamos tabs y cambiamos la paginacion
+
+[33mcommit 3a67e10b9b4d040ee084d233c7a6d1792b954677[m
+Author: pc <vfss18@outlook.com>
+Date:   Tue Apr 12 14:41:07 2016 -0430
+
+    validaciones y coreccion de errores
+
+[33mcommit 99f7cd72e429a2293810505a6155472f4abf6a36[m
+Author: pc <vfss18@outlook.com>
+Date:   Mon Apr 11 14:25:28 2016 -0430
+
+    creamos el modelo de familiar y se corrigieron errores
+
+[33mcommit 90cc7cbb7c8516c9d15137a564a7f35e1dfe1ede[m
+Merge: 4c2fee0 d597de1
+Author: pc <vfss18@outlook.com>
+Date:   Mon Apr 11 09:42:53 2016 -0430
+
+    sdfsd
+
+[33mcommit 4c2fee04760c05252aa28c215240f243e9493d36[m
+Author: pc <vfss18@outlook.com>
+Date:   Mon Apr 11 09:40:51 2016 -0430
+
+    c
+
+[33mcommit d597de14271ae934a431c89c1ebfaa51e8961f57[m
+Author: monicahuamani <mchuamanilopez@gmail.com>
+Date:   Sat Apr 9 10:52:37 2016 -0430
+
+    coreccion cargos
+
+[33mcommit bb63c3e437af0f7b71c2bfd7fbee5db468119b06[m
+Author: pc <vfss18@outlook.com>
+Date:   Thu Apr 7 12:14:34 2016 -0430
+
+    estilos de las vistas
+
+[33mcommit 53965eb6027b236e0b4bdeb4e2359e0cd7d5381e[m
+Author: pc <vfss18@outlook.com>
+Date:   Tue Apr 5 14:28:44 2016 -0430
+
+    continuacion de validaciones
+
+[33mcommit 59e953e3be678fcb05390535123c59650bae67cb[m
+Author: pc <vfss18@outlook.com>
+Date:   Mon Apr 4 14:54:21 2016 -0430
+
+    validaciones y cambios en css
+
+[33mcommit ea79754fd9ddbb0547ec568b1b682b1fd300b35d[m
+Author: pc <vfss18@outlook.com>
+Date:   Fri Apr 1 14:10:30 2016 -0430
+
+    paginacion y detallitos
+
+[33mcommit c1868f1e4dd7c43d303a72f11fb5b6e3776e7fa9[m
+Author: pc <vfss18@outlook.com>
+Date:   Thu Mar 31 14:40:25 2016 -0430
+
+    desarrollo de los conceptos
+
+[33mcommit fdd301e809c699639258551a652030fbe2fe2951[m
+Author: pc <vfss18@outlook.com>
+Date:   Wed Mar 30 14:38:45 2016 -0430
+
+    aplicacion de plantilla al formulario y estilos a los botones
+
+[33mcommit d0f8432c246467012abc17483c127dc2d328d536[m
+Author: pc <vfss18@outlook.com>
+Date:   Tue Mar 29 14:53:32 2016 -0430
+
+    aplicacion de plantilla
+
+[33mcommit 27dd3522a14a0593d0c57d54dd49a052da54b4db[m
+Author: pc <vfss18@outlook.com>
+Date:   Mon Mar 28 14:48:13 2016 -0430
+
+    cambios dependencias
+
+[33mcommit 4e8e5be942f32e686e2ebb51473dfbc4884dfaa1[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Tue Mar 22 20:59:25 2016 -0430
+
+    modulo conceptos
+
+[33mcommit 37817ed70f76e25aaab1b4806ade657882d6d9e7[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Tue Mar 22 15:23:29 2016 -0430
+
+    devise
+
+[33mcommit 9a206f097d907fb385020f2ed06a8d3a580713ba[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Mon Mar 21 23:24:42 2016 -0430
+
+    correcciones
+
+[33mcommit 0c345217dff2e7b43556f20d39c2b61cf87c3411[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Mon Mar 21 23:22:48 2016 -0430
+
+    organizacion de etiquetas
+
+[33mcommit bd6fab189c85f63c5f3f0ebefe64ebfdc8e921ba[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Mon Mar 21 20:35:26 2016 -0430
+
+    varios
+
+[33mcommit f5b0a2f5489432dbb5c169cd0a9ac4fabe3c480c[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Mon Mar 21 16:16:39 2016 -0430
+
+    modulos de persona, contrato, tipo de empleado. bootstrap
+
+[33mcommit 2cb9def26f6501968270d36891f2a409efb172c4[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Mon Mar 21 11:00:07 2016 -0430
+
+    modificaciones a departamentos y cargos
+
+[33mcommit 6e50cd69201fb2ac8d03541775f088c46ffddd28[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sat Mar 19 17:25:44 2016 -0430
+
+    rediseño
+
+[33mcommit d438f5d8ab35abc9ce9a8c06f440ce2b180890e5[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Fri Mar 18 14:28:56 2016 -0430
+
+    inicio de traducciones
+
+[33mcommit ee5744fd2b18237a6038a3995e63e3a41ed35b0e[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Fri Mar 18 13:05:29 2016 -0430
+
+    modificacion de vistas
+
+[33mcommit 9035f345ef35f9efdf173266ff7d49502d8ba50e[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Fri Mar 18 09:17:17 2016 -0430
+
+    eliminado sqlite
+
+[33mcommit d5879627fa255ce5f2f456a81f29751ccd158c06[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Fri Mar 18 08:59:37 2016 -0430
+
+    rediseño
+
+[33mcommit 66105235be7f8e4eb0c0b0c6562ba4a21e909287[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Mon Mar 14 16:49:24 2016 -0430
+
+    cambios
+
+[33mcommit 9a28fcebcd4d3cc82ece9351286f6fb317c09f2f[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sun Mar 13 20:17:16 2016 -0430
+
+    cambio a base de datos postgresql
+
+[33mcommit 5f827013ab08ed3b6e38289a7100563c8e3f23ee[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sun Mar 13 18:05:31 2016 -0430
+
+    nuevos modulos
+
+[33mcommit 5bee31a20afe2f2e370213734539c96f3cc467ce[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sun Mar 13 17:22:20 2016 -0430
+
+    cambio de convenciones al ingles
+
+[33mcommit 018757d6cbc424c06b39d0d0bda0a8d348028987[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sun Mar 13 16:41:46 2016 -0430
+
+    nuevos modulos
+
+[33mcommit 93c8eee5a8827856fb8a7b3fe11ca18610234223[m
+Author: dovahv <dovahv@users.noreply.github.com>
+Date:   Sun Mar 13 11:01:11 2016 -0430
+
+    Update README.md
+
+[33mcommit d1f1aa36d3805e5629023943d82ae8d6a8680d2b[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sun Mar 13 10:59:10 2016 -0430
+
+    actualizacion del readme
+
+[33mcommit fcd7c3b8dbf919fd3b63e90ba5e9c420a59bc4cc[m
+Merge: 14bc589 fc61dd3
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sun Mar 13 10:44:00 2016 -0430
+
+    inicial 2
+
+[33mcommit 14bc5898cce725f0a71330ee01653e6311438192[m
+Author: dovahv <victorfidelserrano18@gmail.com>
+Date:   Sun Mar 13 10:31:58 2016 -0430
+
+    inicial
+
+[33mcommit fc61dd3859c215bdd89104e7ebcfcdb992517eb9[m
+Merge: 75ab830 e291457
+Author: dovahv <dovahv@users.noreply.github.com>
+Date:   Sat Mar 5 15:05:44 2016 -0430
+
+    Merge pull request #1 from dovahv/devel
+    
+    Update README.md
+
+[33mcommit e2914570aa5d90d9f3e472e3d3b5505de308cef2[m
+Author: dovahv <dovahv@users.noreply.github.com>
+Date:   Sat Mar 5 15:03:10 2016 -0430
+
+    Update README.md
+
+[33mcommit 75ab830c618aab9b678ce14766cb6d3004ea2a99[m
+Author: dovahv <dovahv@users.noreply.github.com>
+Date:   Sat Mar 5 15:00:21 2016 -0430
+
+    Initial commit

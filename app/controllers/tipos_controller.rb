@@ -12,6 +12,7 @@ class TiposController < ApplicationController
   def show
     respond_to do |format|
       format.html
+      format.json
       format.pdf do
         case params[:doc]
         when '0'
