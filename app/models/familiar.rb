@@ -1,4 +1,5 @@
 class Familiar < ActiveRecord::Base
+  resourcify
   belongs_to :persona
   validates :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, presence: true
   validates :cedula, uniqueness: { case_sensitive: false, message: 'ya esta registrada.' }, numericality: { only_integer: true }, allow_blank: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160430204909) do
+ActiveRecord::Schema.define(version: 20160508224257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,10 +148,15 @@ ActiveRecord::Schema.define(version: 20160430204909) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "nombre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",                   null: false
@@ -194,12 +199,17 @@ ActiveRecord::Schema.define(version: 20160430204909) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "rol_id"
   end
 
   add_index "usuarios", ["email"], name: "index_usuarios_on_email", unique: true, using: :btree
   add_index "usuarios", ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true, using: :btree
-  add_index "usuarios", ["rol_id"], name: "index_usuarios_on_rol_id", using: :btree
+
+  create_table "usuarios_roles", id: false, force: :cascade do |t|
+    t.integer "usuario_id"
+    t.integer "role_id"
+  end
+
+  add_index "usuarios_roles", ["usuario_id", "role_id"], name: "index_usuarios_roles_on_usuario_id_and_role_id", using: :btree
 
   add_foreign_key "cargos", "departamentos"
   add_foreign_key "cargos", "tipos"
@@ -209,5 +219,4 @@ ActiveRecord::Schema.define(version: 20160430204909) do
   add_foreign_key "personas", "cargos"
   add_foreign_key "registros", "usuarios"
   add_foreign_key "sueldos", "cargos"
-  add_foreign_key "usuarios", "roles"
 end

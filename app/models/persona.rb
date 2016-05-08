@@ -1,4 +1,5 @@
 class Persona < ActiveRecord::Base
+  resourcify
   self.per_page = 10
   attr_readonly :cedula
   include AASM

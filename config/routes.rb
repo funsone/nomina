@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :registros
-  resources :roles
   resources :conceptospersonales
   resources :conceptopersonales
   resources :dependencias

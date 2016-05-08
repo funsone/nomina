@@ -29,7 +29,7 @@
             <td><var><%= concepto.formula %></var></td>
             <td><%= $dic["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
             <td>
-              <%= render 'layouts/actions', :x => concepto, :y => edit_concepto_path(concepto) %>
+              <%= render 'layouts/actions', :x => Concepto, :y => edit_concepto_path(concepto) %>
 
           </td>
           </tr>
@@ -69,7 +69,7 @@
             <td><%= concepto.nombre %></td>
             <td><var><%= concepto.formula %></var></td>
             <td><%= $dic["modos_de_pago"].key(concepto.modalidad_de_pago )%></td>
-            <td>              <%= render 'layouts/actions', :x => concepto, :y => edit_concepto_path(concepto) %>
+            <td>              <%= render 'layouts/actions', :x => Concepto, :y => edit_concepto_path(concepto) %>
 </td>
           </tr>
           <% end %>

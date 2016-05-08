@@ -24,7 +24,7 @@
             <td><%= departamento.nombre %></td>
             <td><%=Cargo.where("departamento_id=#{departamento.id} and disponible=false").length %></td>
             <td>
-              <%= render 'layouts/actions', :x => departamento, :y => edit_departamento_path(departamento) %>
+              <%= render 'layouts/actions', :x => Departamento, :y => edit_departamento_path(departamento) %>
 
             </td>
           </tr>

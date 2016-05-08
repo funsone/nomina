@@ -1,4 +1,5 @@
 class Cargo < ActiveRecord::Base
+  resourcify
   belongs_to :departamento
   has_one :persona,  :dependent => :destroy
   belongs_to :tipo

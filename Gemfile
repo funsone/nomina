@@ -29,7 +29,7 @@ gem 'tzinfo-data'
 gem 'puma'
 gem 'cancancan', '~> 1.10'
 gem "rails-settings-cached"
-
+gem 'rolify'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'bootstrap-sass', '~> 3.3.6'

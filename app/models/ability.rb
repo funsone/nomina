@@ -6,9 +6,9 @@ class Ability
         #
         #   user ||= User.new # guest user (not logged in)
 
-        if user.Admininistrador?
+        if user.has_role? :admin
             can :manage, :all
-        elsif user.Coordinador?
+        elsif user.has_role? :coordinador
             can :read, :all
             alias_action :create, :update, :destroy => :cud
             alias_action :create, :update, :to => :cu
@@ -21,7 +21,7 @@ class Ability
             can :cud, Registroconcepto
             can :cud, Familiar
             cannot :read, Setting
-        elsif user.Regular?
+        elsif user.has_role? :regular
             can :read, Dependencia
             can :read, Departamento
             can :read, Persona

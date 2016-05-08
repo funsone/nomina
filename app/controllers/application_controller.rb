@@ -4,10 +4,10 @@ class ApplicationController < ActionController::Base
     # For APIs, you may want to use :null_session instead.
     # encoding: utf-8
     protect_from_forgery with: :exception
+def current_user
+current_usuario
+end
 
-    def current_user
-        current_usuario
-    end
     def log (descripcion, tipo_de_accion)
       Registro.create(descripcion: descripcion, tipo_de_accion: tipo_de_accion, usuario_id: current_usuario.id)
 

@@ -1,13 +1,13 @@
-Rol.create!(id: 1,nombre: "Admin")
-Rol.create!(id: 2,nombre: "Coordinador")
-Rol.create!(id: 3, nombre: "Regular")
 
 Usuario.create!(
-    email: 'admin@gmail.com', password: '12345678', rol_id: 1)
+    email: 'admin@gmail.com', password: '12345678')
+    Usuario.all.first.add_role :admin
 Usuario.create!(
-        email: 'cor@gmail.com', password: '12345678', rol_id: 2)
+        email: 'cor@gmail.com', password: '12345678')
+        Usuario.all.last.add_role :coordinador
 Usuario.create!(
-            email: 'reg@gmail.com', password: '12345678', rol_id: 3)
+            email: 'reg@gmail.com', password: '12345678')
+            Usuario.all.last.add_role :regular
 
 Dependencia.create!([
                         { nombre: 'UNIDAD GESTION ADMINISTRATIVA' },
