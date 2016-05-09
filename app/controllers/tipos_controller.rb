@@ -11,7 +11,7 @@ class TiposController < ApplicationController
   # GET /tipos/1.json
   def show
     respond_to do |format|
-      format.html
+      format.html { redirect_to tipos_path, notice: 'Ruta no disponible.' }
       format.json
       format.pdf do
         case params[:doc]
@@ -21,6 +21,12 @@ class TiposController < ApplicationController
         when '1'
           pdf = RecibosPdf.new(@tipo, 1)
           file = "Recibos_#{@tipo.nombre}_ECO"
+        when '2'
+          pdf = BancariosPdf.new(@tipo, 0)
+          file = "Bancarios_#{@tipo.nombre}"
+        when '3'
+          pdf = BancariosPdf.new(@tipo, 1)
+          file = "Bancarios_#{@tipo.nombre}_ECO"
         when '4'
           pdf = ConceptosPdf.new(@tipo, 3)
           file = "Conceptos_#{@tipo.nombre}"
@@ -53,7 +59,7 @@ class TiposController < ApplicationController
 
     respond_to do |format|
       if @tipo.save
-        format.html { redirect_to @tipo, notice: 'La nómina fue creada exitosamente.' }
+        format.html { redirect_to tipos_path, notice: 'La nómina fue creada exitosamente.' }
         format.json { render :show, status: :created, location: @tipo }
       else
         format.html { render :new }
@@ -69,7 +75,7 @@ class TiposController < ApplicationController
     respond_to do |format|
       if @tipo.update(tipo_params)
         log("Se ha editado la nomina #{@lt}", 1)
-        format.html { redirect_to tipos_url, notice: 'La nómina fue eliminada exitosamente.' }
+        format.html { redirect_to tipos_path, notice: 'Los datos de la nómina fueron actualizados exitosamente.' }
         format.json { head :no_content }
       end
     end
@@ -91,7 +97,7 @@ class TiposController < ApplicationController
   def set_tipo
     if(Tipo.where(id: params[:id] ).length>0)
     @tipo = Tipo.find(params[:id])
-      @lt= '<a href="'+tipo_path(@tipo)+'"> '+@tipo.nombre+'</a>'
+      @lt= '<a href="'+tipos_path+'"> '+@tipo.nombre+'</a>'
     else
       respond_to do |format|
           format.html { redirect_to tipos_url, alert: 'Nomina no encontrada en la base de datos.' }

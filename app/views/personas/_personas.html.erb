@@ -5,12 +5,11 @@
   <table class="table table-hover table-condensed table-striped" style="font-size:	11px;">
     <thead>
       <tr>
-        <th>Cédula</th>
-        <th>Nombres Completo</th>
-        <th>Departamento</th>
-        <th>Cargo</th>
-        <th>Nómina</th>
-        <th>Sueldo</th>
+        <th class= "actions">Cédula</th>
+        <th class= "actions">Nombres Completo</th>
+        <th class= "actions">Cargo</th>
+        <th class= "actions">Departamento</th>
+        <th class= "actions">Nómina</th>
         <th class="actions" style="width: 200px;">Reporte</th>
 
         <th class="actions" style="width: 80px;">Acciones</th>
@@ -22,32 +21,30 @@
       <tr>
         <td><%= $dic["tipos_de_cedula"].key(persona.tipo_de_cedula) + persona.cedula%></td>
         <td><%= persona.nombres.capitalize+" "+persona.apellidos.capitalize %></td>
-        <td><%= persona.cargo.departamento.nombre %></td>
         <td><%= persona.cargo.nombre %></td>
+        <td><%= persona.cargo.departamento.nombre %></td>
         <td><%= persona.cargo.tipo.nombre %></td>
-        <td><%= persona.cargo.sueldos.last.monto %></td>
         <td>
           <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-          <%= link_to ' Recibo', persona_path(persona,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
-          <%= link_to '', persona_path(persona,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+            <%= link_to ' Recibo', persona_path(persona,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte" %>
+            <%= link_to '', persona_path(persona,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
           </div>
           <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-          <%= link_to ' Constancia', persona_path(persona,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
-          <%= link_to '', persona_path(persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+            <%= link_to ' Constancia', persona_path(persona,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
+            <%= link_to '', persona_path(persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
           </div>
         </td>
         <td>
 
-
-        <%= render 'layouts/actions', :x => Persona, :y => edit_persona_path(persona) %>
+          <%= render 'layouts/actions', :x => Persona, :y => edit_persona_path(persona), :z =>persona %>
         </td>
       </tr>
       <% end %>
     </tbody>
   </table>
-<div class="pagination text-center">
-  <%= will_paginate p, renderer: BootstrapPagination::Rails %>
-</div>
+  <div class="pagination text-center">
+    <%= will_paginate p, renderer: BootstrapPagination::Rails %>
+  </div>
 </div>
 <%else%>
 <div class="actions">

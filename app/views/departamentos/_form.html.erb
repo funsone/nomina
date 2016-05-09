@@ -18,20 +18,31 @@
       </div>
       <% end %>
 
-      <div class="form-group col-md-12">
-        <div class="form-group col-xs-6">
+      <div class="col-md-12">
+        <div class="col-md-6">
           <%= f.label :nombre %><br>
-          <%= f.text_field :nombre ,class: "form-control", REQUIRED: "", autofocus: "" %>
+          <div class="form-group input-group">
+            <span class="input-group-addon">
+              <span class="fa fa-align-justify"></span>
+            </span>
+            <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
+          </div>
         </div>
-        <div class="form-group col-xs-6">
+        <div class="col-md-6">
           <%= f.label :dependencia_id %><br>
-          <% if f.object.dependencia_id=f.object.dependencia_id ? f.object.dependencia_id : 0%>
-          <%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, f.object.dependencia_id),{include_blank:'Seleccione una Dependencia...'},:class =>"form-control", REQUIRED: "" )  %></span>
-        <%end%>
+          <div class="form-group input-group">
+            <span class="input-group-addon">
+              <span class="fa fa-building-o"></span>
+            </span>
+            <% if f.object.dependencia_id=f.object.dependencia_id ? f.object.dependencia_id : 0%>
+            <%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, f.object.dependencia_id),{include_blank:'Seleccione una Dependencia...'},:class =>"form-control", REQUIRED: "" )  %></span>
+          <%end%>
+        </div>
       </div>
     </div>
     <%= render 'layouts/botones', p: departamentos_path  %>
+  <%end%>
   </div>
 </div>
+
 </div>
-<% end %>

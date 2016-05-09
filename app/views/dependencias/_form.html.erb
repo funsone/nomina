@@ -17,15 +17,16 @@
         </ul>
       </div>
       <% end %>
-      <div class="form-group col-md-12">
+      <div class="col-md-12">
         <%= f.label :nombre %><br>
-        <%= f.text_field :nombre, class:"form-control", REQUIRED: "", autofocus: ""%>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-align-justify"></span>
+          </span>
+          <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
+        </div>
       </div>
       <%= render 'layouts/botones', p: dependencias_path  %>
-
-
-
     </div>
   </div>
-
   <% end %>

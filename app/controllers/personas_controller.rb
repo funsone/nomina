@@ -44,7 +44,7 @@ class PersonasController < ApplicationController
         respond_to do |format|
             format.html do
                 if @persona.valido == false
-                    redirect_to @persona, notice: 'La persona registros para esa fecha'
+                    redirect_to @persona, notice: 'La persona no tiene registros para esa fecha.'
                 end
             end
 

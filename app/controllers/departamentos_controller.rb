@@ -1,7 +1,7 @@
 class DepartamentosController < ApplicationController
   before_filter :authenticate_usuario!
 
-  before_action :set_departamento, only: [:show, :edit, :update, :destroy]
+  before_action :set_departamento, only: [:edit, :update, :destroy]
 
   # GET /departamentos
   # GET /departamentos.json
@@ -12,6 +12,9 @@ class DepartamentosController < ApplicationController
   # GET /departamentos/1
   # GET /departamentos/1.json
   def show
+    respond_to do |format|
+      format.html { redirect_to departamentos_path, notice: 'Ruta no disponible.' }
+    end
   end
 
   # GET /departamentos/new
@@ -40,8 +43,8 @@ class DepartamentosController < ApplicationController
 
     respond_to do |format|
       if @departamento.save
-        log("Se a creado el departamento #{@lt}", 0)
-        format.html { redirect_to @departamento, notice: 'El departamento fue creado exitosamente.' }
+        log("Se ha creado el departamento #{@lt}", 0)
+        format.html { redirect_to departamentos_path, notice: 'El departamento fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @departamento }
       else
         format.html { render :new }
@@ -57,7 +60,7 @@ class DepartamentosController < ApplicationController
     respond_to do |format|
       if @departamento.update(departamento_params)
         log("Se ha editado el departamento #{@lt}", 1)
-        format.html { redirect_to @departamento, notice: 'Los datos del departamento fueron actualizados exitosamente.' }
+        format.html { redirect_to departamentos_path, notice: 'Los datos del departamento fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @departamento }
       else
         format.html { render :edit }
@@ -83,7 +86,7 @@ class DepartamentosController < ApplicationController
     def set_departamento
       if !Departamento.where(id: params[:id]).empty?
         @departamento= Departamento.find(params[:id])
-        @lt = '<a href="' + departamento_path(@departamento) + '"> ' + @departamento.nombre + '</a>'
+        @lt = '<a href="' + departamentos_path + '"> ' + @departamento.nombre + '</a>'
       else
         respond_to do |format|
           format.html { redirect_to departamentos_url, alert: 'Departamento no encontrado en la base de datos.' }

@@ -35,6 +35,9 @@ class Ability
             cannot :read, Setting
 
         end
+          cannot :read, Dependencia
+          cannot :read, Departamento
+          cannot :read, Tipo
         #
         # The first argument to `can` is the action you are giving the user
         # permission to do.

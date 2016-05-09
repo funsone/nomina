@@ -15,7 +15,7 @@
   <% p.each do |registro| %>
     <tr class="<%= $dic["tipo_de_accion"].key(registro.tipo_de_accion)%>">
       <td><%= registro.created_at.strftime("%d-%m-%Y ") %></td>
-      <td><%= registro.usuario.rol.nombre+ ": "+registro.usuario.email %></td>
+      <td><%= registro.usuario.email %></td>
       <td><%= raw(registro.descripcion) %></td>
 
     </tr>

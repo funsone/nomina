@@ -20,7 +20,7 @@ class SettingsController < ApplicationController
             @setting.value = YAML.load(params[:setting][:value])
             @setting.save
               authorize! :update, Setting
-            redirect_to settings_path, notice: 'Setting has updated.'
+            redirect_to settings_path, notice: 'La configuracion fue actualizada exitosamente.'
         else
             redirect_to settings_path
         end

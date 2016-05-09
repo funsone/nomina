@@ -28,16 +28,16 @@
                     <td><%= tipo.nombre %></td>
                     <td class="actions">
                         <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                            <%= link_to ' Recibos', tipo_path(tipo,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar recibos de pago de la nomina" %>
-                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+                            <%= link_to ' Recibos', tipo_path(tipo,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar recibos de pago de la nómina" %>
+                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
                         </div>
                         <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                            <%= link_to ' Bancario', "#",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte bancario" %>
-                            <%= link_to '', "#",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+                            <%= link_to ' Bancario', tipo_path(tipo,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte bancario" %>
+                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
                         </div>
                         <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                            <%= link_to ' Conceptos', tipo_path(tipo,format: "pdf")+"?doc=4",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
-                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=5",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+                            <%= link_to ' Conceptos', tipo_path(tipo,format: "pdf")+"?doc=4",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos de la nómina" %>
+                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=5",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
                         </div>
 
                     </td>
@@ -47,7 +47,7 @@
 
                     <td class="actions">
                         <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                            <%= render 'layouts/actions', :x => Tipo, :y => edit_tipo_path(tipo) %>
+                            <%= render 'layouts/actions', :x => Tipo, :y => edit_tipo_path(tipo), :z =>tipo %>
                         </tr>
 
                         <% end %>

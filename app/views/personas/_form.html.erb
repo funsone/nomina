@@ -42,7 +42,7 @@
 
       </div>
       <div class="tab-pane fade" id="familiares">
-  <br>
+        <br>
         <%= f.fields_for :familiares do |fa| %>
 
         <%= render 'familiar_fields', :f => fa %>
@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="tab-pane fade" id="conceptospersonales">
-  <br>
+        <br>
         <%= f.fields_for :registrosconceptos do |fa| %>
 
         <%= render 'registroconcepto_fields', :f => fa %>
@@ -66,7 +66,7 @@
     </div>
   </div>
 </div>
-  <%= render 'layouts/botones', p: personas_path  %>
+<%= render 'layouts/botones', p: personas_path  %>
 <% end %>
 <script>
   function se() {
@@ -103,7 +103,7 @@
   }
   $(function () {
     se()
-$('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover();
     $('#persona_contrato_attributes_tipo_de_contrato').change(se);
   });
 </script>
