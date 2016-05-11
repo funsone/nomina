@@ -102,7 +102,9 @@ class Persona < ActiveRecord::Base
 
     a.each do |j|
       next unless j.modalidad_de_pago == $quincena || j.modalidad_de_pago == 2
-      f=j.formulas.last
+      f=j.formulas.where("created_at < ?",fecha)
+      next unless f.length>0
+      f=f.last
       valor = eval(f.empleado).to_d
       valor_patrono = eval(f.patrono).to_d
       self.total_asignaciones += valor
@@ -131,7 +133,10 @@ class Persona < ActiveRecord::Base
 
       end
       next unless aplicar == true
-      f=j.formulaspersonales.last
+      f=j.formulaspersonales.where("created_at < ?",fecha)
+      next unless f.length>0
+      f=f.last
+
       valor = eval(f.empleado).to_d
       valor_patrono = eval(f.patrono).to_d
       self.total_asignaciones += valor
@@ -157,7 +162,9 @@ class Persona < ActiveRecord::Base
         aplicar = self.caja_de_ahorro ? true : false
       end
       next unless aplicar
-      f=j.formulas.last
+      f=j.formulas.where("created_at < ?",fecha)
+      next unless f.length>0
+      f=f.last
       valor = eval(f.empleado).to_d
       valor_patrono = eval(f.patrono).to_d
       self.total_deducciones += valor
@@ -187,7 +194,9 @@ class Persona < ActiveRecord::Base
 
       end
       next unless aplicar == true
-      f=j.formulaspersonales.last
+      f=j.formulaspersonales.where("created_at < ?",fecha)
+      next unless f.length>0
+      f=f.last
       valor = eval(f.empleado).to_d
       valor_patrono = eval(f.patrono).to_d
       self.total_deducciones += valor

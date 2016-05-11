@@ -22,10 +22,13 @@
     <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione el modo de pago...'},:class =>"form-control",REQUIRED: "" )  %>
       </div>
     </div>
-    <%f.object.formulaspersonales.build
+    <%if f.object.formulaspersonales.length==0
+    f.object.formulaspersonales.build
+      end
        %>
     <%= f.fields_for :formulaspersonales  do |formula_builder|
        %>
+       <% if formula_builder.object.activo? %>
 
 <%# if formula_builder.object.activo? %>
     <div class="col-xs-6">
@@ -46,7 +49,7 @@
         <%= formula_builder.text_area :patrono, class: "form-control", REQUIRED: ""%>
       </div>
     </div>
-
+<% end %>
     <% end %>
 
   </div>

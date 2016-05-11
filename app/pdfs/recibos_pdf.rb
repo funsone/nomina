@@ -12,6 +12,9 @@ class RecibosPdf < Prawn::Document
             p = s.persona
             p.calculo
             next unless p.valido == true
+            next unless (p.status != "retirado")
+            #next unless (p.status != "suspendido")
+            next unless (p.contrato.tipo_de_contrato != 2) or( p.total>0 && p.contrato.tipo_de_contrato == 2)
             image banner, scale: 0.54, align: :center
             move_down 30
             text 'NOMINA PERSONAL ' + p.cargo.tipo.nombre.upcase, align: :center, size: 16

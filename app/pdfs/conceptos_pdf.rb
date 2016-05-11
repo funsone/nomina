@@ -24,6 +24,7 @@ class ConceptosPdf < Prawn::Document
                     next unless cargo.disponible==false
                     p = cargo.persona
                     p.calculo
+                    next unless (p.contrato.tipo_de_contrato != 2) or( p.total>0 && p.contrato.tipo_de_contrato == 2)
                     next unless p.valido==true
                     p.asignaciones.each do |c|
                         next unless c['nombre'] == concepto.nombre

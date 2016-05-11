@@ -54,10 +54,11 @@
       </div>
       <div class="tab-pane fade" id="conceptospersonales">
         <br>
-        <%= f.fields_for :registrosconceptos do |fa| %>
+        <% x=false%>
+        <%=f.fields_for :registrosconceptos do |fa| %>
 
         <%= render 'registroconcepto_fields', :f => fa %>
-        <% end %>
+        <%end %>
         <div class="links">
 
           <%= link_to_add_association raw('<i class="fa fa-plus"></i> Agregar concepto'), f, :registrosconceptos, class: "links pull-right" %>
