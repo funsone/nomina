@@ -1,24 +1,58 @@
-<p>
-  <strong>Nombre:</strong>
-  <%= @concepto.nombre %>
-</p>
-  <% j=@concepto.formulas.where(activo: true).first %>
-<p>
-  <strong>Formula:</strong>
-  <%= j.empleado %>
-</p>
-<p>
-  <strong>Formula:</strong>
-    <%=j.patrono %>
-</p>
+<div class="page-header">
+  <h1><%= @concepto.nombre %></h1>
+</br>
+  <h4><b>Tipo de concepto:</b>
+<%= $dic['tipos_de_conceptos'].key(@concepto.tipo_de_concepto).upcase %>,
+    <b>Modalidad de pago:</b>
+    <%= $dic['modos_de_pago'].key(@concepto.modalidad_de_pago).upcase %>,
+    <b>Condicion para aplicar:</b>
+    <%= $dic['condiciones'].key(@concepto.condicion).upcase %>.</h4>
+    <h4><b>Nominas en las cuales se aplica: </b>
+    <% @concepto.tipos.each do |tipo|
+      %>
+    <span class="label label-info"><%= tipo.nombre%></span>
+      <% end%>
+</h4>
 
-<p>
-  <strong>Modalidad de pago:</strong>
-  <%= @concepto.modalidad_de_pago %>
-</p>
-<p>
-  <strong>tipo de concepto:</strong>
-  <%= @concepto.tipo_de_concepto %>
-</p>
-<%= link_to 'Edit', edit_concepto_path(@concepto) %> |
-<%= link_to 'Back', conceptos_path %>
+</div>
+
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false">Formulas</li>
+  <li class="list-group-item text-center">
+    <div class="table-responsive">
+      <table class="table table-hover table-responsive table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th class="actions">Formula empleado</th>
+            <th class="actions">Formula aporte del empleador</th>
+            <th class="actions">Fecha de vigencia</th>
+            <th class="actions" style="width:20px">Activo</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @concepto.formulas.order('activo DESC').each do |formula| %>
+          <tr class="<%= formula.activo ? 'success': 'danger'%>">
+            <td><%= formula.empleado %></td>
+            <td><%= formula.patrono %></td>
+            <%
+            quincena=(formula.created_at.day<=15)? 0 : 1
+            %>
+            <th class="actions"><%= formula.created_at.strftime("#{$dic['quincena'].key(quincena)} #{$dic['meses'].key(formula.created_at.month).capitalize}-%Y") %></th>
+            <th class="actions"><%if formula.activo %>
+              <span class="fa fa-check"></span>
+              <%else%>
+              <span class="fa fa-close"></span>
+              <%end%></th>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </li>
+</ul>
+
+<div class="col-xs-12 actions"><br>
+  <%= link_to raw('<i class= "fa fa-pencil"></i> Editar'), edit_concepto_path(@concepto), class: "btn btn-success boton" %>
+  <%= link_to raw('<i class= "fa fa-arrow-circle-left"></i> Regresar'), conceptos_path, class: "btn btn-default boton" %>
+</div>

@@ -8,25 +8,18 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href="/"><img alt="Brand" src="/assets/brand.png"></a>
+      <a class="navbar-brand" style="padding-top:1px;
+padding-left:1px;
+      " href="/"><h3><img src="/assets/brand.png" alt="" />FUNSONE nominas</h3></a>
 
     </div>
     <div style="color: white;
-      padding: 15px 50px 5px 50px;
-      float: right;
-      font-size: 16px;">
+      padding-right: 30px;
+      float: right;">
+<h4><%= $dic["quincena"].key($quincena).capitalize+'('+$ahora.strftime("%d/#{$dic["meses"].key($ahora.month)}/%Y")+') '%></h4>
 
-      <%= $dic["quincena"].key($quincena)+'('+$ahora.strftime("%d-#{$dic["meses"].key($ahora.month)}-%Y")+') '%>
 
-      <%if usuario_signed_in?%>
 
-      <%= link_to "Cerrar sesion", destroy_usuario_session_path,method: :delete, class:"btn btn-danger"%>
-
-      <%else %>
-      <%=
-    link_to "Iniciar sesion", new_usuario_session_path, class:"btn btn-danger"
-    %>
-      <%end %>
     </div>
   </nav>
 
@@ -36,20 +29,26 @@
       <ul class="nav" id="main-menu">
 
         <%if usuario_signed_in?%>
-        <li class="">
+        <li>
           <a href="#">
-bienvenido
-            <span class="pull-right">
-              <%=current_usuario.email%></span>
+            <i class="fa fa-user fa-2x fa-fw"></i>
+            <%=current_usuario.email%><span class="fa arrow"></span>
           </a>
+          <ul class="nav nav-second-level">
+            <li>
+            <%= link_to "Cerrar sesión", destroy_usuario_session_path,method: :delete%>
+            </li>
+
+
+          </ul>
         </li>
 
         <li>
-          <%= link_to raw("<i class=\"fa fa-home fa-2x\"></i> PANEL INICIAL"), welcome_index_path%>
+          <%= link_to raw("<i class=\"fa fa-home fa-2x fa-fw\"></i> PANEL INICIAL"), welcome_index_path%>
         </li>
         <li>
           <a href="#">
-            <i class="fa fa-building fa-2x"></i>
+            <i class="fa fa-building fa-2x fa-fw"></i>
             ESTRUCTURAS<span class="fa arrow"></span>
           </a>
           <ul class="nav nav-second-level">
@@ -63,11 +62,11 @@ bienvenido
           </ul>
         </li>
         <li>
-          <%= link_to raw("<i class=\"fa fa-th-list fa-2x\"></i> NÓMINAS"), tipos_path%>
+          <%= link_to raw("<i class=\"fa fa-th-list fa-2x fa-fw\"></i> NÓMINAS"), tipos_path%>
         </li>
         <li>
           <a href="#">
-            <i class="fa fa-money fa-2x"></i>
+            <i class="fa fa-money fa-2x fa-fw"></i>
             CONCEPTOS<span class="fa arrow"></span>
           </a>
           <ul class="nav nav-second-level">
@@ -81,26 +80,47 @@ bienvenido
         </li>
         <li>
         <li>
-          <%= link_to raw("<i class=\"fa fa-briefcase fa-2x\"></i> CARGOS"), cargos_path%>
+          <%= link_to raw("<i class=\"fa fa-briefcase fa-2x fa-fw\"></i> CARGOS"), cargos_path%>
         </li>
         <li >
-          <%= link_to raw("<i class=\"fa fa-users fa-2x\"></i> EMPLEADOS"), personas_path%>
+          <%= link_to raw("<i class=\"fa fa-users fa-2x fa-fw\"></i> EMPLEADOS"), personas_path%>
         </li>
         <% if can? :read, Registro %>
         <li>
-          <%= link_to raw("<i class=\"fa fa-eye fa-2x\"></i> REGISTROS"), registros_path%>
+          <%= link_to raw("<i class=\"fa fa-eye fa-2x fa-fw\"></i> REGISTROS"), registros_path%>
         </li>
         <%end%>
         <% if can? :read, Setting %>
         <li>
-          <%= link_to raw("<i class=\"fa fa-cog fa-2x\"></i> CONFIGURACION"), settings_path%>
+          <%= link_to raw("<i class=\"fa fa-cog fa-2x fa-fw\"></i> CONFIGURACION"), settings_path%>
         </li>
         <%end%>
         <li>
-          <%= link_to raw("<i class=\"fa fa-info-circle fa-2x\"></i> ACERCA DE..."), cargos_path%>
+          <%= link_to raw("<i class=\"fa fa-info-circle fa-2x fa-fw\"></i> ACERCA DE..."), cargos_path%>
         </li>
 
-        <%end %>
+        <%else%>
+        <li class="text-center">
+          <%= link_to raw("<i class=\"fa fa-sign-in fa-5x\"></i>"), new_usuario_session_path%>
+        </li>
+        <li class="text-center">
+          <a href="#">INICIE SESION PARA ACCEDER AL SISTEMA.</a>
+
+        </li>
+        <li>
+          <a href="mailto:<%= Settings.email_admin%>"><i class="fa fa-at fa-2x"></i> CONTACTAR ADMINISTRADOR</a>
+
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-info-circle fa-2x"></i> ACERCA DE...</a>
+
+        </li>
+
+      <%end%>
+      <li class="text-center">
+        version: 2016.05.13.2
+
+      </li>
       </ul>
 
     </div>

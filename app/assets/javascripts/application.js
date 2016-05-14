@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require cocoon
+//= require codemirror
+//= require codemirror/modes/ruby
 //= require_tree .

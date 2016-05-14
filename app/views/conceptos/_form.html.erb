@@ -1,8 +1,7 @@
 <%= form_for(@concepto) do |f| %>
 <% if @concepto.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(@concepto.errors.count, "error") %>
-    prohibited this concepto from being saved:</h2>
+  <h2>No ha podido ser guardado por: <%= pluralize(@concepto.errors.count, "error") %>.</h2>
 
   <ul>
     <% @concepto.errors.full_messages.each do |message| %>
@@ -57,28 +56,34 @@
 <% if formula_builder.object.activo? %>
 
 <div class="col-xs-6">
-  <%= formula_builder.label :empleado %><br>
+  <%= formula_builder.label "Formula Empleado" %><br>
   <div class="form-group input-group">
     <span class="input-group-addon">
       <span class="fa fa-calculator"></span>
     </span>
-    <%= formula_builder.text_area :empleado, class: "form-control", REQUIRED: ""%>
+    <%= formula_builder.text_area :empleado, class: "form-control code", REQUIRED: ""%>
+    <span class="input-group-btn">
+            <button class="btn btn-default"  style="height:111%;" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></button>
+          </span>
   </div>
 </div>
 <div class="col-xs-6">
-  <%= formula_builder.label :patrono %><br>
+  <%= formula_builder.label "Formula Aporte Empleador" %><br>
   <div class="form-group input-group">
     <span class="input-group-addon">
       <span class="fa fa-calculator"></span>
     </span>
-    <%= formula_builder.text_area :patrono, class: "form-control", REQUIRED: ""%>
+    <%= formula_builder.text_area :patrono, class: "form-control code", REQUIRED: ""%>
+    <span class="input-group-btn">
+            <button class="btn btn-default"  style="height:111%;" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></button>
+          </span>
   </div>
 </div>
 <% end %>
 <% end %>
 
 <div class="col-xs-12">
-  <%= label_tag 'Tipos' %><br/>
+  <%= label_tag 'Nominas' %><br/>
   <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
   <div class="collection-check-box form-group checkbox-inline">
     <%= b.check_box class: ""%>
@@ -88,3 +93,70 @@
 </div>
   <%= render 'layouts/botones', p: conceptos_path  %>
 <% end %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal"  style="margin-top:60px;"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Formulas - Ayuda</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Constantes</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Operaciones y funciones</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+      <h2><a id="user-content-built-in-operators-and-functions" class="anchor" href="#" aria-hidden="true"></a>Constantes Predefinidas</h2>
+<p>Sueldo base: <code>sueldo</code></p>
+<p>Sueldo integral: <code>sueldo_integral</code></p>
+<p>Lunes del mes: <code>lunes_del_mes</code></p>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+      <h2><a id="user-content-built-in-operators-and-functions" class="anchor" href="#" aria-hidden="true"></a>Operadores y funciones integradas</h2>
+      <p>Aritmeticas: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code></p>
+
+      <p>Logicas: <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;&gt;</code>, <code>!=</code>, <code>=</code>, <code>AND</code>, <code>OR</code></p>
+
+      <p>Funciones: <code>IF</code>, <code>NOT</code>, <code>MIN</code>, <code>MAX</code>, <code>ROUND</code>, <code>ROUNDDOWN</code>, <code>ROUNDUP</code></p>
+</div>
+  </div>
+
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+  function colorear(x)
+  {
+     var editor = CodeMirror.fromTextArea(x, {
+
+      mode: "ruby",
+      lineNumbers: false,
+    });
+    editor.setSize("100%", 120);
+  }
+
+  $(function() {
+    colorear($(".code")[0]);
+    colorear($(".code")[1]);
+
+});
+
+
+
+</script>

@@ -78,7 +78,9 @@ class Persona < ActiveRecord::Base
   end
 
   def calculo
-    fecha=($quincena==0) ? Date.civil($ahora.year,$ahora.month, 15) : Date.civil($ahora.year,$ahora.month, -1)
+    inicio_mes=Date.civil($ahora.year,$ahora.month, 1)
+    fin_mes= Date.civil($ahora.year,$ahora.month, -1)
+    fecha=($quincena==0) ? Date.civil($ahora.year,$ahora.month, 15) : fin_mes
   sueldos= cargo.sueldos.where("created_at < ?",fecha)
 
     if !(sueldos.length > 0)
@@ -88,6 +90,10 @@ class Persona < ActiveRecord::Base
     self.valido=true
     @SUELDO = sueldos.last.monto
     @SUELDO_INTEGRAL = sueldos.last.sueldo_integral
+    calc=Dentaku::Calculator.new
+ lunes = [1]
+ r = (inicio_mes..fin_mes).to_a.select {|k| lunes.include?(k.wday)}
+    @LUNES_DEL_MES=r.length
     self.asignaciones = []
     self.deducciones = []
     self.total_asignaciones = 0
@@ -105,8 +111,8 @@ class Persona < ActiveRecord::Base
       f=j.formulas.where("created_at < ?",fecha)
       next unless f.length>0
       f=f.last
-      valor = eval(f.empleado).to_d
-      valor_patrono = eval(f.patrono).to_d
+      valor = calc.evaluate(f.empleado, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
+      valor_patrono = calc.evaluate(f.patrono, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
       self.total_asignaciones += valor
       asignaciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s,'valor_patrono', (valor_patrono - 0.0005).round(2).to_s ]
       i += 1
@@ -137,8 +143,8 @@ class Persona < ActiveRecord::Base
       next unless f.length>0
       f=f.last
 
-      valor = eval(f.empleado).to_d
-      valor_patrono = eval(f.patrono).to_d
+      valor = calc.evaluate(f.empleado, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
+      valor_patrono = calc.evaluate(f.patrono, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
       self.total_asignaciones += valor
       asignaciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s, 'valor_patrono', (valor_patrono - 0.0005).round(2).to_s ]
       i += 1
@@ -165,8 +171,8 @@ class Persona < ActiveRecord::Base
       f=j.formulas.where("created_at < ?",fecha)
       next unless f.length>0
       f=f.last
-      valor = eval(f.empleado).to_d
-      valor_patrono = eval(f.patrono).to_d
+      valor = calc.evaluate(f.empleado, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
+      valor_patrono = calc.evaluate(f.patrono, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
       self.total_deducciones += valor
       deducciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s ,'valor_patrono', (valor_patrono - 0.0005).round(2).to_s]
       i += 1
@@ -197,8 +203,8 @@ class Persona < ActiveRecord::Base
       f=j.formulaspersonales.where("created_at < ?",fecha)
       next unless f.length>0
       f=f.last
-      valor = eval(f.empleado).to_d
-      valor_patrono = eval(f.patrono).to_d
+      valor = calc.evaluate(f.empleado, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
+      valor_patrono = calc.evaluate(f.patrono, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
       self.total_deducciones += valor
       deducciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s,'valor_patrono', (valor_patrono - 0.0005).round(2).to_s]
       i += 1

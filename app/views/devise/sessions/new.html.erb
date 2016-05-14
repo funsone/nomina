@@ -9,28 +9,34 @@
           </div>
           <div class="form-bottom">
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <div class="field">
-              <i class="fa fa-envelope">
-                Email</i>
+            <div class="field"> <h4><i class="fa fa-at">
+              </i> Email</h4>
+
               <%= f.email_field :email, autofocus: true, class:"form-username form-control" %>
             </div>
 
             <div class="field">
-              <i class="fa fa-lock">
-                Contrasena</i>
+              <h4><i class="fa fa-key">
+                </i> Contrasena</h4>
+
               <%= f.password_field :password, autocomplete: "off", class:"form-username form-control" %>
             </div>
-
+</br>
             <% if devise_mapping.rememberable? -%>
             <div class="field">
               <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
+              <%= f.label "Recordarme" %>
             </div>
             <% end -%>
 
-            <div class="actions">
-              <%= f.submit "Ingresar", class: "btn btn-danger boton" %>
+            <div class="col-md-4 col-md-offset-4">
+              <button type="submit" name="name" class="btn btn-danger boton" >
+<%= raw("<i class=\"fa fa-sign-in fa-2x\"></i> INGRESAR") %>
+            </button>
+
             </div>
+          </br>
+          </br>
             <% end %>
           </div>
         </div>

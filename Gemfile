@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -11,7 +11,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 
-
+gem 'codemirror-rails'
 gem 'seed_dump'
 gem 'prawn'
 gem 'prawn-table'
@@ -30,6 +30,7 @@ gem 'puma'
 gem 'cancancan', '~> 1.10'
 gem "rails-settings-cached"
 gem 'rolify'
+gem 'dentaku'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'bootstrap-sass', '~> 3.3.6'
