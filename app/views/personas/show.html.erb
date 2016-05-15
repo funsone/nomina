@@ -194,11 +194,11 @@
         <tr>
           <th></th>
           <th><%=
-            (@persona.total_asignaciones - 0.0005).round(2)%></th>
+            truncar(@persona.total_asignaciones)%></th>
           <th><%=
-              (@persona.total_deducciones - 0.0005).round(2)
+              (@persona.total_deducciones)
             %></th>
-          <th><%= ((@persona.total) - 0.0005).round(2).to_s+"  BsF." %></th>
+          <th><%= truncar(@persona.total).to_s+"  BsF." %></th>
         </tr>
       </tbody>
     </table>

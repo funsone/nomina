@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
     # For APIs, you may want to use :null_session instead.
     # encoding: utf-8
     protect_from_forgery with: :exception
+
+
+helper ApplicationHelper
+
 def current_user
 current_usuario
 end
@@ -12,6 +16,7 @@ end
       Registro.create(descripcion: descripcion, tipo_de_accion: tipo_de_accion, usuario_id: current_usuario.id)
 
     end
+
     $dic = Hash['tipos_de_contrato' => Hash['Fijo' => 0, 'Temporal' => 1, 'Comision de servicio' => 2],
                 'sexos' => Hash['Masculino' => 0, 'Femenino' => 1],
                 'tipos_de_cedula' => Hash['V-' => 0, 'E-' => 1],
@@ -27,7 +32,8 @@ end
                 'condiciones' => Hash['Ninguna' => 0, 'FAOV' => 1, 'IVSS' => 2, 'TSS' => 3, 'CAJA DE AHORRO' => 4]]
 
     def set_ahora
-        $ahora = params[:ahora] ? params[:ahora].to_time : Time.now.in_time_zone('America/Caracas')
+
+        $ahora = params[:ahora] ? params[:ahora].to_time : Time.now
         $quincena = ($ahora.day <= 15) ? 0 : 1
     end
 

@@ -3,7 +3,7 @@
     Concepto   <div class="pull-right"><%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%></div>
   </div>
   <div class="panel-body">
-    <div class="col-sm-4">
+    <div class="col-xs-6">
       <%= f.label "Concepto Personal" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -12,7 +12,7 @@
         <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control',REQUIRED: "")  %>
       </div>
     </div>
-        <div class="col-sm-4">
+        <div class="col-xs-6">
       <%= f.label "Modalidad de Pago" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -32,23 +32,24 @@
 
 <%# if formula_builder.object.activo? %>
     <div class="col-xs-6">
-      <%= formula_builder.label :empleado %><br>
+      <%= formula_builder.label "Aporte/Cobro de empleado" %><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
         </span>
-        <%= formula_builder.text_area :empleado, class: "form-control", REQUIRED: ""%>
+        <%= formula_builder.text_area :empleado, class: "form-control code", REQUIRED: ""%>
       </div>
     </div>
     <div class="col-xs-6">
-      <%= formula_builder.label :patrono %><br>
+      <%= formula_builder.label "Aporte del patrono" %><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
         </span>
-        <%= formula_builder.text_area :patrono, class: "form-control", REQUIRED: ""%>
+        <%= formula_builder.text_area :patrono, class: "form-control code", REQUIRED: ""%>
       </div>
     </div>
+
 <% end %>
     <% end %>
 

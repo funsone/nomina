@@ -1,4 +1,7 @@
 class PersonaPdf <Prawn::Document
+  def truncar(n)
+  return ("%0.2f" % n).to_f
+  end
 def initialize(p,eco)
 
   super(left_margin: 50)
@@ -29,7 +32,7 @@ data+=[[c['nombre'].upcase,c['valor'],"",""]]
 data+=[[c['nombre'].upcase,"",c['valor'],""]]
 
  end
-   data+=[["",(p.total_asignaciones - 0.0005).round(2).to_s,(p.total_deducciones - 0.0005).round(2).to_s , ((p.total) - 0.0005).round(2).to_s]]
+   data+=[["",truncar(p.total_asignaciones).to_s,truncar(p.total_deducciones).to_s , truncar(p.total).to_s]]
 
 
 table(data, :header => true,width: 500,:cell_style => { :size => 10 })

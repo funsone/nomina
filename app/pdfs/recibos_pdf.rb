@@ -1,5 +1,9 @@
 class RecibosPdf < Prawn::Document
+  def truncar(n)
+  return ("%0.2f" % n).to_f
+  end
     def initialize(tipo, eco)
+
         super(left_margin: 50)
         banner = 'app/assets/images/banner.png'
         if eco == 1
@@ -31,7 +35,7 @@ class RecibosPdf < Prawn::Document
             p.deducciones.each do |c|
                 data += [[c['nombre'].upcase, '', c['valor'], '']]
             end
-            data += [['', (p.total_asignaciones - 0.0005).round(2).to_s, (p.total_deducciones - 0.0005).round(2).to_s, (p.total - 0.0005).round(2).to_s]]
+            data += [['', truncar(p.total_asignaciones).to_s, truncar(p.total_deducciones).to_s, truncar(p.total).to_s]]
 
             table(data, header: true, width: 500, cell_style: { size: 10 })
             start_new_page
