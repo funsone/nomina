@@ -5,15 +5,8 @@
   <div class="panel-body">
     <div class="row">
       <%= form_for(@dependencia) do |f| %>
-      <% if @dependencia.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@dependencia.errors.count, "error") %>
-          prohibited this dependencia from being saved:</h2>
+      <%= render 'layouts/errores', :x=>@dependencia %>
 
-        <ul>
-          <% @dependencia.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-          <% end %>
         </ul>
       </div>
       <% end %>

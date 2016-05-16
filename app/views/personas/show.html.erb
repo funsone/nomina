@@ -8,7 +8,7 @@
 <div class=" col-md-12">
 
   <ul class="nav nav-pills nav-justified">
-    <% if can? :edit, Setting %>
+    <% if can? :edit, Persona %>
     <li role="presentation"><%= link_to 'Editar', edit_persona_path(@persona)%></li>
     <%end%>
     <li role="presentation"><%= link_to 'Regresar', personas_path%></li>
@@ -38,7 +38,7 @@
 
       </ul>
     </li>
-    <% if can? :edit, Setting %>
+    <% if can? :edit, Persona %>
     <li role="presentation">
 
       <a class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar estado
@@ -69,7 +69,7 @@
     <li class="list-group-item text-muted" contenteditable="false">Perfil</li>
     <li class="list-group-item text-right">
       <span class="pull-left">
-        <strong class="">status</strong>
+        <strong class="">Estado</strong>
       </span>
       <%= @persona.status.capitalize %></li>
     <li class="list-group-item text-right">
@@ -117,7 +117,7 @@
     <span class="pull-left">
       <strong class="">Fecha de nacimiento</strong>
     </span>
-    <%= @persona.fecha_de_nacimiento %></li>
+    <%= @persona.fecha_de_nacimiento.strftime("%d/#{$dic["meses"].key(@persona.fecha_de_nacimiento.month).capitalize}/%Y") %></li>
   <li class="list-group-item text-right">
     <span class="pull-left">
       <strong class="">Direccion</strong>
@@ -134,9 +134,9 @@
     <%= $dic["tipos_de_contrato"].key(@persona.contrato.tipo_de_contrato)%></li>
   <li class="list-group-item text-right">
     <span class="pull-left">
-      <strong class="">Fecha de Inicio</strong>
+      <strong class="">Fecha de inicio</strong>
     </span>
-    <%= @persona.contrato.fecha_inicio%></li>
+    <%= @persona.contrato.fecha_inicio.strftime("%d/#{$dic["meses"].key(@persona.contrato.fecha_inicio.month).capitalize}/%Y")%></li>
   <li class="list-group-item text-right">
     <span class="pull-left">
       <strong class="">Años de servicio</strong>

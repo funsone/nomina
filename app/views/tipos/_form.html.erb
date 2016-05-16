@@ -5,18 +5,7 @@
   <div class="panel-body">
     <div class="row">
       <%= form_for(@tipo) do |f| %>
-      <% if @tipo.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@tipo.errors.count, "error") %>
-          prohibited this tipo from being saved:</h2>
-
-        <ul>
-          <% @tipo.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-      <% end %>
+      <%= render 'layouts/errores', :x=>@tipo %>
 
       <div class="col-md-12">
         <%= f.label :nombre %><br>

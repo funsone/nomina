@@ -1,0 +1,12 @@
+<% if x.errors.any? %>
+<div id="error_explanation">
+    <h2>No ha podido ser guardado por:
+        <%= pluralize(x.errors.count, "error") %>.</h2>
+
+    <ul>
+        <% x.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>

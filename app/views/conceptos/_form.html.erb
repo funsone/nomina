@@ -1,16 +1,5 @@
 <%= form_for @concepto do |f| %>
-<% if @concepto.errors.any? %>
-<div id="error_explanation">
-    <h2>No ha podido ser guardado por:
-        <%= pluralize(@concepto.errors.count, "error") %>.</h2>
-
-    <ul>
-        <% @concepto.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-    </ul>
-</div>
-<% end %>
+<%= render 'layouts/errores', :x=>@concepto %>
 
 <div class="col-xs-6">
     <%= f.label :nombre %><br>
@@ -35,8 +24,7 @@
     <%= f.label :tipo_de_concepto  %>
     <div class="form-group input-group">
         <span class="input-group-addon">
-            <span class="fa fa-arrow-up"></span>
-            <span class="fa fa-arrow-down"></span>
+            <span class="fa fa-exchange fa-rotate-90"></span>
         </span>
         <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"], f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control", REQUIRED: "")  %>
     </div>
@@ -46,8 +34,7 @@
     <%= f.label :condicion  %>
     <div class="form-group input-group">
         <span class="input-group-addon">
-            <span class="fa fa-arrow-up"></span>
-            <span class="fa fa-arrow-down"></span>
+        <span class="fa fa-check-square-o"></span>
         </span>
         <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condicion...'},:class =>"form-control", REQUIRED: "")  %>
     </div>
@@ -108,7 +95,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Formulas - Ayuda</h4>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-question-circle fa-2x"></i>
+                Ayuda - Editor de Formulas</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -116,18 +104,17 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active">
-                            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Constantes</a>
+                            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Constantes predefinidas</a>
                         </li>
                         <li role="presentation">
-                            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Operaciones y funciones</a>
+                            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Operadores y funciones integrales</a>
                         </li>
                     </ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
-                            <h2>
-                                <a id="user-content-built-in-operators-and-functions" class="anchor" href="#" aria-hidden="true"></a>Constantes Predefinidas</h2>
+
                             <p>Sueldo base:
                                 <code>sueldo</code>
                             </p>
@@ -139,8 +126,7 @@
                             </p>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile">
-                            <h2>
-                                <a id="user-content-built-in-operators-and-functions" class="anchor" href="#" aria-hidden="true"></a>Operadores y funciones integradas</h2>
+
                             <p>Aritmeticas:
                                 <code>+</code>,
                                 <code>-</code>,

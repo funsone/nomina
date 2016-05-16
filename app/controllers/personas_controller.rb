@@ -105,8 +105,7 @@ class PersonasController < ApplicationController
         else
             @persona = Persona.new
             @persona.contrato = Contrato.new
-            @persona.registrosconceptos.build
-            @persona.registrosconceptos.formulaspersonales.build
+
         end
     end
 

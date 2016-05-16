@@ -5,18 +5,7 @@
   <div class="panel-body">
     <div class="row">
       <%= form_for(@departamento) do |f| %>
-      <% if @departamento.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@departamento.errors.count, "error") %>
-          prohibited this departamento from being saved:</h2>
-
-        <ul>
-          <% @departamento.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-      <% end %>
+    <%= render 'layouts/errores', :x=>@departamento %>
 
       <div class="col-md-12">
         <div class="col-md-6">
