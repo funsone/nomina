@@ -43,12 +43,32 @@
 
 </div>
 <div class="col-xs-6">
+  <%= f.label :condicion  %>
+  <div class="form-group input-group">
+    <span class="input-group-addon">
+      <span class="fa fa-arrow-up"></span>
+      <span class="fa fa-arrow-down"></span>
+    </span>
+    <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condicion...'},:class =>"form-control", REQUIRED: "")  %>
+  </div>
+
+</div>
+<div class="col-xs-6">
   <%= f.label :formula %><br>
   <div class="form-group input-group">
     <span class="input-group-addon">
       <span class="fa fa-calculator"></span>
     </span>
     <%= f.text_area :formula, class: "form-control", REQUIRED: ""%>
+  </div>
+</div>
+<div class="col-xs-6">
+  <%= f.label :formula_patrono %><br>
+  <div class="form-group input-group">
+    <span class="input-group-addon">
+      <span class="fa fa-calculator"></span>
+    </span>
+    <%= f.text_area :formula_patrono, class: "form-control", REQUIRED: ""%>
   </div>
 </div>
 <div class="col-xs-12">

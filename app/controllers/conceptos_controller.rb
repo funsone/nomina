@@ -1,6 +1,6 @@
 class ConceptosController < ApplicationController
   before_action :set_concepto, only: [:show, :edit, :update, :destroy]
-  
+
   # GET /conceptos
   # GET /conceptos.json
   def index
@@ -80,6 +80,6 @@ class ConceptosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def concepto_params
-      params.require(:concepto).permit(:nombre, :formula, :modalidad_de_pago,:tipo_de_concepto, tipo_ids: [])
+      params.require(:concepto).permit(:nombre, :formula, :modalidad_de_pago, :tipo_de_concepto, :formula_patrono, :condicion, tipo_ids: [])
     end
 end

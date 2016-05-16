@@ -1,6 +1,6 @@
 class Persona < ActiveRecord::Base
   self.per_page = 1
-   attr_readonly :cedula
+  attr_readonly :cedula
   include AASM
   aasm column: 'status' do
     state :activo, initial: true
@@ -37,7 +37,7 @@ class Persona < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   attr_readonly :tipo_de_cedula, :cedula
-  validates :tipo_de_cedula, :cedula, :nombres, :apellidos, :correo, :fecha_de_nacimiento, :sexo, :cargo, :cuenta, :direccion, :sueldo_integral, presence: true
+  validates :tipo_de_cedula, :cedula, :nombres, :apellidos, :correo, :fecha_de_nacimiento, :sexo, :cargo, :cuenta, :direccion, presence: true
   validates :correo, uniqueness: { case_sensitive: false, message: 'El correo ingresado ya existe.' }, format: { with: VALID_EMAIL_REGEX, message: 'El formato del correo es invalido' }
   validates :cedula, uniqueness: { case_sensitive: false, message: 'ya esta registrada.' }, numericality: { only_integer: true }
   validates :nombres, :apellidos, length: { in: 0..50 }
@@ -45,27 +45,25 @@ class Persona < ActiveRecord::Base
   validates :telefono_fijo, :telefono_movil, length: { is: 11 }, allow_blank: true, numericality: { only_integer: true }
   validates :cuenta, length: { is: 20 }
   validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida. La persona debe ser mayor de edad.' }
-  validates :sueldo_integral, numericality: true
   attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones
-def self.search(search,dep)
-search=search.downcase
-if dep=="" and search==""
-  order(:cedula)
-elsif dep and dep!="" and search==""
-  joins(:cargo).where('"cargos"."departamento_id" = CAST(? AS INTEGER)',dep).order(:cedula)
-elsif dep and dep!=""
+  def self.search(search, dep)
+    search = search.downcase
+    if dep == '' && search == ''
+      order(:cedula)
+    elsif dep && dep != '' && search == ''
+      joins(:cargo).where('"cargos"."departamento_id" = CAST(? AS INTEGER)', dep).order(:cedula)
+    elsif dep && dep != ''
 
-joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",dep).order(:cedula)
-elsif search and search!=""
+      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep).order(:cedula)
+    elsif search && search != ''
 
-where('cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ? ', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").order(:cedula)
-end
+      where('cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ? ', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").order(:cedula)
+    end
+  end
 
-
-end
   def calculo
     @SUELDO = cargo.sueldos.last.monto
-    @SUELDO_INTEGRAL = self.sueldo_integral
+    @SUELDO_INTEGRAL = cargo.sueldos.last.sueldo_integral
     self.asignaciones = []
     self.deducciones = []
     self.total_asignaciones = 0
@@ -116,6 +114,21 @@ end
 
     d.each do |j|
       next unless j.modalidad_de_pago == $quincena || j.modalidad_de_pago == 2
+      aplicar = false
+      case j.condicion
+
+      when 0
+        aplicar = true
+      when 1
+        aplicar = self.FAOV ? true : false
+      when 2
+        aplicar = self.IVSS ? true : false
+      when 3
+        aplicar = self.TSS ? true : false
+      when 4
+        aplicar = self.caja_de_ahorro ? true : false
+      end
+      next unless aplicar
       valor = eval(j.formula).to_d
       self.total_deducciones += valor
       deducciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s + '  Bs.']

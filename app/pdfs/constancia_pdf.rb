@@ -3,7 +3,7 @@ def initialize(p)
 
   super(left_margin: 100, top_margin: 50, right_margin: 100)
 
-image "app/assets/images/banner.png"
+image "app/assets/images/banner.png", scale: 0.45
 move_down 40
   text "CONSTANCIA DE TRABAJO",align: :center, size: 16, style: :bold
   move_down 40

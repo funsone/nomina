@@ -4,14 +4,12 @@ class CargosController < ApplicationController
   # GET /cargos
   # GET /cargos.json
   def index
-    
     s = params[:search]
     d = params[:departamento]
     p = params[:page]
     buscar = ((s != '' && s) || d)
 
     @cargos = buscar ? Cargo.all.search(s, d).paginate(page: p) : Cargo.order(:nombre).paginate(page: p)
-
   end
 
   # GET /cargos/1
@@ -52,14 +50,27 @@ class CargosController < ApplicationController
   # PATCH/PUT /cargos/1.json
   def update
     respond_to do |format|
-      key, value = params[:cargo][:sueldos_attributes].first
-      if !@cargo.sueldos.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).empty?
-
+      #  if !@cargo.sueldos.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).empty?
+      nuevo= false
+      if $quincena == 0
+        nuevo= @cargo.sueldos.where(created_at: Time.now.beginning_of_month..(Time.now.beginning_of_month + 14.days)).empty?
       else
-      viejo = @cargo.sueldos.where(activo: true).last
-      @cargo.sueldos.update_all(activo: false)
-      @cargo.sueldos.build.monto = params[:cargo][:sueldos_attributes][key][:monto]
-      params[:cargo][:sueldos_attributes][key][:monto] = viejo.monto
+        nuevo = @cargo.sueldos.where(created_at: (Time.now.beginning_of_month + 15.days)..Time.now.end_of_month).empty?
+      end
+      key, value = params[:cargo][:sueldos_attributes].first
+
+      if nuevo
+
+        viejo = @cargo.sueldos.where(activo: true).last
+
+        @cargo.sueldos.update_all(activo: false)
+        crear=  @cargo.sueldos.new
+        crear.monto=params[:cargo][:sueldos_attributes][key][:monto]
+        crear.sueldo_integral = params[:cargo][:sueldos_attributes][key][:sueldo_integral]
+
+        params[:cargo][:sueldos_attributes][key][:monto] = viejo.monto
+        params[:cargo][:sueldos_attributes][key][:sueldo_integral] = viejo.sueldo_integral
+
       end
       if @cargo.update(cargo_params)
         format.html { redirect_to @cargo, notice: 'El cargo fue actualizado exitosamente.' }
@@ -90,6 +101,6 @@ class CargosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def cargo_params
-    params.require(:cargo).permit(:nombre, :tipo_id, :departamento_id, sueldos_attributes: [:id, :monto, :activo])
+    params.require(:cargo).permit(:nombre, :tipo_id, :departamento_id, sueldos_attributes: [:id, :monto, :activo, :sueldo_integral,:_destroy])
   end
 end

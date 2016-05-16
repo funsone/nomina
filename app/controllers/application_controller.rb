@@ -15,13 +15,10 @@ class ApplicationController < ActionController::Base
               'meses' => Hash['ENERO'=>1,'FEBRERO'=>2,'MARZO'=>3,
                               'ABRIL'=>4 ,'MAYO'=>5,'JUNIO'=>6,
                               'JULIO'=>7 ,'AGOSTO'=>8,'SETIEMBRE'=>9,
-                              'OCTUBRE'=>10 ,'NOVIEMBRE'=>11,'DICIEMBRE'=>12]]
+                              'OCTUBRE'=>10 ,'NOVIEMBRE'=>11,'DICIEMBRE'=>12],
+              'condiciones' => Hash['Ninguna'=>0, 'FAOV'=>1, 'IVSS'=>2,'TSS'=>3, 'CAJA DE AHORRO'=>4]]
 
   $ahora=Time.now.in_time_zone("America/Caracas")
-  $quincena=0
-  if $ahora.day <=15
-    $quincena=0
-  else
-    $quincena=1
-  end
+  $quincena=($ahora.day <=15) ? 0 : 1
+
 end

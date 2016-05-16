@@ -1,41 +1,56 @@
 <%= form_for @cargo ,:role => "form" do |f| %>
-  <% if @cargo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@cargo.errors.count, "error") %> prohibited this cargo from being saved:</h2>
+<% if @cargo.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@cargo.errors.count, "error") %>
+    prohibited this cargo from being saved:</h2>
 
-      <ul>
-      <% @cargo.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre, :class => "form-control", REQUIRED: "", autofocus:"" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :departamento_id %><br>
-    <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, f.object.departamento_id),{include_blank:'Seleccione una Departamento...'},:class =>"form-control", REQUIRED: "")  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :tipo %><br>
-    <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, f.object.tipo_id),{include_blank:'Seleccione un Tipo de Nomina...'},:class =>"form-control", REQUIRED: "")  %>
-  </div>
-  <h3>Sueldo</h3>
-  <%= f.fields_for :sueldos  do |sueldo_builder|  %>
-  <% if sueldo_builder.object.activo? %>
-    <div class="form-group" >
-
-      <%= sueldo_builder.label :monto %>
-      <%= sueldo_builder.text_field :monto,:class => "form-control", REQUIRED: "" %>
-
-    </div>
-      <% end %>
+  <ul>
+    <% @cargo.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
     <% end %>
-  <div class="actions">
-    <%= f.submit "Guardar", class: "btn btn-primary btn-md boton" %>
-    <%= link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), cargos_path,:class => "btn btn-default btn-md boton"  %>
-  </div>
+  </ul>
+</div>
 <% end %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Datos
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="col-xs-6 form-group">
+          <%= f.label :nombre %><br>
+          <%= f.text_field :nombre, :class => "form-control", REQUIRED: "", autofocus:"" %>
+        </div>
+        <div class="col-xs-6 form-group">
+          <%= f.label :departamento_id %><br>
+          <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, f.object.departamento_id),{include_blank:'Seleccione una Departamento...'},:class =>"form-control", REQUIRED: "")  %>
+        </div>
+        <div class="col-xs-6 form-group">
+          <%= f.label :tipo %><br>
+          <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, f.object.tipo_id),{include_blank:'Seleccione un Tipo de Nomina...'},:class =>"form-control", REQUIRED: "")  %>
+        </div>
+
+        <%= f.fields_for :sueldos  do |sueldo_builder|  %>
+        <% if sueldo_builder.object.activo? %>
+
+        <div class="form-group col-xs-6">
+          <%= sueldo_builder.label 'sueldo Normal' %>
+          <%= sueldo_builder.text_field :monto,:class => "form-control", REQUIRED: "" %>
+        </div>
+        <div class="form-group col-xs-6">
+          <%= sueldo_builder.label :sueldo_integral %>
+          <%= sueldo_builder.text_field :sueldo_integral,:class => "form-control", REQUIRED: "" %>
+        </div>
+
+        <% end %>
+        <% end %>
+      </div>
+
+            <%= render 'layouts/botones', p: cargos_path  %>
+    </div>
+
+  </div>
+
+
+      <% end %>

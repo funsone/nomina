@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20160418155732) do
     t.string   "nombre"
     t.string   "formula"
     t.integer  "modalidad_de_pago"
+    t.string   "formula_patrono"
+    t.integer  "condicion"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "tipo_de_concepto"
@@ -110,8 +112,6 @@ ActiveRecord::Schema.define(version: 20160418155732) do
     t.integer  "sexo"
     t.string   "status",              default: "activo"
     t.integer  "cargo_id"
-    t.integer  "cargas_familiares"
-    t.decimal  "sueldo_integral"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.string   "avatar_file_name"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20160418155732) do
     t.boolean  "FAOV"
     t.boolean  "IVSS"
     t.boolean  "TSS"
+    t.boolean  "caja_de_ahorro"
   end
 
   add_index "personas", ["cargo_id"], name: "index_personas_on_cargo_id", using: :btree
@@ -137,10 +138,11 @@ ActiveRecord::Schema.define(version: 20160418155732) do
 
   create_table "sueldos", force: :cascade do |t|
     t.decimal  "monto"
-    t.boolean  "activo",     default: true
+    t.boolean  "activo",          default: true
     t.integer  "cargo_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.decimal  "sueldo_integral"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   add_index "sueldos", ["cargo_id"], name: "index_sueldos_on_cargo_id", using: :btree

@@ -3,8 +3,9 @@ def initialize(p)
 
   super(left_margin: 50)
 
-image "app/assets/images/banner.png"
-  text "NOMINA PERSONAL "+p.cargo.tipo.nombre.upcase,align: :center, size: 18
+image "app/assets/images/banner.png", scale: 0.54, align: :center
+move_down 30
+  text "NOMINA PERSONAL "+p.cargo.tipo.nombre.upcase,align: :center, size: 16
   text $dic["quincena"].key($quincena).upcase+"DE "+$dic['meses'].key($ahora.month)+ $ahora.strftime(" DE %Y"),align: :center, size: 18
   table([["CEDULA: #{p.cedula}","NOMBRES: #{p.nombres},#{p.apellidos}","FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]],:cell_style => { :border_width => 0,size:10 }, :header => true)
   table([["CARGO: #{p.cargo.nombre.upcase}","BANCO DE VENEZUELA #{p.cuenta}","SUEDO BASICO: #{p.cargo.sueldos.last.monto}"]],:cell_style => { :border_width => 0,size:10 }, :header => true)

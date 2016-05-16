@@ -15,38 +15,41 @@
   </h4>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Sueldos
-  </div>
-  <div class="panel-body">
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false">Sueldos</li>
+  <li class="list-group-item text-center">
     <div class="table-responsive">
       <table class="table table-hover table-responsive table-condensed table-bordered">
         <thead>
           <tr>
-            <th class="actions">Monto</th>
+            <th class="actions">Sueldo Normal</th>
+            <th class="actions">Sueldo Integral</th>
             <th class="actions">Fecha de vigencia</th>
-            <th class="actions">Activo</th>
+            <th class="actions" style="width:20px">Activo</th>
           </tr>
         </thead>
 
         <tbody>
           <% @cargo.sueldos.order('activo DESC').each do |sueldo| %>
-          <tr>
+          <tr class="<%= sueldo.activo ? 'success': 'danger'%>">
             <td><%= sueldo.monto %></td>
-            <th><%= sueldo.created_at.strftime("%m-%Y") %></th>
-            <th><%if sueldo.activo %>
-              <span class="fa fa-check-square"></span>
+            <td><%= sueldo.sueldo_integral %></td>
+            <%
+            quincena=(sueldo.created_at.day<=15)? 0 : 1
+            %>
+            <th class="actions"><%= sueldo.created_at.strftime("#{$dic['quincena'].key(quincena)} #{$dic['meses'].key(sueldo.created_at.month).capitalize}-%Y") %></th>
+            <th class="actions"><%if sueldo.activo %>
+              <span class="fa fa-check"></span>
               <%else%>
-              <span class="fa fa-minus-square"></span>
+              <span class="fa fa-close"></span>
               <%end%></th>
           </tr>
           <% end %>
         </tbody>
       </table>
     </div>
-  </div>
-</div>
+  </li>
+</ul>
 
 <div class="col-xs-12 actions"><br>
   <%= link_to raw('<i class= "fa fa-pencil"></i> Editar'), edit_cargo_path(@cargo), class: "btn btn-success boton" %>
