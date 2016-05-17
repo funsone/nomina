@@ -1,15 +1,11 @@
+<%= form_for(@dependencia) do |f| %>
+<%= render 'layouts/errores', :x=>@dependencia %>
 <div class="panel panel-default">
   <div class="panel-heading">
     Datos
   </div>
   <div class="panel-body">
     <div class="row">
-      <%= form_for(@dependencia) do |f| %>
-      <%= render 'layouts/errores', :x=>@dependencia %>
-
-        </ul>
-      </div>
-      <% end %>
       <div class="col-md-12">
         <%= f.label :nombre %><br>
         <div class="form-group input-group">
@@ -22,4 +18,5 @@
       <%= render 'layouts/botones', p: dependencias_path  %>
     </div>
   </div>
-  <% end %>
+</div>
+<% end %>

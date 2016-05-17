@@ -1,5 +1,2 @@
-<h1>PersonaMailer#recibo</h1>
-
-<p>
-  <%= @greeting %>, find me in app/views/persona_mailer/recibo.html.erb
-</p>
+Hola <%=@persona.nombres.upcase%> <%=@persona.apellidos.upcase%>.
+Le enviamos su recibo de pago de nómina, correspondiente a la <%=$dic["quincena"].key($quincena).capitalize%> de <%=$dic["meses"].key($ahora.month).capitalize%> de <%=$ahora.year%>.

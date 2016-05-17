@@ -1,186 +1,194 @@
 <%= form_for @concepto do |f| %>
 <%= render 'layouts/errores', :x=>@concepto %>
-
-<div class="col-xs-6">
-    <%= f.label :nombre %><br>
-    <div class="form-group input-group">
-        <span class="input-group-addon">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Datos
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-6">
+        <%= f.label :nombre %><br>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
             <span class="fa fa-align-justify"></span>
-        </span>
-        <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
-    </div>
-</div>
+          </span>
+          <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
+        </div>
+      </div>
 
-<div class="col-xs-6">
-    <%= f.label :modalidad_de_pago  %>
-    <div class="form-group input-group">
-        <span class="input-group-addon">
+      <div class="col-xs-6">
+        <%= f.label :modalidad_de_pago  %>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
             <span class="fa fa-calendar-o"></span>
-        </span>
-        <%= f.select(:modalidad_de_pago , options_for_select($dic["modos_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una Modalidad de Pago...'},:class =>"form-control", REQUIRED: "")  %>
-    </div>
-</div>
-<div class="col-xs-6">
-    <%= f.label :tipo_de_concepto  %>
-    <div class="form-group input-group">
-        <span class="input-group-addon">
+          </span>
+          <%= f.select(:modalidad_de_pago , options_for_select($dic["modos_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una Modalidad de Pago...'},:class =>"form-control", REQUIRED: "")  %>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <%= f.label :tipo_de_concepto  %>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
             <span class="fa fa-exchange fa-rotate-90"></span>
-        </span>
-        <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"], f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control", REQUIRED: "")  %>
-    </div>
+          </span>
+          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"], f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control", REQUIRED: "")  %>
+        </div>
 
-</div>
-<div class="col-xs-6">
-    <%= f.label :condicion  %>
-    <div class="form-group input-group">
-        <span class="input-group-addon">
-        <span class="fa fa-check-square-o"></span>
-        </span>
-        <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condicion...'},:class =>"form-control", REQUIRED: "")  %>
-    </div>
+      </div>
+      <div class="col-xs-6">
+        <%= f.label :condicion  %>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-check-square-o"></span>
+          </span>
+          <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condicion...'},:class =>"form-control", REQUIRED: "")  %>
+        </div>
 
-</div>
+      </div>
 
-  <%= f.fields_for :formulas do |formula_builder|  %>
-    <% if formula_builder.object.activo? %>
+      <%= f.fields_for :formulas do |formula_builder|  %>
+      <% if formula_builder.object.activo? %>
 
-<div class="col-xs-6">
-    <%= formula_builder.label "Formula Empleado" %><br>
-    <div class="form-group input-group">
-        <span class="input-group-addon">
+      <div class="col-xs-6">
+        <%= formula_builder.label "Formula Empleado" %><br>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
             <span class="fa fa-calculator"></span>
-        </span>
-        <%= formula_builder.text_area :empleado, class: "form-control code"%>
-        <span class="input-group-btn">
+          </span>
+          <%= formula_builder.text_area :empleado, class: "form-control code"%>
+          <span class="input-group-btn">
             <button class="btn btn-default" style="height:111%;" type="button" data-toggle="modal" data-target="#myModal">
-                <i class="fa fa-question-circle"></i>
+              <i class="fa fa-question-circle"></i>
             </button>
-        </span>
-    </div>
-</div>
-<div class="col-xs-6">
-    <%= formula_builder.label "Formula Aporte Empleador" %><br>
-    <div class="form-group input-group">
-        <span class="input-group-addon">
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <%= formula_builder.label "Formula Aporte Empleador" %><br>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
             <span class="fa fa-calculator"></span>
-        </span>
-        <%= formula_builder.text_area :patrono, class: "form-control code"%>
-        <span class="input-group-btn">
+          </span>
+          <%= formula_builder.text_area :patrono, class: "form-control code"%>
+          <span class="input-group-btn">
             <button class="btn btn-default" style="height:111%;" type="button" data-toggle="modal" data-target="#myModal">
-                <i class="fa fa-question-circle"></i>
+              <i class="fa fa-question-circle"></i>
             </button>
-        </span>
-    </div>
-</div>
-  <% end %>
-  <% end %>
+          </span>
+        </div>
+      </div>
+      <% end %>
+      <% end %>
 
-<div class="col-xs-12">
-    <%= label_tag 'Nominas' %><br/>
-    <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
-    <div class="collection-check-box form-group checkbox-inline">
-        <%= b.check_box class: ""%>
-        <%= b.label class: "" %>
+      <div class="col-xs-12">
+        <%= label_tag 'Nominas' %><br/>
+        <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
+        <div class="collection-check-box form-group checkbox-inline">
+          <%= b.check_box class: ""%>
+          <%= b.label class: "" %>
+        </div>
+        <% end %>
+      </div>
+      <%= render 'layouts/botones', p: conceptos_path  %>
     </div>
-    <% end %>
+  </div>
 </div>
-<%= render 'layouts/botones', p: conceptos_path  %>
 <% end %>
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-question-circle fa-2x"></i>
-                Ayuda - Editor de Formulas</h4>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          <i class="fa fa-question-circle fa-2x"></i>
+          Ayuda - Editor de Formulas</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Constantes predefinidas</a>
+            </li>
+            <li role="presentation">
+              <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Operadores y funciones integrales</a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+
+              <p>Sueldo base:
+                <code>sueldo</code>
+              </p>
+              <p>Sueldo integral:
+                <code>sueldo_integral</code>
+              </p>
+              <p>Lunes del mes:
+                <code>lunes_del_mes</code>
+              </p>
             </div>
-            <div class="modal-body">
-                <div>
+            <div role="tabpanel" class="tab-pane" id="profile">
 
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Constantes predefinidas</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Operadores y funciones integrales</a>
-                        </li>
-                    </ul>
+              <p>Aritmeticas:
+                <code>+</code>,
+                <code>-</code>,
+                <code>*</code>,
+                <code>/</code>,
+                <code>%</code>
+              </p>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="home">
+              <p>Logicas:
+                <code>&lt;</code>,
+                <code>&gt;</code>,
+                <code>&lt;=</code>,
+                <code>&gt;=</code>,
+                <code>&lt;&gt;</code>,
+                <code>!=</code>,
+                <code>=</code>,
+                <code>AND</code>,
+                <code>OR</code>
+              </p>
 
-                            <p>Sueldo base:
-                                <code>sueldo</code>
-                            </p>
-                            <p>Sueldo integral:
-                                <code>sueldo_integral</code>
-                            </p>
-                            <p>Lunes del mes:
-                                <code>lunes_del_mes</code>
-                            </p>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="profile">
-
-                            <p>Aritmeticas:
-                                <code>+</code>,
-                                <code>-</code>,
-                                <code>*</code>,
-                                <code>/</code>,
-                                <code>%</code>
-                            </p>
-
-                            <p>Logicas:
-                                <code>&lt;</code>,
-                                <code>&gt;</code>,
-                                <code>&lt;=</code>,
-                                <code>&gt;=</code>,
-                                <code>&lt;&gt;</code>,
-                                <code>!=</code>,
-                                <code>=</code>,
-                                <code>AND</code>,
-                                <code>OR</code>
-                            </p>
-
-                            <p>Funciones:
-                                <code>IF</code>,
-                                <code>NOT</code>,
-                                <code>MIN</code>,
-                                <code>MAX</code>,
-                                <code>ROUND</code>,
-                                <code>ROUNDDOWN</code>,
-                                <code>ROUNDUP</code>
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
+              <p>Funciones:
+                <code>IF</code>,
+                <code>NOT</code>,
+                <code>MIN</code>,
+                <code>MAX</code>,
+                <code>ROUND</code>,
+                <code>ROUNDDOWN</code>,
+                <code>ROUNDUP</code>
+              </p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
+          </div>
+
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
     </div>
+  </div>
 </div>
 <script>
 
-function colorear(x) {
+  function colorear(x) {
     var editor = CodeMirror.fromTextArea(x, {
 
-        mode: "ruby",
-        lineNumbers: false
+      mode: "ruby",
+      lineNumbers: false
     });
     editor.setSize("100%", 120);
-}
+  }
 
-    $(function () {
-        colorear($(".code")[0]);
-        colorear($(".code")[1]);
+  $(function () {
+    colorear($(".code")[0]);
+    colorear($(".code")[1]);
 
-    });
+  });
 </script>

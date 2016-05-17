@@ -1,26 +1,34 @@
 <%= form_for(@conceptopersonal) do |f| %>
 <%= render 'layouts/errores', :x=>@conceptopersonal %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Datos
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-6">
+        <%= f.label :nombre %><br>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-align-justify"></span>
+          </span>
+          <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
+        </div>
+      </div>
 
-<div class="col-xs-6">
-  <%= f.label :nombre %><br>
-  <div class="form-group input-group">
-    <span class="input-group-addon">
-      <span class="fa fa-align-justify"></span>
-    </span>
-    <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
+      <div class="col-xs-6">
+        <%= f.label :tipo_de_concepto  %>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-arrow-up"></span>
+            <span class="fa fa-arrow-down"></span>
+          </span>
+          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"],f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control", REQUIRED: "")  %>
+        </div>
+
+      </div>
+      <%= render 'layouts/botones', p: conceptospersonales_path  %>
+    </div>
   </div>
 </div>
-
-<div class="col-xs-6">
-  <%= f.label :tipo_de_concepto  %>
-  <div class="form-group input-group">
-    <span class="input-group-addon">
-      <span class="fa fa-arrow-up"></span>
-      <span class="fa fa-arrow-down"></span>
-    </span>
-    <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"],f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control", REQUIRED: "")  %>
-  </div>
-
-</div>
-  <%= render 'layouts/botones', p: conceptospersonales_path  %>
 <% end %>

@@ -1,40 +1,40 @@
 <div class="page-header">
   <%= render 'layouts/nuevo', :msg => "Nueva dependencia", :path=>new_dependencia_path ,:x =>Dependencia %>
 
-    <h1>Dependencias</h1>
+  <h1>Dependencias</h1>
 </div>
 <ul class="list-group">
-    <li class="list-group-item text-muted" contenteditable="false">Lista de dependencias</li>
+  <li class="list-group-item text-muted" contenteditable="false">Lista de dependencias</li>
 
-    <li class="list-group-item text-center ">
-        <%if Dependencia.all.length>0%>
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered table-condensed table-striped">
-                <thead>
-                    <tr>
-                        <th class= "actions">Nombre</th>
-                        <th class="actions" style="width: 100px;">Acciones</th>
-                    </tr>
+  <li class="list-group-item text-center ">
+    <%if Dependencia.all.length>0%>
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-condensed table-striped">
+        <thead>
+          <tr>
+            <th class="actions">Nombre</th>
+            <th class="actions" style="width: 100px;">Acciones</th>
+          </tr>
 
-                </thead>
+        </thead>
 
-                <tbody>
+        <tbody>
 
-                    <% @dependencias.each do |dependencia| %>
-                    <tr>
-                        <td><%= dependencia.nombre %></td>
-                        <td class="actions">
-                            <%= render 'layouts/actions', :x => Dependencia, :y => edit_dependencia_path(dependencia), :z =>dependencia %>
-                        </td>
-                    </tr>
-                    <% end %>
-                </tbody>
-            </table>
-        </div>
-    </li>
-    <%else%>
-    <div class="actions">
-        <h4>"No hay dependencias disponibles"</h4>
+          <% @dependencias.each do |dependencia| %>
+          <tr>
+            <td><%= dependencia.nombre %></td>
+            <td class="actions">
+              <%= render 'layouts/actions', :x => Dependencia, :y => edit_dependencia_path(dependencia), :z =>dependencia %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-    <%end%>
+  </li>
+  <%else%>
+  <div class="actions">
+    <h4>"No hay dependencias disponibles"</h4>
+  </div>
+  <%end%>
 </ul>

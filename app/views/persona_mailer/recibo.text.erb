@@ -1,3 +1,1 @@
-PersonaMailer#recibo
-
-<%= @greeting %>, find me in app/views/persona_mailer/recibo.text.erb
+Hola, #{persona.nombres.upcase} #{persona.apellidos.upcase} , te enviamos el recibo del pago de nomina correspondiente a la #{$dic["quincena"].key($quincena).capitalize} #{$dic["meses"].key($ahora.month)}/#{$ahora.year}.

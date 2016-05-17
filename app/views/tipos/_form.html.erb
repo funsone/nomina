@@ -1,12 +1,11 @@
+<%= form_for(@tipo) do |f| %>
+<%= render 'layouts/errores', :x=>@tipo %>
 <div class="panel panel-default">
   <div class="panel-heading">
     Datos
   </div>
   <div class="panel-body">
     <div class="row">
-      <%= form_for(@tipo) do |f| %>
-      <%= render 'layouts/errores', :x=>@tipo %>
-
       <div class="col-md-12">
         <%= f.label :nombre %><br>
         <div class="form-group input-group">
