@@ -22,24 +22,32 @@
     <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione el modo de pago...'},:class =>"form-control",REQUIRED: "" )  %>
       </div>
     </div>
-    <div class="col-sm-4">
-      <%= f.label "Fórmula" %>
+    <%f.object.formulaspersonales.build
+       %>
+    <%= f.fields_for :formulaspersonales  do |formula_builder|
+       %>
+
+<%# if formula_builder.object.activo? %>
+    <div class="col-xs-6">
+      <%= formula_builder.label :empleado %><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
         </span>
-        <%= f.text_field :formula,:class => "form-control", REQUIRED:"" %>
+        <%= formula_builder.text_area :empleado, class: "form-control", REQUIRED: ""%>
       </div>
     </div>
-    <div class="col-sm-4">
-      <%= f.label "Fórmula patrono" %>
+    <div class="col-xs-6">
+      <%= formula_builder.label :patrono %><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
         </span>
-        <%= f.text_field :formula_patrono,:class => "form-control", REQUIRED:"" %>
+        <%= formula_builder.text_area :patrono, class: "form-control", REQUIRED: ""%>
       </div>
     </div>
+
+    <% end %>
 
   </div>
 

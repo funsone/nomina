@@ -2,10 +2,14 @@
   <strong>Nombre:</strong>
   <%= @concepto.nombre %>
 </p>
-
+  <% j=@concepto.formulas.where(activo: true).first %>
 <p>
   <strong>Formula:</strong>
-  <%= @concepto.formula %>
+  <%= j.empleado %>
+</p>
+<p>
+  <strong>Formula:</strong>
+    <%=j.patrono %>
 </p>
 
 <p>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  empleado: MyString
+  patrono: MyString
+  activo: false
+  conceptopersonal_id: 
+
+two:
+  empleado: MyString
+  patrono: MyString
+  activo: false
+  conceptopersonal_id: 

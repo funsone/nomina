@@ -4,75 +4,77 @@
     <%= current_usuario.email%></small>
 
 </div>
- <div class="row">
-<div class="col-md-3">
-  <div class="panel panel-primary text-center no-boder bg-color-red">
-    <div class="panel-body">
-      <i class="fa fa-building fa-5x"></i>
-      <h3><%= Dependencia.all.length%></h3>
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-primary text-center no-boder bg-color-red">
+      <div class="panel-body">
+        <i class="fa fa-building fa-5x"></i>
+        <h3><%= Dependencia.all.length%></h3>
+      </div>
+      <div class="panel-footer back-footer-red">
+        Dependencias
+      </div>
     </div>
-    <div class="panel-footer back-footer-red">
-      Dependencias
+  </div>
+  <div class="col-md-3">
+    <div class="panel panel-primary text-center no-boder bg-color-red">
+      <div class="panel-body">
+        <i class="fa fa-building-o fa-5x"></i>
+        <h3><%= Departamento.all.length%></h3>
+      </div>
+      <div class="panel-footer back-footer-red">
+        Departamentos
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="panel panel-primary text-center no-boder bg-color-red">
+      <div class="panel-body">
+        <i class="fa fa-list fa-5x"></i>
+        <h3><%= Tipo.all.length%></h3>
+      </div>
+      <div class="panel-footer back-footer-red">
+        Nóminas
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="panel panel-primary text-center no-boder bg-color-red">
+      <div class="panel-body">
+        <i class="fa fa-briefcase fa-5x"></i>
+          <h3><%= Cargo.all.where(disponible:true).length%>
+        <%= link_to 'Contratar Persona', new_persona_path, class:"btn btn-default bg-color-red btn-xs"%></h3>
+      </div>
+      <div class="panel-footer back-footer-red">
+        Cargos Disponibles
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="panel panel-primary text-center no-boder bg-color-red">
+      <div class="panel-body">
+        <i class="fa fa-users fa-5x"></i>
+        <h3><%= Persona.all.length%></h3>
+      </div>
+      <div class="panel-footer back-footer-red">
+        Empleados
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="panel panel-primary text-center no-boder bg-color-red">
+      <div class="panel-body">
+        <i class="fa fa-envelope fa-5x"></i>
+        <h4>
+          <input class="btn btn-default bg-color-red btn-xs " type="button" id="enviar_recibos" value="Enviar a todos"></h4>
+      </div>
+      <div class="panel-footer back-footer-red">
+        Reporte de Pago
+      </div>
     </div>
   </div>
 </div>
-<div class="col-md-3">
-  <div class="panel panel-primary text-center no-boder bg-color-red">
-    <div class="panel-body">
-      <i class="fa fa-building-o fa-5x"></i>
-      <h3><%= Departamento.all.length%></h3>
-    </div>
-    <div class="panel-footer back-footer-red">
-      Departamentos
-    </div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="panel panel-primary text-center no-boder bg-color-red">
-    <div class="panel-body">
-      <i class="fa fa-list fa-5x"></i>
-      <h3><%= Tipo.all.length%></h3>
-    </div>
-    <div class="panel-footer back-footer-red">
-    Nóminas
-    </div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="panel panel-primary text-center no-boder bg-color-red">
-    <div class="panel-body">
-      <i class="fa fa-briefcase fa-5x"></i>
-      <h3><%= Cargo.all.where(disponible:true).length%></h3>
-    </div>
-    <div class="panel-footer back-footer-red">
-    Cargos Disponibles
-    </div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="panel panel-primary text-center no-boder bg-color-red">
-    <div class="panel-body">
-      <i class="fa fa-users fa-5x"></i>
-      <h3><%= Persona.all.length%></h3>
-    </div>
-    <div class="panel-footer back-footer-red">
-    Empleados
-    </div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="panel panel-primary text-center no-boder bg-color-red">
-    <div class="panel-body">
-      <i class="fa fa-envelope fa-5x"></i>
-      <h4>  <input  class="btn btn-default bg-color-red btn-xs " type="button" id="enviar_recibos" value="Enviar a todos"></h4>
-    </div>
-    <div class="panel-footer back-footer-red">
-    Reporte de Pago
-    </div>
-  </div>
-</div>
-</div>
-<hr />
+<hr/>
 </br>
 <%
 #pruebaaa

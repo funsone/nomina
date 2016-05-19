@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508224257) do
+ActiveRecord::Schema.define(version: 20160510145514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,18 +28,9 @@ ActiveRecord::Schema.define(version: 20160508224257) do
   add_index "cargos", ["departamento_id"], name: "index_cargos_on_departamento_id", using: :btree
   add_index "cargos", ["tipo_id"], name: "index_cargos_on_tipo_id", using: :btree
 
-  create_table "conceptopersonales", force: :cascade do |t|
-    t.string   "nombre"
-    t.integer  "tipo_de_concepto"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
   create_table "conceptos", force: :cascade do |t|
     t.string   "nombre"
-    t.string   "formula"
     t.integer  "modalidad_de_pago"
-    t.string   "formula_patrono"
     t.integer  "condicion"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -99,6 +90,28 @@ ActiveRecord::Schema.define(version: 20160508224257) do
 
   add_index "familiares", ["persona_id"], name: "index_familiares_on_persona_id", using: :btree
 
+  create_table "formulas", force: :cascade do |t|
+    t.integer  "concepto_id"
+    t.string   "empleado"
+    t.string   "patrono"
+    t.boolean  "activo",      default: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "formulas", ["concepto_id"], name: "index_formulas_on_concepto_id", using: :btree
+
+  create_table "formulaspersonales", force: :cascade do |t|
+    t.string   "empleado"
+    t.string   "patrono"
+    t.boolean  "activo",              default: true
+    t.integer  "registroconcepto_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "formulaspersonales", ["registroconcepto_id"], name: "index_formulaspersonales_on_registroconcepto_id", using: :btree
+
   create_table "personas", force: :cascade do |t|
     t.string   "cedula"
     t.integer  "tipo_de_cedula"
@@ -139,8 +152,6 @@ ActiveRecord::Schema.define(version: 20160508224257) do
 
   create_table "registrosconceptos", force: :cascade do |t|
     t.integer  "conceptopersonal_id"
-    t.string   "formula"
-    t.string   "formula_patrono"
     t.integer  "modalidad_de_pago"
     t.integer  "persona_id"
     t.datetime "created_at",          null: false
@@ -216,6 +227,8 @@ ActiveRecord::Schema.define(version: 20160508224257) do
   add_foreign_key "contratos", "personas"
   add_foreign_key "departamentos", "dependencias"
   add_foreign_key "familiares", "personas"
+  add_foreign_key "formulas", "conceptos"
+  add_foreign_key "formulaspersonales", "registrosconceptos"
   add_foreign_key "personas", "cargos"
   add_foreign_key "registros", "usuarios"
   add_foreign_key "sueldos", "cargos"

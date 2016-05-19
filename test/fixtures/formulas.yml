@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  empleado: 
+  patrono: 
+  activo: false
+
+two:
+  empleado: 
+  patrono: 
+  activo: false

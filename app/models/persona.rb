@@ -102,8 +102,9 @@ class Persona < ActiveRecord::Base
 
     a.each do |j|
       next unless j.modalidad_de_pago == $quincena || j.modalidad_de_pago == 2
-      valor = eval(j.formula).to_d
-      valor_patrono = eval(j.formula_patrono).to_d
+      f=j.formulas.last
+      valor = eval(f.empleado).to_d
+      valor_patrono = eval(f.patrono).to_d
       self.total_asignaciones += valor
       asignaciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s,'valor_patrono', (valor_patrono - 0.0005).round(2).to_s ]
       i += 1
@@ -130,8 +131,9 @@ class Persona < ActiveRecord::Base
 
       end
       next unless aplicar == true
-      valor = eval(j.formula).to_d
-      valor_patrono = eval(j.formula_patrono).to_d
+      f=j.formulaspersonales.last
+      valor = eval(f.empleado).to_d
+      valor_patrono = eval(f.patrono).to_d
       self.total_asignaciones += valor
       asignaciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s, 'valor_patrono', (valor_patrono - 0.0005).round(2).to_s ]
       i += 1
@@ -155,8 +157,9 @@ class Persona < ActiveRecord::Base
         aplicar = self.caja_de_ahorro ? true : false
       end
       next unless aplicar
-      valor = eval(j.formula).to_d
-      valor_patrono = eval(j.formula).to_d
+      f=j.formulas.last
+      valor = eval(f.empleado).to_d
+      valor_patrono = eval(f.patrono).to_d
       self.total_deducciones += valor
       deducciones[i] = Hash['nombre', j.nombre, 'valor', (valor - 0.0005).round(2).to_s ,'valor_patrono', (valor_patrono - 0.0005).round(2).to_s]
       i += 1
@@ -184,8 +187,9 @@ class Persona < ActiveRecord::Base
 
       end
       next unless aplicar == true
-      valor = eval(j.formula).to_d
-      valor_patrono = eval(j.formula).to_d
+      f=j.formulaspersonales.last
+      valor = eval(f.empleado).to_d
+      valor_patrono = eval(f.patrono).to_d
       self.total_deducciones += valor
       deducciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', (valor - 0.0005).round(2).to_s,'valor_patrono', (valor_patrono - 0.0005).round(2).to_s]
       i += 1

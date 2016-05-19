@@ -53,24 +53,30 @@
   </div>
 
 </div>
+<%= f.fields_for :formulas  do |formula_builder|  %>
+<% if formula_builder.object.activo? %>
+
 <div class="col-xs-6">
-  <%= f.label :formula %><br>
+  <%= formula_builder.label :empleado %><br>
   <div class="form-group input-group">
     <span class="input-group-addon">
       <span class="fa fa-calculator"></span>
     </span>
-    <%= f.text_area :formula, class: "form-control", REQUIRED: ""%>
+    <%= formula_builder.text_area :empleado, class: "form-control", REQUIRED: ""%>
   </div>
 </div>
 <div class="col-xs-6">
-  <%= f.label :formula_patrono %><br>
+  <%= formula_builder.label :patrono %><br>
   <div class="form-group input-group">
     <span class="input-group-addon">
       <span class="fa fa-calculator"></span>
     </span>
-    <%= f.text_area :formula_patrono, class: "form-control", REQUIRED: ""%>
+    <%= formula_builder.text_area :patrono, class: "form-control", REQUIRED: ""%>
   </div>
 </div>
+<% end %>
+<% end %>
+
 <div class="col-xs-12">
   <%= label_tag 'Tipos' %><br/>
   <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
