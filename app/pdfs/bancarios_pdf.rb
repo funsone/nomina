@@ -3,7 +3,7 @@ class BancariosPdf < Prawn::Document
     super(left_margin: 50, top_margin: 30, right_margin: 20)
     # Tipo.first.conceptos.last.tipos.last.cargos.last.persona
     banner = 'app/assets/images/banner.png'
-    if eco == 4
+    if eco == 1
       font 'public/fonts/eco.ttf'
       banner = 'app/assets/images/banner_bn.png'
     end
@@ -16,7 +16,7 @@ class BancariosPdf < Prawn::Document
     cargos.each do |cargo|
       next unless cargo.disponible == false
       p = cargo.persona
-      p.calculo
+      p.calculo false
       next unless p.valido == true
       data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", p.cuenta.to_s, p.total]]
       ptotal += p.total

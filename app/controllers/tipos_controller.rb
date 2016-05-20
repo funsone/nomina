@@ -16,10 +16,10 @@ class TiposController < ApplicationController
       format.pdf do
         case params[:doc]
         when '0'
-          pdf = RecibosPdf.new(@tipo, 0)
+          pdf = RecibosPdf.new(@tipo, 0, params[:c],params[:cp])
           file = "Recibos_#{@tipo.nombre}"
         when '1'
-          pdf = RecibosPdf.new(@tipo, 1)
+          pdf = RecibosPdf.new(@tipo, 1, params[:c],params[:cp])
           file = "Recibos_#{@tipo.nombre}_ECO"
         when '2'
           pdf = BancariosPdf.new(@tipo, 0)
@@ -28,10 +28,10 @@ class TiposController < ApplicationController
           pdf = BancariosPdf.new(@tipo, 1)
           file = "Bancarios_#{@tipo.nombre}_ECO"
         when '4'
-          pdf = ConceptosPdf.new(@tipo, 3)
+          pdf = ConceptosPdf.new(@tipo, 3, params[:c],params[:cp])
           file = "Conceptos_#{@tipo.nombre}"
         when '5'
-          pdf = ConceptosPdf.new(@tipo, 4)
+          pdf = ConceptosPdf.new(@tipo, 4, params[:c],params[:cp])
           file = "Conceptos_#{@tipo.nombre}_ECO"
         end
         send_data pdf.render, filename: file, type: 'application/pdf', disposition: 'inline'

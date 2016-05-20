@@ -22,7 +22,7 @@
           <span class="input-group-addon">
             <span class="fa fa-calendar-o"></span>
           </span>
-          <%= f.select(:modalidad_de_pago , options_for_select($dic["modos_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una Modalidad de Pago...'},:class =>"form-control", REQUIRED: "")  %>
+          <%= f.select(:modalidad_de_pago , options_for_select($dic["modalidad_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una Modalidad de Pago...'},:class =>"form-control", REQUIRED: "")  %>
         </div>
       </div>
       <div class="col-xs-6">

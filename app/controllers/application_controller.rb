@@ -20,10 +20,10 @@ end
     $dic = Hash['tipos_de_contrato' => Hash['Fijo' => 0, 'Temporal' => 1, 'Comision de servicio' => 2],
                 'sexos' => Hash['Masculino' => 0, 'Femenino' => 1],
                 'tipos_de_cedula' => Hash['V-' => 0, 'E-' => 1],
+                'tipos_de_reporte' => Hash['Recibos' => 0, 'Bancarios' => 2, 'Conceptos' => 4],
                 'quincena' => Hash['Primera Quincena ' => 0, 'Segunda Quincena ' => 1],
-                'modalidad_de_pago' => Hash['Unico (Quincena actual)' => 0, 'Unico (siguiente quincena)' => 1, 'Fijo (primera quincena)' => 2, 'Fijo (segunda quincena)' => 3, 'Fijo (Ambas Quincena)' => 4],
+                'modalidad_de_pago' => Hash['Unico (Quincena actual)' => 0, 'Unico (siguiente quincena)' => 1, 'Fijo (primera quincena)' => 2, 'Fijo (segunda quincena)' => 3, 'Fijo (Ambas Quincena)' => 4, 'Extra (Quincena Actual)' => 5, 'Extra (Quincena Siguiente)' => 6],
                 'tipos_de_conceptos' => Hash['Asignacion' => 0, 'Deduccion' => 1],
-                'modos_de_pago' => Hash['Primera Quincena' => 0, 'Segunda Quincena' => 1, 'Ambas' => 2],
                 'tipo_de_accion' => Hash['success' => 0, 'info' => 1, 'danger' => 2],
                 'meses' => Hash['ENERO' => 1, 'FEBRERO' => 2, 'MARZO' => 3,
                                 'ABRIL' => 4, 'MAYO' => 5, 'JUNIO' => 6,
@@ -33,7 +33,7 @@ end
 
     def set_ahora
 
-        $ahora = params[:ahora] ? params[:ahora].to_time : Time.now
+        $ahora = params[:ahora] ? Date.strptime(params[:ahora], '%d-%m-%Y') : Time.now
         $quincena = ($ahora.day <= 15) ? 0 : 1
     end
 

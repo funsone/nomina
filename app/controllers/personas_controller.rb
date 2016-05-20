@@ -23,7 +23,7 @@ class PersonasController < ApplicationController
     # GET /personas/1
     # GET /personas/1.json
     def enviar
-        @persona.calculo
+        @persona.calculo false
         p = params[:redir] ? params[:redir] : ''
         PersonaMailer.recibo(@persona).deliver_now
 
@@ -39,7 +39,7 @@ class PersonasController < ApplicationController
     end
 
     def show
-        @persona.calculo
+        @persona.calculo false
 
         respond_to do |format|
             format.html do

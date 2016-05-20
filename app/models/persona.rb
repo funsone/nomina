@@ -82,7 +82,7 @@ class Persona < ActiveRecord::Base
     end
   end
 
-  def calculo
+  def calculo extras
     self.asignaciones = []
     self.deducciones = []
     self.total_asignaciones = 0
@@ -107,127 +107,41 @@ class Persona < ActiveRecord::Base
     @SUELDO = sueldos.last.monto
     @SUELDO_INTEGRAL = sueldos.last.sueldo_integral
     @LUNES_DEL_MES=r.length
+    @CONDICIONES= [self.IVSS, self.FAOV, self.TSS, self.caja_de_ahorro, extras]
+    asig = [cargo.tipo.conceptos.where(tipo_de_concepto: 0),registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')]
 
-
-
-
-    a = cargo.tipo.conceptos.where(tipo_de_concepto: 0)
-    ap = registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')
-    d = cargo.tipo.conceptos.where(tipo_de_concepto: 1)
-    dp = registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')
-    calc=Dentaku::Calculator.new
+    dedu = [cargo.tipo.conceptos.where(tipo_de_concepto: 1),registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')]
 
     i = 0
-
+asig.each do |a|
     a.each do |j|
-      next unless j.modalidad_de_pago == $quincena || j.modalidad_de_pago == 2
-      f=j.formulas.where("created_at < ?",fecha)
-      next unless f.length>0
-      f=f.last
-      valor = calc.evaluate(f.empleado, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
-      valor_patrono = calc.evaluate(f.patrono, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
-      self.total_asignaciones += valor
-      asignaciones[i] = Hash['nombre', j.nombre, 'valor', truncar(valor).to_s,'valor_patrono', truncar(valor_patrono).to_s ]
+      next unless j.puede_aplicar  @CONDICIONES
+      j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL,@LUNES_DEL_MES
+      next unless j.valido
+      self.total_asignaciones += j.valor
+      asignaciones[i] = j.para_mostrar
       i += 1
     end
-    ap.each do |j|
-      aplicar = false
-      case j.modalidad_de_pago
-      when 0
-        quincena = j.created_at.day <= 15 ? 0 :  1
-        if quincena == $quincena && $ahora.month == j.created_at.month
-          aplicar = true
-        end
-      when 1
-        quincena = j.created_at.day <= 15 ? 0 : 1
-        if quincena != $quincena && (j.created_at.month == $ahora.month || j.created_at.month == $ahora.month - 1)
-
-          aplicar = true
-
-        end
-      when 2..4
-        if j.modalidad_de_pago == $quincena + 2 || j.modalidad_de_pago == 4
-          aplicar = true
-        end
-
-      end
-      next unless aplicar == true
-      f=j.formulaspersonales.where("created_at < ?",fecha)
-      next unless f.length>0
-      f=f.last
-      valor = calc.evaluate(f.empleado , sueldo: @SUELDO, sueldo_integral: @SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
-      valor_patrono = calc.evaluate(f.patrono, sueldo: @SUELDO,sueldo_integral: @SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
-      self.total_asignaciones += valor
-      asignaciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', truncar(valor).to_s, 'valor_patrono', truncar(valor_patrono).to_s ]
-      i += 1
-    end
+  end
     i = 0
-
+ dedu.each  do |d|
     d.each do |j|
-      next unless j.modalidad_de_pago == $quincena || j.modalidad_de_pago == 2
-      aplicar = false
-      case j.condicion
-
-      when 0
-        aplicar = true
-      when 1
-        aplicar = self.FAOV ? true : false
-      when 2
-        aplicar = self.IVSS ? true : false
-      when 3
-        aplicar = self.TSS ? true : false
-      when 4
-        aplicar = self.caja_de_ahorro ? true : false
-      end
-      next unless aplicar
-      f=j.formulas.where("created_at < ?",fecha)
-      next unless f.length>0
-      f=f.last
-      valor = calc.evaluate(f.empleado, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
-      valor_patrono = calc.evaluate(f.patrono, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
-      self.total_deducciones += valor
-      deducciones[i] = Hash['nombre', j.nombre, 'valor', truncar(valor).to_s ,'valor_patrono', truncar(valor_patrono).to_s]
+      next unless j.puede_aplicar @CONDICIONES
+      j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL,@LUNES_DEL_MES
+      next unless j.valido
+      self.total_deducciones += j.valor
+      deducciones[i] = j.para_mostrar
       i += 1
     end
-
-    dp.each do |j|
-      aplicar = false
-      case j.modalidad_de_pago
-      when 0
-        quincena = j.created_at.day <= 15 ? 0 :  1
-        if quincena == $quincena && $ahora.month == j.created_at.month
-          aplicar = true
-        end
-      when 1
-        quincena = j.created_at.day <= 15 ? 0 : 1
-        if quincena != $quincena && (j.created_at.month == $ahora.month || j.created_at.month == $ahora.month - 1)
-
-          aplicar = true
-        end
-
-      when 2..4
-        if j.modalidad_de_pago == $quincena + 2 || j.modalidad_de_pago == 4
-          aplicar = true
-        end
-
-      end
-      next unless aplicar == true
-      f=j.formulaspersonales.where("created_at < ?",fecha)
-      next unless f.length>0
-      f=f.last
-      valor = calc.evaluate(f.empleado, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
-      valor_patrono = calc.evaluate(f.patrono, sueldo:@SUELDO,sueldo_integral:@SUELDO_INTEGRAL, lunes_del_mes:@LUNES_DEL_MES).to_d
-      self.total_deducciones += valor
-      deducciones[i] = Hash['nombre', j.conceptopersonal.nombre, 'valor', truncar(valor).to_s,'valor_patrono', truncar(valor_patrono).to_s]
-      i += 1
-    end
-
+ end
     tipo_de_contrato = contrato.tipo_de_contrato
     if tipo_de_contrato == 2
       deducciones[i] = Hash['nombre', 'COMISION DE SERVICIO', 'valor', truncar(contrato.sueldo_externo).to_s]
       self.total_deducciones += contrato.sueldo_externo
     end
-    self.total = self.total_asignaciones - self.total_deducciones
+    self.total_deducciones=truncar(self.total_deducciones)
+    self.total_asignaciones=truncar(self.total_asignaciones)
+    self.total = truncar(self.total_asignaciones - self.total_deducciones)
     self.total = 0 if tipo_de_contrato == 2 && total < 0
   end
 end

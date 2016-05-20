@@ -1,74 +1,241 @@
 <div class="page-header">
+    <button class="btn btn-default pull-right" style="height:111%;" type="button" data-toggle="modal" data-target="#myModal">
+        <i class="fa fa-question-circle">
+            Reportes</i>
+    </button>
     <%= render 'layouts/nuevo', :msg => "Nueva Nómina", :path=>new_tipo_path, :x =>Tipo %>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <i class="fa fa-file-pdf-o fa-2x"></i>
+                        Generador de Reportes</h4>
+                </div>
+                <div class="modal-body">
 
-    <h1>Tipos de Nómina</h1>
+                    <div class="col-xs-12">
+
+                        <div class="col-xs-6 form-group">
+                            <%= label_tag "Nomina" %>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-bars"></span>
+                                </span>
+                                <div class="input-group-btn">
+                                    <button id="tipos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Seleccione una nomina
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+
+                                        <%@tipos=Tipo.all
+
+                  @tipos.each do |c|%>
+                                        <%=  raw("<li><a href=\"#\" class=\"tipo\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
+                                        <%end%>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            <%= label_tag "Conceptos" %>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-money"></span>
+                                </span>
+                                <div class="input-group-btn">
+                                    <button id="departamentos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos los conceptos
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class=" disabled">
+                                            <a href="#" class="departamento" id="">Todos los conceptos</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="departamento" id="">Ninguno</a>
+                                        </li>
+                                        <%@departamentos=Concepto.all
+
+                  @departamentos.each do |c|%>
+                                        <%=  raw("<li><a href=\"#\" class=\"departamento\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
+                                        <%end%>
+
+                                    </ul>
+
+                                    <button id="departamentos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos los conceptos personales
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class=" disabled">
+                                            <a href="#" class="departamento" id="">Todos Conceptos Personales</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="departamento" id="">Ninguno</a>
+                                        </li>
+                                        <%@departamentos=Conceptopersonal.all
+
+                  @departamentos.each do |c|%>
+                                        <%=  raw("<li><a href=\"#\" class=\"departamento\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
+                                        <%end%>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-8 form-group">
+                            <%= label_tag "Quincena" %>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-file"></span>
+                                </span>
+                                <div class="input-group-btn">
+                                    <select class="btn btn-default dropdown-toggle" name="">
+
+                                        <%
+sueldo=Sueldo.first.created_at
+
+
+while sueldo<$ahora
+
+quincena = (sueldo.day <= 15) ? 0 : 1
+
+%>
+
+                                        <option value="volvo"><%= $dic["quincena"].key(quincena)+ $dic["meses"].key(sueldo.month) +" del #{sueldo.year}"%></option>
+                                    <%  if quincena==0
+
+
+sueldo= Date.strptime("16-#{sueldo.mon}-#{sueldo.year}", '%d-%m-%Y')
+else
+if sueldo.mon==12
+sueldo=Date.strptime("1-1-#{sueldo.year+1}", '%d-%m-%Y')
+else
+sueldo= Date.strptime("1-#{sueldo.mon+1}-#{sueldo.year}", '%d-%m-%Y')
+end
+
+end
+end%>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 form-group">
+                            <%= label_tag "Tipo de reporte" %>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                </span>
+                                <div class="input-group-btn">
+                                    <%= select_tag("tipo_reporte",options_for_select($dic["tipos_de_reporte"]),{:class =>"btn btn-default dropdown-toggle" }) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="text" id="departamento_search" value="" hidden="hidden">
+                    <input type="text" id="tipo_search" value="" hidden="hidden">
+
+                </br>
+            </br>
+        </br>
+    </br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+</div>
+<div class="modal-footer">
+<div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
+<button type="button" class="btn btn-primary" name="button">
+<i class="fa fa-cog"></i>
+Generar</button>
+<button type="button" class="btn btn-success" name="button">
+<i class="fa fa-leaf"></i>
+</button>
+</div>
+<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+<h1>Tipos de Nómina</h1>
 </div>
 
-
 <ul class="list-group">
-    <li class="list-group-item text-muted" contenteditable="false">Lista de nóminas</li>
-    <li class="list-group-item text-center ">
-      <%if Tipo.all.length>0%>
-        <div class="table-responsive">
+<li class="list-group-item text-muted" contenteditable="false">Lista de nóminas</li>
+<li class="list-group-item text-center ">
+<%if Tipo.all.length>0%>
+<div class="table-responsive">
 
-            <table class="table table-hover table-bordered table-condensed table-striped">
-                <thead>
-                    <th class="actions">Nombre</th>
+<table class="table table-hover table-bordered table-condensed table-striped">
+<thead>
+<th class="actions">Nombre</th>
 
-                    <th class="actions" style="width: 380px;">Reportes</th>
+<th class="actions" style="width: 380px;">Reportes</th>
 
-                    <th class="actions" style="width: 100px;">Acciones</th>
-                </tr>
-            </thead>
+<th class="actions" style="width: 100px;">Acciones</th>
+</tr>
+</thead>
 
-            <tbody>
-                <% @tipos.each do |tipo| %>
+<tbody>
+<% @tipos.each do |tipo| %>
 
-                <tr>
-                    <td><%= tipo.nombre %></td>
-                    <td class="actions">
-                        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                            <%= link_to ' Recibos', tipo_path(tipo,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar recibos de pago de la nómina" %>
-                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
-                        </div>
-                        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                            <%= link_to ' Bancario', tipo_path(tipo,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte bancario" %>
-                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
-                        </div>
-                        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                            <%= link_to ' Conceptos', tipo_path(tipo,format: "pdf")+"?doc=4",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos de la nómina" %>
-                            <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=5",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
-                        </div>
+<tr>
+<td><%= tipo.nombre %></td>
+<td class="actions">
+<div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+<%= link_to ' Recibos', tipo_path(tipo,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar recibos de pago de la nómina" %>
+<%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
+</div>
+<div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+<%= link_to ' Bancario', tipo_path(tipo,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte bancario" %>
+<%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
+</div>
+<div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+<%= link_to ' Conceptos', tipo_path(tipo,format: "pdf")+"?doc=4",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos de la nómina" %>
+<%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=5",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
+</div>
 
-                    </td>
+</td>
 
+<td class="actions">
+<div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+<%= render 'layouts/actions', :x => Tipo, :y => edit_tipo_path(tipo), :z =>tipo %>
+</tr>
 
+<% end %>
+</tbody>
+</table>
+</div>
+</li>
+</br>
+</br>
+</br>
+</ul>
 
+<script type="text/javascript">
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
 
-                    <td class="actions">
-                        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                            <%= render 'layouts/actions', :x => Tipo, :y => edit_tipo_path(tipo), :z =>tipo %>
-                        </tr>
-
-                        <% end %>
-                    </tbody>
-                </table>
-            </div>
-        </li>
-      </br>
-      </br>
-      </br>
-    </ul>
-
-
-    <script type="text/javascript">
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-
-        })
-    </script>
-    <%else%>
-    <div class="actions">
-        <h4>"No hay tipos de nómina disponibles"</h4>
-    </div>
-    <%end%>
+})
+</script>
+<%else%>
+<div class="actions">
+<h4>"No hay tipos de nómina disponibles"</h4>
+</div>
+<%end%>

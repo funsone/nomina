@@ -11,6 +11,11 @@ class ConceptospersonalesController < ApplicationController
   # GET /conceptospersonales/1
   # GET /conceptospersonales/1.json
   def show
+    respond_to do |format|
+        format.html
+
+            
+    end
   end
 
   # GET /conceptospersonales/new

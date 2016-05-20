@@ -1,9 +1,9 @@
 class ConceptosPdf < Prawn::Document
-    def initialize(tipo, eco)
+    def initialize(tipo, eco, con, conper)
         super(left_margin: 20, top_margin: 30, right_margin: 20)
         # Tipo.first.conceptos.last.tipos.last.cargos.last.persona
         banner = 'app/assets/images/banner.png'
-        if eco == 4
+        if eco == 1
             font 'public/fonts/eco.ttf'
             banner = 'app/assets/images/banner_bn.png'
         end
@@ -11,21 +11,31 @@ class ConceptosPdf < Prawn::Document
 
         conceptos.each do |concepto|
             tipos = concepto.tipos
+            conceptoExtra = concepto
+            next if con == '0'
+            conceptoExtra = Concepto.find(con) if con and con!=""
 
+            next unless conceptoExtra.id == concepto.id
             acu_aporte_e = 0
             acu_aporte_p = 0
             pc = 0
             data = [%w(C.I NOMBRES APORTE\ EMPLEADO APORTE\ EMPLEADOR TOTAL)]
 
             tipos.each do |tipoo|
-                cargos = tipoo.cargos
+              next unless tipo.id == tipoo.id
+                cargos = tipo.cargos
 
                 cargos.each do |cargo|
-                    next unless cargo.disponible==false
+                    next unless cargo.disponible == false
                     p = cargo.persona
-                    p.calculo
-                    next unless (p.contrato.tipo_de_contrato != 2) or( p.total>0 && p.contrato.tipo_de_contrato == 2)
-                    next unless p.valido==true
+                    if con
+                        p.calculo true
+                    else
+
+                        p.calculo false
+                  end
+                    next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
+                    next unless p.valido == true
                     p.asignaciones.each do |c|
                         next unless c['nombre'] == concepto.nombre
                         pc += 1
@@ -41,7 +51,7 @@ class ConceptosPdf < Prawn::Document
                         data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", c['valor'], c['valor_patrono'], (c['valor'].to_d + c['valor_patrono'].to_d).to_s]]
                     end
                 end
-            end
+              end
             next unless pc > 0
             image banner, scale: 0.54, align: :center
             text 'LISTADO DE CONCEPTOS ', align: :center, size: 16
@@ -57,14 +67,24 @@ class ConceptosPdf < Prawn::Document
 
         conceptosp.each do |conceptop|
             @registros = conceptop.registrosconceptos
+            conceptoExtra = conceptop
+            next if conper == '0'
+            conceptoExtra = Concepto.find(conper) if conper and conper!=""
+
+            next unless conceptoExtra.id == conceptop.id
             acu_aporte_e = 0
             acu_aporte_p = 0
             pc = 0
             data = [%w(C.I NOMBRES APORTE\ EMPLEADO APORTE\ EMPLEADOR TOTAL)]
             @registros.each do |registro|
+
                 p = registro.persona
-                p.calculo
-                next unless p.cargo.tipo.id == tipo.id and p.valido==true
+                if conper != '' && conper
+                    p.calculo true
+                else
+                    p.calculo false
+               end
+                next unless p.cargo.tipo.id == tipo.id && p.valido == true
 
                 p.asignaciones.each do |c|
                     next unless c['nombre'] == conceptop.nombre

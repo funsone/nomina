@@ -1,9 +1,9 @@
 class RecibosPdf < Prawn::Document
-  def truncar(n)
-  return ("%0.2f" % n).to_f
-  end
-    def initialize(tipo, eco)
+    def truncar(n)
+        ('%0.2f' % n).to_f
+    end
 
+    def initialize(tipo, eco, con, conper)
         super(left_margin: 50)
         banner = 'app/assets/images/banner.png'
         if eco == 1
@@ -12,13 +12,29 @@ class RecibosPdf < Prawn::Document
         end
         @cargos = tipo.cargos
         @cargos.each do |s|
-            next unless s.disponible==false
+            next unless s.disponible == false
             p = s.persona
-            p.calculo
+            conperExtra = ''
+            conExtra = ''
+            total=0
+            total_deducciones=0
+            total_asignaciones=0
+            if conper && conper != "0" && conper != ''
+                conperExtra = Conceptopersonal.find(conper)
+            end
+            if con && con != "0" && con != ''
+                conExtra = Concepto.find(con)
+            end
+            if con || conper
+                p.calculo true
+            else
+
+                p.calculo false
+            end
             next unless p.valido == true
-            next unless (p.status != "retirado")
-            #next unless (p.status != "suspendido")
-            next unless (p.contrato.tipo_de_contrato != 2) or( p.total>0 && p.contrato.tipo_de_contrato == 2)
+            next unless p.status != 'retirado'
+            # next unless (p.status != "suspendido")
+            next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
             image banner, scale: 0.54, align: :center
             move_down 30
             text 'NOMINA PERSONAL ' + p.cargo.tipo.nombre.upcase, align: :center, size: 16
@@ -30,12 +46,33 @@ class RecibosPdf < Prawn::Document
             data = [%w(CONCEPTO ASIGNACION DEDUCCION TOTAL)]
 
             p.asignaciones.each do |c|
+              condicion1=false
+              condicion2 =false
+              if con && con != "0" && con != ''
+condicion1=(c['nombre'] == conExtra.nombre)
+              end
+              if conper && conper != "0" && conper != ''
+condicion2=(c['nombre'] == conperExtra.nombre)
+              end
+                next unless  condicion1|| condicion2 ||(!con and !conper)
+
                 data += [[c['nombre'].upcase, c['valor'], '', '']]
+                total_asignaciones+=c['valor'].to_f
             end
             p.deducciones.each do |c|
+              condicion1=false
+              condicion2 =false
+              if con && con != "0" && con != ''
+condicion1=(c['nombre'] == conExtra.nombre)
+              end
+              if conper && conper != "0" && conper != ''
+condicion2=(c['nombre'] == conperExtra.nombre)
+              end
+                next unless  condicion1|| condicion2 ||(!con and !conper)
                 data += [[c['nombre'].upcase, '', c['valor'], '']]
+                total_deducciones+=c['valor'].to_f
             end
-            data += [['', truncar(p.total_asignaciones).to_s, truncar(p.total_deducciones).to_s, truncar(p.total).to_s]]
+            data += [['', truncar(total_asignaciones).to_s, truncar(total_deducciones).to_s, truncar(total_asignaciones-total_deducciones).to_s]]
 
             table(data, header: true, width: 500, cell_style: { size: 10 })
             start_new_page
