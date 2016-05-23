@@ -1,4 +1,4 @@
-<%= form_for @cargo ,:role => "form" do |f| %>
+<%= simple_form_for(@cargo, html: {  role: "form"})   do |f| %>
 <%= render 'layouts/errores', :x=>@cargo %>
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -13,7 +13,7 @@
             <span class="input-group-addon">
               <span class="fa fa-align-justify"></span>
             </span>
-            <%= f.text_field :nombre, :class => "form-control", REQUIRED: "", autofocus:"" %>
+            <%= f.text_field :nombre, :class => "form-control input-text", autofocus:"", hint:"Sueldo basico que se gana en este cargo." %>
           </div>
         </div>
         <div class="col-xs-6">
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="col-xs-6">
-          <%= f.label "Tipo de nomina"%><br>
+          <%= f.label :tipo_id %><br>
           <div class="form-group input-group">
             <span class="input-group-addon">
               <span class="fa fa-align-justify"></span>
@@ -38,7 +38,7 @@
         <% if sueldo_builder.object.activo? %>
 
         <div class="col-xs-6">
-          <%= sueldo_builder.label 'sueldo Normal' %>
+          <%= sueldo_builder.label :monto %>
           <div class="form-group input-group">
             <span class="input-group-addon">
               <span class="fa fa-money"></span>

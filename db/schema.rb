@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517144004) do
+ActiveRecord::Schema.define(version: 20160510145514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,14 +140,6 @@ ActiveRecord::Schema.define(version: 20160517144004) do
 
   add_index "personas", ["cargo_id"], name: "index_personas_on_cargo_id", using: :btree
 
-  create_table "recibos", force: :cascade do |t|
-    t.string   "nombre"
-    t.string   "persona"
-    t.string   "monto"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "registros", force: :cascade do |t|
     t.string   "descripcion"
     t.integer  "usuario_id"
@@ -189,12 +181,12 @@ ActiveRecord::Schema.define(version: 20160517144004) do
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "sueldos", force: :cascade do |t|
-    t.decimal  "monto"
-    t.boolean  "activo",          default: true
+    t.money    "monto",           scale: 2
+    t.boolean  "activo",                    default: true
     t.integer  "cargo_id"
-    t.decimal  "sueldo_integral"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.money    "sueldo_integral", scale: 2
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "sueldos", ["cargo_id"], name: "index_sueldos_on_cargo_id", using: :btree

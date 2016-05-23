@@ -6,6 +6,8 @@ class Cargo < ActiveRecord::Base
   has_many :sueldos ,  :dependent => :destroy
   accepts_nested_attributes_for :sueldos
   validates :nombre, uniqueness: { case_sensitive: false }, presence: true
+  validates :departamento_id, presence: true
+    validates :tipo_id, presence: true
   self.per_page = 10
   def self.search(search,dep)
   search=search.downcase
