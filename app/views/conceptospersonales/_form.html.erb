@@ -1,4 +1,4 @@
-<%= form_for(@conceptopersonal) do |f| %>
+<%= simple_form_for(@conceptopersonal, html: {  role: "form"})   do |f| %>
 <%= render 'layouts/errores', :x=>@conceptopersonal %>
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -12,7 +12,7 @@
           <span class="input-group-addon">
             <span class="fa fa-align-justify"></span>
           </span>
-          <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
+          <%= f.text_field :nombre, class: "form-control", autofocus: "" %>
         </div>
       </div>
 
@@ -23,7 +23,7 @@
             <span class="fa fa-arrow-up"></span>
             <span class="fa fa-arrow-down"></span>
           </span>
-          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"],f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control", REQUIRED: "")  %>
+          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"],f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control")  %>
         </div>
 
       </div>

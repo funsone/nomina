@@ -28,10 +28,10 @@ class TiposController < ApplicationController
           pdf = BancariosPdf.new(@tipo, 1)
           file = "Bancarios_#{@tipo.nombre}_ECO"
         when '4'
-          pdf = ConceptosPdf.new(@tipo, 3, params[:c],params[:cp])
+          pdf = ConceptosPdf.new(@tipo, 0, params[:c],params[:cp])
           file = "Conceptos_#{@tipo.nombre}"
         when '5'
-          pdf = ConceptosPdf.new(@tipo, 4, params[:c],params[:cp])
+          pdf = ConceptosPdf.new(@tipo, 1, params[:c],params[:cp])
           file = "Conceptos_#{@tipo.nombre}_ECO"
         end
         send_data pdf.render, filename: file, type: 'application/pdf', disposition: 'inline'

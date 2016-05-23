@@ -1,105 +1,57 @@
 <div class="page-header">
-    <button class="btn btn-default pull-right" style="height:111%;" type="button" data-toggle="modal" data-target="#myModal">
-        <i class="fa fa-question-circle">
-            Reportes</i>
-    </button>
-    <%= render 'layouts/nuevo', :msg => "Nueva Nómina", :path=>new_tipo_path, :x =>Tipo %>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        <i class="fa fa-file-pdf-o fa-2x"></i>
-                        Generador de Reportes</h4>
+  <button class="btn btn-default pull-right" style="height:111%;" type="button" data-toggle="modal" data-target="#myModal">
+    <i class="fa fa-question-circle">
+      Reportes</i>
+  </button>
+  <%= render 'layouts/nuevo', :msg => "Nueva Nómina", :path=>new_tipo_path, :x =>Tipo %>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            <i class="fa fa-file-pdf-o fa-2x"></i>
+            Generador de Reportes</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-xs-6 form-group">
+              <%= label_tag "Nomina" %>
+              <div class="form-group input-group">
+                <span class="input-group-addon">
+                  <span class="fa fa-bars"></span>
+                </span>
+                <div class="input-group-btn">
+                  <%= select_tag("Tipo",options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}),{include_blank:'Seleccione una Nomina...',:class =>"btn btn-default dropdown-toggle" }) %>
                 </div>
-                <div class="modal-body">
+              </div>
+            </div>
+            <div class="col-xs-12 form-group">
+              <%= label_tag "Conceptos" %>
+              <div class="form-group input-group">
+                <span class="input-group-addon">
+                  <span class="fa fa-money"></span>
+                </span>
+                <div class="input-group-btn">
+                  <%= select_tag("Concepto",options_for_select(Concepto.all.map{|s|[s.nombre, s.id]}),{include_blank:'Seleccione un Concepto...',:class =>"btn btn-default dropdown-toggle" }) %>
 
-                    <div class="col-xs-12">
+                  <%= select_tag("Conceptopersonal",options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]}),{include_blank:'Concepto Personal...',:class =>"btn btn-default dropdown-toggle" }) %>
+                </div>
+              </div>
+            </div>
 
-                        <div class="col-xs-6 form-group">
-                            <%= label_tag "Nomina" %>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">
-                                    <span class="fa fa-bars"></span>
-                                </span>
-                                <div class="input-group-btn">
-                                    <button id="tipos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Seleccione una nomina
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
+            <div class="col-xs-8 form-group">
+              <%= label_tag "Quincena" %>
+              <div class="form-group input-group">
+                <span class="input-group-addon">
+                  <span class="fa fa-file"></span>
+                </span>
+                <div class="input-group-btn">
+                  <select class="btn btn-default dropdown-toggle" name="">
 
-                                        <%@tipos=Tipo.all
-
-                  @tipos.each do |c|%>
-                                        <%=  raw("<li><a href=\"#\" class=\"tipo\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
-                                        <%end%>
-
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 form-group">
-                            <%= label_tag "Conceptos" %>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">
-                                    <span class="fa fa-money"></span>
-                                </span>
-                                <div class="input-group-btn">
-                                    <button id="departamentos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos los conceptos
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class=" disabled">
-                                            <a href="#" class="departamento" id="">Todos los conceptos</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="departamento" id="">Ninguno</a>
-                                        </li>
-                                        <%@departamentos=Concepto.all
-
-                  @departamentos.each do |c|%>
-                                        <%=  raw("<li><a href=\"#\" class=\"departamento\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
-                                        <%end%>
-
-                                    </ul>
-
-                                    <button id="departamentos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos los conceptos personales
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class=" disabled">
-                                            <a href="#" class="departamento" id="">Todos Conceptos Personales</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="departamento" id="">Ninguno</a>
-                                        </li>
-                                        <%@departamentos=Conceptopersonal.all
-
-                  @departamentos.each do |c|%>
-                                        <%=  raw("<li><a href=\"#\" class=\"departamento\" id=\""+c.id.to_s+"\">"+c.nombre.capitalize+"</a></li>") %>
-                                        <%end%>
-
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-8 form-group">
-                            <%= label_tag "Quincena" %>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">
-                                    <span class="fa fa-file"></span>
-                                </span>
-                                <div class="input-group-btn">
-                                    <select class="btn btn-default dropdown-toggle" name="">
-
-                                        <%
+                    <%
 sueldo=Sueldo.first.created_at
 
 
@@ -109,8 +61,8 @@ quincena = (sueldo.day <= 15) ? 0 : 1
 
 %>
 
-                                        <option value="volvo"><%= $dic["quincena"].key(quincena)+ $dic["meses"].key(sueldo.month) +" del #{sueldo.year}"%></option>
-                                    <%  if quincena==0
+                    <option value="volvo"><%= $dic["quincena"].key(quincena)+ $dic["meses"].key(sueldo.month) +" del #{sueldo.year}"%></option>
+                  <%  if quincena==0
 
 
 sueldo= Date.strptime("16-#{sueldo.mon}-#{sueldo.year}", '%d-%m-%Y')
@@ -124,30 +76,34 @@ end
 end
 end%>
 
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4 form-group">
-                            <%= label_tag "Tipo de reporte" %>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">
-                                    <span class="fa fa-calendar"></span>
-                                </span>
-                                <div class="input-group-btn">
-                                    <%= select_tag("tipo_reporte",options_for_select($dic["tipos_de_reporte"]),{:class =>"btn btn-default dropdown-toggle" }) %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-8 form-group">
+              <%= label_tag "Tipo de reporte" %>
+              <div class="form-group input-group">
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+                </span>
+                <div class="input-group-btn">
+                  <%= select_tag("tipo_reporte",options_for_select($dic["tipos_de_reporte"]),{include_blank:'Seleccione un Tipo de Reporte ...',:class =>"btn btn-default dropdown-toggle" }) %>
+                </div>
+              </div>
+            </div>
 
-                    <input type="text" id="departamento_search" value="" hidden="hidden">
-                    <input type="text" id="tipo_search" value="" hidden="hidden">
 
-                </br>
-            </br>
+          <input type="text" id="departamento_search" value="" hidden="hidden">
+          <input type="text" id="tipo_search" value="" hidden="hidden">
+
         </br>
+      </br>
     </br>
+  </br>
+</br>
+</br>
+</br>
+</br>
 </br>
 </br>
 </br>
@@ -230,7 +186,7 @@ Generar</button>
 
 <script type="text/javascript">
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip();
 
 })
 </script>

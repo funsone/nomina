@@ -5,13 +5,13 @@
   </div>
   <div class="panel-body">
     <div class="col-xs-6 form-group">
-      <%= f.label "Cédula" %>
+      <%= f.label :cedula %>
       <div class="input-group form-inline">
 
         <span class="input-group-btn" >
-          <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},:class =>"btn btn-default dropdown-toggle",REQUIRED: "",style: "padding:5.5px 12px;" ) %>
+          <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},:class =>"btn btn-default dropdown-toggle",style: "padding:5.5px 12px;" ) %>
         </span>
-        <%= f.telephone_field :cedula ,:class => "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}",REQUIRED: "","data-toggle"=>"popover", "data-trigger"=>"focus", :title=>"Numero de Cedula",
+        <%= f.telephone_field :cedula ,:class => "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}","data-toggle"=>"popover", "data-trigger"=>"focus", :title=>"Numero de Cedula",
         "data-content"=>"Ej=241110078 , este campo no sera editable despues de guardar" %>
         <span class="input-group-addon">
           <span class="fa fa-user"></span>
@@ -34,7 +34,7 @@
         <span class="input-group-addon">
           <span class="fa fa-align-justify"></span>
         </span>
-        <%= f.text_field :nombres,:class => "form-control",maxlength: "50",REQUIRED: "" %></div>
+        <%= f.text_field :nombres,:class => "form-control",maxlength: "50" %></div>
     </div>
     <div class="col-xs-6 form-group">
       <%= f.label :apellidos %>
@@ -42,7 +42,7 @@
         <span class="input-group-addon">
           <span class="fa fa-align-justify"></span>
         </span>
-        <%= f.text_field :apellidos ,:class => "form-control",maxlength: "50",REQUIRED: "" %>
+        <%= f.text_field :apellidos ,:class => "form-control",maxlength: "50" %>
       </div>
     </div>
     <div class="col-xs-6 form-group">
@@ -67,7 +67,7 @@
       <%= f.label :correo %>
       <div class="form-group input-group">
         <span class="input-group-addon">@</span>
-        <%= f.email_field :correo ,:class => "form-control",REQUIRED: "" %>
+        <%= f.email_field :correo ,:class => "form-control" %>
       </div>
     </div>
     <div class="col-xs-6 form-group">
@@ -76,7 +76,7 @@
         <span class="input-group-addon">
           <span class="fa fa-calendar"></span>
         </span>
-        <%= f.date_field :fecha_de_nacimiento ,:class => "form-control",REQUIRED: "" %>
+        <%= f.date_field :fecha_de_nacimiento ,:class => "form-control" %>
       </div>
     </div>
     <div class="col-xs-6 form-group">
@@ -85,7 +85,7 @@
         <span class="input-group-addon">
           <span class="fa fa-venus-mars"></span>
         </span>
-        <%= f.select(:sexo, options_for_select($dic["sexos"],@persona.sexo),{include_blank: 'Seleccione un sexo...'},:class =>"form-control",REQUIRED: "" )  %>
+        <%= f.select(:sexo, options_for_select($dic["sexos"],@persona.sexo),{include_blank: 'Seleccione un sexo...'},:class =>"form-control" )  %>
       </div>
     </div>
     <div class="col-xs-6 form-group">
@@ -95,7 +95,7 @@
           <span class="fa fa-briefcase"></span>
         </span>
         <% if f.object.cargo_id=f.object.cargo_id ? f.object.cargo_id : 0%>
-        <%= f.select(:cargo_id, options_for_select(Cargo.all.where("disponible=true or id=#{f.object.cargo_id}").map{|s|[s.nombre, s.id]},f.object.cargo_id),{include_blank:'Seleccione unn cargo...'}, class: 'form-control',REQUIRED: "")  %>
+        <%= f.select(:cargo_id, options_for_select(Cargo.all.where("disponible=true or id=#{f.object.cargo_id}").map{|s|[s.nombre, s.id]},f.object.cargo_id),{include_blank:'Seleccione un cargo...'}, class: 'form-control')  %>
         <%end%>
       </div>
     </div>
@@ -106,16 +106,16 @@
         <span class="input-group-addon">
           <span class="fa fa-university"></span>
         </span>
-        <%= f.telephone_field :cuenta ,:class => "form-control", maxlength: "20",minlength: "20", pattern:"[0-9]{20}",REQUIRED: ""%>
+        <%= f.telephone_field :cuenta ,:class => "form-control", maxlength: "20",minlength: "20", pattern:"[0-9]{20}"%>
       </div>
     </div>
     <div class="col-xs-6 form-group">
-      <%= f.label "Dirección" %>
+      <%= f.label :direccion %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-home"></span>
         </span>
-        <%= f.text_area :direccion ,:class => "form-control",REQUIRED: "" %>
+        <%= f.text_area :direccion ,:class => "form-control" %>
       </div>
     </div>
     <div class="col-xs-12 form-group">
@@ -154,7 +154,7 @@
         <span class="input-group-addon">
           <span class="fa fa-file-text-o"></span>
         </span>
-        <%= contrato_builder.select(:tipo_de_contrato, options_for_select($dic["tipos_de_contrato"], @persona.contrato.tipo_de_contrato),{include_blank: 'Seleccione un tipo de contrato...'},:class =>"form-control",REQUIRED: "" ) %>
+        <%= contrato_builder.select(:tipo_de_contrato, options_for_select($dic["tipos_de_contrato"], @persona.contrato.tipo_de_contrato),{include_blank: 'Seleccione un tipo de contrato...'},:class =>"form-control" ) %>
       </div>
     </div>
     <div class="col-xs-6">
@@ -163,7 +163,7 @@
         <span class="input-group-addon">
           <span class="fa fa-calendar"></span>
         </span>
-        <%= contrato_builder.date_field :fecha_inicio,:class => "form-control",REQUIRED: "" %>
+        <%= contrato_builder.date_field :fecha_inicio,:class => "form-control" %>
       </div>
     </div>
     <div class="col-xs-6">
@@ -172,7 +172,7 @@
         <span class="input-group-addon">
           <span class="fa fa-calendar"></span>
         </span>
-        <%= contrato_builder.date_field :fecha_fin,:class => "form-control" %>
+        <%= contrato_builder.date_field :fecha_fin, disabled: true, :class => "form-control" %>
       </div>
     </div>
     <div class="col-xs-6">
@@ -181,7 +181,7 @@
         <span class="input-group-addon">
           <span class="fa fa-money"></span>
         </span>
-        <%= contrato_builder.number_field :sueldo_externo,:class => "form-control" %>
+        <%= contrato_builder.number_field :sueldo_externo, disabled: true ,:class => "form-control" %>
         <span class="input-group-addon">Bs.</span>
       </div>
     </div>

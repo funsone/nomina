@@ -9,11 +9,11 @@
     </div>
     <%if Conceptopersonal.all.where(tipo_de_concepto:0).length>0%>
     <div class="panel-body">
-        <div class="table-responsive">
+        <div class="table-responsive text-center">
             <table class="table table-bordered table-condensed table-responsive table-bordered">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th class="actions">Nombre</th>
                         <th class="actions" style="width: 100px;">Acciones</th>
                     </tr>
                 </thead>
@@ -24,7 +24,7 @@
           asignaciones.each do |conceptopersonal| %>
                     <tr>
                         <td><%= conceptopersonal.nombre %></td>
-                        <td class='actions'>
+                        <td>
                             <%= render 'layouts/actions', :x => Conceptopersonal, :y => edit_concepto_path(conceptopersonal), :z =>conceptopersonal %>
 
                         </td>
@@ -46,12 +46,12 @@
     </div>
     <%if Conceptopersonal.all.where(tipo_de_concepto:1).length>0%>
     <div class="panel-body">
-        <div class="table-responsive">
+        <div class="table-responsive text-center">
             <table class="table table-bordered table-condensed table-responsive table-bordered">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Acciones</th>
+                        <th class="actions">Nombre</th>
+                        <th class="actions">Acciones</th>
                     </tr>
                 </thead>
 

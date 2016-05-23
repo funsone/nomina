@@ -38,7 +38,7 @@ class Persona < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   attr_readonly :tipo_de_cedula, :cedula
-  validates :tipo_de_cedula, :cedula, :nombres, :apellidos, :correo, :fecha_de_nacimiento, :sexo, :cargo, :cuenta, :direccion, presence: true
+  validates :tipo_de_cedula, :cedula, :nombres, :apellidos, :correo, :fecha_de_nacimiento, :sexo, :cargo, :cuenta, :direccion, :cargo_id, presence: true
   validates :correo, uniqueness: { case_sensitive: false, message: 'El correo ingresado ya existe.' }, format: { with: VALID_EMAIL_REGEX, message: 'El formato del correo es invalido' }
   validates :cedula, uniqueness: { case_sensitive: false, message: 'ya esta registrada.' }, numericality: { only_integer: true }
   validates :nombres, :apellidos, length: { in: 0..50 }
@@ -90,15 +90,11 @@ class Persona < ActiveRecord::Base
     self.total=0
     self.valido=true
     lunes = [1]
-
     inicio_mes=Date.civil($ahora.year,$ahora.month, 1)
     fin_mes= Date.civil($ahora.year,$ahora.month, -1)
     fecha=($quincena==0) ? Date.civil($ahora.year,$ahora.month, 16) : fin_mes
-
-  sueldos= cargo.sueldos.where("created_at <= ? ",fecha)
-
+    sueldos= cargo.sueldos.where("created_at <= ? ",fecha)
     if sueldos.length == 0
-
       self.valido=false
       return 0
     end

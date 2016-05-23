@@ -51,7 +51,7 @@ class Registroconcepto < ActiveRecord::Base
             else
 
                 return false
-            end	
+            end
 				end
         aplicar
     end
@@ -88,7 +88,6 @@ class Registroconcepto < ActiveRecord::Base
             crear = formulaspersonales.new
             crear.empleado = nempleado
             crear.patrono = npatrono
-
         end
 		 end
 end

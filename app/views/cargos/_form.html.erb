@@ -13,7 +13,7 @@
             <span class="input-group-addon">
               <span class="fa fa-align-justify"></span>
             </span>
-            <%= f.text_field :nombre, :class => "form-control input-text", autofocus:"", hint:"Sueldo basico que se gana en este cargo." %>
+            <%= f.text_field :nombre, :class => "form-control input-text", autofocus:"", hint:"Sueldo basico que se gana en este cargo."%>
           </div>
         </div>
         <div class="col-xs-6">
@@ -22,7 +22,7 @@
             <span class="input-group-addon">
               <span class="fa fa-building-o"></span>
             </span>
-            <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, f.object.departamento_id),{include_blank:'Seleccione una Departamento...'},:class =>"form-control", REQUIRED: "")  %>
+            <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, f.object.departamento_id),{include_blank:'Seleccione una Departamento...'},:class =>"form-control")  %>
           </div>
         </div>
         <div class="col-xs-6">
@@ -31,7 +31,7 @@
             <span class="input-group-addon">
               <span class="fa fa-align-justify"></span>
             </span>
-            <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, f.object.tipo_id),{include_blank:'Seleccione un Tipo de Nomina...'},:class =>"form-control", REQUIRED: "")  %>
+            <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, f.object.tipo_id),{include_blank:'Seleccione un Tipo de Nomina...'},:class =>"form-control")  %>
           </div>
         </div>
         <%= f.fields_for :sueldos  do |sueldo_builder|  %>
@@ -43,7 +43,7 @@
             <span class="input-group-addon">
               <span class="fa fa-money"></span>
             </span>
-            <%= sueldo_builder.text_field :monto,:class => "form-control", REQUIRED: "" %>
+            <%= sueldo_builder.text_field :monto,:class => "form-control"%>
           </div>
         </div>
         <div class="col-xs-6">
@@ -52,7 +52,7 @@
             <span class="input-group-addon">
               <span class="fa fa-money"></span>
             </span>
-            <%= sueldo_builder.text_field :sueldo_integral,:class => "form-control", REQUIRED: "" %>
+            <%= sueldo_builder.text_field :sueldo_integral,:class => "form-control" %>
           </div>
         </div>
         <% end %>

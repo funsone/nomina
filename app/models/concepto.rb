@@ -4,7 +4,7 @@ class Concepto < ActiveRecord::Base
     accepts_nested_attributes_for :formulas
     has_and_belongs_to_many :tipos
     validates :nombre, uniqueness: true, presence: true
-    validates :modalidad_de_pago, presence: true
+    validates :modalidad_de_pago, :tipo_de_concepto, :condicion, presence: true
     attr_accessor :valor, :valor_patrono, :para_mostrar, :valido
     def truncar(n)
         ('%0.2f' % n).to_f

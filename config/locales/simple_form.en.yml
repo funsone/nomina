@@ -3,15 +3,29 @@ en:
     "yes": 'Si'
     "no": 'No'
     labels:
+      persona:
+        direccion: 'Dirección'
+        cedula: 'Cédula'
+        familiares:
+          cedula: 'Cédula'
+          direccion: 'Dirección'
+        registrosconceptos:
+          formulaspersonales:
+            empleado: 'Fórmula'
+            patrono: 'Fórmula (Aporte Patronal)'
+      concepto:
+        formulas:
+          empleado: 'Fórmula'
+          patrono: 'Fórmula (Aporte Patronal)'
       cargo:
-        tipo_id: 'Nomina'
+        tipo_id: 'Nómina'
         sueldos:
-          monto: 'Sueldo Basico'
+          monto: 'Sueldo Básico'
 
     required:
       text: 'Campo Requerido'
       mark: '*'
-      html: '<abbr title="Campo Requerido" class:"text-danger" >*</abbr>'
+      html: '<abbr title="Campo Requerido" class="text-danger" >*</abbr>'
     error_notification:
       default_message: "Please review the problems below:"
     # Examples

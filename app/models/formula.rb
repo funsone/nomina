@@ -26,4 +26,5 @@ class Formula < ActiveRecord::Base
   include ActiveModel::Validations
   belongs_to :concepto
   validates_with MyValidator
+  validates :empleado, :patrono, presence: true
 end

@@ -36,31 +36,45 @@ class ConceptosPdf < Prawn::Document
                   end
                     next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
                     next unless p.valido == true
+                    next unless p.status != 'retirado'
                     p.asignaciones.each do |c|
                         next unless c['nombre'] == concepto.nombre
                         pc += 1
+
+                        if p.status == 'activo'
                         acu_aporte_e += c['valor'].to_d
                         acu_aporte_p += c['valor_patrono'].to_d
                         data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", c['valor'], c['valor_patrono'], (c['valor'].to_d + c['valor_patrono'].to_d).to_s]]
+                      else
+                        data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", '0.0','0.0','0.0']]
+
+                      end
+
                     end
                     p.deducciones.each do |c|
                         next unless c['nombre'] == concepto.nombre
                         pc += 1
+                        if p.status == 'activo'
                         acu_aporte_e += c['valor'].to_d
                         acu_aporte_p += c['valor_patrono'].to_d
                         data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", c['valor'], c['valor_patrono'], (c['valor'].to_d + c['valor_patrono'].to_d).to_s]]
+                      else
+                        data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", '0.0','0.0','0.0']]
+                      end
                     end
                 end
               end
             next unless pc > 0
-            image banner, scale: 0.54, align: :center
+            image banner, scale: 0.48, at: [62,720]
+            move_down 120
             text 'LISTADO DE CONCEPTOS ', align: :center, size: 16
             text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 18
             text 'NOMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16
 
             text concepto.nombre, size: 18, align: :center
+            move_down 10
             data += [['TOTAL', concepto.nombre, acu_aporte_e.to_s, acu_aporte_p.to_s, (acu_aporte_p + acu_aporte_e).to_s]]
-            table data, header: true, cell_style: { size: 8 }
+            table data, header: true, cell_style: { size: 8 }, width: 570
             start_new_page
         end
         conceptosp = Conceptopersonal.all
@@ -102,7 +116,8 @@ class ConceptosPdf < Prawn::Document
                 end
             end
             next unless pc > 0
-            image banner, scale: 0.54, align: :center
+            image banner, scale: 0.48, at: [62,720]
+            move_down 120
             text 'LISTADO DE CONCEPTOS ', align: :center, size: 16
             text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 18
             text 'NOMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16

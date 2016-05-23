@@ -1,4 +1,4 @@
-<%= form_for @concepto do |f| %>
+<%= simple_form_for(@concepto, html: {  role: "form"})   do |f| %>
 <%= render 'layouts/errores', :x=>@concepto %>
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -12,7 +12,7 @@
           <span class="input-group-addon">
             <span class="fa fa-align-justify"></span>
           </span>
-          <%= f.text_field :nombre, class: "form-control", REQUIRED: "", autofocus: "" %>
+          <%= f.text_field :nombre, class: "form-control", autofocus: "" %>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
           <span class="input-group-addon">
             <span class="fa fa-calendar-o"></span>
           </span>
-          <%= f.select(:modalidad_de_pago , options_for_select($dic["modalidad_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una Modalidad de Pago...'},:class =>"form-control", REQUIRED: "")  %>
+          <%= f.select(:modalidad_de_pago , options_for_select($dic["modalidad_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una Modalidad de Pago...'},:class =>"form-control")  %>
         </div>
       </div>
       <div class="col-xs-6">
@@ -31,7 +31,7 @@
           <span class="input-group-addon">
             <span class="fa fa-exchange fa-rotate-90"></span>
           </span>
-          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"], f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control", REQUIRED: "")  %>
+          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"], f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},:class =>"form-control")  %>
         </div>
 
       </div>
@@ -41,7 +41,7 @@
           <span class="input-group-addon">
             <span class="fa fa-check-square-o"></span>
           </span>
-          <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condicion...'},:class =>"form-control", REQUIRED: "")  %>
+          <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condicion...'},:class =>"form-control")  %>
         </div>
 
       </div>
@@ -50,7 +50,7 @@
       <% if formula_builder.object.activo? %>
 
       <div class="col-xs-6">
-        <%= formula_builder.label "Formula Empleado" %><br>
+        <%= formula_builder.label :empleado %><br>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-calculator"></span>
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="col-xs-6">
-        <%= formula_builder.label "Formula Aporte Empleador" %><br>
+        <%= formula_builder.label :patrono %><br>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-calculator"></span>
@@ -83,7 +83,7 @@
       <div class="col-xs-12">
         <%= label_tag 'Nominas' %><br/>
         <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
-        <div class="collection-check-box form-group checkbox-inline">
+        <div class="collection-check-box form-group checkbox-inline boton">
           <%= b.check_box class: ""%>
           <%= b.label class: "" %>
         </div>
