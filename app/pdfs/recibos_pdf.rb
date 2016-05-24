@@ -43,34 +43,44 @@ class RecibosPdf < Prawn::Document
       data = [%w(CONCEPTO ASIGNACION DEDUCCION TOTAL)]
 
       p.asignaciones.each do |c|
-        condicion1 = false
-        condicion2 = false
-        if con && con != '0' && con != ''
-          condicion1 = (c['nombre'] == conExtra.nombre)
+        condicion = false
+
+        if c['clase_de_concepto']==0
+          if con && con != '0' && con!=''
+            condicion = (c['nombre'] == conExtra.nombre)
+          end
+          condicion = true if (con == '' and c['extra']==false)
+        else
+          if conper && conper != '0' && conper!=''
+            condicion = (c['nombre'] == conperExtra.nombre)
+          end
+          condicion = true if (conper == '' and c['extra']==false)
         end
-        if conper && conper != '0' && conper != ''
-          condicion2 = (c['nombre'] == conperExtra.nombre)
-        end
-        next unless condicion1 || condicion2 || (!con && !conper)
+        next unless condicion
         if p.status == 'activo'
         data += [[c['nombre'].upcase, c['valor'], '', '']]
         total_asignaciones += c['valor'].to_f
-      end
-      end
+        end
+       end
       p.deducciones.each do |c|
-        condicion1 = false
-        condicion2 = false
-        if con && con != '0' && con != ''
-          condicion1 = (c['nombre'] == conExtra.nombre)
+        condicion = false
+
+        if c['clase_de_concepto']==0
+          if con && con != '0' && con!=''
+            condicion = (c['nombre'] == conExtra.nombre)
+          end
+          condicion = true if (con == '' and c['extra']==false)
+        else
+          if conper && conper != '0' && conper!=''
+            condicion = (c['nombre'] == conperExtra.nombre)
+          end
+          condicion = true if (conper == '' and c['extra']==false)
         end
-        if conper && conper != '0' && conper != ''
-          condicion2 = (c['nombre'] == conperExtra.nombre)
-        end
-        next unless condicion1 || condicion2 || (!con && !conper)
+        next unless condicion
         if p.status == 'activo'
-        data += [[c['nombre'].upcase, '', c['valor'], '']]
+        data += [[c['nombre'].upcase, c['valor'], '', '']]
         total_deducciones += c['valor'].to_f
-      end
+        end
       end
       data += [['', truncar(total_asignaciones).to_s, truncar(total_deducciones).to_s, truncar(total_asignaciones - total_deducciones).to_s]]
 

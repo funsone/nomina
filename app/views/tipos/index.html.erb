@@ -16,53 +16,42 @@
             <i class="fa fa-file-pdf-o fa-2x"></i>
             Generador de Reportes</h4>
         </div>
-        <div class="modal-body">
-            <div class="col-xs-6 form-group">
-              <%= label_tag "Nomina" %>
-              <div class="form-group input-group">
-                <span class="input-group-addon">
-                  <span class="fa fa-bars"></span>
-                </span>
-                <div class="input-group-btn">
-                  <%= select_tag("Tipo",options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}),{include_blank:'Seleccione una Nomina...',:class =>"btn btn-default dropdown-toggle" }) %>
-                </div>
-              </div>
+        <div class="modal-body ">
+          <div class="col-xs-12 form-group">
+            <%= label_tag "Nomina " %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-bars fa-fw"></span>
+              </span>
+
+                <%= select_tag("Tipo",options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}),{include_blank:'Seleccione una Nomina...',:class =>"btn btn-default dropdown-toggle" }) %>
+
             </div>
-            <div class="col-xs-12 form-group">
-              <%= label_tag "Conceptos" %>
-              <div class="form-group input-group">
-                <span class="input-group-addon">
-                  <span class="fa fa-money"></span>
-                </span>
-                <div class="input-group-btn">
-                  <%= select_tag("Concepto",options_for_select(Concepto.all.map{|s|[s.nombre, s.id]}),{include_blank:'Seleccione un Concepto...',:class =>"btn btn-default dropdown-toggle" }) %>
+          </div>
 
-                  <%= select_tag("Conceptopersonal",options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]}),{include_blank:'Concepto Personal...',:class =>"btn btn-default dropdown-toggle" }) %>
-                </div>
-              </div>
-            </div>
+          <div class="col-xs-12 form-group">
+            <%= label_tag "Quincena" %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-calendar fa-fw"></span>
+              </span>
 
-            <div class="col-xs-8 form-group">
-              <%= label_tag "Quincena" %>
-              <div class="form-group input-group">
-                <span class="input-group-addon">
-                  <span class="fa fa-file"></span>
-                </span>
-                <div class="input-group-btn">
-                  <select class="btn btn-default dropdown-toggle" name="">
-
-                    <%
+                <select class="btn btn-default dropdown-toggle" id="quincena">
+<option value="">Seleccione la quincena...</option>
+                  <%
 sueldo=Sueldo.first.created_at
 
+i=1
 
 while sueldo<$ahora
 
 quincena = (sueldo.day <= 15) ? 0 : 1
-
+dia= (quincena) ? 17 : 11
+fecha="#{dia}-#{sueldo.month}-#{sueldo.year}";
 %>
 
-                    <option value="volvo"><%= $dic["quincena"].key(quincena)+ $dic["meses"].key(sueldo.month) +" del #{sueldo.year}"%></option>
-                  <%  if quincena==0
+                  <option value="<%=fecha %>"><%= $dic["quincena"].key(quincena)+ $dic["meses"].key(sueldo.month) +" del #{sueldo.year}"%></option>
+                <%  if quincena==0
 
 
 sueldo= Date.strptime("16-#{sueldo.mon}-#{sueldo.year}", '%d-%m-%Y')
@@ -76,26 +65,33 @@ end
 end
 end%>
 
-                  </select>
-                </div>
-              </div>
+                </select>
+          </div>
+          </div>
+          <div class="col-xs-12 form-group">
+            <%= label_tag "Tipo de reporte" %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-file fa-fw"></span>
+              </span>
+
+                <%= select_tag("tipo_de_reporte",options_for_select($dic["tipos_de_reporte"]),{include_blank:'Seleccione un Tipo de Reporte ...',:class =>"btn btn-default dropdown-toggle" }) %>
+
             </div>
-            <div class="col-xs-8 form-group">
-              <%= label_tag "Tipo de reporte" %>
-              <div class="form-group input-group">
-                <span class="input-group-addon">
-                  <span class="fa fa-calendar"></span>
-                </span>
-                <div class="input-group-btn">
-                  <%= select_tag("tipo_reporte",options_for_select($dic["tipos_de_reporte"]),{include_blank:'Seleccione un Tipo de Reporte ...',:class =>"btn btn-default dropdown-toggle" }) %>
-                </div>
-              </div>
+          </div>
+          <div class="col-xs-12 form-group">
+            <%= label_tag "Conceptos" %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-money fa-fw"></span>
+              </span>
+
+                <%= select_tag("Concepto",options_for_select(Concepto.all.map{|s|[s.nombre, s.id]}.prepend([t('Ninguno'), 0])),{include_blank:'Todos (Excepto extras)',:class =>"btn btn-default dropdown-toggle" }) %>
+
+                <%= select_tag("Conceptopersonal",options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]}.prepend([t('Ninguno'), 0])),{include_blank:'Todos (Excepto extras)',:class =>"btn btn-default dropdown-toggle" }) %>
+
             </div>
-
-
-          <input type="text" id="departamento_search" value="" hidden="hidden">
-          <input type="text" id="tipo_search" value="" hidden="hidden">
-
+          </div>
         </br>
       </br>
     </br>
@@ -117,10 +113,10 @@ end%>
 </div>
 <div class="modal-footer">
 <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-<button type="button" class="btn btn-primary" name="button">
+<button type="button" class="btn btn-primary" id="generar_boton" name="button">
 <i class="fa fa-cog"></i>
 Generar</button>
-<button type="button" class="btn btn-success" name="button">
+<button type="button" class="btn btn-success" id="generar_boton_eco" name="button">
 <i class="fa fa-leaf"></i>
 </button>
 </div>
@@ -185,10 +181,50 @@ Generar</button>
 </ul>
 
 <script type="text/javascript">
+
+function generar(eco) {
+
+  if ($('#Tipo').val() == '') {
+    alert('Seleccione una opcion en el campo nomina.');
+    return;
+  }
+  if ($('#tipo_de_reporte').val() == '') {
+    alert('Seleccione una opcion en el campo tipo de reporte.');
+    return;
+  }
+  if($('#Concepto').val()==="0" && $('#Conceptopersonal').val()==="0"){
+    alert('Seleccione al menos una clase de concepto.');
+    return;
+  }
+  var concepto="&c="+$('#Concepto').val();
+  if ($('#Concepto').val() == '') {
+    concepto="";
+  }
+  var conceptopersonal="&cp="+$('#Conceptopersonal').val();
+  if ($('#Conceptopersonal').val() == '') {
+    conceptopersonal="";
+  }
+
+  var params = '?doc=' + (parseInt($('#tipo_de_reporte').val()) + eco) + conceptopersonal + concepto + '&ahora=' + $('#quincena').val();
+  var win = window.open('<%=tipos_path%>/' + $('#Tipo').val() + '.pdf' + params, '_blank');
+  if (win) {
+    //Browser has allowed it to be opened
+    win.focus();
+  } else {
+    //Broswer has blocked it
+    alert('Please allow popups for this site');
+  }
+}
+
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
-
-})
+  $('#generar_boton').click(function () {
+    generar(0);
+  });
+  $('#generar_boton_eco').click(function () {
+    generar(1);
+  });
+});
 </script>
 <%else%>
 <div class="actions">

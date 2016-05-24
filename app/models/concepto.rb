@@ -79,7 +79,8 @@ class Concepto < ActiveRecord::Base
             f = f.last
             self.valor = calc.evaluate(f.empleado, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes).to_d
             self.valor_patrono = calc.evaluate(f.patrono, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes).to_d
-            self.para_mostrar = Hash['nombre', nombre, 'valor', truncar(valor).to_s, 'valor_patrono', truncar(valor_patrono).to_s]
+            extra = (modalidad_de_pago==6 || modalidad_de_pago==5) ? true : false
+            self.para_mostrar = Hash['nombre', nombre, 'valor', truncar(valor).to_s, 'valor_patrono', truncar(valor_patrono).to_s, 'clase_de_concepto',0,'extra',extra]
         end
     end
 end

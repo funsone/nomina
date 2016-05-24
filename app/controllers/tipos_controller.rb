@@ -22,10 +22,10 @@ class TiposController < ApplicationController
           pdf = RecibosPdf.new(@tipo, 1, params[:c],params[:cp])
           file = "Recibos_#{@tipo.nombre}_ECO"
         when '2'
-          pdf = BancariosPdf.new(@tipo, 0)
+          pdf = BancariosPdf.new(@tipo, 0, params[:c],params[:cp])
           file = "Bancarios_#{@tipo.nombre}"
         when '3'
-          pdf = BancariosPdf.new(@tipo, 1)
+          pdf = BancariosPdf.new(@tipo, 1, params[:c],params[:cp])
           file = "Bancarios_#{@tipo.nombre}_ECO"
         when '4'
           pdf = ConceptosPdf.new(@tipo, 0, params[:c],params[:cp])
