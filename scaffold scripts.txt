@@ -1,2 +1,0 @@
-rails g scaffold persona cedula:string tipo_de_cedula:integer nombres:string apellidos:string telefono_fijo:string telefono_movil:string fecha_de_nacimiento correo:string direccion:string sexo:integer status:integer cargo:references cargas_familiares:integer
-rails g model contrato fecha_inicio:date fecha_fin:date tipo_de_contrato:integer sueldo_externo:decimal persona:references
