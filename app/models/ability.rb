@@ -10,8 +10,8 @@ class Ability
             can :manage, :all
         elsif user.has_role? :coordinador
             can :read, :all
-            alias_action :create, :update, :destroy => :cud
-            alias_action :create, :update, :to => :cu
+            alias_action :create, :update, destroy: :cud
+            alias_action :create, :update, to: :cu
             can :cu, Dependencia
             can :cu, Departamento
             can :cu, Persona

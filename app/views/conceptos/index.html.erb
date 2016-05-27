@@ -1,8 +1,8 @@
 <div class="page-header">
-  <%= render 'layouts/nuevo', :msg => "Nuevo Concepto", :path=>new_concepto_path  ,:x =>Concepto%>
+  <%= render 'layouts/nuevo', msg: "Nuevo Concepto", path: new_concepto_path  ,x: Concepto%>
 
   <h1>Conceptos</h1>
 </div>
 
-  <%=render "concepto", :x => 0,:y=>"Asignaciones", :z=>"success"%>
-  <%=render "concepto", :x => 1,:y=>"Deducciones", :z=>"danger"%>
+  <%=render "concepto", x: 0,y: "Asignaciones", z: "success"%>
+  <%=render "concepto", x: 1,y: "Deducciones", z: "danger"%>

@@ -96,7 +96,7 @@ padding-left:1px;
         </li>
         <%end%>
         <li>
-          <%= link_to raw("<i class=\"fa fa-info-circle fa-2x fa-fw\"></i> ACERCA DE..."), cargos_path%>
+          <%= link_to raw("<i class=\"fa fa-info-circle fa-2x fa-fw\"></i> ACERCA DE..."), "",  "data-toggle"=>"modal" ,"data-target"=>"#acercade"%>
         </li>
 
         <%else%>
@@ -107,12 +107,10 @@ padding-left:1px;
           <a href="#">INICIE SESION PARA ACCEDER AL SISTEMA.</a>
 
         </li>
-        <li>
-          <a href="mailto:<%= Setting.email_admin%>"><i class="fa fa-at fa-2x"></i> CONTACTAR ADMINISTRADOR</a>
 
-        </li>
         <li>
-          <a href="#"><i class="fa fa-info-circle fa-2x"></i> ACERCA DE...</a>
+
+          <%= link_to raw("<i class=\"fa fa-info-circle fa-2x fa-fw\"></i> ACERCA DE..."), "#",  "data-toggle"=>"modal" ,"data-target"=>"#acercade"%>
 
         </li>
 
@@ -126,4 +124,42 @@ padding-left:1px;
     </div>
 
   </nav>
+</div>
+<div class="modal fade" id="acercade" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="acercadeLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <i class="fa fa-help fa-2x"></i>
+                    Acerca de..</h4>
+            </div>
+            <div class="modal-body ">
+
+                <h1> <img class="text-center" src="/assets/favicon.png" alt="" />FUNSONE Nomina</h1>
+                <dl class="dl-horizontal">
+                  <dt>Descripción</dt>
+                  <dd>Systema de gestion de nominas.</dd>
+                <dt>Versión</dt>
+                <dd>2016.05.31</dd>
+
+                <dt>Reaizado por:</dt>
+                <dd>Victor Serrano</dd>
+                <dd>Monica Huamani</dd>
+              </dl>
+
+            
+
+
+</div>
+<div class="modal-footer">
+
+  <a class="btn btn-default" href="mailto:<%= Setting.email_admin%>" role="button">Contactar administrador</a>
+    <a class="btn btn-default" href="<%= welcome_ayuda_path%>" role="button"> Manual</a>
+<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
 </div>

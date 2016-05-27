@@ -70,10 +70,10 @@ class BancariosPdf < Prawn::Document
       end
       total = total_asignaciones - total_deducciones
       if p.status == 'activo'
-        data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], total]]
+        data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], '%.2f' % total]]
         ptotal += p.total
       else
-        data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], 0]]
+        data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], '%.2f' % 0]]
     end
     end
 
@@ -83,7 +83,7 @@ class BancariosPdf < Prawn::Document
     text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16, leading: 2
     text 'NOMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16
     move_down 20
-    data += [['TOTAL GENERAL', '', '', ptotal]]
+    data += [['TOTAL GENERAL', '', '', '%.2f' % ptotal]]
     table data, header: true, cell_style: { size: 8 }, width: 517
     start_new_page
   end

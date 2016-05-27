@@ -1,5 +1,5 @@
 <%= simple_form_for(@persona, html: {  role: "form"})   do |f| %>
-<%= render 'layouts/errores', :x=>@persona %>
+<%= render 'layouts/errores', x: @persona %>
 
 
 
@@ -22,14 +22,14 @@
 
     <div class="tab-content">
       <div class="tab-pane fade active in" id="datos">
-        <%= render 'datos',:f => f  %>
+        <%= render 'datos',f: f  %>
 
       </div>
       <div class="tab-pane fade" id="familiares">
         <br>
         <%= f.fields_for :familiares do |fa| %>
 
-        <%= render 'familiar_fields', :f => fa %>
+        <%= render 'familiar_fields', f: fa %>
         <% end %>
         <div class="links">
 
@@ -41,7 +41,7 @@
         <% x=false%>
         <%=f.fields_for :registrosconceptos do |fa| %>
 
-        <%= render 'registroconcepto_fields', :f => fa %>
+        <%= render 'registroconcepto_fields', f: fa %>
         <%end %>
         <div class="links">
 

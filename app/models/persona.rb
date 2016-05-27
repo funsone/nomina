@@ -49,9 +49,7 @@ class Persona < ActiveRecord::Base
 
   attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones, :valido
 
-  def truncar(n)
-  return ("%0.2f" % n).to_f
-  end
+  
 
   def self.search(search, dep, tipo)
     search = search.downcase

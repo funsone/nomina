@@ -1,7 +1,5 @@
 class RecibosPdf < Prawn::Document
-  def truncar(n)
-    ('%0.2f' % n).to_f
-  end
+
 
   def initialize(tipo, eco, con, conper)
     super(left_margin: 50)
@@ -58,7 +56,7 @@ class RecibosPdf < Prawn::Document
         end
         next unless condicion
         if p.status == 'activo'
-        data += [[c['nombre'].upcase, c['valor'], '', '']]
+        data += [[c['nombre'].upcase, '%.2f' % c['valor'], '', '']]
         total_asignaciones += c['valor'].to_f
         end
        end
@@ -78,11 +76,11 @@ class RecibosPdf < Prawn::Document
         end
         next unless condicion
         if p.status == 'activo'
-        data += [[c['nombre'].upcase, c['valor'], '', '']]
+        data += [[c['nombre'].upcase,'', '%.2f' % c['valor'], '']]
         total_deducciones += c['valor'].to_f
         end
       end
-      data += [['', truncar(total_asignaciones).to_s, truncar(total_deducciones).to_s, truncar(total_asignaciones - total_deducciones).to_s]]
+      data += [['', '%.2f' % truncar(total_asignaciones), '%.2f' % truncar(total_deducciones),'%.2f' % truncar(total_asignaciones - total_deducciones)]]
 
       table(data, header: true, width: 500, cell_style: { size: 10 })
       start_new_page

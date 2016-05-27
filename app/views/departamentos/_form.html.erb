@@ -1,5 +1,5 @@
 <%= simple_form_for(@departamento, html: {  role: "form"})   do |f| %>
-<%= render 'layouts/errores', :x=>@departamento %>
+<%= render 'layouts/errores', x: @departamento %>
 <div class="panel panel-default">
   <div class="panel-heading">
     Datos
@@ -23,7 +23,7 @@
               <span class="fa fa-building-o"></span>
             </span>
             <% if f.object.dependencia_id=f.object.dependencia_id ? f.object.dependencia_id : 0%>
-            <%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, f.object.dependencia_id),{include_blank:'Seleccione una Dependencia...'},:class =>"form-control")  %></span>
+            <%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, f.object.dependencia_id),{include_blank:'Seleccione una Dependencia...'},class: "form-control")  %></span>
           <%end%>
         </div>
       </div>

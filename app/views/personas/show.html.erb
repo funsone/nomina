@@ -55,13 +55,13 @@
       <% case @persona.status
       when 'activo'
     %>
-      <li><%= link_to 'Suspender', cambiarestado_persona_path(@persona, :estado =>3), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-      <li><%= link_to 'Retirar',  cambiarestado_persona_path(@persona, :estado =>0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+      <li><%= link_to 'Suspender', cambiarestado_persona_path(@persona, estado: 3), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+      <li><%= link_to 'Retirar',  cambiarestado_persona_path(@persona, estado: 0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
       <% when 'retirado'%>
 
-      <li><%= link_to 'Reingresar',  cambiarestado_persona_path(@persona, :estado =>2), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+      <li><%= link_to 'Reingresar',  cambiarestado_persona_path(@persona, estado: 2), method: :post, data: { confirm: 'Esta seguro?' } %></li>
       <% when 'suspendido'%>
-      <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, :estado =>1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+      <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
       <%end%>
 
     </ul>

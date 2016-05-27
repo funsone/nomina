@@ -1,5 +1,5 @@
 <div class="page-header">
-    <%= render 'layouts/nuevo', :msg => "Nuevo Concepto Personal", :path=>new_conceptopersonal_path,:x=>Conceptopersonal %>
+    <%= render 'layouts/nuevo', msg: "Nuevo Concepto Personal", path: new_conceptopersonal_path,x: Conceptopersonal %>
 
     <h1>Conceptos Personales</h1>
 </div>
@@ -25,7 +25,7 @@
                     <tr>
                         <td><%= conceptopersonal.nombre %></td>
                         <td>
-                            <%= render 'layouts/actions', :x => Conceptopersonal, :y => edit_concepto_path(conceptopersonal), :z =>conceptopersonal %>
+                            <%= render 'layouts/actions', x: Conceptopersonal, y: edit_concepto_path(conceptopersonal), z: conceptopersonal %>
 
                         </td>
                     </tr>
@@ -62,7 +62,7 @@
                     <tr>
                         <td><%= conceptopersonal.nombre %></td>
                         <td class='actions'>
-                            <%= render 'layouts/actions', :x => Conceptopersonal, :y => edit_concepto_path(conceptopersonal), :z =>conceptopersonal %>
+                            <%= render 'layouts/actions', x: Conceptopersonal, y: edit_concepto_path(conceptopersonal), z: conceptopersonal %>
                         </td>
                     </tr>
                     <% end %>

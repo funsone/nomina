@@ -6,10 +6,28 @@ class Concepto < ActiveRecord::Base
     validates :nombre, uniqueness: true, presence: true
     validates :modalidad_de_pago, :tipo_de_concepto, :condicion, presence: true
     attr_accessor :valor, :valor_patrono, :para_mostrar, :valido
-    def truncar(n)
-        ('%0.2f' % n).to_f
-    end
+    before_update :actualizar
+  
 
+    def actualizar
+      nuevo = false
+      if $quincena == 0
+        nuevo = Formula.where(concepto_id: id).where(created_at: Time.now.beginning_of_month..(Time.now.beginning_of_month + 14.days)).empty?
+      else
+        nuevo = Formula.where(concepto_id: id).where(created_at: (Time.now.beginning_of_month + 15.days)..Time.now.end_of_month).empty?
+      end
+      if nuevo
+        viejo = Formula.where(concepto_id: id).last
+        npatrono = formulas.last.patrono
+        nempleado = formulas.last.empleado
+        formulas.last.activo = false
+        formulas.last.patrono = viejo.patrono
+        formulas.last.empleado = viejo.empleado
+        crear = formulas.new
+        crear.empleado = nempleado
+        crear.patrono = npatrono
+      end
+    end
     def puede_aplicar(condiciones)
         aplicar = false
         case modalidad_de_pago

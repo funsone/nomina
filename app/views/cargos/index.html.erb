@@ -1,6 +1,6 @@
 <div class="page-header">
 
-  <%= render 'layouts/nuevo', :msg => "Nuevo cargo", :path=>new_cargo_path ,:x => Cargo%>
+  <%= render 'layouts/nuevo', msg: "Nuevo cargo", path: new_cargo_path ,x: Cargo%>
 
   <h1>Cargos</h1>
 </div>
@@ -40,7 +40,7 @@
 <ul class="list-group">
   <li class="list-group-item text-muted" contenteditable="false">Lista de cargos</li>
   <div class="sort_paginate_ajax  text-center">
-    <%= render 'cargo', :p => @cargos %>
+    <%= render 'cargo', p: @cargos %>
   </div>
 
 </ul>

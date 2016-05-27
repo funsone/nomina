@@ -19,7 +19,7 @@
           <span class="fa fa-calendar-o"></span>
         </span>
 
-    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione el modo de pago...'},:class =>"form-control" )  %>
+    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione el modo de pago...'},class: "form-control" )  %>
       </div>
     </div>
     <%if f.object.formulaspersonales.length==0

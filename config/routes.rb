@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :conceptos
   devise_for :usuarios
   get 'welcome/index'
-resources :settings
+  resources :settings
   resources :personas do
   member do
     post 'cambiarestado'
@@ -21,6 +21,7 @@ end
 
   # You can have the root of your site routed with "root"
    root 'welcome#index'
+   get 'welcome/ayuda'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

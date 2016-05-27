@@ -31,12 +31,12 @@
           </div>
           <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
             <%= link_to ' Constancia', persona_path(persona,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
-            <%= link_to '', persona_path(persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
+            <%= link_to '', persona_path(persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle": "tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
           </div>
         </td>
         <td>
 
-          <%= render 'layouts/actions', :x => Persona, :y => edit_persona_path(persona), :z =>persona %>
+          <%= render 'layouts/actions', x: Persona, y: edit_persona_path(persona), z: persona %>
         </td>
       </tr>
       <% end %>
