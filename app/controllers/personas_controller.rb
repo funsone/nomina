@@ -1,12 +1,12 @@
 class PersonasController < ApplicationController
-  before_action :set_persona, only: [:show, :edit, :update, :destroy,:jubilarse]
-
+  before_action :set_persona, only: [:show, :edit, :update, :destroy, :cambiarestado]
 
   # GET /personas
   # GET /personas.json
   def index
-    @personas = Persona.activo.order(:cedula).paginate(:per_page => 1, :page => params[:page])
-    @personas_retiradas = Persona.retirado.order(:cedula).paginate(:per_page => 1, :page => params[:page])
+    @personas = Persona.activo.order(:cedula).paginate(per_page: 1, page: params[:page])
+    @personas_retiradas = Persona.retirado.order(:cedula).paginate(per_page: 1, page: params[:page])
+        @personas_suspendidas = Persona.suspendido.order(:cedula).paginate(per_page: 1, page: params[:page])
   end
 
   # GET /personas/1
@@ -16,25 +16,31 @@ class PersonasController < ApplicationController
     @persona.calculo
   end
 
-
-
-  def jubilarse
-
-    respond_to do |format|
-      if @persona.retirar!
-        format.html { redirect_to @persona, notice: 'El empleado esta retirado' }
-        format.json { head :no_content }
-      else
-        format.html { render :new }
-        format.json { render json: @persona.errors, status:' elmpleado ya esta retirado.' }
-      end
+  def cambiarestado
+ msg= "El cambio de estado no puede ser procesado"
+    case params[:estado]
+    when '0'
+      @persona.retirar!
+     msg= "El empleado se ha retirado"
+    when '1'
+      @persona.reactivar!
+       msg= "El empleado a sido reactivado"
+    when '2'
+      @persona.reingresar!
+      msg= "El empleado a sido recontratado"
+    when '3'
+      @persona.suspender!
+  msg= "El empleado a sido suspendido"
     end
-
+    respond_to do |format|
+      format.html { redirect_to @persona, notice: msg }
+      format.json { head :no_content }
+    end
   end
 
   # GET /personas/new
   def new
-    @editable=true;
+    @editable = true
     if Cargo.where('disponible=true').length <= 0
       respond_to do |format|
         format.html { redirect_to personas_url, notice: 'No hay cargo disponibles.' }
@@ -48,8 +54,9 @@ class PersonasController < ApplicationController
 
   # GET /personas/1/edit
   def edit
-    @editable=false;
+    @editable = false
   end
+
   # POST /personas
   # POST /personas.json
   def create
@@ -103,8 +110,8 @@ class PersonasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def persona_params
-    params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta,:FAOV, :TSS,:IVSS, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :cargo_id,
-                                    registrosconceptos_attributes: [:id,:formula, :conceptopersonal_id, :modalidad_de_pago],
-                                    contrato_attributes: [:id, :fecha_inicio, :fecha_fin, :sueldo_externo,:tipo_de_contrato], familiares_attributes: [:id, :cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
+    params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta, :FAOV, :TSS, :IVSS, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :cargo_id,
+                                    registrosconceptos_attributes: [:id, :formula, :conceptopersonal_id, :modalidad_de_pago, :_destroy],
+                                    contrato_attributes: [:id, :fecha_inicio, :fecha_fin, :sueldo_externo, :tipo_de_contrato], familiares_attributes: [:id, :cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
   end
 end

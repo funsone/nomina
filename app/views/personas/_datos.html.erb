@@ -1,3 +1,4 @@
+<br>
 <div class="panel panel-default">
   <div class="panel-heading">
     Datos Personales
@@ -11,7 +12,7 @@
           <span class="fa fa-user"></span>
         </span>
         <span class="input-group-addon">
-          
+
           <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},:class =>"",REQUIRED: "" ) %>
         </span>
         <%= f.telephone_field :cedula ,:class => "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}",REQUIRED: "", autofocus: "" %>
@@ -124,19 +125,19 @@
       <%= f.label 'Este empleado paga: ' %>
       <div class="input-group">
         <span class="input-group-addon">
-          <%= f.check_box :FAOV ,REQUIRED: "" %>
+          <%= f.check_box :FAOV %>
         </span>
-        
+
         <input type="text" disabled value="<%= :FAOV %>" class="form-control">
         <span class="input-group-addon">
-          <%= f.check_box :IVSS ,REQUIRED: "" %>
+          <%= f.check_box :IVSS %>
         </span>
-        
+
         <input type="text" disabled value="<%= :IVSS %>" class="form-control">
         <span class="input-group-addon">
-          <%= f.check_box :TSS ,REQUIRED: "" %>
+          <%= f.check_box :TSS %>
         </span>
-        
+
         <input type="text" disabled value="<%= :TSS %>" class="form-control">
       </div>
     </div>

@@ -12,6 +12,9 @@
   <strong>Modalidad de pago:</strong>
   <%= @concepto.modalidad_de_pago %>
 </p>
-
+<p>
+  <strong>tipo de concepto:</strong>
+  <%= @concepto.tipo_de_concepto %>
+</p>
 <%= link_to 'Edit', edit_concepto_path(@concepto) %> |
 <%= link_to 'Back', conceptos_path %>

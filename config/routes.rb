@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :personas do
   member do
-    post 'jubilarse'
+    post 'cambiarestado'
   end
 end
   resources :tipos

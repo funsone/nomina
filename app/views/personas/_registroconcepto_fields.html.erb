@@ -4,7 +4,7 @@
   </div>
   <div class="panel-body">
     <div class="col-sm-4">
-      <%= f.label :conceptopersonal %>
+      <%= f.label 'Concepto Personal' %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-user"></span>
@@ -18,7 +18,7 @@
         <span class="input-group-addon">
           <span class="fa fa-user"></span>
         </span>
-        
+
     <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione el modo de pago...'},:class =>"form-control",REQUIRED: "" )  %>
       </div>
     </div>

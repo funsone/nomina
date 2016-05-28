@@ -23,58 +23,47 @@
   <div class="col-md-12 col-sm-12">
     <ul class="nav nav-tabs">
       <li class="active">
-        <a href="#datos" data-toggle="tab">datos personales </a>
+        <a href="#datos" data-toggle="tab">Principal
+        </a>
       </li>
       <li class="">
-        <a href="#familiares" data-toggle="tab">familiares</a>
+        <a href="#familiares" data-toggle="tab">Familia</a>
       </li>
       <li class="">
-        <a href="#conceptospersonales" data-toggle="tab">conceptos personales</a>
+        <a href="#conceptospersonales" data-toggle="tab">Conceptos Personales</a>
       </li>
     </ul>
 
     <div class="tab-content">
       <div class="tab-pane fade active in" id="datos">
         <%= render 'datos',:f => f  %>
-        
+
       </div>
       <div class="tab-pane fade" id="familiares">
-     
-  <%= f.fields_for :familiares do |fa| %>
+  <br>
+        <%= f.fields_for :familiares do |fa| %>
 
+        <%= render 'familiar_fields', :f => fa %>
+        <% end %>
+        <div class="links">
 
-     <%= render 'familiar_fields', :f => fa %>
-     <% end %>
-     <div class="links">
-
-  <%= link_to_add_association raw('<i class="fa fa-plus"></i> Agregar Familiar'), f, :familiares, class: "links pull-right" %>
-</div>
+          <%= link_to_add_association raw('<i class="fa fa-plus"></i> Agregar Familiar'), f, :familiares, class: "links pull-right" %>
+        </div>
       </div>
       <div class="tab-pane fade" id="conceptospersonales">
-     
- <%= f.fields_for :registrosconceptos do |fa| %>
+  <br>
+        <%= f.fields_for :registrosconceptos do |fa| %>
 
+        <%= render 'registroconcepto_fields', :f => fa %>
+        <% end %>
+        <div class="links">
 
-     <%= render 'registroconcepto_fields', :f => fa %>
-     <% end %>
-     <div class="links">
-
-  <%= link_to_add_association raw('<i class="fa fa-plus"></i> Agregar concepto'), f, :registrosconceptos, class: "links pull-right" %>
-</div>
+          <%= link_to_add_association raw('<i class="fa fa-plus"></i> Agregar concepto'), f, :registrosconceptos, class: "links pull-right" %>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-   
-
-
 
 <div class="col-xs-12 actions"><br>
   <%= f.submit "Guardar", class:  "btn btn-primary btn-md boton" %>

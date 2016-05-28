@@ -12,6 +12,9 @@
         <a href="#activos" data-toggle="tab">Activos (<%= Persona.activo.length %>)</a>
       </li>
       <li class="">
+        <a href="#suspendidos" data-toggle="tab">Suspendidos (<%= Persona.suspendido.length %>)</a>
+      </li>
+      <li class="">
         <a href="#retirados" data-toggle="tab">Retirados (<%= Persona.retirado.length %>)</a>
       </li>
     </ul>
@@ -19,6 +22,9 @@
     <div class="tab-content">
       <div class="tab-pane fade active in" id="activos">
         <div class = "sort_paginate_ajax"><%= render 'personas', :p => @personas %></div>
+      </div>
+      <div class="tab-pane fade" id="suspendidos">
+        <div class = "sort_paginate_ajax_suspendidos"><%= render 'personas', :p => @personas_suspendidas %></div>
       </div>
       <div class="tab-pane fade" id="retirados">
       <div class = "sort_paginate_ajax_retirados"><%= render 'personas', :p => @personas_retiradas %></div>
@@ -28,7 +34,7 @@
   </div>
 </div>
 <script>
-var classes=".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a, .sort_paginate_ajax_retirados th a, .sort_paginate_ajax_retirados .pagination a";
+var classes=".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a, .sort_paginate_ajax_retirados th a, .sort_paginate_ajax_retirados .pagination a, .sort_paginate_ajax_suspendidos th a, .sort_paginate_ajax_suspendidos .pagination a";
 
 $(function() {
   $('a[data-toggle="tab"').on('shown.bs.tab', function(){

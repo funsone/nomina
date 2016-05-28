@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20160418155732) do
     t.integer  "modalidad_de_pago"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.boolean  "tipo_de_concepto"
+    t.integer  "tipo_de_concepto"
   end
 
   create_table "conceptos_tipos", id: false, force: :cascade do |t|
