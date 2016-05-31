@@ -1,5 +1,5 @@
 class ConceptospersonalesController < ApplicationController
-  before_action :set_conceptopersonal, only: [:show, :edit, :update, :destroy]
+  before_action :set_conceptopersonal, only: [:edit, :update, :destroy]
   before_filter :authenticate_usuario!
 
   # GET /conceptospersonales
@@ -12,9 +12,7 @@ class ConceptospersonalesController < ApplicationController
   # GET /conceptospersonales/1.json
   def show
     respond_to do |format|
-        format.html
-
-            
+      format.html { redirect_to conceptospersonales_path, notice: 'Ruta no disponible.' }
     end
   end
 
@@ -39,7 +37,7 @@ class ConceptospersonalesController < ApplicationController
       if @conceptopersonal.save
         log("Se ha definido el concepto personal: #{@lt}", 0)
 
-        format.html { redirect_to @conceptopersonal, notice: 'El concepto fue creado exitosamente.' }
+        format.html { redirect_to conceptospersonales_path, notice: 'El concepto fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @conceptopersonal }
       else
         format.html { render :new }
@@ -56,7 +54,7 @@ class ConceptospersonalesController < ApplicationController
       if @conceptopersonal.update(conceptopersonal_params)
         log("Se ha actualizado el concepto personal: #{@lt}", 1)
 
-        format.html { redirect_to @conceptopersonal, notice: 'Los datos del concepto fueron actualizados exitosamente.' }
+        format.html { redirect_to conceptospersonales_path, notice: 'Los datos del concepto fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @conceptopersonal }
       else
         format.html { render :edit }

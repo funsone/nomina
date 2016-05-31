@@ -15,14 +15,12 @@
 #   inflect.acronym 'RESTful'
 # end
 ActiveSupport::Inflector.inflections do |inflect|
-  inflect.irregular 'dependencia', 'dependencias'
-
-  inflect.irregular 'familiar', 'familiares'
+    inflect.irregular 'dependencia', 'dependencias'
+    inflect.irregular 'familiar', 'familiares'
     inflect.irregular 'personal', 'personales'
-inflect.irregular 'error', 'errores'
-
+    inflect.irregular 'error', 'errores'
     inflect.irregular 'conceptopersonal', 'conceptospersonales'
     inflect.irregular 'registroconcepto', 'registrosconceptos'
     inflect.irregular 'formula', 'formulas'
     inflect.irregular 'formulapersonal', 'formulaspersonales'
-  end
+end

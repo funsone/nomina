@@ -1,0 +1,37 @@
+<div class="panel panel-<%= z %>">
+    <div class="panel-heading">
+        <%= y %>
+    </div>
+    <%if Conceptopersonal.all.where(tipo_de_concepto:x).length>0%>
+    <div class="panel-body">
+        <div class="table-responsive text-center">
+            <table class="table table-bordered table-condensed table-responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th class="actions">Nombre</th>
+                        <th class="actions" style="width: 100px;">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <%
+          asignaciones=@conceptospersonales.where(tipo_de_concepto: x).order("created_at")
+          asignaciones.each do |conceptopersonal| %>
+                    <tr>
+                        <td><%= conceptopersonal.nombre %></td>
+                        <td>
+                            <%= render 'layouts/actions', x: Conceptopersonal, y: edit_conceptopersonal_path(conceptopersonal), z: conceptopersonal %>
+
+                        </td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <%else%>
+    <div class="actions">
+        <h4>"No hay asignaciones disponibles"</h4>
+    </div>
+    <%end%>
+</div>

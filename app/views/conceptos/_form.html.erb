@@ -22,7 +22,7 @@
           <span class="input-group-addon">
             <span class="fa fa-calendar-o"></span>
           </span>
-          <%= f.select(:modalidad_de_pago , options_for_select($dic["modalidad_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una Modalidad de Pago...'},class: "form-control")  %>
+          <%= f.select(:modalidad_de_pago , options_for_select($dic["modalidad_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una modalidad de pago...'},class: "form-control")  %>
         </div>
       </div>
       <div class="col-xs-6">
@@ -31,7 +31,7 @@
           <span class="input-group-addon">
             <span class="fa fa-exchange fa-rotate-90"></span>
           </span>
-          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"], f.object.tipo_de_concepto),{include_blank:'Seleccione Tipo de Concepto...'},class: "form-control")  %>
+          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"], f.object.tipo_de_concepto),{include_blank:'Seleccione un tipo de concepto...'},class: "form-control")  %>
         </div>
 
       </div>
@@ -41,7 +41,7 @@
           <span class="input-group-addon">
             <span class="fa fa-check-square-o"></span>
           </span>
-          <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condicion...'},class: "form-control")  %>
+          <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condición...'},class: "form-control")  %>
         </div>
 
       </div>
@@ -81,7 +81,7 @@
       <% end %>
 
       <div class="col-xs-12">
-        <%= label_tag 'Nominas' %><br/>
+        <%= label_tag 'Nóminas' %><br/>
         <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
         <div class="collection-check-box form-group checkbox-inline boton">
           <%= b.check_box class: ""%>

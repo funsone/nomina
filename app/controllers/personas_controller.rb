@@ -24,16 +24,34 @@ class PersonasController < ApplicationController
     # GET /personas/1.json
     def enviar
         @persona.calculo false
+        errorm=false
         p = params[:redir] ? params[:redir] : ''
-        PersonaMailer.recibo(@persona).deliver_now
+        msg=''
+        begin
+
+          PersonaMailer.recibo(@persona).deliver_now
+
+        rescue Exception => e
+          msg="Recibo no enviado, verifique su conexion a internet."
+          errorm=true
+        end
+
 
         if p == ''
             respond_to do |format|
+              if errorm
                 format.json { head :no_content }
+                            else
+                format.json { head :no_content }
+              end
             end
         else
             respond_to do |format|
-                format.html { redirect_to @persona, notice: 'Recibo enviado' }
+              if msg==''
+                format.html { redirect_to @persona, notice: 'Recibo enviado.' }
+              else
+                format.html { redirect_to @persona, alert: msg }
+              end
             end
         end
     end

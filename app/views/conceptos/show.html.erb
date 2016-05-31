@@ -5,9 +5,9 @@
 <%= $dic['tipos_de_conceptos'].key(@concepto.tipo_de_concepto).upcase %>,
     <b>Modalidad de pago:</b>
     <%= $dic['modalidad_de_pago'].key(@concepto.modalidad_de_pago).upcase %>,
-    <b>Condicion para aplicar:</b>
+    <b>Condición para aplicar:</b>
     <%= $dic['condiciones'].key(@concepto.condicion).upcase %>.</h4>
-    <h4><b>Nominas en las cuales se aplica: </b>
+    <h4><b>Nóminas en las cuales se aplica: </b>
     <% @concepto.tipos.each do |tipo|
       %>
     <span class="label label-info"><%= tipo.nombre%></span>
@@ -17,14 +17,14 @@
 </div>
 
 <ul class="list-group">
-  <li class="list-group-item text-muted" contenteditable="false">Formulas</li>
+  <li class="list-group-item text-muted" contenteditable="false">Fórmulas</li>
   <li class="list-group-item text-center">
     <div class="table-responsive">
       <table class="table table-hover table-responsive table-condensed table-bordered">
         <thead>
           <tr>
-            <th class="actions">Formula empleado</th>
-            <th class="actions">Formula aporte del empleador</th>
+            <th class="actions">Fórmula empleado</th>
+            <th class="actions">Fórmula aporte del empleador</th>
             <th class="actions">Fecha de vigencia</th>
             <th class="actions" style="width:20px">Activo</th>
           </tr>

@@ -181,12 +181,12 @@ ActiveRecord::Schema.define(version: 20160510145514) do
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "sueldos", force: :cascade do |t|
-    t.money    "monto",           scale: 2
-    t.boolean  "activo",                    default: true
+    t.float    "monto"
+    t.boolean  "activo",          default: true
     t.integer  "cargo_id"
-    t.money    "sueldo_integral", scale: 2
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.float    "sueldo_integral"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   add_index "sueldos", ["cargo_id"], name: "index_sueldos_on_cargo_id", using: :btree

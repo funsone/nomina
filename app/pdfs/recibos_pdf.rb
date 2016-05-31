@@ -32,13 +32,13 @@ class RecibosPdf < Prawn::Document
       next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
       image banner, scale: 0.48, at: [37,720]
       move_down 120
-      text 'NOMINA PERSONAL ' + p.cargo.tipo.nombre.upcase, align: :center, size: 16
-      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 18
-      table([["CEDULA: #{p.cedula}", "NOMBRES: #{p.nombres},#{p.apellidos}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]], cell_style: { border_width: 0, size: 10 }, header: true)
-      table([["CARGO: #{p.cargo.nombre.upcase}", "BANCO DE VENEZUELA #{p.cuenta}", "SUEDO BASICO: #{p.cargo.sueldos.last.monto}"]], cell_style: { border_width: 0, size: 10 }, header: true)
-      table([["UBICACION: Sede FUNSONE   ESTADO EMPLEADO: #{p.status.capitalize}"]], cell_style: { border_width: 0, size: 10 })
+      text 'NÓMINA PERSONAL ' + p.cargo.tipo.nombre.upcase, align: :center, size: 16, leading: 2
+      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16
+      table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.nombres},#{p.apellidos}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]],cell_style: { border_width: 0, size: 10 }, header: true, column_widths: [100, 280, 120], :width => 500)
+      table([["CARGO: #{p.cargo.nombre.upcase}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12]+'-'+p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{ '%.2f' % p.cargo.sueldos.last.monto}"]], cell_style: { border_width: 0, size: 10 }, header: true, width: 500, :column_widths => {0 => 170, 2 => 120})
+      table([["UBICACIÓN: Sede FUNSONE", "ESTADO EMPLEADO: #{p.status.capitalize}"]], cell_style: { border_width: 0, size: 10 }, header: true)
       move_down 20
-      data = [%w(CONCEPTO ASIGNACION DEDUCCION TOTAL)]
+      data = [%w(CONCEPTO ASIGNACION DEDUCCION TOTAL\ A\ PAGAR)]
 
       p.asignaciones.each do |c|
         condicion = false
@@ -82,7 +82,7 @@ class RecibosPdf < Prawn::Document
       end
       data += [['', '%.2f' % truncar(total_asignaciones), '%.2f' % truncar(total_deducciones),'%.2f' % truncar(total_asignaciones - total_deducciones)]]
 
-      table(data, header: true, width: 500, cell_style: { size: 10 })
+      table(data, header: true, width: 515, cell_style: { size: 10 })
       start_new_page
     end
   end

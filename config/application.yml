@@ -1,2 +1,2 @@
-    gmail_username: 'railspruebamailer@gmail.com'
-    gmail_password: 'railsprueba'
+    gmail_username: Settings.gmail_username
+    gmail_password: Settings.gmail_password

@@ -10,6 +10,7 @@ class Cargo < ActiveRecord::Base
   validates :tipo_id, presence: true
   self.per_page = 10
   before_update :actualizar
+  
 
   def actualizar
     nuevo = false

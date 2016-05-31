@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1><%= @cargo.nombre.upcase %></h1>
+  <h2><%= @cargo.nombre.upcase %></h2>
   <% ocupado_por=Persona.where("cargo_id=#{@cargo.id}").first%>
   <h4>
     <b>Departamento:</b>
@@ -9,6 +9,8 @@
     <b>Ocupado por:</b>
     <%= (ocupado_por.nombres + " "+ocupado_por.apellidos).upcase %>
     ,
+    </h4>
+    <h4>
     <b>Desde:</b>
     <%= ocupado_por.contrato.fecha_inicio%>
     <%end%>
@@ -32,8 +34,8 @@
         <tbody>
           <% @cargo.sueldos.order('activo DESC').each do |sueldo| %>
           <tr class="<%= sueldo.activo ? 'success': 'danger'%>">
-            <td><%= sueldo.monto %></td>
-            <td><%= sueldo.sueldo_integral %></td>
+            <td><%= '%.2f' % truncar(sueldo.monto) %></td>
+            <td><%= '%.2f' % truncar(sueldo.sueldo_integral) %></td>
             <%
             quincena=(sueldo.created_at.day<=15)? 0 : 1
             %>

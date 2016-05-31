@@ -14,6 +14,7 @@ en:
             empleado: 'Fórmula'
             patrono: 'Fórmula (Aporte Patronal)'
       concepto:
+        condicion: 'Condición'
         formulas:
           empleado: 'Fórmula'
           patrono: 'Fórmula (Aporte Patronal)'

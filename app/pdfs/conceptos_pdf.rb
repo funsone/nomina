@@ -57,11 +57,10 @@ class ConceptosPdf < Prawn::Document
       next unless pc > 0
       image banner, scale: 0.48, at: [62, 720]
       move_down 120
-      text 'LISTADO DE CONCEPTOS ', align: :center, size: 16
-      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 18
-      text 'NOMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16
-
-      text concepto.nombre, size: 18, align: :center
+      text 'LISTADO DE CONCEPTOS ', align: :center, size: 16, leading: 2
+      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16, leading: 2
+      text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16, leading: 2
+      text concepto.nombre, size: 16, align: :center, leading: 2
       move_down 10
       data += [['TOTAL', concepto.nombre, acu_aporte_e.to_s, acu_aporte_p.to_s, (acu_aporte_p + acu_aporte_e).to_s]]
       table data, header: true, cell_style: { size: 8 }, width: 570
@@ -104,10 +103,11 @@ class ConceptosPdf < Prawn::Document
       next unless pc > 0
       image banner, scale: 0.48, at: [62, 720]
       move_down 120
-      text 'LISTADO DE CONCEPTOS ', align: :center, size: 16
-      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 18
-      text 'NOMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16
-      text conceptop.nombre, size: 18, align: :center
+      text 'LISTADO DE CONCEPTOS ', align: :center, size: 16, leading: 2
+      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16, leading: 2
+      text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16, leading: 2
+      text conceptop.nombre, size: 16, align: :center, leading: 2
+      move_down 10
       data += [['TOTAL', conceptop.nombre, acu_aporte_e.to_s, acu_aporte_p.to_s, (acu_aporte_p + acu_aporte_e).to_s]]
       table data, header: true, cell_style: { size: 8 }
       start_new_page

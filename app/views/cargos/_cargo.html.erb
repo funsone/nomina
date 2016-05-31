@@ -7,7 +7,8 @@
         <tr>
           <th class="actions">Nombre</th>
           <th class="actions">Departamento</th>
-          <th class="actions">Sueldo</th>
+          <th class="actions">Sueldo Basico</th>
+          <th class="actions">Sueldo Integral</th>
           <th class="actions">Tipo</th>
           <th class="actions">Disponible</th>
           <th class="actions" style="width: 100px;">Acciones</th>
@@ -18,7 +19,8 @@
         <tr>
           <td><%= cargo.nombre  %></td>
           <td><%= cargo.departamento.nombre %></td>
-          <td><%= cargo.sueldos.last.monto %></td>
+          <td><%= '%.2f' % truncar(cargo.sueldos.last.monto) %></td>
+          <td><%= '%.2f' % truncar(cargo.sueldos.last.sueldo_integral) %></td>
           <td><%= cargo.tipo.nombre %></td>
           <td><%if cargo.disponible %>
             <span class="fa fa-check"></span>
