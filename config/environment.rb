@@ -1,15 +1,15 @@
 # Load the Rails application.
 require File.expand_path('../application', __FILE__)
 def truncar(n)
-  if -0.005<=n and n<=0.005
-    return 0
-  else
-    if n<0
-    (n + 0.005).round(2)
-    else
-    (n - 0.005).round(2)
-    end
-  end
+  require 'bigdecimal'
+
+  BigDecimal(n.to_s).truncate(2).to_f
+end
+
+def log(elemento, clase, tipo_de_accion)
+  Registro.create(elemento: elemento,
+                  clase: clase,
+                  tipo_de_accion: tipo_de_accion)
 end
 
 # Initialize the Rails application.

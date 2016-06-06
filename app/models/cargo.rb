@@ -10,7 +10,29 @@ class Cargo < ActiveRecord::Base
   validates :tipo_id, presence: true
   self.per_page = 10
   before_update :actualizar
-  
+  before_create :truncar_sueldo
+  after_create :logc
+  after_destroy :logd
+  after_update :logu
+
+include Rails.application.routes.url_helpers
+def link
+return 'id #<a href="' + cargo_path(id) + '"> ' + id.to_s + '</a>'
+end
+  def logc
+    log("#{link}",6, 0)
+  end
+  def logu
+    log("#{link}",6, 1)
+  end
+  def logd
+    log("#{id}",6, 2)
+  end
+  def truncar_sueldo
+    sueldos.last.monto=truncar(sueldos.last.monto)
+    sueldos.last.sueldo_integral=truncar(sueldos.last.sueldo_integral)
+  end
+
 
   def actualizar
     nuevo = false
@@ -27,8 +49,10 @@ class Cargo < ActiveRecord::Base
       sueldos.last.monto = viejo.monto
       sueldos.last.sueldo_integral = viejo.sueldo_integral
       crear = sueldos.new
-      crear.monto = nmonto
-      crear.sueldo_integral = nsueldo_integral
+      crear.monto = truncar(nmonto)
+      crear.sueldo_integral = truncar(nsueldo_integral)
+    else
+      truncar_sueldo
     end
   end
   def self.search(search,dep)
@@ -45,4 +69,6 @@ where('(LOWER(nombre) LIKE ? ) AND departamento_id = CAST(? AS INTEGER)', "%#{se
   where('LOWER(nombre) LIKE ? ', "%#{search}%")
   end
   end
+
+
 end

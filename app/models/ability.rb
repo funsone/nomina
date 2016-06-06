@@ -21,6 +21,7 @@ class Ability
             can :cud, Registroconcepto
             can :cud, Familiar
             cannot :read, Setting
+            cannot :read, Usuario
         elsif user.has_role? :regular
             can :read, Dependencia
             can :read, Departamento
@@ -33,9 +34,10 @@ class Ability
             can :read, Familiar
             cannot :read, Registro
             cannot :read, Setting
-
+cannot :read, Usuario
         end
           cannot :read, Dependencia
+          
           cannot :read, Departamento
           cannot :read, Tipo
           cannot :read, Conceptopersonal

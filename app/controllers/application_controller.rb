@@ -5,16 +5,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_ahora
   protect_from_forgery with: :exception
 
-  helper ApplicationHelper
-
   def current_user
     current_usuario
-  end
-
-  def log(descripcion, tipo_de_accion)
-    Registro.create(descripcion: descripcion,
-                    tipo_de_accion: tipo_de_accion,
-                    usuario_id: current_usuario.id)
   end
 
   $dic = Hash['tipos_de_contrato' => Hash['Fijo' => 0,
@@ -36,6 +28,11 @@ class ApplicationController < ActionController::Base
                                           'Extra (Quincena Siguiente)' => 6],
               'tipos_de_conceptos' => Hash['Asignación' => 0, 'Deducción' => 1],
               'tipo_de_accion' => Hash['success' => 0, 'info' => 1, 'danger' => 2],
+              'tipo_de_accion_def' => Hash['fa fa-star' => 0, 'fa fa-pencil' => 1, 'fa fa-trash' => 2],
+              'clases' => Hash['Concepto' => 0, 'Concepto Personal' => 1, 'Departamento' => 2,
+                              'Dependencia' => 3, 'Empleado' => 4, 'Nomina' => 5,
+                              'Cargo' => 6
+              ],
               'meses' => Hash['ENERO' => 1, 'FEBRERO' => 2, 'MARZO' => 3,
                               'ABRIL' => 4, 'MAYO' => 5, 'JUNIO' => 6,
                               'JULIO' => 7, 'AGOSTO' => 8, 'SETIEMBRE' => 9,
@@ -46,10 +43,13 @@ class ApplicationController < ActionController::Base
   def set_ahora
     $ahora = params[:ahora] ? Date.strptime(params[:ahora], '%d-%m-%Y')  : Time.current
     $quincena = ($ahora.day <= 15) ? 0  : 1
+
+      Usuario.current = current_user if current_user
+
   end
 
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = 'Acceso denegado.'
+    flash[:error] = 'Acceso denegado: no posee los permisos necesarios!'
     redirect_to root_url
   end
 end

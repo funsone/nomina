@@ -1,5 +1,26 @@
 class Persona < ActiveRecord::Base
   resourcify
+  after_create :logc
+  after_destroy :logd
+  after_update :logu
+
+  include Rails.application.routes.url_helpers
+  def link
+    'id #<a href="' + persona_path(id) + '"> ' + id.to_s + '</a>'
+  end
+
+  def logc
+    log(link.to_s, 4, 0)
+  end
+
+  def logu
+    log(link.to_s, 4, 1)
+  end
+
+  def logd
+    log(id.to_s, 4, 2)
+  end
+
   self.per_page = 10
   attr_readonly :cedula
   include AASM
@@ -49,92 +70,90 @@ class Persona < ActiveRecord::Base
 
   attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones, :valido
 
-  
-
   def self.search(search, dep, tipo)
     search = search.downcase
-    #sin filtro
-    if dep == '' && search == '' && tipo==''
+    # sin filtro
+    if dep == '' && search == '' && tipo == ''
       order(:cedula)
-      #solo departaent
-    elsif dep && dep != '' && search == '' && tipo==''
+      # solo departaent
+    elsif dep && dep != '' && search == '' && tipo == ''
       joins(:cargo).where('"cargos"."departamento_id" = CAST(? AS INTEGER)', dep).order(:cedula)
-      #solo tipo
-    elsif tipo && tipo != '' && search == '' && dep==''
+      # solo tipo
+    elsif tipo && tipo != '' && search == '' && dep == ''
       joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER)', tipo).order(:cedula)
-      #tipo y depatamento
-    elsif tipo && tipo != '' && search == '' and dep && dep != ''
-      joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER) AND "cargos"."departamento_id" = CAST(? AS INTEGER) ', tipo,dep).order(:cedula)
-      #departamento y busqueda
-    elsif dep && dep != '' and search && search != '' and tipo==''
+      # tipo y depatamento
+    elsif tipo && tipo != '' && search == '' && dep && dep != ''
+      joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER) AND "cargos"."departamento_id" = CAST(? AS INTEGER) ', tipo, dep).order(:cedula)
+      # departamento y busqueda
+    elsif dep && dep != '' && search && search != '' && tipo == ''
       joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep).order(:cedula)
-      #tipo y busqueda
-    elsif tipo && tipo != '' and search && search != '' and dep==''
+      # tipo y busqueda
+    elsif tipo && tipo != '' && search && search != '' && dep == ''
       joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", tipo).order(:cedula)
-      #tipo departamento y busqueda
-    elsif tipo && tipo != '' and dep && dep != '' and search && search != ''
-      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep,tipo).order(:cedula)
-#solo busqueda
+      # tipo departamento y busqueda
+    elsif tipo && tipo != '' && dep && dep != '' && search && search != ''
+      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep, tipo).order(:cedula)
+    # solo busqueda
     elsif search && search != ''
       where('cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ? ', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").order(:cedula)
     end
   end
 
-  def calculo extras
+  def calculo(extras)
     self.asignaciones = []
     self.deducciones = []
     self.total_asignaciones = 0
     self.total_deducciones = 0
-    self.total=0
-    self.valido=true
+    self.total = 0
+    self.valido = true
     lunes = [1]
-    inicio_mes=Date.civil($ahora.year,$ahora.month, 1)
-    fin_mes= Date.civil($ahora.year,$ahora.month, -1)
-    fecha=($quincena==0) ? Date.civil($ahora.year,$ahora.month, 16) : fin_mes
-    sueldos= cargo.sueldos.where("created_at <= ? ",fecha)
-    if sueldos.length == 0
-      self.valido=false
+    inicio_mes = Date.civil($ahora.year, $ahora.month, 1)
+    fin_mes = Date.civil($ahora.year, $ahora.month, -1)
+    fecha = ($quincena == 0) ? Date.civil($ahora.year, $ahora.month, 16) : fin_mes
+    sueldos = cargo.sueldos.where('created_at <= ? ', fecha)
+    if sueldos.empty?
+      self.valido = false
       return 0
     end
-    r = (inicio_mes..fin_mes).to_a.select {|k| lunes.include?(k.wday)}
+    r = (inicio_mes..fin_mes).to_a.select { |k| lunes.include?(k.wday) }
 
     @SUELDO = sueldos.last.monto
     @SUELDO_INTEGRAL = sueldos.last.sueldo_integral
-    @LUNES_DEL_MES=r.length
-    @CONDICIONES= [self.IVSS, self.FAOV, self.TSS, self.caja_de_ahorro, extras]
-    asig = [cargo.tipo.conceptos.where(tipo_de_concepto: 0),registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')]
+    @LUNES_DEL_MES = r.length
+    @CONDICIONES = [self.IVSS, self.FAOV, self.TSS, caja_de_ahorro, extras]
+    asig = [cargo.tipo.conceptos.where(tipo_de_concepto: 0), registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')]
 
-    dedu = [cargo.tipo.conceptos.where(tipo_de_concepto: 1),registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')]
+    dedu = [cargo.tipo.conceptos.where(tipo_de_concepto: 1), registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')]
 
     i = 0
-asig.each do |a|
-    a.each do |j|
-      next unless j.puede_aplicar  @CONDICIONES
-      j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL,@LUNES_DEL_MES
-      next unless j.valido
-      self.total_asignaciones += j.valor
-      asignaciones[i] = j.para_mostrar
-      i += 1
+    asig.each do |a|
+      a.each do |j|
+        next unless j.puede_aplicar @CONDICIONES
+        j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL, @LUNES_DEL_MES
+        next unless j.valido
+        self.total_asignaciones += j.valor
+        asignaciones[i] = j.para_mostrar
+        i += 1
+      end
     end
-  end
     i = 0
- dedu.each  do |d|
-    d.each do |j|
-      next unless j.puede_aplicar @CONDICIONES
-      j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL,@LUNES_DEL_MES
-      next unless j.valido
-      self.total_deducciones += j.valor
-      deducciones[i] = j.para_mostrar
-      i += 1
+    dedu.each do |d|
+      d.each do |j|
+        next unless j.puede_aplicar @CONDICIONES
+        j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL, @LUNES_DEL_MES
+        next unless j.valido
+        self.total_deducciones += j.valor
+        deducciones[i] = j.para_mostrar
+        i += 1
+      end
     end
- end
     tipo_de_contrato = contrato.tipo_de_contrato
     if tipo_de_contrato == 2
       deducciones[i] = Hash['nombre', 'COMISION DE SERVICIO', 'valor', truncar(contrato.sueldo_externo).to_s]
       self.total_deducciones += contrato.sueldo_externo
     end
-    self.total_deducciones=truncar(self.total_deducciones)
-    self.total_asignaciones=truncar(self.total_asignaciones)
+    self.total_deducciones = truncar(self.total_deducciones)
+    self.total_asignaciones = truncar(self.total_asignaciones)
     self.total = truncar(self.total_asignaciones - self.total_deducciones)
     self.total = 0 if tipo_de_contrato == 2 && total < 0
   end

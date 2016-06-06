@@ -1,0 +1,51 @@
+<div class="page-header">
+    <h1>Usuarios</h1>
+</div>
+<ul class="list-group">
+    <li class="list-group-item text-muted" contenteditable="false">Lista de usuarios</li>
+    <li class="list-group-item text-center ">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-condensed table-striped">
+  <tr>
+    <th class="actions">Rol</th>
+    <th class="actions">Email</th>
+
+    <th class="actions">Sesión actual</th>
+    <th class="actions">IP</th>
+    <th class="actions">Sesión previa</th>
+    <th class="actions">IP</th>
+    <th class="actions">Inicios</th>
+    <th class="actions">Fecha de Registro</th>
+
+  </tr>
+  <% @usuarios.each do |usuario| %>
+  <tr>
+    <%
+    rol="";
+if usuario.has_role? :admin
+  rol ="administrador"
+elsif usuario.has_role? :regular
+  rol ="Regular"
+else
+  rol ="Coordinador"
+end
+
+    %>
+<td><%=rol%></td>
+    <td><var><%= usuario.email %></var></td>
+    <td><%=usuario.current_sign_in_at%></td>
+    <td><%=usuario.current_sign_in_ip%></td>
+    <td><%=usuario.last_sign_in_at%></td>
+    <td><%=usuario.last_sign_in_ip%></td>
+    <td><%=usuario.sign_in_count%></td>
+    <td><%=usuario.created_at%></td>
+
+
+
+
+  </tr>
+  <% end %>
+</table>
+</div>
+</li>
+</ul>

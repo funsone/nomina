@@ -55,7 +55,7 @@ class TiposController < ApplicationController
   def create
     authorize! :create, Tipo
     @tipo = Tipo.new(tipo_params)
-    log("Se ha creado la nomina #{@lt}", 0)
+
 
     respond_to do |format|
       if @tipo.save
@@ -74,7 +74,6 @@ class TiposController < ApplicationController
     authorize! :update, Tipo
     respond_to do |format|
       if @tipo.update(tipo_params)
-        log("Se ha editado la nomina #{@lt}", 1)
         format.html { redirect_to tipos_path, notice: 'Los datos de la nómina fueron actualizados exitosamente.' }
         format.json { head :no_content }
       end
@@ -84,7 +83,6 @@ class TiposController < ApplicationController
   def destroy
     authorize! :destroy, Tipo
     @tipo.destroy
-            log("Se ha eliminado la nomina #{@tipo.nombre}", 2)
     respond_to do |format|
       format.html { redirect_to tipos_url, notice: 'La nómina fue eliminada exitosamente.' }
       format.json { head :no_content }

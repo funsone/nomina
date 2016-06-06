@@ -39,7 +39,8 @@
                             <select class="btn btn-default dropdown-toggle" id="quincena">
                                 <option value="">Seleccione la quincena...</option>
 <%
-sueldo=Sueldo.first.created_at
+sueldo=Sueldo.first.created_at if Sueldo.all.length>0
+sueldo = Date.today - 1.day if !sueldo
 
 i=1
 

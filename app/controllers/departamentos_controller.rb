@@ -43,7 +43,7 @@ class DepartamentosController < ApplicationController
 
     respond_to do |format|
       if @departamento.save
-        log("Se ha creado el departamento #{@lt}", 0)
+
         format.html { redirect_to departamentos_path, notice: 'El departamento fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @departamento }
       else
@@ -59,7 +59,7 @@ class DepartamentosController < ApplicationController
     authorize! :update, Departamento
     respond_to do |format|
       if @departamento.update(departamento_params)
-        log("Se ha editado el departamento #{@lt}", 1)
+
         format.html { redirect_to departamentos_path, notice: 'Los datos del departamento fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @departamento }
       else
@@ -74,7 +74,6 @@ class DepartamentosController < ApplicationController
   def destroy
     authorize! :destroy, Departamento
     @departamento.destroy
-    log("Se ha eliminado el departamento #{@departamento.nombre}", 2)
     respond_to do |format|
       format.html { redirect_to departamentos_url, notice: 'El departamento fue eliminado exitosamente.' }
       format.json { head :no_content }

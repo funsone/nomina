@@ -36,7 +36,7 @@ padding-left:1px;
           </a>
           <ul class="nav nav-second-level">
             <li>
-            <%= link_to "Cerrar sesión", destroy_usuario_session_path,method: :delete%>
+            <%= link_to raw("<i class=\"fa fa-sign-out fa-2x fa-fw\"></i> CERRAR SESIÓN"), destroy_usuario_session_path,method: :delete%>
             </li>
 
 
@@ -53,10 +53,10 @@ padding-left:1px;
           </a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to "Dependencias", dependencias_path%>
+              <%= link_to raw("<i class=\"fa fa-building-o fa-2x fa-fw\"></i> DEPENDENCIAS"), dependencias_path%>
             </li>
             <li>
-              <%= link_to "Departamentos", departamentos_path%>
+              <%= link_to raw("<i class=\"fa fa-building-o fa-2x fa-fw\"></i> DEPARTAMENTOS"), departamentos_path%>
             </li>
 
           </ul>
@@ -71,10 +71,10 @@ padding-left:1px;
           </a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to "Globales", conceptos_path%>
+              <%= link_to raw("<i class=\"fa fa-percent fa-2x fa-fw\"></i> GLOBALES"), conceptos_path%>
             </li>
             <li>
-              <%= link_to "Personales", conceptospersonales_path%>
+              <%= link_to raw("<i class=\"fa fa-percent fa-2x fa-fw\"></i> PERSONALES"), conceptospersonales_path%>
             </li>
           </ul>
         </li>
@@ -85,16 +85,31 @@ padding-left:1px;
         <li >
           <%= link_to raw("<i class=\"fa fa-users fa-2x fa-fw\"></i> EMPLEADOS"), personas_path%>
         </li>
-        <% if can? :read, Registro %>
         <li>
-          <%= link_to raw("<i class=\"fa fa-eye fa-2x fa-fw\"></i> REGISTROS"), registros_path%>
+          <a href="#">
+            <i class="fa fa-hashtag fa-2x fa-fw"></i>
+            ADMINISTRACIÓN<span class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level">
+            <% if can? :read, Registro %>
+            <li>
+              <%= link_to raw("<i class=\"fa fa-eye fa-2x fa-fw\"></i> REGISTROS"), registros_path%>
+            </li>
+            <%end%>
+            <% if can? :read, Usuario %>
+            <li>
+              <%= link_to raw("<i class=\"fa fa-user-secret fa-2x fa-fw\"></i> USUARIOS"), welcome_users_path%>
+            </li>
+            <%end%>
+            <% if can? :read, Setting %>
+            <li>
+              <%= link_to raw("<i class=\"fa fa-gears fa-2x fa-fw\"></i> CONFIGURACION"), settings_path%>
+            </li>
+            <%end%>
+
+          </ul>
         </li>
-        <%end%>
-        <% if can? :read, Setting %>
-        <li>
-          <%= link_to raw("<i class=\"fa fa-cog fa-2x fa-fw\"></i> CONFIGURACION"), settings_path%>
-        </li>
-        <%end%>
+
         <li>
           <%= link_to raw("<i class=\"fa fa-info-circle fa-2x fa-fw\"></i> ACERCA DE..."), "",  "data-toggle"=>"modal" ,"data-target"=>"#acercade"%>
         </li>
@@ -125,41 +140,4 @@ padding-left:1px;
 
   </nav>
 </div>
-<div class="modal fade" id="acercade" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="acercadeLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    <i class="fa fa-help fa-2x"></i>
-                    Acerca de..</h4>
-            </div>
-            <div class="modal-body ">
-
-                <h1> <img class="text-center" src="/assets/favicon.png" alt="" />FUNSONE Nomina</h1>
-                <dl class="dl-horizontal">
-                  <dt>Descripción</dt>
-                  <dd>Systema de gestion de nominas.</dd>
-                <dt>Versión</dt>
-                <dd>2016.05.31</dd>
-
-                <dt>Reaizado por:</dt>
-                <dd>Victor Serrano</dd>
-                <dd>Monica Huamani</dd>
-              </dl>
-
-
-
-
-</div>
-<div class="modal-footer">
-
-  <a class="btn btn-default" href="mailto:<%= Setting.email_admin%>" role="button">Contactar administrador</a>
-    <a class="btn btn-default" href="<%= welcome_ayuda_path%>" role="button"> Manual</a>
-<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
+<%=render "layouts/acercade"%>

@@ -1,13 +1,16 @@
 <%if p.length>0%>
 
-<table class="table table-hover table-condensed table-striped" style="font-size:	11px;">
+<table class="table table-hover table-condensed table-striped" style="font-size:	14px;">
 <thead>
   <tr>
 
 
-    <th style="width: 75px" class="actions">Fecha</th>
-    <th class="actions">Usuario</th>
-    <th class="actions">Accion</th>
+    <th style="width: 100px" class="actions">Fecha</th>
+
+    <th class="actions">Acción</th>
+    <th class="actions">Clase</th>
+    <th class="actions">Elemento</th>
+    <th class="actions">Autor</th>
   </tr>
 </thead>
 
@@ -15,8 +18,11 @@
   <% p.each do |registro| %>
     <tr class="<%= $dic["tipo_de_accion"].key(registro.tipo_de_accion)%>">
       <td><%= registro.created_at.strftime("%d-%m-%Y ") %></td>
+        <td><i class="<%= $dic["tipo_de_accion_def"].key(registro.tipo_de_accion)%> fa-2x"></i></td>
+        <td><%= $dic["clases"].key(registro.clase)%></td>
+<td><%= raw(registro.elemento) %></td>
       <td><%= registro.usuario.email %></td>
-      <td><%= raw(registro.descripcion) %></td>
+
     </tr>
   <% end %>
 </tbody>

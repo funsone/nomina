@@ -41,7 +41,7 @@ class CargosController < ApplicationController
         # @sueldo= Sueldo.new(cargo_params['sueldo_attributes'])
         respond_to do |format|
             if @cargo.save
-                log("Se ha creado el cargo: #{@lt}", 0)
+
                 format.html { redirect_to @cargo, notice: 'El cargo fue creado exitosamente.' }
                 format.json { render :show, status: :created, location: @cargo }
             #  @sueldo.save
@@ -57,9 +57,9 @@ class CargosController < ApplicationController
     def update
         authorize! :update, Cargo
         respond_to do |format|
-          
+
             if @cargo.update(cargo_params)
-                log("Se ha actualizado el cargo: #{@lt}", 1)
+
 
                 format.html { redirect_to @cargo, notice: 'Los datos del cargo fueron actualizados exitosamente.' }
                 format.json { render :show, status: :ok, location: @cargo }
@@ -75,7 +75,7 @@ class CargosController < ApplicationController
     def destroy
         authorize! :destroy, Cargo
         @cargo.destroy
-        log("Se eliminado el  cargo: #{@cargo.nombre}", 2)
+        
 
         respond_to do |format|
             format.html { redirect_to cargos_url, notice: 'El cargo fue eliminado exitosamente.' }
@@ -89,7 +89,7 @@ class CargosController < ApplicationController
     def set_cargo
         if !Cargo.where(id: params[:id]).empty?
             @cargo = Cargo.find(params[:id])
-            @lt = '<a href="' + cargo_path(@cargo) + '"> ' + @cargo.nombre + '</a>'
+
         else
             respond_to do |format|
                 format.html { redirect_to cargos_url, alert: 'Cargo no encontrado en la base de datos.' }

@@ -7,7 +7,23 @@ class Concepto < ActiveRecord::Base
     validates :modalidad_de_pago, :tipo_de_concepto, :condicion, presence: true
     attr_accessor :valor, :valor_patrono, :para_mostrar, :valido
     before_update :actualizar
-  
+    after_create :logc
+    after_destroy :logd
+    after_update :logu
+
+  include Rails.application.routes.url_helpers
+  def link
+  return 'id #<a href="' + concepto_path(id) + '"> ' + id.to_s + '</a>'
+  end
+    def logc
+      log("#{link}",0, 0)
+    end
+    def logu
+      log("#{link}",0, 1)
+    end
+    def logd
+      log("#{id}",0, 2)
+    end
 
     def actualizar
       nuevo = false

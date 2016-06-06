@@ -44,7 +44,7 @@ class ConceptosController < ApplicationController
 
         respond_to do |format|
             if @concepto.save
-                log("Se ha creado el concepto: #{@lt}", 0)
+
 
                 format.html { redirect_to @concepto, notice: 'El concepto fue creado exitosamente.' }
                 format.json { render :show, status: :created, location: @concepto }
@@ -64,10 +64,10 @@ class ConceptosController < ApplicationController
         else
             params[:concepto][:tipo_ids] = []
         end
-      
+
         respond_to do |format|
             if @concepto.update(concepto_params)
-                log("Se ha actualizado el concepto: #{@lt}", 1)
+
 
                 format.html { redirect_to @concepto, notice: 'Los datos del concepto fueron actualizados exitosamente.' }
                 format.json { render :show, status: :ok, location: @concepto }
@@ -83,7 +83,7 @@ class ConceptosController < ApplicationController
     def destroy
         authorize! :destroy, Concepto
         @concepto.destroy
-        log("Se ha eliminado el concepto: #{@concepto.nombre}", 2)
+        
 
         respond_to do |format|
             format.html { redirect_to conceptos_url, notice: 'El concepto fue eliminado exitosamente.' }

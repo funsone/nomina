@@ -90,7 +90,6 @@ class PersonasController < ApplicationController
 
     def cambiarestado
         msg = 'El cambio de estado no puede ser procesado'
-        log("Se ha cambiado el estado de #{@lt}", 1)
         case params[:estado]
         when '0'
             @persona.retirar!
@@ -141,7 +140,7 @@ class PersonasController < ApplicationController
 
         respond_to do |format|
             if @persona.save
-                log("Se ha contratado a #{@lt}", 0)
+
                 @persona.cargo.disponible = false
                 @persona.cargo.save
                 #  Cargo.where(id: params[:cargo_id]).update_all(disponible: false);
@@ -162,7 +161,7 @@ class PersonasController < ApplicationController
 
         respond_to do |format|
             if @persona.update(persona_params)
-                log("Se ha editado a #{@lt}", 1)
+
                 format.html { redirect_to @persona, notice: 'Los datos del empleado fueron actualizados exitosamente.' }
                 format.json { render :show, status: :ok, location: @persona }
             else
@@ -178,7 +177,7 @@ class PersonasController < ApplicationController
           authorize! :destroy, Persona
         @persona.cargo.update(disponible: true)
         @persona.destroy
-        log("Se ha eliminado a #{@persona.cedula}", 2)
+        
         respond_to do |format|
             format.html { redirect_to personas_url, notice: 'El empleado fue despedido.' }
             format.json { head :no_content }

@@ -141,11 +141,12 @@ ActiveRecord::Schema.define(version: 20160510145514) do
   add_index "personas", ["cargo_id"], name: "index_personas_on_cargo_id", using: :btree
 
   create_table "registros", force: :cascade do |t|
-    t.string   "descripcion"
-    t.integer  "usuario_id"
+    t.string   "elemento"
+    t.integer  "clase"
+    t.integer  "usuario_id",     default: 1
     t.integer  "tipo_de_accion"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "registros", ["usuario_id"], name: "index_registros_on_usuario_id", using: :btree
