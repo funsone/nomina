@@ -19,8 +19,8 @@
         <tr>
           <td><%= cargo.nombre  %></td>
           <td><%= cargo.departamento.nombre %></td>
-          <td><%= '%.2f' % truncar(cargo.sueldos.last.monto) %></td>
-          <td><%= '%.2f' % truncar(cargo.sueldos.last.sueldo_integral) %></td>
+          <td><%= tr(cargo.sueldos.last.monto) %></td>
+          <td><%= tr(cargo.sueldos.last.sueldo_integral) %></td>
           <td><%= cargo.tipo.nombre %></td>
           <td><%if cargo.disponible %>
             <span class="fa fa-check"></span>

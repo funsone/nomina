@@ -34,8 +34,8 @@
         <tbody>
           <% @cargo.sueldos.order('activo DESC').each do |sueldo| %>
           <tr class="<%= sueldo.activo ? 'success': 'danger'%>">
-            <td><%= '%.2f' % truncar(sueldo.monto) %></td>
-            <td><%= '%.2f' % truncar(sueldo.sueldo_integral) %></td>
+            <td><%= tr(sueldo.monto) %></td>
+            <td><%= tr(sueldo.sueldo_integral) %></td>
             <%
             quincena=(sueldo.created_at.day<=15)? 0 : 1
             %>

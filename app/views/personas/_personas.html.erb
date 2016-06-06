@@ -26,12 +26,12 @@
         <td><%= persona.cargo.tipo.nombre %></td>
         <td>
           <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-            <%= link_to ' Recibo', persona_path(persona,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte" %>
-            <%= link_to '', persona_path(persona,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
+            <%= link_to ' Recibo', persona_path(persona,format: "pdf")+"?doc=0","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte" %>
+            <%= link_to '', persona_path(persona,format: "pdf")+"?doc=1","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
           </div>
           <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-            <%= link_to ' Constancia', persona_path(persona,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
-            <%= link_to '', persona_path(persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle": "tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
+            <%= link_to ' Constancia', persona_path(persona,format: "pdf")+"?doc=2","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
+            <%= link_to '', persona_path(persona,format: "pdf")+"?doc=3","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle": "tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
           </div>
         </td>
         <td>

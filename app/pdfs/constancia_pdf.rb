@@ -18,7 +18,7 @@ class ConstanciaPdf < Prawn::Document
     nombres = (p.nombres + ' ' + p.apellidos).upcase
     fecha = p.contrato.fecha_inicio.strftime('%d de ' + $dic['meses'].key(p.contrato.fecha_inicio.month).capitalize + ' de %Y')
     cedula = $dic['tipos_de_cedula'].key(p.tipo_de_cedula) + p.cedula.to_s
-    text "Por medio de la presente hacemos constar que #{titulo} #{nombres}, titular de la Cédula de Identidad N° #{cedula} trabaja en esta Institución desde el #{fecha}, desempeñando el cargo de #{p.cargo.nombre.upcase} percibiendo un sueldo mensual de Bolívares (Bs. #{p.cargo.sueldos.last.monto}) en el horario comprendido entre las #{Setting.jornada_de_trabajo_inicio} y #{Setting.jornada_de_trabajo_fin}.", align: :justify, size: 16 - tam, leading: 7
+    text "Por medio de la presente hacemos constar que #{titulo} #{nombres}, titular de la Cédula de Identidad N° #{cedula} trabaja en esta Institución desde el #{fecha}, desempeñando el cargo de #{p.cargo.nombre.upcase} percibiendo un sueldo mensual de Bolívares (Bs. #{tr(p.cargo.sueldos.last.monto)}) en el horario comprendido entre las #{Setting.jornada_de_trabajo_inicio} y #{Setting.jornada_de_trabajo_fin}.", align: :justify, size: 16 - tam, leading: 7
     move_down 20
     text "Constancia que expedimos el #{$ahora.strftime('%d de ' + $dic['meses'].key($ahora.month).capitalize + ' de %Y')}.", align: :justify, size: 16 - tam, leading: 7
     move_down 80

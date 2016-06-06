@@ -29,7 +29,7 @@ class Persona < ActiveRecord::Base
     state :suspendido
     state :retirado
     event :retirar do
-      transitions from: :activo, to: :retirado
+    transitions from: :activo, to: :retirado
       after do
         cargo.disponible = true
         cargo.save
@@ -37,12 +37,12 @@ class Persona < ActiveRecord::Base
     end
     event :reingresar do
       transitions from: :retirado, to: :activo
-      after do
-        cargo.disponible = false
-        cargo.save
+      before do
+        if cargo.disponible = true
+          cargo.disponible= false
+        end
       end
     end
-
     event :suspender do
       transitions from: :activo, to: :suspendido
     end
@@ -54,7 +54,7 @@ class Persona < ActiveRecord::Base
   has_one :contrato, dependent: :destroy
   has_many :familiares, dependent: :destroy
   has_many :registrosconceptos, dependent: :destroy
-  accepts_nested_attributes_for :contrato, :familiares, :registrosconceptos, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :contrato, :familiares, :registrosconceptos, allow_destroy: true
   has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/assets/missing.png'
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/

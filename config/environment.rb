@@ -5,7 +5,9 @@ def truncar(n)
 
   BigDecimal(n.to_s).truncate(2).to_f
 end
-
+def tr(n)
+  '%.2f' % truncar(n)
+end
 def log(elemento, clase, tipo_de_accion)
   Registro.create(elemento: elemento,
                   clase: clase,

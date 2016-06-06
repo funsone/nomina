@@ -98,8 +98,12 @@ class PersonasController < ApplicationController
             @persona.reactivar!
             msg = 'El empleado a sido reactivado'
         when '2'
+          if(@persona.cargo.disponible)
             @persona.reingresar!
             msg = 'El empleado a sido recontratado'
+          else
+            msg = 'el cargo ya esta ocupado, edite el empleado y seleccione otro.'
+          end
         when '3'
             @persona.suspender!
             msg = 'El empleado a sido suspendido'
@@ -119,11 +123,12 @@ class PersonasController < ApplicationController
                 format.html { redirect_to personas_url, alert: 'No hay cargo disponibles.' }
                 format.json { render json: @persona.errors, status: 'No hay cargos disponibles' }
             end
-        else
-            @persona = Persona.new
-            @persona.contrato = Contrato.new
+
+
 
         end
+        @persona = Persona.new
+        @persona.contrato=Contrato.new
     end
 
     # GET /personas/1/edit
@@ -177,7 +182,7 @@ class PersonasController < ApplicationController
           authorize! :destroy, Persona
         @persona.cargo.update(disponible: true)
         @persona.destroy
-        
+
         respond_to do |format|
             format.html { redirect_to personas_url, notice: 'El empleado fue despedido.' }
             format.json { head :no_content }

@@ -46,9 +46,9 @@ class ConceptosPdf < Prawn::Document
               if p.status == 'activo'
                 acu_aporte_e += c['valor'].to_d
                 acu_aporte_p += c['valor_patrono'].to_d
-                data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", c['valor'], c['valor_patrono'], (c['valor'].to_d + c['valor_patrono'].to_d).to_s]]
+                data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", tr(c['valor']), tr(c['valor_patrono']), tr((c['valor'].to_d + c['valor_patrono'].to_d))]]
               else
-                data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", '0.0', '0.0', '0.0']]
+                data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", '0.00', '0.00', '0.00']]
               end
             end
           end
@@ -62,8 +62,8 @@ class ConceptosPdf < Prawn::Document
       text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16, leading: 2
       text concepto.nombre, size: 16, align: :center, leading: 2
       move_down 10
-      data += [['TOTAL', concepto.nombre, acu_aporte_e.to_s, acu_aporte_p.to_s, (acu_aporte_p + acu_aporte_e).to_s]]
-      table data, header: true, cell_style: { size: 8 }, width: 570
+      data += [['TOTAL', concepto.nombre, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
+            table data, header: true, cell_style: { size: 8 }, width: 570
       start_new_page
     end
     conceptosp = Conceptopersonal.all
@@ -93,9 +93,9 @@ class ConceptosPdf < Prawn::Document
             if p.status == 'activo'
               acu_aporte_e += c['valor'].to_d
               acu_aporte_p += c['valor_patrono'].to_d
-              data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", c['valor'], c['valor_patrono'], (c['valor'].to_d + c['valor_patrono'].to_d).to_s]]
+              data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", tr(c['valor']), tr(c['valor_patrono']), tr(c['valor'].to_d + c['valor_patrono'].to_d)]]
             else
-              data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", '0.0', '0.0', '0.0']]
+              data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", '0.00', '0.00', '0.00']]
             end
           end
         end
@@ -108,7 +108,7 @@ class ConceptosPdf < Prawn::Document
       text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16, leading: 2
       text conceptop.nombre, size: 16, align: :center, leading: 2
       move_down 10
-      data += [['TOTAL', conceptop.nombre, acu_aporte_e.to_s, acu_aporte_p.to_s, (acu_aporte_p + acu_aporte_e).to_s]]
+      data += [['TOTAL', conceptop.nombre, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
       table data, header: true, cell_style: { size: 8 }
       start_new_page
     end

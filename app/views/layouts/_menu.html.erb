@@ -53,10 +53,10 @@ padding-left:1px;
           </a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to raw("<i class=\"fa fa-building-o fa-2x fa-fw\"></i> DEPENDENCIAS"), dependencias_path%>
+              <%= link_to raw("<i class=\"fa fa-building-o fa-fw\"></i>DEPENDENCIAS"), dependencias_path%>
             </li>
             <li>
-              <%= link_to raw("<i class=\"fa fa-building-o fa-2x fa-fw\"></i> DEPARTAMENTOS"), departamentos_path%>
+              <%= link_to raw("<i class=\"fa fa-building-o fa-fw\"></i>DEPARTAMENTOS"), departamentos_path%>
             </li>
 
           </ul>
@@ -71,10 +71,10 @@ padding-left:1px;
           </a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to raw("<i class=\"fa fa-percent fa-2x fa-fw\"></i> GLOBALES"), conceptos_path%>
+              <%= link_to raw("<i class=\"fa fa-percent fa-fw\"></i>GLOBALES"), conceptos_path%>
             </li>
             <li>
-              <%= link_to raw("<i class=\"fa fa-percent fa-2x fa-fw\"></i> PERSONALES"), conceptospersonales_path%>
+              <%= link_to raw("<i class=\"fa fa-percent fa-fw\"></i>PERSONALES"), conceptospersonales_path%>
             </li>
           </ul>
         </li>
@@ -93,17 +93,17 @@ padding-left:1px;
           <ul class="nav nav-second-level">
             <% if can? :read, Registro %>
             <li>
-              <%= link_to raw("<i class=\"fa fa-eye fa-2x fa-fw\"></i> REGISTROS"), registros_path%>
+              <%= link_to raw("<i class=\"fa fa-eye fa-fw\"></i>REGISTROS"), registros_path%>
             </li>
             <%end%>
             <% if can? :read, Usuario %>
             <li>
-              <%= link_to raw("<i class=\"fa fa-user-secret fa-2x fa-fw\"></i> USUARIOS"), welcome_users_path%>
+              <%= link_to raw("<i class=\"fa fa-user-secret fa-fw\"></i>USUARIOS"), welcome_users_path%>
             </li>
             <%end%>
             <% if can? :read, Setting %>
             <li>
-              <%= link_to raw("<i class=\"fa fa-gears fa-2x fa-fw\"></i> CONFIGURACION"), settings_path%>
+              <%= link_to raw("<i class=\"fa fa-gears fa-fw\"></i>CONFIGURACION"), settings_path%>
             </li>
             <%end%>
 
@@ -130,10 +130,6 @@ padding-left:1px;
         </li>
 
       <%end%>
-      <li class="text-center">
-        version: 2016.05.13.2
-
-      </li>
       </ul>
 
     </div>

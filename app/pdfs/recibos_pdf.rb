@@ -35,7 +35,7 @@ class RecibosPdf < Prawn::Document
       text 'NÓMINA PERSONAL ' + p.cargo.tipo.nombre.upcase, align: :center, size: 16, leading: 2
       text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16
       table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.nombres},#{p.apellidos}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]],cell_style: { border_width: 0, size: 10 }, header: true, column_widths: [100, 280, 120], :width => 500)
-      table([["CARGO: #{p.cargo.nombre.upcase}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12]+'-'+p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{ '%.2f' % p.cargo.sueldos.last.monto}"]], cell_style: { border_width: 0, size: 10 }, header: true, width: 500, :column_widths => {0 => 170, 2 => 120})
+      table([["CARGO: #{p.cargo.nombre.upcase}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12]+'-'+p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{ tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 0, size: 10 }, header: true, width: 500, :column_widths => {0 => 170, 2 => 120})
       table([["UBICACIÓN: Sede FUNSONE", "ESTADO EMPLEADO: #{p.status.capitalize}"]], cell_style: { border_width: 0, size: 10 }, header: true)
       move_down 20
       data = [%w(CONCEPTO ASIGNACION DEDUCCION TOTAL\ A\ PAGAR)]
@@ -56,7 +56,7 @@ class RecibosPdf < Prawn::Document
         end
         next unless condicion
         if p.status == 'activo'
-        data += [[c['nombre'].upcase, '%.2f' % c['valor'], '', '']]
+        data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
         total_asignaciones += c['valor'].to_f
         end
        end
@@ -76,11 +76,11 @@ class RecibosPdf < Prawn::Document
         end
         next unless condicion
         if p.status == 'activo'
-        data += [[c['nombre'].upcase,'', '%.2f' % c['valor'], '']]
+        data += [[c['nombre'].upcase,'', tr(c['valor']), '']]
         total_deducciones += c['valor'].to_f
         end
       end
-      data += [['', '%.2f' % truncar(total_asignaciones), '%.2f' % truncar(total_deducciones),'%.2f' % truncar(total_asignaciones - total_deducciones)]]
+      data += [['', tr(total_asignaciones), tr(total_deducciones),tr(total_asignaciones - total_deducciones)]]
 
       table(data, header: true, width: 515, cell_style: { size: 10 })
       start_new_page
