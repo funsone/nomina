@@ -1,7 +1,7 @@
 <div class="page-header">
   <div class="pull-right">
     <% if can? :destroy, Registro %>
-    <%= link_to "Limpiar todos los registros", registro_path(0),class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %>
+    <%= link_to " Limpiar todos los registros", registro_path(0),class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %>
     <%end%>
   </div>
   <h1>Registros</h1>
@@ -9,7 +9,7 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="list-group">
-    
+
       <li class="list-group-item ">
         <div class="table-responsive">
           <div class="tab-pane fade active in" id="activos">

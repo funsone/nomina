@@ -12,12 +12,11 @@
           <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},class: "btn btn-default dropdown-toggle",style: "padding:5.5px 12px;" ) %>
         </span>
         <%= f.telephone_field :cedula ,class: "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}","data-toggle"=>"popover", "data-trigger"=>"focus", title: "Numero de Cedula",
-        "data-content"=>"Ej=241110078 , este campo no sera editable despues de guardar" %>
+        "data-content"=>"Este campo no sera editable despues de guardar" %>
         <span class="input-group-addon">
           <span class="fa fa-user"></span>
         </span>
       </div>
-
     </div>
     <div class="col-xs-6 form-group">
       <%= f.label "Fotografia" %>

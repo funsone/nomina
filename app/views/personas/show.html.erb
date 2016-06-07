@@ -20,16 +20,16 @@
       <ul class="dropdown-menu" style="width:100%;">
         <li class="text-center">
           <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-            <%= link_to ' Recibo', persona_path(@persona,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
-            <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
-            <%= link_to '', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: 'Esta seguro?' },class: "btn btn-default fa fa-envelope reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar Al correo electronico"%>
+            <%= link_to ' Recibo', persona_path(@persona,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar último recibo de pago" %>
+            <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
+            <%= link_to '', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: 'Esta seguro?' },class: "btn btn-default fa fa-envelope reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar recibo al correo electrónico"%>
           </div>
         </li>
         <li role="separator" style="margin:4px;"></li>
         <li class="text-center">
             <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
           <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">
-            <i class="fa fa-cog"> Ver recibos pasados</i>
+            <i class="fa fa-cog"> Ver recibos anteriores</i>
           </button>
         </div>
       </li>
@@ -37,8 +37,8 @@
 
       <li class="text-center">
         <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-          <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos en el nomina." %>
-          <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica(ahorro de tinta)" %>
+          <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
+          <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
 
         </div>
       </li>
@@ -124,7 +124,7 @@
   <%= @persona.fecha_de_nacimiento.strftime("%d/#{$dic["meses"].key(@persona.fecha_de_nacimiento.month).capitalize}/%Y") %></li>
 <li class="list-group-item text-right">
   <span class="pull-left">
-    <strong class="">Direccion</strong>
+    <strong class="">Dirección</strong>
   </span><%= @persona.direccion.capitalize %></li>
 <li class="list-group-item text-right">
   <span class="pull-left">
@@ -230,7 +230,7 @@
           <span class="fa fa-calendar fa-fw"></span>
         </span>
 
-        <select class="btn btn-default dropdown-toggle" id="quincena">
+        <select class="form-control" id="quincena">
           <option value="">Seleccione la quincena...</option>
           <%
 sueldo=Sueldo.first.created_at
