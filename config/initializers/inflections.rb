@@ -19,6 +19,7 @@ ActiveSupport::Inflector.inflections do |inflect|
     inflect.irregular 'familiar', 'familiares'
     inflect.irregular 'personal', 'personales'
     inflect.irregular 'error', 'errores'
+    inflect.irregular 'historial', 'historiales'
     inflect.irregular 'conceptopersonal', 'conceptospersonales'
     inflect.irregular 'registroconcepto', 'registrosconceptos'
     inflect.irregular 'formula', 'formulas'

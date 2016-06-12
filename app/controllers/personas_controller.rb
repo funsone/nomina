@@ -134,7 +134,7 @@ class PersonasController < ApplicationController
     # GET /personas/1/edit
     def edit
       authorize! :update, Persona
-        @editable = false
+
     end
 
     # POST /personas
@@ -146,7 +146,7 @@ class PersonasController < ApplicationController
         respond_to do |format|
             if @persona.save
 
-                @persona.cargo.disponible = false
+                
                 @persona.cargo.save
                 #  Cargo.where(id: params[:cargo_id]).update_all(disponible: false);
                 format.html { redirect_to @persona, notice: 'La persona fue contratada exitosamente.' }

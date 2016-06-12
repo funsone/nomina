@@ -22,13 +22,16 @@ class ConceptosPdf < Prawn::Document
       pc = 0
       data = [%w(C.I NOMBRES APORTE\ EMPLEADO APORTE\ EMPLEADOR TOTAL)]
 
-      tipos.each do |tipoo|
-        next unless tipo.id == tipoo.id
+
         cargos = tipo.cargos
 
         cargos.each do |cargo|
+
+
+          cargo.persona_ahora
           next unless cargo.disponible == false
           p = cargo.persona
+
           if con != ''
             p.calculo true
           else
@@ -53,7 +56,7 @@ class ConceptosPdf < Prawn::Document
             end
           end
         end
-      end
+
       next unless pc > 0
       image banner, scale: 0.48, at: [62, 720]
       move_down 120

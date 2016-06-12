@@ -4,12 +4,30 @@ class Persona < ActiveRecord::Base
   after_destroy :logd
   after_update :logu
 
+  before_save :cambiar_cargo
+
+  def generar_historial
+    h=Historial.new
+    h.cargo_id=cargo.id
+    h.persona_id=id
+    h.save
+  end
+  def cambiar_cargo
+  if Persona.where(id: id).length>0
+
+    if cargo.id!= Persona.find(id).cargo.id
+generar_historial
+    end
+  end
+  end
+
   include Rails.application.routes.url_helpers
   def link
     'id #<a href="' + persona_path(id) + '"> ' + id.to_s + '</a>'
   end
 
   def logc
+    generar_historial
     log(link.to_s, 4, 0)
   end
 
@@ -54,6 +72,7 @@ class Persona < ActiveRecord::Base
   has_one :contrato, dependent: :destroy
   has_many :familiares, dependent: :destroy
   has_many :registrosconceptos, dependent: :destroy
+  has_many :historiales ,  dependent: :destroy
   accepts_nested_attributes_for :contrato, :familiares, :registrosconceptos, allow_destroy: true
   has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/assets/missing.png'
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -106,6 +125,27 @@ class Persona < ActiveRecord::Base
     self.total_deducciones = 0
     self.total = 0
     self.valido = true
+    cargos= Historial.where("persona_id = ? ", id)
+
+    if cargos.length!=1 and cargos.length>0
+      cargos.each do |c|
+        min=0
+        c.fecha_fin=$ahora if c.fecha_fin.nil?
+        if c.fecha_inicio.day<=15
+          min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 1)
+        else
+          min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 15)
+        end
+        max=0
+        if c.fecha_fin.day<=15
+          max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, 16)
+        else
+          max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, -1)
+        end
+
+        self.cargo=c.cargo if(min..max).cover?($ahora)
+      end
+    end
     lunes = [1]
     inicio_mes = Date.civil($ahora.year, $ahora.month, 1)
     fin_mes = Date.civil($ahora.year, $ahora.month, -1)

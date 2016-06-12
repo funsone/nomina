@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  persona_id: 
+  cargo_id: 
+  fecha_inicio: 2016-06-07
+  fecha_fin: 2016-06-07
+
+two:
+  persona_id: 
+  cargo_id: 
+  fecha_inicio: 2016-06-07
+  fecha_fin: 2016-06-07

@@ -9,6 +9,8 @@ Usuario.create!(
             email: 'reg@gmail.com', password: '12345678')
             Usuario.all.last.add_role :regular
 Usuario.current=Usuario.first
+$ahora = Time.current
+$quincena = ($ahora.day <= 15) ? 0  : 1
 Dependencia.create!([
                         { nombre: 'UNIDAD GESTION ADMINISTRATIVA' },
                         { nombre: 'UNIDAD GESTION EJECUTIVA' }
@@ -27,10 +29,10 @@ prng = Random.new
 prng.rand(100)
 require 'securerandom'
 h = Hash['activo' =>1, 'suspendido' =>2,'retirado'=>3]
-50.times do |x|
+2.times do |x|
   x=x+1
 
-    Cargo.create!( nombre: 'fds1' + x.to_s, departamento_id: prng.rand(1..3), tipo_id: prng.rand(1..3), disponible: false, sueldos_attributes: [monto: 11, activo: true, sueldo_integral: 222])
+    Cargo.create!( nombre: 'fds1' + x.to_s, departamento_id: prng.rand(1..3), tipo_id: prng.rand(1..3), disponible: false, sueldos_attributes: [cargo_id:x, monto: 11, activo: true, sueldo_integral: 222])
     Persona.create!(cedula: '241100' + x.to_s, tipo_de_cedula: 1, nombres: SecureRandom.hex,
     apellidos: SecureRandom.hex, telefono_fijo: '38886743345', telefono_movil: '', fecha_de_nacimiento: '1991-04-11',
     correo: x.to_s + 'myjuwek@yahoo.com', direccion: 'Quia doloremque ',
