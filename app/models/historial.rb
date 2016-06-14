@@ -30,9 +30,11 @@ class Historial < ActiveRecord::Base
       h_viejo.destroy
       h_viejo.save
     end
-    end
+end
     cargo.disponible=false
     cargo.save
+
+
     min=0
 
             if Time.now.day<=15

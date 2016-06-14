@@ -51,7 +51,7 @@ while sueldo<$ahora
                 <%
 
 quincena = (sueldo.day <= 15) ? 0 : 1
-dia= (quincena) ? 17 : 11
+dia= (quincena==0) ? 17 : 11
 fecha="#{dia}-#{sueldo.month}-#{sueldo.year}"
 %>
                 <%=raw("<option value=\"#{fecha}\"> #{$dic['quincena'].key(quincena)} #{$dic['meses'].key(sueldo.month)} del #{sueldo.year}</option>")%>

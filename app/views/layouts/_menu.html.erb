@@ -8,9 +8,14 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" style="padding-top: 1px;
-padding-left:1px;
-      " href="/"><h3><img src="/assets/brand.png" alt="" />FUNSONE nomina</h3></a>
+      <a class="navbar-brand" style="padding-top: 0px;
+padding-left:0px;
+      " href="/"><p class="text-primary" style="color:white;"><span class="fa-stack">
+
+
+<i class="fa fa-users fa-stack-2x" style="color:white;"></i>
+<i class="fa fa-diamond fa-stack-1x" style="color:grey; margin-top:0.5em; margin-left:0.1em;"></i>
+      </span>  FUNSONE NOMINAS</p></a>
 
     </div>
     <div style="color: white;
@@ -29,10 +34,28 @@ padding-left:1px;
       <ul class="nav" id="main-menu">
 
         <%if usuario_signed_in?%>
-        <li>
-          <a href="#">
-            <i class="fa fa-user fa-2x fa-fw"></i>
-            <%=current_usuario.email%><span class="fa arrow"></span>
+        <li class="text-center">
+          <a href="#"><span class="fa-stack fa-2x fa-fw">
+<i class="fa fa-circle fa-stack-2x"></i>
+
+<i class="fa fa-user fa-stack-1x" style="color:red;"></i>
+<%
+badge="ban"
+badges="Regular"
+if current_usuario.has_role?:admin
+  badge="hashtag"
+  badges="Super Usuario"
+elsif current_usuario.has_role?:coordinador
+  badge="plus"
+  badges="Coordinador"
+end
+%>
+<i class="fa fa-<%=badge%> fa-stack-1x" style="color:grey; margin-top:0.6em; margin-left:0.6em;"></i>
+          </span>
+<h6><%= current_usuario.email + " ["+badges+"]" %><span class="fa arrow"></span></h6>
+
+
+
           </a>
           <ul class="nav nav-second-level">
             <li>
@@ -86,10 +109,12 @@ padding-left:1px;
           <%= link_to raw("<i class=\"fa fa-users fa-2x fa-fw\"></i> EMPLEADOS"), personas_path%>
         </li>
         <li>
+          <% if (can? :read, Registro) || (can? :read, Usuario )||(can? :read, Setting)%>
           <a href="#">
             <i class="fa fa-hashtag fa-2x fa-fw"></i>
-            ADMINISTRACIÓN<span class="fa arrow"></span>
+            AVANZADO<span class="fa arrow"></span>
           </a>
+          <%end%>
           <ul class="nav nav-second-level">
             <% if can? :read, Registro %>
             <li>

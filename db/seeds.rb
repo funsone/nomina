@@ -36,7 +36,7 @@ h = Hash['activo' =>1, 'suspendido' =>2,'retirado'=>3]
     Persona.create!(cedula: '241100' + x.to_s, tipo_de_cedula: 1, nombres: SecureRandom.hex,
     apellidos: SecureRandom.hex, telefono_fijo: '38886743345', telefono_movil: '', fecha_de_nacimiento: '1991-04-11',
     correo: x.to_s + 'myjuwek@yahoo.com', direccion: 'Quia doloremque ',
-    sexo: 1, status: h.key(rand(1..3)), cargo_id: x,
+    sexo: 1, status: h.key(1), cargo_id: x,
     avatar_file_name: nil, avatar_content_type: nil, avatar_file_size: nil, avatar_updated_at: nil, cuenta: '92604294834535345345',
     FAOV: true, IVSS: false, TSS: false, caja_de_ahorro: false)
     Contrato.create!( fecha_inicio: '2015-06-14', fecha_fin: nil, tipo_de_contrato: 0, sueldo_externo: nil, persona_id: x)

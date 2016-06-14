@@ -12,11 +12,11 @@ class PersonasController < ApplicationController
         p = params[:page]
         buscar = ((s != '' && s) || d || t)
 
-        @personas = buscar ? Persona.activo.search(s, d,t).paginate(page: p) : Persona.activo.paginate(page: p)
+        @personas = buscar ? Persona.activo.search(s, d,t).paginate(page: p) : Persona.activo.order(:id).paginate(page: p)
         @alength = buscar ? Persona.activo.search(s, d, t).length : Persona.activo.length
-        @personas_retiradas = buscar ? Persona.retirado.search(s, d, t).paginate(page: p) : Persona.retirado.paginate(page: p)
+        @personas_retiradas = buscar ? Persona.retirado.search(s, d, t).paginate(page: p) : Persona.retirado.order(:id).paginate(page: p)
         @slength = buscar ? Persona.suspendido.search(s, d, t).length : Persona.suspendido.length
-        @personas_suspendidas = buscar ? Persona.suspendido.search(s, d,t ).paginate(page: p) : Persona.suspendido.paginate(page: p)
+        @personas_suspendidas = buscar ? Persona.suspendido.search(s, d,t ).paginate(page: p) : Persona.suspendido.order(:id).paginate(page: p)
         @rlength = buscar ? Persona.retirado.search(s, d,t ).length : Persona.retirado.length
     end
 
@@ -146,7 +146,7 @@ class PersonasController < ApplicationController
         respond_to do |format|
             if @persona.save
 
-                
+
                 @persona.cargo.save
                 #  Cargo.where(id: params[:cargo_id]).update_all(disponible: false);
                 format.html { redirect_to @persona, notice: 'La persona fue contratada exitosamente.' }

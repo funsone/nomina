@@ -4,9 +4,10 @@ class Persona < ActiveRecord::Base
   after_destroy :logd
   after_update :logu
 
-  before_save :cambiar_cargo
+after_save :cambiar_cargo
 
   def generar_historial
+
     h=Historial.new
     h.cargo_id=cargo.id
     h.persona_id=id
@@ -15,7 +16,8 @@ class Persona < ActiveRecord::Base
   def cambiar_cargo
   if Persona.where(id: id).length>0
 
-    if cargo.id!= Persona.find(id).cargo.id
+    if cargo_id_changed?
+
 generar_historial
     end
   end
@@ -93,28 +95,28 @@ generar_historial
     search = search.downcase
     # sin filtro
     if dep == '' && search == '' && tipo == ''
-      order(:cedula)
+      order(:id)
       # solo departaent
     elsif dep && dep != '' && search == '' && tipo == ''
-      joins(:cargo).where('"cargos"."departamento_id" = CAST(? AS INTEGER)', dep).order(:cedula)
+      joins(:cargo).where('"cargos"."departamento_id" = CAST(? AS INTEGER)', dep).order(:id)
       # solo tipo
     elsif tipo && tipo != '' && search == '' && dep == ''
-      joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER)', tipo).order(:cedula)
+      joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER)', tipo).order(:id)
       # tipo y depatamento
     elsif tipo && tipo != '' && search == '' && dep && dep != ''
-      joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER) AND "cargos"."departamento_id" = CAST(? AS INTEGER) ', tipo, dep).order(:cedula)
+      joins(:cargo).where('"cargos"."tipo_id" = CAST(? AS INTEGER) AND "cargos"."departamento_id" = CAST(? AS INTEGER) ', tipo, dep).order(:id)
       # departamento y busqueda
     elsif dep && dep != '' && search && search != '' && tipo == ''
-      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep).order(:cedula)
+      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep).order(:id)
       # tipo y busqueda
     elsif tipo && tipo != '' && search && search != '' && dep == ''
-      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", tipo).order(:cedula)
+      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", tipo).order(:id)
       # tipo departamento y busqueda
     elsif tipo && tipo != '' && dep && dep != '' && search && search != ''
-      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep, tipo).order(:cedula)
+      joins(:cargo).where('(cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ?) AND "cargos"."departamento_id" = CAST(? AS INTEGER) AND "cargos"."tipo_id" = CAST(? AS INTEGER)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", dep, tipo).order(:id)
     # solo busqueda
     elsif search && search != ''
-      where('cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ? ', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").order(:cedula)
+      where('cedula LIKE ? OR LOWER(nombres) LIKE ? OR LOWER(apellidos) LIKE ? OR CONCAT(LOWER(nombres), \' \', LOWER(apellidos)) LIKE ? ', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").order(:id)
     end
   end
 
@@ -125,6 +127,7 @@ generar_historial
     self.total_deducciones = 0
     self.total = 0
     self.valido = true
+    #busca cargo perteneciente a la persona en una fecha
     cargos= Historial.where("persona_id = ? ", id)
 
     if cargos.length!=1 and cargos.length>0

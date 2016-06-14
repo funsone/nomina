@@ -14,7 +14,7 @@ class Cargo < ActiveRecord::Base
   after_create :logc
   after_destroy :logd
   after_update :logu
-
+    attr_accessor :p,:d
 include Rails.application.routes.url_helpers
 def persona_ahora
   personas= Historial.where("cargo_id = ? ", id)
@@ -35,11 +35,12 @@ def persona_ahora
         max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, -1)
       end
 
-      if (min..max).cover?($ahora) &c.fecha_fin
-          self.persona=c.persona
-          self.disponible=false
+      if (min..max).cover?($ahora)
+          self.p=c.persona
+          self.d=false
       else
-        self.disponible=true
+        self.d=true
+
       end
     end
   end

@@ -10,8 +10,9 @@ class RecibosPdf < Prawn::Document
     end
     @cargos = tipo.cargos
     @cargos.each do |s|
-      next unless s.disponible == false
-      p = s.persona
+      s.persona_ahora
+      next unless s.d == false
+      p = s.p
       conperExtra = ''
       conExtra = ''
       total = 0

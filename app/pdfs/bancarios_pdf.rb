@@ -12,10 +12,11 @@ class BancariosPdf < Prawn::Document
     data = [%w(C.I NOMBRES CUENTA MONTO)]
 
     cargos = tipo.cargos
-
+    pc=0
     cargos.each do |cargo|
-      next unless cargo.disponible == false
-      p = cargo.persona
+      cargo.persona_ahora
+      next unless cargo.d == false
+      p = cargo.p
       conperExtra = ''
       conExtra = ''
       total = 0
@@ -69,6 +70,7 @@ class BancariosPdf < Prawn::Document
         total_deducciones += c['valor'].to_f if p.status == 'activo'
       end
       total = total_asignaciones - total_deducciones
+      pc=pc+1
       if p.status == 'activo'
         data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], tr(total)]]
         ptotal += p.total
@@ -76,7 +78,7 @@ class BancariosPdf < Prawn::Document
         data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], "0.00"]]
       end
     end
-
+return unless pc>0
     image banner, scale: 0.48, at: [37, 720]
     move_down 120
     text 'LISTADO DE DEPÓSITOS BANCARIOS ', align: :center, size: 16, leading: 2
@@ -85,6 +87,6 @@ class BancariosPdf < Prawn::Document
     move_down 20
     data += [['TOTAL GENERAL', '', '',tr(ptotal)]]
     table data, header: true, cell_style: { size: 8 }, width: 517
-    start_new_page
+    
   end
 end

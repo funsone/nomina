@@ -29,8 +29,8 @@ class ConceptosPdf < Prawn::Document
 
 
           cargo.persona_ahora
-          next unless cargo.disponible == false
-          p = cargo.persona
+          next unless cargo.d == false
+          p = cargo.p
 
           if con != ''
             p.calculo true
