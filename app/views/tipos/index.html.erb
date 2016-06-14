@@ -153,8 +153,9 @@ Generar</button>
 <th class="actions">Nombre</th>
 
 <th class="actions" style="width: 380px;">Reportes</th>
-
+<% if !current_usuario.has_role?:regular%>
 <th class="actions" style="width: 100px;">Acciones</th>
+<%end%>
 </tr>
 </thead>
 
@@ -178,10 +179,12 @@ Generar</button>
 </div>
 
 </td>
-
+<% if !current_usuario.has_role?:regular%>
 <td class="actions">
 <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 <%= render 'layouts/actions', x: Tipo, y: edit_tipo_path(tipo), z: tipo %>
+</td>
+<%end%>
 </tr>
 
 <% end %>

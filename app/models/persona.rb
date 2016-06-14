@@ -4,6 +4,7 @@ class Persona < ActiveRecord::Base
   after_destroy :logd
   after_update :logu
 
+
 after_save :cambiar_cargo
 
   def generar_historial
@@ -76,7 +77,9 @@ generar_historial
   has_many :registrosconceptos, dependent: :destroy
   has_many :historiales ,  dependent: :destroy
   accepts_nested_attributes_for :contrato, :familiares, :registrosconceptos, allow_destroy: true
-  has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/assets/missing.png'
+
+
+  has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/assets/predeterminado.png'
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   attr_readonly :tipo_de_cedula, :cedula
@@ -90,7 +93,6 @@ generar_historial
   validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida. La persona debe ser mayor de edad.' }
 
   attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones, :valido
-
   def self.search(search, dep, tipo)
     search = search.downcase
     # sin filtro

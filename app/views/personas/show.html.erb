@@ -1,5 +1,5 @@
 <div class="col-sm-12 page-header">
-  <div class="col-sm-2 user-image"><%= image_tag @persona.avatar.url(:thumb), class:"img-circle  img-rounded " %></div>
+  <div class="col-sm-2 "><%= image_tag @persona.avatar.url(:thumb), class:"img-circle user-image  img-rounded " %></div>
   <div class="col-sm-10 ">
     <h2><%= (@persona.nombres + " " + @persona.apellidos).upcase%></h2>
   </div>
@@ -60,7 +60,9 @@
       <% when 'suspendido'%>
       <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
       <%end%>
-
+      <% when 'retirado'%>
+      <li><%= link_to 'Reingresar',  cambiarestado_persona_path(@persona, estado: 2), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+      <%end%>
     </ul>
   </li>
   <%end%>

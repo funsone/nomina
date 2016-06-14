@@ -1,6 +1,16 @@
 <div class="panel panel-default nested-fields">
   <div class="panel-heading">
-    Concepto   <div class="pull-right"><%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%></div>
+    <div class="pull-right" style="margin-left:10px;"><%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%></div>
+    Concepto   <div class="pull-right">  <%
+    created_at=""
+    if f.object.id.nil?
+      created_at=$ahora
+    else
+      created_at=f.object.created_at
+    end
+        quincena=(created_at.day <=15)?0:1
+      %>
+      <%= $dic["quincena"].key(quincena).capitalize+'('+created_at.strftime("#{$dic["meses"].key($ahora.month)}-%Y")+') '%></div>
   </div>
   <div class="panel-body">
     <div class="col-xs-6">

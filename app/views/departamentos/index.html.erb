@@ -15,7 +15,9 @@
             <th class= "actions" ><%=t("nombre")%></th>
             <th class= "actions" >Dependencia</th>
             <th class= "actions" >Personas</th>
+<% if !current_usuario.has_role?:regular %>
             <th  class= "actions" style= "width: 100px;">Acciones</th>
+            <%end%>
           </tr>
         </thead>
 
@@ -25,10 +27,12 @@
             <td><%= departamento.nombre %></td>
             <td><%= departamento.dependencia.nombre %></td>
             <td><%=Cargo.where("departamento_id=#{departamento.id} and disponible=false").length %></td>
+<% if !current_usuario.has_role?:regular %>
             <td>
               <%= render 'layouts/actions', x: Departamento, y: edit_departamento_path(departamento), z: departamento %>
 
             </td>
+            <%end%>
           </tr>
           <% end %>
         </tbody>

@@ -13,7 +13,9 @@
         <thead>
           <tr>
             <th class="actions">Nombre</th>
+            <% if !current_usuario.has_role?:regular %>
             <th class="actions" style="width: 100px;">Acciones</th>
+            <%end%>
           </tr>
 
         </thead>
@@ -23,9 +25,11 @@
           <% @dependencias.each do |dependencia| %>
           <tr>
             <td><%= dependencia.nombre %></td>
+<% if !current_usuario.has_role?:regular %>
             <td class="actions">
               <%= render 'layouts/actions', x: Dependencia, y: edit_dependencia_path(dependencia), z: dependencia %>
             </td>
+              <%end%>
           </tr>
           <% end %>
         </tbody>
