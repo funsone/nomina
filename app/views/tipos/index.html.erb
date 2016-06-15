@@ -51,7 +51,7 @@ while sueldo<$ahora
                 <%
 
 quincena = (sueldo.day <= 15) ? 0 : 1
-dia= (quincena==0) ? 17 : 11
+dia= (quincena==0) ? 11 : 17
 fecha="#{dia}-#{sueldo.month}-#{sueldo.year}"
 %>
                 <%=raw("<option value=\"#{fecha}\"> #{$dic['quincena'].key(quincena)} #{$dic['meses'].key(sueldo.month)} del #{sueldo.year}</option>")%>
@@ -163,7 +163,7 @@ Generar</button>
 <% @tipos.each do |tipo| %>
 
 <tr>
-<td><%= tipo.nombre %></td>
+<td><%= tipo.nombre.upcase %></td>
 <td class="actions">
 <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 <%= link_to ' Recibos', tipo_path(tipo,format: "pdf")+"?doc=0&cp=&c=","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar recibos de pago" %>
@@ -174,7 +174,7 @@ Generar</button>
 <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=3&cp=&c=","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
 </div>
 <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-<%= link_to ' Conceptos', tipo_path(tipo,format: "pdf")+"?doc=4&cp=&c=","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos" %>
+<%= link_to ' Deducciones', tipo_path(tipo,format: "pdf")+"?doc=4&cp=&c=","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos" %>
 <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=5&cp=&c=","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
 </div>
 

@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
               'tipos_de_cedula' => Hash['V-' => 0, 'E-' => 1],
               'tipos_de_reporte' => Hash['Recibos' => 0,
                                          'Bancarios' => 2,
-                                         'Conceptos' => 4],
+                                         'Deducciones' => 4],
               'quincena'=> Hash['Primera Quincena ' => 0,
                                  'Segunda Quincena ' => 1],
               'modalidad_de_pago' => Hash['Único (Quincena actual)' => 0,

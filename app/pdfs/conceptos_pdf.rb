@@ -60,7 +60,7 @@ class ConceptosPdf < Prawn::Document
       next unless pc > 0
       image banner, scale: 0.48, at: [62, 720]
       move_down 120
-      text 'LISTADO DE CONCEPTOS ', align: :center, size: 16, leading: 2
+      text 'LISTADO DE DEDUCCIONES ', align: :center, size: 16, leading: 2
       text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16, leading: 2
       text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16, leading: 2
       text concepto.nombre, size: 16, align: :center, leading: 2
@@ -106,7 +106,7 @@ class ConceptosPdf < Prawn::Document
       next unless pc > 0
       image banner, scale: 0.48, at: [62, 720]
       move_down 120
-      text 'LISTADO DE CONCEPTOS ', align: :center, size: 16, leading: 2
+      text 'LISTADO DE DEDUCCIONES ', align: :center, size: 16, leading: 2
       text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16, leading: 2
       text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16, leading: 2
       text conceptop.nombre, size: 16, align: :center, leading: 2

@@ -7,7 +7,7 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="list-group">
-      <li class="list-group-item text-muted" contenteditable="false">Busqueda</li>
+      <li class="list-group-item text-muted" contenteditable="false">Búsqueda</li>
       <li class="list-group-item ">
 
         <div class="input-group">
@@ -29,12 +29,12 @@
 
           </div>
           <div class="input-group-btn">
-            <button id="tipos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos las nominas
+            <button id="tipos" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos las nóminas
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
               <li class=" disabled">
-                <a href="#" class="tipo" id="">Todas las nominas</a>
+                <a href="#" class="tipo" id="">Todas las nóminas</a>
               </li>
               <%@tipos=Tipo.all
 
@@ -45,7 +45,7 @@
             </ul>
 
           </div>
-          <input type="text" class="form-control" placeholder="Buscar por cedula, nombres, apellidos..." name="search" id="search" value="<%= params[:search]%>">
+          <input type="text" class="form-control" placeholder="Buscar por cédula, nombres, apellidos..." name="search" id="search" value="<%= params[:search]%>">
           <input type="text" id="departamento_search" value="" hidden="hidden">
           <input type="text" id="tipo_search" value="" hidden="hidden">
 

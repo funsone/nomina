@@ -18,7 +18,7 @@
           asignaciones=@conceptospersonales.where(tipo_de_concepto: x).order("created_at")
           asignaciones.each do |conceptopersonal| %>
                     <tr>
-                        <td><%= conceptopersonal.nombre %></td>
+                        <td><%= conceptopersonal.nombre.capitalize %></td>
                         <td>
                             <%= render 'layouts/actions', x: Conceptopersonal, y: edit_conceptopersonal_path(conceptopersonal), z: conceptopersonal %>
 

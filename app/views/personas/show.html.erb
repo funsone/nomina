@@ -20,8 +20,8 @@
       <ul class="dropdown-menu" style="width:100%;">
         <li class="text-center">
           <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-            <%= link_to ' Recibo', persona_path(@persona,format: "pdf")+"?doc=0",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar último recibo de pago" %>
-            <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=1",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
+            <%= link_to ' Recibo', persona_path(@persona,format: "pdf")+"?doc=0","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar último recibo de pago" %>
+            <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=1","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
             <%= link_to '', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: 'Esta seguro?' },class: "btn btn-default fa fa-envelope reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar recibo al correo electrónico"%>
           </div>
         </li>
@@ -37,8 +37,8 @@
 
       <li class="text-center">
         <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-          <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
-          <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
+          <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
+          <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
 
         </div>
       </li>
@@ -59,7 +59,6 @@
       <li><%= link_to 'Retirar',  cambiarestado_persona_path(@persona, estado: 0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
       <% when 'suspendido'%>
       <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-      <%end%>
       <% when 'retirado'%>
       <li><%= link_to 'Reingresar',  cambiarestado_persona_path(@persona, estado: 2), method: :post, data: { confirm: 'Esta seguro?' } %></li>
       <%end%>

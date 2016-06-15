@@ -24,7 +24,7 @@
 
           <% @dependencias.each do |dependencia| %>
           <tr>
-            <td><%= dependencia.nombre %></td>
+            <td><%= dependencia.nombre.upcase %></td>
 <% if !current_usuario.has_role?:regular %>
             <td class="actions">
               <%= render 'layouts/actions', x: Dependencia, y: edit_dependencia_path(dependencia), z: dependencia %>

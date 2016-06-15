@@ -21,9 +21,9 @@
       <tr>
         <td><%= $dic["tipos_de_cedula"].key(persona.tipo_de_cedula) + persona.cedula%></td>
         <td><%= persona.nombres.capitalize+" "+persona.apellidos.capitalize %></td>
-        <td><%= persona.cargo.nombre %></td>
-        <td><%= persona.cargo.departamento.nombre %></td>
-        <td><%= persona.cargo.tipo.nombre %></td>
+        <td><%= persona.cargo.nombre.upcase %></td>
+        <td><%= persona.cargo.departamento.nombre.upcase %></td>
+        <td><%= persona.cargo.tipo.nombre.upcase %></td>
         <td>
           <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
             <%= link_to ' Recibo', persona_path(persona,format: "pdf")+"?doc=0","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte" %>
