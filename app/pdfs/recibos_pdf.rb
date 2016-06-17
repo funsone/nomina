@@ -9,13 +9,14 @@ class RecibosPdf < Prawn::Document
       banner = 'app/assets/images/banner_bn.png'
     end
     @cargos = tipo.cargos
-    image banner, scale: 0.48, at: [37,720]
-    move_down 120
+    image banner, scale: 0.40, at: [37,720]
+    move_down 100
     text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 14, leading: 2
     text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 14
-
     move_down 10
-    table([["","ASIGNACION", "DEDUCCION", "TOTAL A PAGAR"]],cell_style: { border_width: 0, size: 10, align: :right}, header: true, column_widths: [200,100, 100, 100], :width => 500)
+    table([[tipo.nombre.upcase]], cell_style: { border_width: 1, size: 8, :borders => [:top, :bottom]}, :width => 500 )
+    table([["SEDE FUNSONE"]], cell_style: { border_width: 1, size: 8, :borders => [:bottom]}, :width => 500 )
+    table([["","ASIGNACIÓN", "DEDUCCIÓN", "TOTAL A PAGAR"]],cell_style: { border_width: 0, size: 9, align: :right, font_style: :bold}, header: true, column_widths: [200,100, 100, 100], :width => 500)
 ele=1
     @cargos.each do |s|
       s.persona_ahora
@@ -84,11 +85,11 @@ ele=1
       end
       data1 = [['', tr(total_asignaciones), tr(total_deducciones),tr(total_asignaciones - total_deducciones)]]
       if data!=[]
-      table(data, header: true, width: 500, cell_style: { size: 10, border_width: 0, align: :right }, column_widths: [200, 100, 100, 100]) do
-          style(row(0).column(0), align: :left)
+      table(data, header: true, width: 500, cell_style: { size: 8, border_width: 0, align: :right, :padding=>[2,5,2,5] }, column_widths: [200, 100, 100, 100]) do
+          style(row(0..10).column(0), align: :left)
       end
       end
-      table(data1, header: true, width: 500, cell_style: { size: 10, align: :right, border_width: 1, :borders => [:top, :bottom]}, column_widths: [200, 100, 100, 100])
+      table(data1, header: true, width: 500, cell_style: { size: 8, align: :right, border_width: 1, :borders => [:top, :bottom]}, column_widths: [200, 100, 100, 100])
 if ele.modulo(4)==0
   start_new_page
 end

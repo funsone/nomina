@@ -10,7 +10,7 @@ class ConstanciaPdf < Prawn::Document
       banner = 'app/assets/images/banner_bn.png'
       banner_abajo = 'app/assets/images/banner_abajo_bn.png'
     end
-    image banner, scale: 0.45
+    image banner, scale: 0.40
     move_down 40
     text 'CONSTANCIA DE TRABAJO', align: :center, size: 16 - tam
     move_down 40

@@ -20,8 +20,7 @@ class ConceptosPdf < Prawn::Document
       acu_aporte_e = 0
       acu_aporte_p = 0
       pc = 0
-      data = [%w(C.I NOMBRES APORTE\ EMPLEADO APORTE\ EMPLEADOR TOTAL)]
-
+      data = []
 
         cargos = tipo.cargos
 
@@ -58,15 +57,18 @@ class ConceptosPdf < Prawn::Document
         end
 
       next unless pc > 0
-      image banner, scale: 0.48, at: [62, 720]
-      move_down 120
-      text 'LISTADO DE DEDUCCIONES ', align: :center, size: 16, leading: 2
-      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16, leading: 2
-      text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16, leading: 2
-      text concepto.nombre, size: 16, align: :center, leading: 2
+      image banner, scale: 0.40, at: [62, 720]
+      move_down 100
+      text 'LISTADO DE DEDUCCIONES ', align: :center, size: 14, leading: 2
+      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 14, leading: 2
+      text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 14, leading: 2
+      text concepto.nombre.upcase, size: 14, align: :center, leading: 2
       move_down 10
-      data += [['TOTAL', concepto.nombre, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
-            table data, header: true, cell_style: { size: 8 }, width: 570
+      table([["", "", "APORTE EMPLEADO", "APORTE PATRONO", "MONTO TOTAL"]],cell_style: { border_width: 0, size: 9, align: :center, font_style: :bold}, header: true, column_widths: [80, 210, 70, 70, 70], :width => 500, :position=> :center )
+      table([[concepto.nombre.upcase]], cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom]}, header: true, :width => 500, :position=> :center )
+      data1= [['', concepto.nombre.upcase, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
+      table(data, header: true, cell_style: {border_width: 0, size: 8, align: :center} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
+      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:top, :bottom], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
       start_new_page
     end
     conceptosp = Conceptopersonal.all
@@ -79,7 +81,7 @@ class ConceptosPdf < Prawn::Document
       acu_aporte_e = 0
       acu_aporte_p = 0
       pc = 0
-      data = [%w(C.I NOMBRES APORTE\ EMPLEADO APORTE\ EMPLEADOR TOTAL)]
+      data = []
       registros.each do |registro|
         p = registro.persona
         if conper != ''
@@ -104,15 +106,18 @@ class ConceptosPdf < Prawn::Document
         end
       end
       next unless pc > 0
-      image banner, scale: 0.48, at: [62, 720]
-      move_down 120
-      text 'LISTADO DE DEDUCCIONES ', align: :center, size: 16, leading: 2
-      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16, leading: 2
-      text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16, leading: 2
-      text conceptop.nombre, size: 16, align: :center, leading: 2
+      image banner, scale: 0.40, at: [62, 720]
+      move_down 100
+      text 'LISTADO DE DEDUCCIONES ', align: :center, size: 14, leading: 2
+      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 14, leading: 2
+      text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 14, leading: 2
+      text conceptop.nombre.upcase, size: 14, align: :center, leading: 2
       move_down 10
-      data += [['TOTAL', conceptop.nombre, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
-      table data, header: true, cell_style: { size: 8 }
+      table([["", "", "APORTE EMPLEADO", "APORTE PATRONO", "MONTO TOTAL"]],cell_style: { border_width: 0, size: 9, align: :center, font_style: :bold}, header: true, column_widths: [80, 210, 70, 70, 70], :width => 500, :position=> :center  )
+      table([[concepto.nombre.upcase]], cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom]}, header: true, :width => 500, :position=> :center )
+      data1 = [['', conceptop.nombre.upcase, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
+      table(data, header: true, cell_style: {border_width: 0, size: 8, align: :center} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
+      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:top, :bottom], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
       start_new_page
     end
   end

@@ -9,8 +9,7 @@ class BancariosPdf < Prawn::Document
     end
 
     ptotal = 0
-    data = [%w(C.I NOMBRES CUENTA MONTO)]
-
+    data= []
     cargos = tipo.cargos
     pc=0
     cargos.each do |cargo|
@@ -79,14 +78,16 @@ class BancariosPdf < Prawn::Document
       end
     end
 return unless pc>0
-    image banner, scale: 0.48, at: [37, 720]
-    move_down 120
-    text 'LISTADO DE DEPÓSITOS BANCARIOS ', align: :center, size: 16, leading: 2
-    text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 16, leading: 2
-    text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 16
+    image banner, scale: 0.40, at: [37, 720]
+    move_down 100
+    text 'LISTADO DE DEPÓSITOS BANCARIOS ', align: :center, size: 14, leading: 2
+    text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 14
+      text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y')+' - FUNSONE', align: :center, size: 14, leading: 2
     move_down 20
-    data += [['TOTAL GENERAL', '', '',tr(ptotal)]]
-    table data, header: true, cell_style: { size: 8 }, width: 517
-    
+    table([["CÉDULA","NOMBRES", "CUENTA", "MONTO"]],cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom], font_style: :bold}, header: true, column_widths: [80,260, 80, 80], :width => 500, :position => :center)
+    data1 = [['', 'TOTAL GENERAL', '',tr(ptotal)]]
+    table(data, header: true, cell_style: { size: 8, border_width:1, :borders=>[:bottom] }, width: 500, column_widths: [80, 260, 80, 80], :position => :center)
+    move_down 5
+    table(data1, header: true, width: 500, cell_style: { size: 9, align: :left, border_width: 1, :borders => [:top], font_style: :bold}, column_widths: [80, 260, 80, 80], :position => :center)
   end
 end
