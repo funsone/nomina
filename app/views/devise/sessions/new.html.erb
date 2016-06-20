@@ -2,22 +2,22 @@
         <div class="col-sm-12  form-box">
           <div class="form-top">
             <div class="form-top-left">
-              <h3>Inicia sesion</h3>
-              <p>introduce tu Email y Contraseña para entrar:</p>
+              <h3>Iniciar sesión</h3>
+              <p>Introduzca su Email y Contraseña:</p>
             </div>
             <div class="form-top-right"></div>
           </div>
           <div class="form-bottom">
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <div class="field"> <h4><i class="fa fa-at">
+            <div class="field"> <h4><i class="fa fa-envelope">
               </i> Email</h4>
 
               <%= f.email_field :email, autofocus: true, class:"form-username form-control" %>
             </div>
 
             <div class="field">
-              <h4><i class="fa fa-key">
-                </i> Contrasena</h4>
+              <h4><i class="fa fa-lock fa-lg">
+                </i> Contraseña</h4>
 
               <%= f.password_field :password, autocomplete: "off", class:"form-username form-control" %>
             </div>

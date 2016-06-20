@@ -9,7 +9,9 @@
                 <thead>
                     <tr>
                         <th class="actions">Nombre</th>
+                        <%if !current_usuario.has_role?:regular%>
                         <th class="actions" style="width: 100px;">Acciones</th>
+                        <%end%>
                     </tr>
                 </thead>
 
@@ -19,9 +21,10 @@
           asignaciones.each do |conceptopersonal| %>
                     <tr>
                         <td><%= conceptopersonal.nombre.capitalize %></td>
+                        <%if !current_usuario.has_role?:regular%>
                         <td>
                             <%= render 'layouts/actions', x: Conceptopersonal, y: edit_conceptopersonal_path(conceptopersonal), z: conceptopersonal %>
-
+                        <%end%>
                         </td>
                     </tr>
                     <% end %>

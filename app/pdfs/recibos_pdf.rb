@@ -17,7 +17,7 @@ class RecibosPdf < Prawn::Document
     table([[tipo.nombre.upcase]], cell_style: { border_width: 1, size: 8, :borders => [:top, :bottom]}, :width => 500 )
     table([["SEDE FUNSONE"]], cell_style: { border_width: 1, size: 8, :borders => [:bottom]}, :width => 500 )
     table([["","ASIGNACIÓN", "DEDUCCIÓN", "TOTAL A PAGAR"]],cell_style: { border_width: 0, size: 9, align: :right, font_style: :bold}, header: true, column_widths: [200,100, 100, 100], :width => 500)
-ele=1
+    #ele=1
     @cargos.each do |s|
       s.persona_ahora
       next unless s.d == false
@@ -90,10 +90,10 @@ ele=1
       end
       end
       table(data1, header: true, width: 500, cell_style: { size: 8, align: :right, border_width: 1, :borders => [:top, :bottom]}, column_widths: [200, 100, 100, 100])
-if ele.modulo(4)==0
-  start_new_page
-end
-  ele=ele+1
+#if ele.modulo(3)==0
+#  start_new_page
+#end
+#  ele=ele+1
     end
   end
 end

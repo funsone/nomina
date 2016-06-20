@@ -22,212 +22,229 @@
           <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
             <%= link_to ' Recibo', persona_path(@persona,format: "pdf")+"?doc=0","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar último recibo de pago" %>
             <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=1","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
-            <%= link_to '', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: 'Esta seguro?' },class: "btn btn-default fa fa-envelope reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar recibo al correo electrónico"%>
+            <%= link_to '', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: 'Esta seguro?' },class: "btn btn-default fa fa-envelope reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar recibo al correo
+            electrónico"%>
           </div>
         </li>
         <li role="separator" style="margin:4px;"></li>
         <li class="text-center">
-            <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-          <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">
-            <i class="fa fa-cog"> Ver recibos anteriores</i>
-          </button>
-        </div>
-      </li>
-      <li role="separator" style="margin:4px;"></li>
+          <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
+            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">
+              <i class="fa fa-cog">
+                Ver recibos anteriores</i>
+            </button>
+          </div>
+        </li>
+        <li role="separator" style="margin:4px;"></li>
 
-      <li class="text-center">
-        <%if @persona.status!='retirado'%>
-        <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-          <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
-          <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
+        <li class="text-center">
+          <%if @persona.status!='retirado'%>
+          <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
+            <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
+            <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
 
-        </div>
-        <%end%>
-      </li>
+          </div>
+          <%end%>
+        </li>
 
-    </ul>
-  </li>
-  <% if can? :edit, Persona %>
-  <li role="presentation">
+      </ul>
+    </li>
+    <% if can? :edit, Persona %>
+    <li role="presentation">
 
-    <a class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar estado
-      <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu text-center" style="width:100%;">
-      <% case @persona.status
+      <a class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar estado
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu text-center" style="width:100%;">
+        <% case @persona.status
       when 'activo'
     %>
-      <li><%= link_to 'Suspender', cambiarestado_persona_path(@persona, estado: 3), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-      <li><%= link_to 'Retirar',  cambiarestado_persona_path(@persona, estado: 0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-      <% when 'suspendido'%>
-      <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-      <% when 'retirado'%>
-      <li class="text-center">
-        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#reingreso">
-        Reingresar
-        </button>
+        <li><%= link_to 'Suspender', cambiarestado_persona_path(@persona, estado: 3), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+        <li><%= link_to 'Retirar',  cambiarestado_persona_path(@persona, estado: 0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+        <% when 'suspendido'%>
+        <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+        <% when 'retirado'%>
+        <li class="text-center">
+          <button class="btn-default" type="button" data-toggle="modal" data-target="#reingreso" style="border: 0px; width: 100%;">
+            Reingresar
+          </button>
+        </li>
+        <%end%>
+      </ul>
     </li>
-      <%end%>
-    </ul>
-  </li>
-  <%end%>
-</ul>
+    <%end%>
+  </ul>
 </div>
 <p class="col-md-12"></p>
 <div class="col-sm-4">
-<!--left col-->
-<ul class="list-group">
-  <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-user"></i> Perfil</li>
+  <!--left col-->
+  <ul class="list-group">
+    <li class="list-group-item text-muted" contenteditable="false">
+      <i class="fa fa-user"></i>
+      Perfil</li>
+    <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Estado</strong>
+      </span>
+      <%= @persona.status.capitalize %></li>
+    <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Departamento</strong>
+      </span>
+      <%= @persona.cargo.departamento.nombre.capitalize %></li>
+    <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Cargo</strong>
+      </span>
+      <%= @persona.cargo.nombre.capitalize%></li>
+    <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Sueldo Normal</strong>
+      </span>
+      <%= tr(@persona.cargo.sueldos.last.monto)%></li>
+    <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Sueldo Integral</strong>
+      </span>
+      <%=tr(@persona.cargo.sueldos.last.sueldo_integral)%></li>
+    <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Cédula</strong>
+      </span>
+      <%= $dic["tipos_de_cedula"].key(@persona.tipo_de_cedula).to_s+@persona.cedula %></li>
+    <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Teléfonos</strong>
+      </span><%= @persona.telefono_fijo %><br>
+      <%= @persona.telefono_movil %></li>
+  </li>
   <li class="list-group-item text-right">
     <span class="pull-left">
-      <strong class="">Estado</strong>
+      <strong class="">Correo</strong>
     </span>
-    <%= @persona.status.capitalize %></li>
+    <%= @persona.correo %></li>
   <li class="list-group-item text-right">
     <span class="pull-left">
-      <strong class="">Departamento</strong>
+      <strong class="">Cuenta</strong>
     </span>
-    <%= @persona.cargo.departamento.nombre.capitalize %></li>
+    <%= @persona.cuenta %></li>
   <li class="list-group-item text-right">
     <span class="pull-left">
-      <strong class="">Cargo</strong>
+      <strong class="">Fecha de nacimiento</strong>
     </span>
-    <%= @persona.cargo.nombre.capitalize%></li>
+    <%= @persona.fecha_de_nacimiento.strftime("%d/#{$dic["meses"].key(@persona.fecha_de_nacimiento.month).capitalize}/%Y") %></li>
   <li class="list-group-item text-right">
     <span class="pull-left">
-      <strong class="">Sueldo Normal</strong>
+      <strong class="">Dirección</strong>
+    </span><%= @persona.direccion.capitalize %></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Sexo</strong>
+    </span><%= $dic["sexos"].key(@persona.sexo) %></li>
+  <li class="list-group-item text-muted" contenteditable="false">Contrato</li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Tipo</strong>
     </span>
-    <%= tr(@persona.cargo.sueldos.last.monto)%></li>
+    <%= $dic["tipos_de_contrato"].key(@persona.contrato.tipo_de_contrato)%></li>
   <li class="list-group-item text-right">
     <span class="pull-left">
-      <strong class="">Sueldo Integral</strong>
+      <strong class="">Fecha de inicio</strong>
     </span>
-    <%=tr(@persona.cargo.sueldos.last.sueldo_integral)%></li>
+    <%= @persona.contrato.fecha_inicio.strftime("%d/#{$dic["meses"].key(@persona.contrato.fecha_inicio.month).capitalize}/%Y")%></li>
   <li class="list-group-item text-right">
     <span class="pull-left">
-      <strong class="">Cédula</strong>
+      <strong class="">Años de servicio</strong>
     </span>
-    <%= $dic["tipos_de_cedula"].key(@persona.tipo_de_cedula).to_s+@persona.cedula %></li>
+    <%= distance_of_time_in_words_hash(@persona.contrato.fecha_inicio,Time.now)[:years]%></li>
+  <% if @persona.contrato.tipo_de_contrato == 1%>
   <li class="list-group-item text-right">
     <span class="pull-left">
-      <strong class="">Teléfonos</strong>
-    </span><%= @persona.telefono_fijo %><br>
-    <%= @persona.telefono_movil %></li>
-</li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Correo</strong>
-  </span>
-  <%= @persona.correo %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Cuenta</strong>
-  </span>
-  <%= @persona.cuenta %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Fecha de nacimiento</strong>
-  </span>
-  <%= @persona.fecha_de_nacimiento.strftime("%d/#{$dic["meses"].key(@persona.fecha_de_nacimiento.month).capitalize}/%Y") %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Dirección</strong>
-  </span><%= @persona.direccion.capitalize %></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Sexo</strong>
-  </span><%= $dic["sexos"].key(@persona.sexo) %></li>
-<li class="list-group-item text-muted" contenteditable="false">Contrato</li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Tipo</strong>
-  </span>
-  <%= $dic["tipos_de_contrato"].key(@persona.contrato.tipo_de_contrato)%></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Fecha de inicio</strong>
-  </span>
-  <%= @persona.contrato.fecha_inicio.strftime("%d/#{$dic["meses"].key(@persona.contrato.fecha_inicio.month).capitalize}/%Y")%></li>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Años de servicio</strong>
-  </span>
-  <%= distance_of_time_in_words_hash(@persona.contrato.fecha_inicio,Time.now)[:years]%></li>
-<% if @persona.contrato.tipo_de_contrato == 1%>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Fecha de fin</strong>
-  </span>
-  <%= @persona.contrato.fecha_fin%></li>
-<%elsif @persona.contrato.tipo_de_contrato == 2%>
-<li class="list-group-item text-right">
-  <span class="pull-left">
-    <strong class="">Sueldo Externo</strong>
-  </span>
-  <%= tr(@persona.contrato.sueldo_externo)%></li>
-<%end%>
+      <strong class="">Fecha de fin</strong>
+    </span>
+    <%= @persona.contrato.fecha_fin%></li>
+  <%elsif @persona.contrato.tipo_de_contrato == 2%>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Sueldo Externo</strong>
+    </span>
+    <%= tr(@persona.contrato.sueldo_externo)%></li>
+  <%end%>
 </ul>
 </div>
 <% if @persona.status!='retirado' %>
 <div class="col-sm-8">
 <ul class="list-group">
-<li class="list-group-item text-muted" contenteditable="false"><%= 'Reporte Quincena Actual ('+$ahora.month.to_s+'/'+$ahora.year.to_s+')'%></li>
-<li class="list-group-item">
-  <table class="table table-hover table-condensed">
-    <thead>
-      <tr>
-        <th>CONCEPTO</th>
-        <th>ASIGNACIÓN</th>
-        <th>DEDUCCIÓN</th>
-        <th>TOTAL</th>
-      </tr>
-    </thead>
-    <tbody>
+  <li class="list-group-item text-muted" contenteditable="false"><%= 'Reporte Quincena Actual ('+$ahora.month.to_s+'/'+$ahora.year.to_s+')'%></li>
+  <li class="list-group-item">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>CONCEPTO</th>
+          <th>ASIGNACIÓN</th>
+          <th>DEDUCCIÓN</th>
+          <th>TOTAL</th>
+        </tr>
+      </thead>
+      <%if @persona.status=='suspendido'%>
+      <tbody>
+        <tr>
+          <td></td>
+          <td>0.00</td>
+          <td>0.00</td>
+          <td>0.00</td>
+        </tr>
+      </tbody>
+      <%else%>
       <% @persona.asignaciones.each do |c| %>
-      <tr>
-        <td><%= c['nombre'].upcase%></td>
-        <td><%=tr(c['valor'])%></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <% end %>
+      <tbody>
+        <tr>
+          <td><%= c['nombre'].upcase%></td>
+          <td><%=tr(c['valor'])%></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <% end %>
 
-      <% @valor=0
+        <% @valor=0
           @persona.deducciones.each do |c| %>
-      <tr>
-        <td><%= c['nombre'].upcase%></td>
-        <td></td>
-        <td><%=tr(c['valor'])%></td>
-        <td></td>
-      </tr>
-      <% end %>
+        <tr>
+          <td><%= c['nombre'].upcase%></td>
+          <td></td>
+          <td><%=tr(c['valor'])%></td>
+          <td></td>
+        </tr>
+        <% end %>
 
-      <tr>
-        <th></th>
-        <th><%=
+        <tr>
+          <th></th>
+          <th><%=
             tr(@persona.total_asignaciones)%></th>
-        <th><%=
+          <th><%=
             tr(@persona.total_deducciones)
             %></th>
-        <th><%= tr(@persona.total)+"  BsF." %></th>
-      </tr>
-    </tbody>
-  </table>
-</li>
+          <th><%= tr(@persona.total)+"  BsF." %></th>
+        </tr>
+      </tbody>
+      <%end%>
+    </table>
+  </li>
 </ul>
 </div>
 <%else%>
 <div class="text-center col-sm-8">
-  <ul class="list-group">
-  <li class="list-group-item text-muted text-left" contenteditable="false"><i class="fa fa-comment-o"></i> Mensaje</li>
-  <li class="list-group-item">
-</br><i class="fa fa-user-times fa-4x" style="color:red;"></i><h2>El empleado esta retirado.</h2></div>
-
+<ul class="list-group">
+  <li class="list-group-item text-muted text-left" contenteditable="false">
+    <i class="fa fa-comment-o"></i>
+    Mensaje</li>
+  <li class="list-group-item"></br>
+  <i class="fa fa-user-times fa-4x" style="color:red;"></i>
+  <h2>El empleado esta retirado.</h2>
 </li>
-
 </ul>
+</div>
 <%end%>
-
+<!-- Modal generador de recibos pasados -->
 <div class="modal fade" id="myModal" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -240,14 +257,12 @@
       Generador de recibo de pago</h4>
   </div>
   <div class="modal-body ">
-
     <div class="col-xs-12 form-group">
       <%= label_tag "Quincena" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calendar fa-fw"></span>
         </span>
-
         <select class="form-control" id="quincena">
           <option value="">Seleccione la quincena...</option>
           <%
@@ -258,11 +273,8 @@ while sueldo<$ahora
 dia= (quincena==0) ? 11 : 17
 fecha="#{dia}-#{sueldo.month}-#{sueldo.year}"
 %>
-
-<option value="<%=fecha %>"><%= $dic['quincena'].key(quincena) + $dic["meses"].key(sueldo.month) +" del #{sueldo.year}"%></option>
+          <option value="<%=fecha %>"><%= $dic['quincena'].key(quincena) + $dic["meses"].key(sueldo.month) +" del #{sueldo.year}"%></option>
         <%  if quincena==0
-
-
 sueldo= Date.strptime("16-#{sueldo.mon}-#{sueldo.year}", '%d-%m-%Y')
 else
 if sueldo.mon==12
@@ -270,10 +282,8 @@ sueldo=Date.strptime("1-1-#{sueldo.year+1}", '%d-%m-%Y')
 else
 sueldo= Date.strptime("1-#{sueldo.mon+1}-#{sueldo.year}", '%d-%m-%Y')
 end
-
 end
 end%>
-
         </select>
       </div>
     </div>
@@ -281,7 +291,6 @@ end%>
 </br>
 </br>
 </br>
-
 </div>
 <div class="modal-footer">
 <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
@@ -297,6 +306,7 @@ Generar</button>
 </div>
 </div>
 </div>
+<!--Fin del modal-->
 
 <script type="text/javascript">
 
@@ -325,38 +335,33 @@ $(function () {
 </script>
 <!-- modal cambio de cargo -->
 <form class="cambiarestado" action="<%= cambiarestado_persona_path(@persona, estado: 2)%>" method="post">
-
 <div class="modal fade" id="reingreso" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="reingresoLabel">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h4 class="modal-title" id="reingresoLabel">
-      <i class="fa fa-sign-in fa-2x"></i>
-      Reingresar</h4>
-  </div>
-  <div class="modal-body ">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="reingresoLabel">
+<i class="fa fa-sign-in fa-2x"></i>
+Reingresar</h4>
+</div>
+<div class="modal-body ">
+<div class="col-xs-12 form-group">
+<%= label_tag "Cargo" %><br>
+<div class="form-group input-group">
+  <span class="input-group-addon">
+    <span class="fa fa-briefcase"></span>
+  </span>
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
 
-
-    <div class="col-xs-12 form-group">
-      <%= label_tag "Cargo" %><br>
-      <div class="form-group input-group">
-        <span class="input-group-addon">
-          <span class="fa fa-briefcase"></span>
-        </span>
-        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
-
-        <%= select_tag("cargo_id",options_for_select(Cargo.all.where("disponible=true").map{|s|[s.nombre, s.id]},@persona.cargo.id),{include_blank:'Seleccione un cargo...', class: 'form-control'})  %>
-      </div>
-    </div>
-  </br>
+  <%= select_tag("cargo_id",options_for_select(Cargo.all.where("disponible=true").map{|s|[s.nombre, s.id]},@persona.cargo.id),{include_blank:'Seleccione un cargo...', class: 'form-control'})  %>
+</div>
+</div>
 </br>
 </br>
 </br>
-
-
+</br>
 </div>
 <div class="modal-footer">
 <button type="submit" class="btn btn-primary" name="button">Guardar</button>
@@ -366,10 +371,9 @@ $(function () {
 </div>
 </div>
 </form>
+<!--fin modal cambio de cargo-->
 <script type="text/javascript">
-  function reingresar()
-  {
-
-    $('#cargo_select').val():
-  }
+function reingresar() {
+  $('#cargo_select').val() :
+}
 </script>
