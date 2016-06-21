@@ -37,7 +37,8 @@ class Ability
 cannot :read, Usuario
         end
           cannot :read, Dependencia
-          
+          cannot :edit, Registro
+          cannot :destroy, Registro
           cannot :read, Departamento
           cannot :read, Tipo
           cannot :read, Conceptopersonal

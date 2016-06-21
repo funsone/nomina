@@ -211,7 +211,6 @@ class PersonasController < ApplicationController
     def set_persona
       if(Persona.where(id: params[:id] ).length>0)
       @persona = Persona.find(params[:id])
-        @lt= '<a href="'+persona_path(@persona)+'"> '+@persona.cedula+'</a>'
       else
         respond_to do |format|
             format.html { redirect_to personas_url, alert: 'Persona no encontrada en la base de datos.' }

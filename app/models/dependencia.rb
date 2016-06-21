@@ -7,16 +7,15 @@ class Dependencia < ActiveRecord::Base
     after_update :logu
 
   include Rails.application.routes.url_helpers
-  def link
-  return 'id #<a href="' + dependencia_path(id) + '"> ' + id.to_s + '</a>'
+  def logc
+    log(id.to_s,changes.to_json.to_s, 3, 0)
   end
-    def logc
-      log("#{link}",3, 0)
-    end
-    def logu
-      log("#{link}",3, 1)
-    end
-    def logd
-      log("#{id}",3, 2)
-    end
+
+  def logu
+    log(id.to_s, changes.to_json.to_s, 3, 1)
+  end
+
+  def logd
+    log(id.to_s,"{}".to_json, 3, 2)
+  end
 end

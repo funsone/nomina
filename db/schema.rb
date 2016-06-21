@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20160607184659) do
     t.string   "nombre"
     t.integer  "modalidad_de_pago"
     t.integer  "condicion"
+    t.string   "unidad"
+    t.date     "fecha_fin"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "tipo_de_concepto"
@@ -153,14 +155,16 @@ ActiveRecord::Schema.define(version: 20160607184659) do
   add_index "personas", ["cargo_id"], name: "index_personas_on_cargo_id", using: :btree
 
   create_table "registros", force: :cascade do |t|
-    t.string   "elemento"
+    t.integer  "elemento"
+    t.jsonb    "cambios",        default: {}, null: false
     t.integer  "clase"
     t.integer  "usuario_id",     default: 1
     t.integer  "tipo_de_accion"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
+  add_index "registros", ["cambios"], name: "index_registros_on_cambios", using: :gin
   add_index "registros", ["usuario_id"], name: "index_registros_on_usuario_id", using: :btree
 
   create_table "registrosconceptos", force: :cascade do |t|

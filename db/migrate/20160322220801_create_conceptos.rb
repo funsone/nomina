@@ -4,6 +4,8 @@ class CreateConceptos < ActiveRecord::Migration
       t.string :nombre
       t.integer :modalidad_de_pago
       t.integer :condicion
+      t.string :unidad
+      t.date :fecha_fin
       t.timestamps null: false
     end
   end

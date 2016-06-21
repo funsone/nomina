@@ -25,21 +25,19 @@ generar_historial
   end
 
   include Rails.application.routes.url_helpers
-  def link
-    'id #<a href="' + persona_path(id) + '"> ' + id.to_s + '</a>'
-  end
+
 
   def logc
     generar_historial
-    log(link.to_s, 4, 0)
+    log(id.to_s,changes.to_json.to_s, 4, 0)
   end
 
   def logu
-    log(link.to_s, 4, 1)
+    log(id.to_s, changes.to_json.to_s, 4, 1)
   end
 
   def logd
-    log(id.to_s, 4, 2)
+    log(id.to_s,"{}".to_json, 4, 2)
   end
 
   self.per_page = 10

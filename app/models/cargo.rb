@@ -46,18 +46,18 @@ def persona_ahora
   end
 end
 
-def link
-return 'id #<a href="' + cargo_path(id) + '"> ' + id.to_s + '</a>'
+def logc
+  log(id.to_s,changes.to_json.to_s, 6, 0)
 end
-  def logc
-    log("#{link}",6, 0)
-  end
-  def logu
-    log("#{link}",6, 1)
-  end
-  def logd
-    log("#{id}",6, 2)
-  end
+
+def logu
+  log(id.to_s, changes.to_json.to_s, 6, 1)
+end
+
+def logd
+  log(id.to_s,"{}".to_json, 6, 2)
+end
+
   def truncar_sueldo
     sueldos.last.monto=truncar(sueldos.last.monto)
     sueldos.last.sueldo_integral=truncar(sueldos.last.sueldo_integral)

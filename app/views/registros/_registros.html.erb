@@ -11,6 +11,8 @@
     <th class="actions">Clase</th>
     <th class="actions">Elemento</th>
     <th class="actions">Autor</th>
+    <th class="actions">Acciones</th>
+
   </tr>
 </thead>
 
@@ -20,9 +22,14 @@
       <td><%= registro.created_at.strftime("%d-%m-%Y ") %></td>
         <td><i class="<%= $dic["tipo_de_accion_def"].key(registro.tipo_de_accion)%> fa-2x"></i></td>
         <td><%= $dic["clases"].key(registro.clase)%></td>
-<td><%= raw(registro.elemento) %></td>
+<td class=""><a class="btn btn-default fa fa-arrow-circle-o-right" data-toggle="tooltip" data-placement="top" title="Ir al elemento" href="<%= geturl(registro)%>"> <%= registro.elemento %></a>
+</td>
       <td><%= registro.usuario.email %></td>
+      <td>
 
+
+        <%= render 'layouts/actions', x: Registro, y: edit_registro_path(registro), z: registro %>
+      </td>
     </tr>
   <% end %>
 </tbody>

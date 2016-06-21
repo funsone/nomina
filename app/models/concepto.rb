@@ -12,18 +12,17 @@ class Concepto < ActiveRecord::Base
     after_update :logu
 
   include Rails.application.routes.url_helpers
-  def link
-  return 'id #<a href="' + concepto_path(id) + '"> ' + id.to_s + '</a>'
+  def logc
+    log(id.to_s,changes.to_json.to_s, 0, 0)
   end
-    def logc
-      log("#{link}",0, 0)
-    end
-    def logu
-      log("#{link}",0, 1)
-    end
-    def logd
-      log("#{id}",0, 2)
-    end
+
+  def logu
+    log(id.to_s, changes.to_json.to_s, 0, 1)
+  end
+
+  def logd
+    log(id.to_s,"{}".to_json, 0, 2)
+  end
 
     def actualizar
       nuevo = false

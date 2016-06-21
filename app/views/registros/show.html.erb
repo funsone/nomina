@@ -1,0 +1,50 @@
+<div class="page-header">
+  <h1><i class="fa fa-file-text-o"></i> <%= "Registro #"+@registro.id.to_s%></h1>
+  <div class="pull-right">
+
+    <a href="<%= @url%>" class="btn btn-primary">ir al elemento</a>
+  </div>
+</br>
+  <h4><b>Accion:</b>
+<i class="<%= $dic["tipo_de_accion_def"].key(@registro.tipo_de_accion)%>"></i>,
+    <b>Clase:</b>
+    <%= $dic["clases"].key(@registro.clase)%>,
+    <b>hecho por:</b>
+  <%= @registro.usuario.email %>,
+    <b> en la fecha: </b>
+    <%= @registro.created_at.strftime("%d-%m-%Y ") %>.
+
+</h4>
+
+</div>
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-pencil"></i> Cambios</li>
+  <li class="list-group-item text-center">
+    <div class="table-responsive text-center">
+      <table class="table  table-condensed table-hover table-responsive table-bordered ">
+        <thead>
+          <tr>
+            <th class= "actions"><i class="fa fa-list"></i> Atributo</th>
+            <th class= "actions"><i class="fa fa-eraser"></i> Valor antiguo</th>
+            <th class= "actions"><i class="fa fa-star"></i> Valor Nuevo</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+
+<%@registro.cambios.each do |key,value|
+next unless key!="created_at" and key!="id" and key!="updated_at"
+%>
+<% value[0]="Ninguno" if value[0].nil?%>
+<tr>
+  <td><%= key %></td>
+  <td><%= value[0] %></td>
+  <td><%= value[1] %></td>
+
+<tr>
+<%end%>
+</tbody>
+</table>
+  </li>
+</ul>

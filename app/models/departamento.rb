@@ -9,16 +9,15 @@ class Departamento < ActiveRecord::Base
   after_update :logu
 
 include Rails.application.routes.url_helpers
-def link
-return 'id #<a href="' + departamento_path(id) + '"> ' + id.to_s + '</a>'
+def logc
+  log(id.to_s,changes.to_json.to_s, 2, 0)
 end
-  def logc
-    log("#{link}",2, 0)
-  end
-  def logu
-    log("#{link}",2, 1)
-  end
-  def logd
-    log("#{id}",2, 2)
-  end
+
+def logu
+  log(id.to_s, changes.to_json.to_s, 2, 1)
+end
+
+def logd
+  log(id.to_s,"{}".to_json, 2, 2)
+end
 end

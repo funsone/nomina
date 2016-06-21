@@ -7,16 +7,15 @@ class Conceptopersonal < ActiveRecord::Base
 	after_update :logu
 
 	include Rails.application.routes.url_helpers
-	def link
-	return 'id #<a href="' + conceptopersonal_path(id) + '"> ' + id.to_s + '</a>'
-	end
 	def logc
-		log("#{link}",1, 0)
-	end
-	def logu
-		log("#{link}",1, 1)
-	end
-	def logd
-		log("#{id}",1, 2)
-	end
+    log(id.to_s,changes.to_json.to_s, 1, 0)
+  end
+
+  def logu
+    log(id.to_s, changes.to_json.to_s, 1, 1)
+  end
+
+  def logd
+    log(id.to_s,"{}".to_json, 1, 2)
+  end
 end
