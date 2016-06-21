@@ -17,7 +17,7 @@ Dependencia.create!([
                     ])
 Departamento.create!([
                          { nombre: 'CORDINACION DE SISTEMAS', dependencia_id: 1 },
-                         { nombre: 'CORDINACION DE Slimpia', dependencia_id: 2 },
+                         { nombre: 'CORDINACION DE limpia', dependencia_id: 2 },
                          { nombre: 'CORDINACION DE RHH', dependencia_id: 1 }
                      ])
 Tipo.create!([
@@ -29,10 +29,10 @@ prng = Random.new
 prng.rand(100)
 require 'securerandom'
 h = Hash['activo' =>1, 'suspendido' =>2,'retirado'=>3]
-50.times do |x|
+10.times do |x|
   x=x+1
 
-    Cargo.create!( nombre: 'fds1' + x.to_s, departamento_id: prng.rand(1..3), tipo_id: prng.rand(1..3), disponible: false, sueldos_attributes: [cargo_id:x, monto: 11, activo: true, sueldo_integral: 222])
+    Cargo.create!( nombre: 'fds1' + x.to_s, departamento_id: prng.rand(1..3), tipo_id: prng.rand(1..3), disponible: true, sueldos_attributes: [cargo_id:x, monto: 11, activo: true, sueldo_integral: 222])
     Persona.create!(cedula: '241100' + x.to_s, tipo_de_cedula: 1, nombres: SecureRandom.hex,
     apellidos: SecureRandom.hex, telefono_fijo: '38886743345', telefono_movil: '', fecha_de_nacimiento: '1991-04-11',
     correo: x.to_s + 'myjuwek@yahoo.com', direccion: 'Quia doloremque ',

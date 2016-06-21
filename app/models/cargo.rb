@@ -65,12 +65,21 @@ end
 
 
   def actualizar
+    if Sueldo.where(cargo_id: id).length>0
+      Cargo.skip_callback(:create, :after, :logc)
+    end
+    if  !nombre_changed?   and !tipo_id_changed? and !departamento_id_changed?
+    Cargo.skip_callback(:save, :after, :logu)
+
+    end
+
     nuevo = false
     if $quincena == 0
       nuevo = Sueldo.where(cargo_id: id).where(created_at: Time.now.beginning_of_month..(Time.now.beginning_of_month + 14.days)).empty?
     else
       nuevo = Sueldo.where(cargo_id: id).where(created_at: (Time.now.beginning_of_month + 15.days)..Time.now.end_of_month).empty?
     end
+
     if nuevo
       viejo = Sueldo.where(cargo_id: id).where(activo: true).last
       nmonto = sueldos.last.monto
@@ -85,6 +94,7 @@ end
       truncar_sueldo
     end
   end
+
   def self.search(search,dep)
   search=search.downcase
   if dep=="" and search==""

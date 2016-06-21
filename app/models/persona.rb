@@ -17,7 +17,7 @@ after_save :cambiar_cargo
   def cambiar_cargo
   if Persona.where(id: id).length>0
 
-    if cargo_id_changed?
+    if cargo_id_changed? and cargo_id_was!= nil
 
 generar_historial
     end

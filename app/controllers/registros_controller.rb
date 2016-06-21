@@ -85,7 +85,7 @@ end
 
     else
       respond_to do |format|
-          format.html { redirect_to personas_url, alert: 'El registro no se encuentra base de datos.' }
+          format.html { redirect_to personas_url, alert: 'El registro no se encuentra en la base de datos.' }
         end
     end
   end
