@@ -25,7 +25,7 @@
         <thead>
           <tr>
             <th class= "actions"><i class="fa fa-list"></i> Atributo</th>
-            <th class= "actions"><i class="fa fa-eraser"></i> Valor antiguo</th>
+            <th class= "actions"><i class="fa fa-eraser"></i> Valor antigüo</th>
             <th class= "actions"><i class="fa fa-star"></i> Valor Nuevo</th>
 
           </tr>
@@ -46,5 +46,9 @@ next unless key!="created_at" and key!="id" and key!="updated_at"
 <%end%>
 </tbody>
 </table>
+</div>
   </li>
 </ul>
+<div class="col-xs-12 actions"><br>
+  <%= link_to raw('<i class= "fa fa-arrow-circle-left"></i> Regresar'), registros_path, class: "btn btn-default boton" %>
+</div>
