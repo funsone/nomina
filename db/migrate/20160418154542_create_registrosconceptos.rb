@@ -3,7 +3,7 @@ class CreateRegistrosconceptos < ActiveRecord::Migration
     create_table :registrosconceptos do |t|
       t.references :conceptopersonal
       t.integer :modalidad_de_pago
-      t.references :personas
+      t.references :persona
       t.date :fecha_fin
 
       t.timestamps null: false

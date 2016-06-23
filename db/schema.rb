@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 20160607184659) do
   create_table "registrosconceptos", force: :cascade do |t|
     t.integer  "conceptopersonal_id"
     t.integer  "modalidad_de_pago"
-    t.integer  "personas_id"
+    t.integer  "persona_id"
     t.date     "fecha_fin"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false

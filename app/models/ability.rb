@@ -20,6 +20,7 @@ class Ability
             can :cu, Tipo
             can :cud, Registroconcepto
             can :cud, Familiar
+        
             cannot :read, Setting
             cannot :read, Usuario
             cannot :destroy, Registro

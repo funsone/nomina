@@ -6,6 +6,9 @@ class TiposController < ApplicationController
   def index
     @tipos = Tipo.all
   end
+  def txt
+
+  end
 
   # GET /tipos/1
   # GET /tipos/1.json
@@ -13,6 +16,9 @@ class TiposController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tipos_path, notice: 'Ruta no disponible.' }
       format.json
+      format.txt do
+        send_data 'text to send', :filename => 'some.txt'
+      end
       format.pdf do
         case params[:doc]
         when '0'
@@ -88,6 +94,10 @@ class TiposController < ApplicationController
       format.json { head :no_content }
     end
   end
+protected
+def data_txt
+  
+end
 
   private
 
