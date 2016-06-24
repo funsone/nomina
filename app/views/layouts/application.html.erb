@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FUNSONE nominas</title>
+    <title>FUNSONE NÓMINA - Versión: Beta 1</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%=favicon_link_tag 'favicon.png', rel: 'shortcut icon', type: 'image/png'%>
+
 
     <%= csrf_meta_tags %>
   </head>
@@ -30,7 +31,9 @@
               <% end %>
 
             <% end %>
-            <div class="col-md-12"><%= yield %></div>
+            <div class="col-md-12">
+
+              <%= yield %></div>
 
           </div>
           <!-- /. ROW  -->
@@ -41,27 +44,29 @@
 
     </div>
   </body>
+
   <script>
-    $(function () {
+     $(function() {
+       $('#main-menu').metisMenu();
+     });
+   </script>
 
-      $('#main-menu').metisMenu();
-
-      var $this = $('#main-menu'),
-        resizeTimer,
-        self = this;
-
-      var initCollapse = function (el) {
-        if ($(window).width() >= 768) {
-          this.find('li').has('ul').children('a').off('click');
-        }
-      };
-
-      $(window).resize(function () {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(self.initCollapse($this), 250);
-      });
-
-
-    });
-  </script>
+   <script>
+     (function($) {
+       $(document).ready(function() {
+         var $this = $('#main-menu'),
+           resizeTimer,
+           self = this;
+         var initCollapse = function(el) {
+           if ($(window).width() >= 768) {
+             this.find('li').has('ul').children('a').off('click');
+           }
+         };
+         $(window).resize(function() {
+           clearTimeout(resizeTimer);
+           resizeTimer = setTimeout(self.initCollapse($this), 250);
+         });
+       });
+     })(jQuery);
+   </script>
 </html>

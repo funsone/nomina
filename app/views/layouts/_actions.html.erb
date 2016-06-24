@@ -1,9 +1,9 @@
 <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 <% if can? :read, x %>
-<%= link_to '', z,class: "btn btn-default fa fa-eye ","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Ver más" %>
+<%= link_to '', z,class: "btn btn-success fa fa-eye ","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Ver más" %>
 <% end%>
 <% if can? :edit, x %>
-<%= link_to '', y,class: "btn btn-default fa fa-pencil","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Modificar" %>
+<%= link_to '', y,class: "btn btn-primary fa fa-pencil","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Modificar" %>
 <% end%>
 <% if can? :destroy, x %>
 <%= link_to '', z,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: '¿Está seguro que desea eliminar?' },"data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Eliminar" %></div></td>

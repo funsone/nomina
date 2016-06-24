@@ -3,6 +3,7 @@ class CreateFamiliares < ActiveRecord::Migration
     create_table :familiares do |t|
       t.integer :cedula
       t.string :nombres
+      t.string :parentesco
       t.string :apellidos
       t.date :fecha_de_nacimiento
       t.integer :sexo

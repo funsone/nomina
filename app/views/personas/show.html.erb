@@ -9,12 +9,12 @@
 
   <ul class="nav nav-pills nav-justified">
     <% if (can? :edit, Persona) && (@persona.status!='retirado')%>
-    <li role="presentation"><%= link_to 'Editar', edit_persona_path(@persona)%></li>
+    <li role="presentation"><%= link_to raw('<i class="fa fa-pencil"></i> Editar'), edit_persona_path(@persona)%></li>
     <%end%>
-    <li role="presentation"><%= link_to 'Regresar', personas_path%></li>
+    <li role="presentation"><%= link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), personas_path%></li>
     <li role="presentation">
 
-      <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recibo
+      <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-pdf-o"></i> Documentos
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu" style="width:100%;">
@@ -52,17 +52,17 @@
     <% if can? :edit, Persona %>
     <li role="presentation">
 
-      <a class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar estado
+      <a class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-retweet"></i> Cambiar estado
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu text-center" style="width:100%;">
         <% case @persona.status
       when 'activo'
     %>
-        <li><%= link_to 'Suspender', cambiarestado_persona_path(@persona, estado: 3), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-        <li><%= link_to 'Retirar',  cambiarestado_persona_path(@persona, estado: 0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+        <li><%= link_to raw('<i class="fa fa-pause-circle fa-fw"></i> Suspender'), cambiarestado_persona_path(@persona, estado: 3), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+        <li><%= link_to raw('<i class="fa fa-stop-circle fa-fw "></i> Retirar'),  cambiarestado_persona_path(@persona, estado: 0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
         <% when 'suspendido'%>
-        <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+        <li><%= link_to raw('<i class="fa fa-play-circle"></i> Reactivar'),  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
         <% when 'retirado'%>
         <li class="text-center">
           <button class="btn-default" type="button" data-toggle="modal" data-target="#reingreso" style="border: 0px; width: 100%;">
@@ -175,7 +175,7 @@
 <% if @persona.status!='retirado' %>
 <div class="col-sm-8">
 <ul class="list-group">
-  <li class="list-group-item text-muted" contenteditable="false"><%= 'Reporte Quincena Actual ('+$ahora.month.to_s+'/'+$ahora.year.to_s+')'%></li>
+  <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-file-text-o"></i> <%= 'Reporte Quincena Actual ('+$ahora.month.to_s+'/'+$ahora.year.to_s+')'%></li>
   <li class="list-group-item">
     <table class="table table-hover table-condensed">
       <thead>
@@ -240,6 +240,50 @@
   <li class="list-group-item"></br>
   <i class="fa fa-user-times fa-4x" style="color:red;"></i>
   <h2>El empleado esta retirado.</h2>
+</li>
+</ul>
+</div>
+<%end%>
+
+<% if @persona.familiares.length>0 %>
+<div class="col-sm-8">
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-users"></i> Familiar (es)</li>
+  <li class="list-group-item">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Parentesco</th>
+          <th>C.I</th>
+          <th>Nombres</th>
+          <th>Fecha de nacimiento</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%@persona.familiares.each do |familiar|%>
+        <tr>
+          <td><%=$dic["parentesco"].key(familiar.parentesco.to_i)%></td>
+          <td><%=familiar.cedula%></td>
+          <td><%="#{familiar.nombres} #{familiar.apellidos}"%></td>
+          <td><%=familiar.fecha_de_nacimiento%></td>
+        </tr>
+        <%end%>
+      </tbody>
+
+    </table>
+  </li>
+</ul>
+</div>
+<%else%>
+<div class="text-center col-sm-8">
+<ul class="list-group">
+  <li class="list-group-item text-muted text-left" contenteditable="false">
+    <i class="fa fa-comment-o"></i>
+    Mensaje</li>
+  <li class="list-group-item"></br>
+  <i class="fa fa-user-times fa-4x" style="color:red;"></i>
+  <h2>El empleado no tiene familiares.</h2>
 </li>
 </ul>
 </div>

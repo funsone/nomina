@@ -14,6 +14,15 @@
       </div>
     </div>
     <div class="col-sm-4">
+      <%= f.label :parentesco %>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-user"></span>
+        </span>
+        <%= f.select(:parentesco, options_for_select($dic["parentesco"],f.object.parentesco),{include_blank: 'Seleccione un sexo...'},class: "form-control" )  %>
+      </div>
+    </div>
+    <div class="col-sm-4">
       <%= f.label :nombres %>
       <div class="form-group input-group">
         <span class="input-group-addon">

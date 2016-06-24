@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20160607184659) do
   create_table "familiares", force: :cascade do |t|
     t.integer  "cedula"
     t.string   "nombres"
+    t.string   "parentesco"
     t.string   "apellidos"
     t.date     "fecha_de_nacimiento"
     t.integer  "sexo"

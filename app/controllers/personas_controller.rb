@@ -222,6 +222,6 @@ class PersonasController < ApplicationController
     def persona_params
         params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta, :FAOV, :TSS, :IVSS, :caja_de_ahorro, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :cargo_id,
                                         registrosconceptos_attributes: [:id, :conceptopersonal_id, :modalidad_de_pago, :_destroy, formulaspersonales_attributes: [:id, :empleado, :patrono, :_destroy]],
-                                        contrato_attributes: [:id, :fecha_inicio, :fecha_fin, :sueldo_externo, :tipo_de_contrato], familiares_attributes: [:id, :cedula, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
+                                        contrato_attributes: [:id, :fecha_inicio, :fecha_fin, :sueldo_externo, :tipo_de_contrato], familiares_attributes: [:id, :cedula,:parentesco, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
     end
 end
