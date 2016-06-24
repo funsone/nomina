@@ -5,10 +5,12 @@ class Registroconcepto < ActiveRecord::Base
   belongs_to :conceptopersonal
   validates :conceptopersonal_id, presence: true
   validates :modalidad_de_pago, presence: true
+
+  attr_readonly :modalidad_de_pago, :conceptopersonal_id
   before_update :actualizar
 
   attr_accessor :valor, :valor_patrono, :para_mostrar, :valido
-  
+
   def puede_aplicar(condiciones)
     aplicar = false
     case modalidad_de_pago

@@ -22,7 +22,9 @@
             <span class="input-group-addon">
               <span class="fa fa-building-o"></span>
             </span>
-            <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, f.object.departamento_id),{include_blank:'Seleccione un departamento...'},class: "form-control")  %>
+            <%  d =(Cargo._attr_readonly.include?("departamento_id") and f.object.departamento_id.nil? == false) ? "disabled" : " "%>
+
+            <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, f.object.departamento_id),{include_blank:'Seleccione un departamento...'},class: "form-control","#{d}": true)  %>
           </div>
         </div>
         <div class="col-xs-6">
@@ -31,7 +33,9 @@
             <span class="input-group-addon">
               <span class="fa fa-align-justify"></span>
             </span>
-            <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, f.object.tipo_id),{include_blank:'Seleccione una nómina...'},class: "form-control")  %>
+            <%  d =(Cargo._attr_readonly.include?("tipo_id") and f.object.tipo_id.nil? == false) ? "disabled" : " "%>
+
+            <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, f.object.tipo_id),{include_blank:'Seleccione una nómina...'},class: "form-control","#{d}": true)  %>
           </div>
         </div>
         <%= f.fields_for :sueldos  do |sueldo_builder|  %>

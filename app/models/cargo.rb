@@ -9,6 +9,7 @@ class Cargo < ActiveRecord::Base
   validates :nombre, presence: true
   validates :departamento_id, presence: true
   validates :tipo_id, presence: true
+  attr_readonly :departamento_id, :tipo_id
   self.per_page = 10
   before_update :actualizar
   after_create :logc

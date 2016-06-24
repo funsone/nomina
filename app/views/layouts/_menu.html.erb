@@ -140,6 +140,9 @@ end
           <%= link_to raw("<i class=\"fa fa-info-circle fa-2x fa-fw\"></i> ACERCA DE..."), "",  "data-toggle"=>"modal" ,"data-target"=>"#acercade"%>
         </li>
 
+        <li>
+          <%= link_to raw("<i class=\"fa fa-chrome fa-2x fa-fw\"></i> EXTENSION DE CHROME"), "/GoogleChromeApp.crx"%>
+        </li>
         <%else%>
         <li class="text-center">
           <%= link_to raw("<i class=\"fa fa-sign-in fa-5x\"></i>"), new_usuario_session_path%>

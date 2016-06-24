@@ -12,6 +12,12 @@
       %>
     <span class="label label-info"><%= tipo.nombre%></span>
       <% end%>
+      <%if @concepto.eliminable==true %>
+      eliminable
+        <% end%>
+        <%if @concepto.desactivable==true %>
+        descactibable
+          <% end%>
 </h4>
 
 </div>

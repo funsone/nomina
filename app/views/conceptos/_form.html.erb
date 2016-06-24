@@ -22,7 +22,8 @@
           <span class="input-group-addon">
             <span class="fa fa-calendar-o"></span>
           </span>
-          <%= f.select(:modalidad_de_pago , options_for_select($dic["modalidad_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una modalidad de pago...'},class: "form-control")  %>
+          <%  d =(Concepto._attr_readonly.include?("modalidad_de_pago") and f.object.modalidad_de_pago.nil? == false) ? "disabled" : " "%>
+          <%= f.select(:modalidad_de_pago , options_for_select($dic["modalidad_de_pago"], f.object.modalidad_de_pago),{include_blank:'Seleccione una modalidad de pago...'},class: "form-control","#{d}": true)  %>
         </div>
       </div>
       <div class="col-xs-6">
@@ -31,7 +32,9 @@
           <span class="input-group-addon">
             <span class="fa fa-exchange fa-rotate-90"></span>
           </span>
-          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"], f.object.tipo_de_concepto),{include_blank:'Seleccione un tipo de concepto...'},class: "form-control")  %>
+          <%  d =(Concepto._attr_readonly.include?("tipo_de_concepto") and f.object.tipo_de_concepto.nil? == false) ? "disabled" : " "%>
+
+          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"], f.object.tipo_de_concepto),{include_blank:'Seleccione un tipo de concepto...'},class: "form-control","#{d}": true)  %>
         </div>
 
       </div>
@@ -41,7 +44,9 @@
           <span class="input-group-addon">
             <span class="fa fa-check-square-o"></span>
           </span>
-          <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condición...'},class: "form-control")  %>
+          <%  d =(Concepto._attr_readonly.include?("condicion") and f.object.condicion.nil? == false) ? "disabled" : " "%>
+
+          <%= f.select(:condicion, options_for_select($dic["condiciones"], f.object.condicion),{include_blank:'Seleccione una condición...'},class: "form-control","#{d}": true)  %>
         </div>
 
       </div>

@@ -4,6 +4,7 @@ class Departamento < ActiveRecord::Base
   has_many :cargos ,  dependent: :destroy
   validates :nombre, uniqueness: { case_sensitive: false }, presence: true
   validates :dependencia_id, presence: true
+  attr_readonly :dependencia_id
   after_create :logc
   after_destroy :logd
   after_update :logu

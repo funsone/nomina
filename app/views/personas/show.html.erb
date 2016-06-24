@@ -257,6 +257,7 @@
           <th>C.I</th>
           <th>Nombres</th>
           <th>Fecha de nacimiento</th>
+            <th>Sexo</th>
         </tr>
       </thead>
 
@@ -267,6 +268,7 @@
           <td><%=familiar.cedula%></td>
           <td><%="#{familiar.nombres} #{familiar.apellidos}"%></td>
           <td><%=familiar.fecha_de_nacimiento%></td>
+          <td><%=$dic["sexos"].key(familiar.sexo.to_i)%></td>
         </tr>
         <%end%>
       </tbody>

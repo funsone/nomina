@@ -5,11 +5,13 @@ class Concepto < ActiveRecord::Base
     has_and_belongs_to_many :tipos
     validates :nombre, uniqueness: true, presence: true
     validates :modalidad_de_pago, :tipo_de_concepto, :condicion, presence: true
+    attr_readonly :modalidad_de_pago, :tipo_de_concepto, :condicion
     attr_accessor :valor, :valor_patrono, :para_mostrar, :valido
     before_update :actualizar
     after_create :logc
     after_destroy :logd
     after_update :logu
+    before_create :poner_fecha_fin
 
   include Rails.application.routes.url_helpers
   def logc
@@ -23,7 +25,49 @@ class Concepto < ActiveRecord::Base
   def logd
     log(id.to_s,"{}".to_json, 0, 2)
   end
+  def poner_fecha_fin
+    if modalidad_de_pago==0 or  modalidad_de_pago==5
 
+      if Time.now.day<=15
+
+self.fecha_fin = Date.civil(Time.now.year, Time.now.mon, 15)
+else
+  self.fecha_fin = Date.civil(Time.now.year, Time.now.mon, -1)
+end
+    elsif modalidad_de_pago==1 or  modalidad_de_pago==6
+      if Time.now.day<=15
+self.fecha_fin = Date.civil(Time.now.year, Time.now.mon, -1)
+else
+  if(Time.now.mon==12)
+    self.fecha_fin = Date.civil(Time.now.year+1, 1, 15)
+
+  else
+  self.fecha_fin = Date.civil(Time.now.year, Time.now.mon+1, 15)
+end
+
+end
+    end
+
+
+
+  end
+def eliminable
+  quincena=created_at.day<=15 ? 0:1
+
+  return ($quincena==quincena and Time.now.month==created_at.month) ? true : false
+
+
+end
+def desactivable
+  case modalidad_de_pago
+  when 0..1
+  return false
+when 5..6
+return false
+  when 2..4
+  return true
+end
+end
     def actualizar
       nuevo = false
       if $quincena == 0

@@ -19,7 +19,9 @@
         <span class="input-group-addon">
           <span class="fa fa-align-justify"></span>
         </span>
-        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control')  %>
+        <%  d =(Registroconcepto._attr_readonly.include?("conceptopersonal_id") and f.object.conceptopersonal_id.nil? == false) ? "disabled" : " "%>
+
+        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control',"#{d}": true)  %>
       </div>
     </div>
         <div class="col-xs-6">
@@ -28,8 +30,9 @@
         <span class="input-group-addon">
           <span class="fa fa-calendar-o"></span>
         </span>
+        <%  d =(Registroconcepto._attr_readonly.include?("modalidad_de_pago") and f.object.modalidad_de_pago.nil? == false) ? "disabled" : " "%>
 
-    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione una modalidad de pago...'},class: "form-control" )  %>
+    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione una modalidad de pago...'},class: "form-control","#{d}": true)  %>
       </div>
     </div>
     <%if f.object.formulaspersonales.length==0
@@ -59,7 +62,9 @@
         <%= formula_builder.text_area :patrono, class: "form-control code"%>
       </div>
     </div>
-
+    <%if !f.object.id.nil? %>
+<button type="button" name="button">desactivar</button>
+<% end %>
 <% end %>
     <% end %>
 

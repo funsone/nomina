@@ -41,7 +41,7 @@ generar_historial
   end
 
   self.per_page = 10
-  attr_readonly :cedula
+  attr_readonly :cedula, :tipo_de_cedula
   include AASM
   aasm column: 'status' do
     state :activo, initial: true
