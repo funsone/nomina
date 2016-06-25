@@ -9,11 +9,11 @@
       <div class="input-group form-inline">
 
         <span class="input-group-btn" >
-          <%  d =(Persona._attr_readonly.include?("tipo_de_cedula") and f.object.tipo_de_cedula.nil? == false) ? "disabled" : " "%>
+          <%  d =(Persona._attr_readonly.include?("tipo_de_cedula") and f.object.id.nil? == false) ? "disabled" : " "%>
 
           <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},class: "btn btn-default dropdown-toggle",style: "padding:5.5px 12px;","#{d}": true) %>
         </span>
-        <%  d =(Persona._attr_readonly.include?("cedula") and f.object.cedula.nil? == false) ? "disabled" : " "%>
+        <%  d =(Persona._attr_readonly.include?("cedula") and f.object.id.nil? == false) ? "disabled" : " "%>
         <%= f.telephone_field :cedula ,class: "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}","data-toggle"=>"popover", "data-trigger"=>"focus", title: "Numero de Cedula",
         "data-content"=>"Este campo no sera editable despues de guardar","#{d}": true %>
         <span class="input-group-addon">

@@ -12,7 +12,7 @@ class Historial < ActiveRecord::Base
         max = 0
         if Time.now.day <= 15
           max = if Time.now.mon == 1
-                  Date.civil(Time.now.year - 1 - year, 12, -1)
+                  Date.civil(Time.now.year - 1, 12, -1)
                 else
                   Date.civil(Time.now.year, Time.now.month - 1, -1)
                 end

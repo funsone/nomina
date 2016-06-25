@@ -188,7 +188,7 @@ generar_historial
     @SUELDO = sueldos.last.monto
     @SUELDO_INTEGRAL = sueldos.last.sueldo_integral
     @LUNES_DEL_MES = r.length
-    @CONDICIONES = [self.IVSS, self.FAOV, self.TSS, caja_de_ahorro, extras]
+    @CONDICIONES = [self.FAOV,self.IVSS, self.TSS, caja_de_ahorro, extras]
     asig = [cargo.tipo.conceptos.where(tipo_de_concepto: 0), registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 0')]
 
     dedu = [cargo.tipo.conceptos.where(tipo_de_concepto: 1), registrosconceptos.joins(:conceptopersonal).where('"conceptospersonales"."tipo_de_concepto"= 1')]

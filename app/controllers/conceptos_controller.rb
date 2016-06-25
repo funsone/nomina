@@ -12,8 +12,18 @@ class ConceptosController < ApplicationController
     # GET /conceptos/1
     # GET /conceptos/1.json
     def show
+
         respond_to do |format|
+          if params["destroy"].nil? ==false and @concepto.eliminable
+            @concepto.destroy
+            format.html { redirect_to @concepto, notice: 'El concepto fue eliminado.' }
+
+          elsif params["disable"].nil? ==false  and @concepto.desactivable
+            @concepto.desactivar
+            format.html { redirect_to @concepto, notice: 'El concepto desactivado exitosamente' }
+          else
             format.html
+          end
 
         end
     end
@@ -83,7 +93,7 @@ class ConceptosController < ApplicationController
     def destroy
         authorize! :destroy, Concepto
         @concepto.destroy
-        
+
 
         respond_to do |format|
             format.html { redirect_to conceptos_url, notice: 'El concepto fue eliminado exitosamente.' }

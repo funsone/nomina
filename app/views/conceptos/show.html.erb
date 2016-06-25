@@ -12,12 +12,24 @@
       %>
     <span class="label label-info"><%= tipo.nombre%></span>
       <% end%>
-      <%if @concepto.eliminable==true %>
-      eliminable
-        <% end%>
-        <%if @concepto.desactivable==true %>
-        descactibable
-          <% end%>
+
+          <%
+          vigencia= if @concepto.fecha_fin.nil? ==true
+                  "Indefinido..."
+                else
+          @concepto.fecha_fin
+           end
+          %>
+
+          <h4>Vigencia: <%=vigencia%></h4>
+          <%if @concepto.eliminable==true and (current_usuario.has_role?:coordinador) %>
+          <%= link_to raw('<i class="fa fa-trash"></i> Eliminar'), concepto_path(@concepto)+"?destroy=1","data-method": "get","data-confirm": "Are you sure?", class: "btn btn-danger"%>
+            <% else%>
+            <%if @concepto.desactivable==true and @concepto.fecha_fin.nil? ==true %>
+            <%= link_to raw('<i class="fa fa-ban"></i> Desactivar'), concepto_path(@concepto)+"?disable=1","data-method": "get", "data-confirm": "Esta seguro una vez desactivado, no podra ser habilidato de nuevo?\n*Este concepto aplicara hasta la quincena pasada.", class: "btn btn-danger"%>
+              <% end%>
+                <% end%>
+
 </h4>
 
 </div>

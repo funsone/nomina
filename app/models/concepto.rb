@@ -68,6 +68,22 @@ return false
   return true
 end
 end
+def desactivar
+  max = 0
+  if Time.now.day <= 15
+    max = if Time.now.mon == 1
+            Date.civil(Time.now.year - 1, 12, -1)
+          else
+            Date.civil(Time.now.year, Time.now.month - 1, -1)
+          end
+
+  else
+
+    max = Date.civil(Time.now.year, Time.now.mon, 15)
+
+  end
+  self.update_column(:fecha_fin,max)
+end
     def actualizar
       nuevo = false
       if $quincena == 0
@@ -88,6 +104,9 @@ end
       end
     end
     def puede_aplicar(condiciones)
+      if fecha_fin.nil? == false 
+        return false if ($ahora>fecha_fin)
+      end
         aplicar = false
         case modalidad_de_pago
         when 0
@@ -136,7 +155,7 @@ end
         when 0
             aplicarc = true
         when 1
-            aplicarc = condiciones[0] ? true : false
+            aplicarc = condiciones[0]==true ? true : false
         when 2
             aplicarc = condiciones[1] ? true : false
         when 3

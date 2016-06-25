@@ -23,7 +23,7 @@
             <span class="fa fa-arrow-up"></span>
             <span class="fa fa-arrow-down"></span>
           </span>
-          <%  d =(Conceptopersonal._attr_readonly.include?("tipo_de_concepto") and f.object.tipo_de_concepto.nil? == false) ? "disabled" : " "%>
+          <%  d =(Conceptopersonal._attr_readonly.include?("tipo_de_concepto") and f.object.id.nil? == false) ? "disabled" : " "%>
 
           <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"],f.object.tipo_de_concepto),{include_blank:'Seleccione un tipo de concepto...'},class: "form-control","#{d}": true)  %>
         </div>
