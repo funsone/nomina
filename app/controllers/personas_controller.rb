@@ -98,7 +98,17 @@ class PersonasController < ApplicationController
             @persona.reactivar!
             msg = 'El empleado a sido reactivado'
         when '2'
-          if(@persona.cargo.disponible)
+          ncargo=Cargo.find(params[:cargo_id]);
+          gh=false
+          gh=true if ncargo.id==@persona.cargo.id
+          if(ncargo.disponible)
+            @persona.cargo=ncargo
+            @persona.cargo.disponible=false
+            @persona.cargo.save
+             @persona.save
+             if gh
+             @persona.generar_historial
+             end
             @persona.reingresar!
             msg = 'El empleado a sido recontratado'
           else
@@ -134,6 +144,12 @@ class PersonasController < ApplicationController
     # GET /personas/1/edit
     def edit
       authorize! :update, Persona
+      if @persona.status=='retirado'
+        respond_to do |format|
+            format.html { redirect_to @persona, alert: 'El empleado esta retirado, no es posible editar los datos.' }
+            format.json { head :no_content }
+        end
+      end
 
     end
 

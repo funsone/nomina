@@ -52,8 +52,33 @@ generar_historial
     event :retirar do
     transitions from: :activo, to: :retirado
       after do
-        cargo.disponible = true
-        cargo.save
+        h_viejo = Historial.where('persona_id = ? ', id).last
+        unless h_viejo.nil?
+          h_viejo.cargo.disponible = true
+          h_viejo.cargo.save
+          if (h_viejo.fecha_inicio.day <= 15 && Time.now.day > 15 && Time.now.month == h_viejo.fecha_inicio.month) || (Time.now.month != h_viejo.fecha_inicio.month)
+            max = 0
+            if Time.now.day <= 15
+              max = if Time.now.mon == 1
+                      Date.civil(Time.now.year - 1 - year, 12, -1)
+                    else
+                      Date.civil(Time.now.year, Time.now.month - 1, -1)
+                    end
+
+            else
+
+              max = Date.civil(Time.now.year, Time.now.mon, 15)
+
+            end
+
+            h_viejo.fecha_fin = max
+            h_viejo.save
+
+          else
+            h_viejo.destroy
+            h_viejo.save
+          end
+        end
       end
     end
     event :reingresar do

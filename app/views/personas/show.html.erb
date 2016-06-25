@@ -8,7 +8,7 @@
 <div class=" col-md-12">
 
   <ul class="nav nav-pills nav-justified">
-    <% if can? :edit, Persona %>
+    <% if (can? :edit, Persona) && (@persona.status!='retirado')%>
     <li role="presentation"><%= link_to 'Editar', edit_persona_path(@persona)%></li>
     <%end%>
     <li role="presentation"><%= link_to 'Regresar', personas_path%></li>
@@ -36,11 +36,13 @@
       <li role="separator" style="margin:4px;"></li>
 
       <li class="text-center">
+        <%if @persona.status!='retirado'%>
         <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
           <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
           <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
 
         </div>
+        <%end%>
       </li>
 
     </ul>
@@ -60,7 +62,11 @@
       <% when 'suspendido'%>
       <li><%= link_to 'Reactivar',  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
       <% when 'retirado'%>
-      <li><%= link_to 'Reingresar',  cambiarestado_persona_path(@persona, estado: 2), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+      <li class="text-center">
+        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#reingreso">
+        Reingresar
+        </button>
+    </li>
       <%end%>
     </ul>
   </li>
@@ -71,7 +77,7 @@
 <div class="col-sm-4">
 <!--left col-->
 <ul class="list-group">
-  <li class="list-group-item text-muted" contenteditable="false">Perfil</li>
+  <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-user"></i> Perfil</li>
   <li class="list-group-item text-right">
     <span class="pull-left">
       <strong class="">Estado</strong>
@@ -162,7 +168,7 @@
 <%end%>
 </ul>
 </div>
-
+<% if @persona.status!='retirado' %>
 <div class="col-sm-8">
 <ul class="list-group">
 <li class="list-group-item text-muted" contenteditable="false"><%= 'Reporte Quincena Actual ('+$ahora.month.to_s+'/'+$ahora.year.to_s+')'%></li>
@@ -210,6 +216,17 @@
 </li>
 </ul>
 </div>
+<%else%>
+<div class="text-center col-sm-8">
+  <ul class="list-group">
+  <li class="list-group-item text-muted text-left" contenteditable="false"><i class="fa fa-comment-o"></i> Mensaje</li>
+  <li class="list-group-item">
+</br><i class="fa fa-user-times fa-4x" style="color:red;"></i><h2>El empleado esta retirado.</h2></div>
+
+</li>
+
+</ul>
+<%end%>
 
 <div class="modal fade" id="myModal" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 <div class="modal-dialog" role="document">
@@ -305,4 +322,54 @@ $(function () {
     generar(1);
   });
 });
+</script>
+<!-- modal cambio de cargo -->
+<form class="cambiarestado" action="<%= cambiarestado_persona_path(@persona, estado: 2)%>" method="post">
+
+<div class="modal fade" id="reingreso" style="margin-top:60px;" tabindex="-1" role="dialog" aria-labelledby="reingresoLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" id="reingresoLabel">
+      <i class="fa fa-sign-in fa-2x"></i>
+      Reingresar</h4>
+  </div>
+  <div class="modal-body ">
+
+
+    <div class="col-xs-12 form-group">
+      <%= label_tag "Cargo" %><br>
+      <div class="form-group input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-briefcase"></span>
+        </span>
+        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+
+        <%= select_tag("cargo_id",options_for_select(Cargo.all.where("disponible=true").map{|s|[s.nombre, s.id]},@persona.cargo.id),{include_blank:'Seleccione un cargo...', class: 'form-control'})  %>
+      </div>
+    </div>
+  </br>
+</br>
+</br>
+</br>
+
+
+</div>
+<div class="modal-footer">
+<button type="submit" class="btn btn-primary" name="button">Guardar</button>
+<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+</form>
+<script type="text/javascript">
+  function reingresar()
+  {
+
+    $('#cargo_select').val():
+  }
 </script>
