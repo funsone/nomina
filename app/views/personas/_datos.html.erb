@@ -14,8 +14,8 @@
           <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},class: "btn btn-default dropdown-toggle",style: "padding:5.5px 12px;","#{d}": true) %>
         </span>
         <%  d =(Persona._attr_readonly.include?("cedula") and f.object.id.nil? == false) ? "disabled" : " "%>
-        <%= f.telephone_field :cedula ,class: "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}","data-toggle"=>"popover", "data-trigger"=>"focus", title: "Numero de Cedula",
-        "data-content"=>"Este campo no sera editable despues de guardar","#{d}": true %>
+        <%= f.telephone_field :cedula ,class: "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Número de Cédula",
+        "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true %>
         <span class="input-group-addon">
           <span class="fa fa-user"></span>
         </span>
@@ -53,7 +53,8 @@
         <span class="input-group-addon">
           <span class="fa fa-phone"></span>
         </span>
-        <%= f.telephone_field :telefono_fijo ,class: "form-control", maxlength: "11", pattern:"[0-9]{11}" %>
+        <%= f.telephone_field :telefono_fijo ,class: "form-control", maxlength: "11", pattern:"[0-9]{11}", "data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Teléfono fijo",
+        "data-content"=>"El formato debe ser el siguiente: 0295XXXXXXX." %>
       </div>
     </div>
     <div class="col-xs-6 form-group">
@@ -62,14 +63,16 @@
         <span class="input-group-addon">
           <span class="fa fa-mobile"></span>
         </span>
-        <%= f.telephone_field :telefono_movil ,class: "form-control", maxlength: "11", pattern:"[0-9]{11}"  %>
+        <%= f.telephone_field :telefono_movil ,class: "form-control", maxlength: "11", pattern:"[0-9]{11}", "data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Teléfono móvil",
+        "data-content"=>"El formato debe ser el siguiente: (0424, 0414, 0426, 0416 ó 0412)XXXXXXX."  %>
       </div>
     </div>
     <div class="col-xs-6 form-group">
       <%= f.label :correo %>
       <div class="form-group input-group">
         <span class="input-group-addon">@</span>
-        <%= f.email_field :correo ,class: "form-control" %>
+        <%= f.email_field :correo ,class: "form-control", "data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Correo electrónico",
+        "data-content"=>"El formato debe ser el siguiente: correo@mail.com" %>
       </div>
     </div>
     <div class="col-xs-6 form-group">
@@ -108,7 +111,8 @@
         <span class="input-group-addon">
           <span class="fa fa-university"></span>
         </span>
-        <%= f.telephone_field :cuenta ,class: "form-control", maxlength: "20",minlength: "20", pattern:"[0-9]{20}"%>
+        <%= f.telephone_field :cuenta ,class: "form-control", maxlength: "20",minlength: "20", pattern:"[0-9]{20}", "data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Número de cuenta",
+        "data-content"=>"El número de cuenta debe tener exactamente 20 dígitos."%>
       </div>
     </div>
     <div class="col-xs-6 form-group">

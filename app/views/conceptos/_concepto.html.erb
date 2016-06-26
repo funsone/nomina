@@ -1,57 +1,62 @@
 <div class="panel panel-<%= z %>">
-  <div class="panel-heading">
-    <%= y %>
-  </div>
-  <%if Concepto.all.where(tipo_de_concepto:x).length>0%>
-<div class="panel-body">
-  <div class="table-responsive text-center">
-    <table class="table  table-condensed table-hover table-responsive table-bordered ">
-      <thead>
-        <tr>
-          <th class= "actions">Nombre</th>
-          <th class= "actions">Fórmula</th>
-          <th class= "actions">Fórmula Patrono</th>
-          <th class= "actions">Modalidad de pago</th>
-          <th class= "actions">Fecha de Creación</th>
-          <th class= "actions">Vigencia</th>
-          <th class= "actions" style= "width: 100px;">Acciones</th>
-        </tr>
-      </thead>
+    <div class="panel-heading">
+        <%= y %>
+    </div>
+    <%if Concepto.all.where(tipo_de_concepto:x).length>0%>
+    <div class="panel-body">
+        <div class="table-responsive text-center">
+            <table class="table  table-condensed table-hover table-responsive table-bordered ">
+                <thead>
+                    <tr>
+                        <th class="actions">Nombre</th>
+                        <th class="actions">Fórmula</th>
+                        <th class="actions">Fórmula Patrono</th>
+                        <th class="actions">Modalidad de pago</th>
+                        <th class="actions">Fecha de Creación</th>
+                        <th class="actions">Vigencia</th>
+                        <th class="actions" style="width: 100px;">Acciones</th>
+                    </tr>
+                </thead>
 
-      <tbody>
-        <%
+                <tbody>
+                    <%
         c=@conceptos.where(tipo_de_concepto: x).order("created_at")
         c.each do |concepto| %>
-        <tr>
-          <td><%= concepto.nombre %></td>
-          <td><var><%= concepto.formulas.last.empleado %></var></td>
-            <td><var><%= concepto.formulas.last.patrono %></var></td>
-          <td><%= $dic["modalidad_de_pago"].key(concepto.modalidad_de_pago )%></td>
-          <%
+                    <tr>
+                        <td><%= concepto.nombre %></td>
+                        <td>
+                            <var><%= concepto.formulas.last.empleado %></var>
+                        </td>
+                        <td>
+                            <var><%= concepto.formulas.last.patrono %></var>
+                        </td>
+                        <td><%= $dic["modalidad_de_pago"].key(concepto.modalidad_de_pago )%></td>
+                        <%
             quincena=(concepto.created_at.day <=15)?0:1
           %>
-          <td><%= $dic["quincena"].key(quincena).capitalize+'('+concepto.created_at.strftime("#{$dic["meses"].key($ahora.month)}-%Y")+') '%></td>
-<%
+                        <td><%= $dic["quincena"].key(quincena).capitalize+'('+concepto.created_at.strftime("#{$dic["meses"].key(concepto.created_at.month)}-%Y")+') '%></td>
+                    <%
 vigencia= if concepto.fecha_fin.nil? ==true
-        "Indefinido..."
+        "Indefinido"
       else
-concepto.fecha_fin
- end
-%>
-          <td><%=vigencia%></td>
+concepto.fecha_fin.strftime("%d-%m-%Y")
+                        end %>
+                        <td><%=vigencia%></td>
 
-          <td>
-            <%= render 'layouts/actions', x: Concepto, y: edit_concepto_path(concepto), z: concepto %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-<%else%>
-<div class="actions">
-  <h4>"No hay <%=y.downcase%> disponibles"</h4>
-</div>
-<%end%>
+                        <td>
+                            <%= render 'layouts/actions', x: Concepto, y: edit_concepto_path(concepto), z: concepto %>
+                        </td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <%else%>
+    <div class="actions">
+        <h4>"No hay
+            <%=y.downcase%>
+            disponibles"</h4>
+    </div>
+    <%end%>
 </div>

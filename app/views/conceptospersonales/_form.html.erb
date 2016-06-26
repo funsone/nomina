@@ -25,7 +25,8 @@
           </span>
           <%  d =(Conceptopersonal._attr_readonly.include?("tipo_de_concepto") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"],f.object.tipo_de_concepto),{include_blank:'Seleccione un tipo de concepto...'},class: "form-control","#{d}": true)  %>
+          <%= f.select(:tipo_de_concepto , options_for_select($dic["tipos_de_conceptos"],f.object.tipo_de_concepto),{include_blank:'Seleccione un tipo de concepto...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Tipo de concepto",
+          "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true)  %>
         </div>
 
       </div>
@@ -34,3 +35,8 @@
   </div>
 </div>
 <% end %>
+<script>
+$(function () {
+  $('[data-toggle="popover"]').popover();
+});
+</script>

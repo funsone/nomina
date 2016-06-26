@@ -5,7 +5,7 @@ class Concepto < ActiveRecord::Base
     has_and_belongs_to_many :tipos
     validates :nombre, uniqueness: true, presence: true
     validates :modalidad_de_pago, :tipo_de_concepto, :condicion, presence: true
-    attr_readonly :modalidad_de_pago, :tipo_de_concepto, :condicion
+    attr_readonly :modalidad_de_pago, :tipo_de_concepto, :condicion, :nombre
     attr_accessor :valor, :valor_patrono, :para_mostrar, :valido
     before_update :actualizar
     after_create :logc
@@ -104,7 +104,7 @@ end
       end
     end
     def puede_aplicar(condiciones)
-      if fecha_fin.nil? == false 
+      if fecha_fin.nil? == false
         return false if ($ahora>fecha_fin)
       end
         aplicar = false

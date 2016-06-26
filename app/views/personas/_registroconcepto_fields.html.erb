@@ -21,7 +21,8 @@
         </span>
         <%  d =(Registroconcepto._attr_readonly.include?("conceptopersonal_id") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control',"#{d}": true)  %>
+        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control',"data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Nombre",
+        "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true)  %>
       </div>
     </div>
         <div class="col-xs-6">
@@ -32,7 +33,8 @@
         </span>
         <%  d =(Registroconcepto._attr_readonly.include?("modalidad_de_pago") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione una modalidad de pago...'},class: "form-control","#{d}": true)  %>
+    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione una modalidad de pago...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Modalidad de pago",
+    "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true)  %>
       </div>
     </div>
     <%if f.object.formulaspersonales.length==0
@@ -45,7 +47,7 @@
 
 <%# if formula_builder.object.activo? %>
     <div class="col-xs-6">
-      <%= formula_builder.label :empleado %><br>
+      <%= formula_builder.label "Fórmula"%><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
@@ -54,7 +56,7 @@
       </div>
     </div>
     <div class="col-xs-6">
-      <%= formula_builder.label :patrono %><br>
+      <%= formula_builder.label "Fórmula patrono" %><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
@@ -71,3 +73,8 @@
   </div>
 
 </div>
+<script>
+$(function () {
+  $('[data-toggle="popover"]').popover();
+});
+</script>
