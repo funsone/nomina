@@ -6,4 +6,6 @@ class Registro < ActiveRecord::Base
     def cu
       self.usuario_id=Usuario.current
     end
+
+    
 end
