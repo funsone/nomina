@@ -20,7 +20,7 @@ class ConceptosController < ApplicationController
 
           elsif params["disable"].nil? ==false  and @concepto.desactivable
             @concepto.desactivar
-            format.html { redirect_to @concepto, notice: 'El concepto desactivado exitosamente' }
+            format.html { redirect_to @concepto, notice: 'El concepto fue desactivado exitosamente' }
           else
             format.html
           end

@@ -12,7 +12,9 @@
           <span class="input-group-addon">
             <span class="fa fa-align-justify"></span>
           </span>
-          <%= f.text_field :nombre, class: "form-control", autofocus: "" %>
+          <%  d =(Conceptopersonal._attr_readonly.include?("nombre") and f.object.id.nil? == false) ? "disabled" : " "%>
+          <%= f.text_field :nombre, class: "form-control", autofocus: "","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Nombre",
+          "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true %>
         </div>
       </div>
 
@@ -35,8 +37,3 @@
   </div>
 </div>
 <% end %>
-<script>
-$(function () {
-  $('[data-toggle="popover"]').popover();
-});
-</script>

@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20160607184659) do
   end
 
   create_table "familiares", force: :cascade do |t|
+    t.integer  "tipo_de_cedula"
     t.integer  "cedula"
     t.string   "nombres"
     t.string   "parentesco"
@@ -138,6 +139,7 @@ ActiveRecord::Schema.define(version: 20160607184659) do
     t.string   "direccion"
     t.integer  "sexo"
     t.string   "status",              default: "activo"
+    t.date     "fecha_envio"
     t.integer  "cargo_id"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false

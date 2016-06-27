@@ -108,7 +108,7 @@ generar_historial
   attr_readonly :tipo_de_cedula, :cedula
   validates :tipo_de_cedula, :cedula, :nombres, :apellidos, :correo, :fecha_de_nacimiento, :sexo, :cargo, :cuenta, :direccion, :cargo_id, presence: true
   validates :correo, uniqueness: { case_sensitive: false, message: 'El correo ingresado ya existe.' }, format: { with: VALID_EMAIL_REGEX, message: 'El formato del correo es invalido' }
-  validates :cedula, uniqueness: { case_sensitive: false, message: 'ya esta registrada.' }, numericality: { only_integer: true }
+  validates :cedula, uniqueness: { case_sensitive: false, message: 'Ya se encuentra registrada.' }, numericality: { only_integer: true }
   validates :nombres, :apellidos, length: { in: 0..50 }
   validates :cuenta, numericality: { only_integer: true }
   validates :telefono_fijo, :telefono_movil, length: { is: 11 }, allow_blank: true, numericality: { only_integer: true }

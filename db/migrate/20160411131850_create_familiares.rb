@@ -1,6 +1,7 @@
 class CreateFamiliares < ActiveRecord::Migration
   def change
     create_table :familiares do |t|
+      t.integer :tipo_de_cedula
       t.integer :cedula
       t.string :nombres
       t.string :parentesco

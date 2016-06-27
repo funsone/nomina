@@ -65,7 +65,8 @@
           <span class="input-group-addon">
             <span class="fa fa-calculator"></span>
           </span>
-          <%= formula_builder.text_area :empleado, class: "form-control code"%>
+          <%  d =(f.object.fecha_fin.nil? == false) ? "disabled" : " "%>
+          <%= formula_builder.text_area :empleado, class: "form-control code", "#{d}": true%>
           <span class="input-group-btn">
             <button class="btn btn-default" style="height:111%;" type="button" data-toggle="modal" data-target="#myModal">
               <i class="fa fa-question-circle"></i>
@@ -79,7 +80,8 @@
           <span class="input-group-addon">
             <span class="fa fa-calculator"></span>
           </span>
-          <%= formula_builder.text_area :patrono, class: "form-control code"%>
+          <%  d =(f.object.fecha_fin.nil? == false) ? "disabled" : " "%>
+          <%= formula_builder.text_area :patrono, class: "form-control code", "#{d}": true%>
           <span class="input-group-btn">
             <button class="btn btn-default" style="height:111%;" type="button" data-toggle="modal" data-target="#myModal">
               <i class="fa fa-question-circle"></i>
@@ -200,9 +202,5 @@
     colorear($(".code")[0]);
     colorear($(".code")[1]);
 
-  });
-
-  $(function () {
-    $('[data-toggle="popover"]').popover();
   });
 </script>

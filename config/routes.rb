@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :personas do
   member do
     post 'cambiarestado'
+    get 'disablecp'
     post 'enviar'
   end
 end

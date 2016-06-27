@@ -62,13 +62,26 @@
       <div class="panel-body">
         <i class="fa fa-envelope fa-5x"></i>
         <h4>
-          <input class="btn btn-default bg-color-red btn-xs " type="button" id="enviar_recibos" value="Enviar a todos"></h4>
+          <a href="#" class="btn btn-default bg-color-red btn-xs " id="enviar_recibos" >Enviar a todos</a></h4>
       </div>
       <div class="panel-footer back-footer-red">
         Reporte de Pago
       </div>
     </div>
   </div>
+  <div class="col-md-3">
+    <div class="panel panel-primary text-center no-boder bg-color-red">
+      <div class="panel-body">
+        <i class="fa fa-chrome fa-5x"></i>
+        <h4>
+          <%= link_to raw("Descargar"), "/GoogleChromeApp.crx", class:"btn btn-default bg-color-red btn-xs"%></h4>
+      </div>
+      <div class="panel-footer back-footer-red">
+        Extension de Chrome
+      </div>
+    </div>
+  </div>
+
 </div>
 <hr/>
 </br>

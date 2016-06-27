@@ -1,7 +1,35 @@
 <div class="panel panel-default nested-fields">
   <div class="panel-heading">
-    <div class="pull-right" style="margin-left:10px;"><%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%></div>
-    Concepto   <div class="pull-right">  <%
+  <%
+  mostrar=false
+  desactivar=false
+if f.object.id.nil? ==true
+  mostrar=true
+else
+  mostrar=f.object.eliminable
+  if !mostrar
+    desactivar=true
+  end
+end
+
+ %>
+
+    <div class="pull-right" style="margin-left:10px;">
+      <% if mostrar==true%>
+      <%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%>
+      <%end%>
+      <% if desactivar==true and f.object.fecha_fin.nil? ==true
+  %>
+      <%=link_to raw('<i class="fa fa-ban"></i>'), disablecp_persona_path(@persona)+"?cp=#{f.object.id}","data-method": "get", "data-confirm": "¿Está seguro que desea realizar esta acción? Una vez desactivado el concepto, no podrá ser habilidato nuevamente?
+      *Este concepto aplicará hasta la quincena pasada." %>
+      <%end%>
+    </div>
+
+    Concepto
+    <div class="pull-right">
+    <%
+
+
     created_at=""
     if f.object.id.nil?
       created_at=$ahora
@@ -10,7 +38,7 @@
     end
         quincena=(created_at.day <=15)?0:1
       %>
-      <%= $dic["quincena"].key(quincena).capitalize+'('+created_at.strftime("#{$dic["meses"].key($ahora.month)}-%Y")+') '%></div>
+      <%= $dic["quincena"].key(quincena).capitalize+'('+created_at.strftime("#{$dic["meses"].key(created_at.month)}-%Y")+') '%></div>
   </div>
   <div class="panel-body">
     <div class="col-xs-6">
@@ -21,11 +49,11 @@
         </span>
         <%  d =(Registroconcepto._attr_readonly.include?("conceptopersonal_id") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control',"data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Nombre",
-        "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true)  %>
+        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control',"data-toggle"=>"popover", "data-trigger"=>"focus",
+        "data-placement"=>"top", title: "Nombre", "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true) %>
       </div>
     </div>
-        <div class="col-xs-6">
+    <div class="col-xs-6">
       <%= f.label "Modalidad de Pago" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -33,8 +61,8 @@
         </span>
         <%  d =(Registroconcepto._attr_readonly.include?("modalidad_de_pago") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-    <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione una modalidad de pago...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Modalidad de pago",
-    "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true)  %>
+        <%= f.select(:modalidad_de_pago, options_for_select($dic["modalidad_de_pago"],f.object.modalidad_de_pago),{include_blank: 'Seleccione una modalidad de pago...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus",
+        "data-placement"=>"top", title: "Modalidad de pago", "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true) %>
       </div>
     </div>
     <%if f.object.formulaspersonales.length==0
@@ -43,16 +71,15 @@
        %>
     <%= f.fields_for :formulaspersonales  do |formula_builder|
        %>
-       <% if formula_builder.object.activo? %>
-
-<%# if formula_builder.object.activo? %>
+    <% if formula_builder.object.activo? %>
     <div class="col-xs-6">
       <%= formula_builder.label "Fórmula"%><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
         </span>
-        <%= formula_builder.text_area :empleado, class: "form-control code"%>
+        <%  d =(f.object.fecha_fin.nil? == false) ? "disabled" : " "%>
+        <%= formula_builder.text_area :empleado, class: "form-control code","#{d}": true%>
       </div>
     </div>
     <div class="col-xs-6">
@@ -61,20 +88,17 @@
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
         </span>
-        <%= formula_builder.text_area :patrono, class: "form-control code"%>
+        <%  d =(f.object.fecha_fin.nil? == false) ? "disabled" : " "%>
+        <%= formula_builder.text_area :patrono, class: "form-control code","#{d}": true%>
       </div>
     </div>
-    <%if !f.object.id.nil? %>
-<button type="button" name="button">desactivar</button>
-<% end %>
-<% end %>
+    <% end %>
     <% end %>
 
   </div>
-
 </div>
 <script>
-$(function () {
-  $('[data-toggle="popover"]').popover();
-});
+  $(function () {
+    $('[data-toggle="popover"]').popover();
+  });
 </script>

@@ -22,6 +22,9 @@
 $(document).ready(function() {
 
 
+    $(function () {
+      $('[data-toggle="popover"]').popover();
+    });
       $('#main-menu').metisMenu();
       var $this = $('#main-menu'),
         resizeTimer,

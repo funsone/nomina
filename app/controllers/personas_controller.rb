@@ -1,7 +1,7 @@
 class PersonasController < ApplicationController
     before_filter :authenticate_usuario!
 
-    before_action :set_persona, only: [:show, :edit, :update, :destroy, :cambiarestado, :enviar]
+    before_action :set_persona, only: [:show, :edit, :update, :destroy, :cambiarestado, :enviar,:disablecp]
 
     # GET /personas
     # GET /personas.json
@@ -27,9 +27,36 @@ class PersonasController < ApplicationController
         errorm=false
         p = params[:redir] ? params[:redir] : ''
         msg=''
+
+        si_enviar=false
+        if @persona.fecha_envio.nil? ==true
+          si_enviar=true
+        else
+
+          min = if $ahora.day <= 15
+                  Date.civil($ahora.year, $ahora.mon, 1)
+                else
+                  Date.civil($ahora.year, $ahora.mon, 16)
+                end
+
+          max = if $ahora.day <= 15
+                  Date.civil($ahora.year, $ahora.mon, 15)
+                else
+                  Date.civil($ahora.year, $ahora.mon, -1)
+                end
+          if (min..max).cover?(@persona.fecha_envio)
+          si_enviar=false
+          else
+            si_enviar=true
+          end
+        end
         begin
+          if si_enviar==true or p != ''
 
           PersonaMailer.recibo(@persona).deliver_now
+          @persona.update_column(:fecha_envio,$ahora)
+
+          end
 
         rescue Exception => e
           msg="Recibo no enviado, verifique su conexion a internet."
@@ -86,6 +113,18 @@ class PersonasController < ApplicationController
                                       disposition: 'inline'
             end
         end
+    end
+    def disablecp
+      if (params["cp"].nil?) ==false
+        c=Registroconcepto.find(params["cp"])
+        if c.desactivable
+        c.desactivar
+        respond_to do |format|
+          format.html { redirect_to persona_path(@persona), notice: "El concepto personal fue desactivado exitosamente" }
+
+        end
+        end
+      end
     end
 
     def cambiarestado
@@ -222,6 +261,6 @@ class PersonasController < ApplicationController
     def persona_params
         params.require(:persona).permit(:cedula, :tipo_de_cedula, :cuenta, :FAOV, :TSS, :IVSS, :caja_de_ahorro, :nombres, :apellidos, :telefono_fijo, :telefono_movil, :avatar, :fecha_de_nacimiento, :correo, :direccion, :sexo, :cargo_id,
                                         registrosconceptos_attributes: [:id, :conceptopersonal_id, :modalidad_de_pago, :_destroy, formulaspersonales_attributes: [:id, :empleado, :patrono, :_destroy]],
-                                        contrato_attributes: [:id, :fecha_inicio, :fecha_fin, :sueldo_externo, :tipo_de_contrato], familiares_attributes: [:id, :cedula,:parentesco, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
+                                        contrato_attributes: [:id, :fecha_inicio, :fecha_fin, :sueldo_externo, :tipo_de_contrato], familiares_attributes: [:id, :tipo_de_cedula, :cedula,:parentesco, :nombres, :apellidos, :fecha_de_nacimiento, :sexo, :direccion, :_destroy])
     end
 end

@@ -8,8 +8,66 @@ class Registroconcepto < ActiveRecord::Base
 
   attr_readonly :modalidad_de_pago, :conceptopersonal_id
   before_update :actualizar
+  before_create :poner_fecha_fin
 
   attr_accessor :valor, :valor_patrono, :para_mostrar, :valido
+  def eliminable
+    quincena = created_at.day <= 15 ? 0 : 1
+
+    ($quincena == quincena && Time.now.month == created_at.month) ? true : false
+  end
+
+  def desactivable
+    case modalidad_de_pago
+    when 0..1
+      return false
+    when 5..6
+      return false
+    when 2..4
+      return true
+    end
+  end
+
+  def desactivar
+    max = 0
+    if Time.now.day <= 15
+      max = if Time.now.mon == 1
+              Date.civil(Time.now.year - 1, 12, -1)
+            else
+              Date.civil(Time.now.year, Time.now.month - 1, -1)
+            end
+
+    else
+
+      max = Date.civil(Time.now.year, Time.now.mon, 15)
+
+    end
+    update_column(:fecha_fin, max)
+  end
+
+  def poner_fecha_fin
+    if modalidad_de_pago == 0 || modalidad_de_pago == 5
+
+      self.fecha_fin = if Time.now.day <= 15
+
+                         Date.civil(Time.now.year, Time.now.mon, 15)
+                       else
+                         Date.civil(Time.now.year, Time.now.mon, -1)
+                       end
+    elsif modalidad_de_pago == 1 || modalidad_de_pago == 6
+      if Time.now.day <= 15
+        self.fecha_fin = Date.civil(Time.now.year, Time.now.mon, -1)
+      else
+        if Time.now.mon == 12
+          self.fecha_fin = Date.civil(Time.now.year + 1, 1, 15)
+
+        else
+          self.fecha_fin = Date.civil(Time.now.year, Time.now.mon + 1, 15)
+        end
+
+      end
+    end
+  end
 
   def puede_aplicar(condiciones)
     aplicar = false

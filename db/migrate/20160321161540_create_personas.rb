@@ -12,6 +12,7 @@ class CreatePersonas < ActiveRecord::Migration
       t.string :direccion
       t.integer :sexo
       t.string :status, default: "activo"
+      t.date :fecha_envio
       t.references :cargo, index: true, foreign_key: true
       t.timestamps null: false
     end

@@ -31,8 +31,7 @@
     <%= link_to raw('<i class="fa fa-trash"></i> Eliminar'), concepto_path(@concepto)+"?destroy=1","data-method": "get","data-confirm": "¿Está seguro que desea realizar esta acción?", class: "btn btn-danger pull-right"%>
 <% else%>
     <%if @concepto.desactivable==true and @concepto.fecha_fin.nil? ==true %>
-    <%= link_to raw('<i class="fa fa-ban"></i> Desactivar'), concepto_path(@concepto)+"?disable=1","data-method": "get", "data-confirm": "¿Está seguro que desea realizar esta acción? Una vez desactivado el concepto, no podrá ser habilidato nuevamente?
-    *Este concepto aplicará hasta la quincena pasada.", class: "btn btn-danger pull-right"%>
+    <%= link_to raw('<i class="fa fa-ban"></i> Desactivar'), concepto_path(@concepto)+"?disable=1","data-method": "get", "data-confirm": "¿Está seguro que desea realizar esta acción? Una vez desactivado el concepto, no podrá ser habilidato nuevamente? *Este concepto aplicará hasta la quincena pasada.", class: "btn btn-danger pull-right"%>
     <% end%>
     <% end%></h4>
 
