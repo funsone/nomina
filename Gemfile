@@ -5,6 +5,7 @@ source 'http://rubygems.org'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
 gem 'postgresql'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -25,6 +26,7 @@ gem 'date_validator'
 gem 'cocoon'
 gem 'aasm'
 gem 'will_paginate', '~> 3.1.0'
+gem 'jquery-turbolinks'
 gem 'dotiw'
 gem 'tzinfo-data'
 gem 'puma'
