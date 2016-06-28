@@ -13,7 +13,6 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'whenever', :require => false
 gem 'codemirror-rails'
-gem 'seed_dump'
 gem 'prawn'
 gem 'prawn-table'
 gem 'coffee-rails', '~> 4.1.0'
@@ -41,7 +40,7 @@ gem 'sass', '~> 3.3'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 5.0.0.beta'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.

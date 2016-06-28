@@ -1,2 +1,0 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
-!function(e){"object"==typeof exports&&"object"==typeof module?e(require("../../lib/codemirror")):"function"==typeof define&&define.amd?define(["../../lib/codemirror"],e):e(CodeMirror)}(function(e){"use strict";e.registerHelper("lint","yaml",function(o){var r=[];try{jsyaml.load(o)}catch(i){var t=i.mark;r.push({from:e.Pos(t.line,t.column),to:e.Pos(t.line,t.column),message:i.message})}return r})});
