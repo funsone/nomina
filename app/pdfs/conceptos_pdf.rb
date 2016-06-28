@@ -67,8 +67,10 @@ class ConceptosPdf < Prawn::Document
       table([["", "", "APORTE EMPLEADO", "APORTE PATRONO", "MONTO TOTAL"]],cell_style: { border_width: 0, size: 9, align: :center, font_style: :bold}, header: true, column_widths: [80, 210, 70, 70, 70], :width => 500, :position=> :center )
       table([[concepto.nombre.upcase]], cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom]}, header: true, :width => 500, :position=> :center )
       data1= [['', concepto.nombre.upcase, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
+      data2 = [['', "Nro. Empleados", pc ,'' , '']]
       table(data, header: true, cell_style: {border_width: 0, size: 8, align: :center} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
-      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:top, :bottom], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
+      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:top], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
+      table(data2, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:bottom], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
       start_new_page
     end
     conceptosp = Conceptopersonal.all
@@ -114,10 +116,12 @@ class ConceptosPdf < Prawn::Document
       text conceptop.nombre.upcase, size: 14, align: :center, leading: 2
       move_down 10
       table([["", "", "APORTE EMPLEADO", "APORTE PATRONO", "MONTO TOTAL"]],cell_style: { border_width: 0, size: 9, align: :center, font_style: :bold}, header: true, column_widths: [80, 210, 70, 70, 70], :width => 500, :position=> :center  )
-      table([[concepto.nombre.upcase]], cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom]}, header: true, :width => 500, :position=> :center )
+      table([[conceptop.nombre.upcase]], cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom]}, header: true, :width => 500, :position=> :center )
       data1 = [['', conceptop.nombre.upcase, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
+      data2 = [['', "Nro. Empleados", pc ,'' , '']]
       table(data, header: true, cell_style: {border_width: 0, size: 8, align: :center} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
-      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:top, :bottom], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
+      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:top], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
+      table(data2, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:bottom], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
       start_new_page
     end
   end
