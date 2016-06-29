@@ -1,9 +1,10 @@
 <div class="page-header">
   <h1><i class="fa fa-file-text-o"></i> <%= "Registro #"+@registro.id.to_s%></h1>
+ <%if @registro.cambios.to_s != '{}' %>
   <div class="pull-right">
-
     <a href="<%= @url%>" class="btn btn-primary">ir al elemento</a>
   </div>
+  <%end%>
 </br>
   <h4><b>Accion:</b>
 <i class="<%= $dic["tipo_de_accion_def"].key(@registro.tipo_de_accion)%>"></i>,
@@ -17,6 +18,19 @@
 </h4>
 
 </div>
+<%if @registro.cambios.to_s == '{}' %>
+<div class="text-center col-sm-12">
+<ul class="list-group">
+  <li class="list-group-item text-muted text-left" contenteditable="false">
+    <i class="fa fa-comment-o"></i>
+    Mensaje</li>
+  <li class="list-group-item"></br>
+  <i class="fa fa-trash fa-4x" style="color:red;"></i>
+  <h2>El elemento ha sido eliminado.</h2>
+</li>
+</ul>
+</div>
+<%else%>
 <ul class="list-group">
   <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-pencil"></i> Cambios</li>
   <li class="list-group-item text-center">
@@ -27,12 +41,9 @@
             <th class= "actions"><i class="fa fa-list"></i> Atributo</th>
             <th class= "actions"><i class="fa fa-eraser"></i> Valor antigüo</th>
             <th class= "actions"><i class="fa fa-star"></i> Valor Nuevo</th>
-
           </tr>
         </thead>
-
         <tbody>
-
 <%@registro.cambios.each do |key,value|
 next unless key!="created_at" and key!="id" and key!="updated_at"
 %>
@@ -49,6 +60,7 @@ next unless key!="created_at" and key!="id" and key!="updated_at"
 </div>
   </li>
 </ul>
+<%end%>
 <div class="col-xs-12 actions"><br>
   <%= link_to raw('<i class= "fa fa-arrow-circle-left"></i> Regresar'), registros_path, class: "btn btn-default boton" %>
 </div>

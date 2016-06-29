@@ -29,11 +29,15 @@ generar_historial
 
   def logc
     generar_historial
+    if changes.include?(:nombres) || changes.include?(:apellidos) || changes.include?(:cedula) || changes.include?(:tipo_de_cedula) || changes.include?(:fecha_de_nacimiento) || changes.include?(:telefono_fijo) || changes.include?(:telefono_movil) || changes.include?(:correo) || changes.include?(:cuenta) || changes.include?(:fotografia) || changes.include?(:sexo)|| changes.include?(:direccion) || changes.include?(:cargo_id) || changes.include?(:IVSS) || changes.include?(:TSS) || changes.include?(:FAOV) || changes.include?(:caja_de_ahorro)
     log(id.to_s,changes.to_json.to_s, 4, 0)
+    end
   end
 
   def logu
+    if changes.include?(:nombres) || changes.include?(:apellidos) || changes.include?(:cedula) || changes.include?(:tipo_de_cedula) || changes.include?(:fecha_de_nacimiento) || changes.include?(:telefono_fijo) || changes.include?(:telefono_movil) || changes.include?(:correo) || changes.include?(:cuenta) || changes.include?(:fotografia) || changes.include?(:sexo)|| changes.include?(:direccion) || changes.include?(:cargo_id) || changes.include?(:IVSS) || changes.include?(:TSS) || changes.include?(:FAOV) || changes.include?(:caja_de_ahorro)
     log(id.to_s, changes.to_json.to_s, 4, 1)
+    end
   end
 
   def logd

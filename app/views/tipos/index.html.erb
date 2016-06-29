@@ -155,7 +155,8 @@ Generar</button>
 <thead>
 <th class="actions">Nombre</th>
 
-<th class="actions" style="width: 400px;">Reportes</th>
+<th class="actions" style="width: 330px;">Reportes</th>
+<th class="actions" style="width: 190px;">Listados</th>
 <% if !current_usuario.has_role?:regular%>
 <th class="actions" style="width: 100px;">Acciones</th>
 <%end%>
@@ -175,14 +176,19 @@ Generar</button>
 <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 <%= link_to ' Bancario', tipo_path(tipo,format: "pdf")+"?doc=2&cp=&c=","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte bancario" %>
 <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=3&cp=&c=","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
-<%= link_to '', tipo_path(tipo,format: "txt"),"target": "_blank",class: "btn btn-default fa fa-file-text-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar en formato txt" %>
 </div>
 <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 <%= link_to ' Deducciones', tipo_path(tipo,format: "pdf")+"?doc=4&cp=&c=","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar reporte de conceptos" %>
 <%= link_to '', tipo_path(tipo,format: "pdf")+"?doc=5&cp=&c=","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar version Ecologica (ahorro de tinta)" %>
 </div>
-
-
+</td>
+<td>
+  <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+  <%= link_to ' Familiares', tipo_path(tipo,format: "csv")+"?csv=0","target": "_blank",class: "btn btn-default fa fa-file-excel-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar lista de familiares (formato excel)" %>
+  </div>
+  <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+  <%= link_to ' Empleados', tipo_path(tipo,format: "csv")+"?csv=1","target": "_blank",class: "btn btn-default fa fa-file-excel-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar lista de empleados  (formato excel)" %>
+  </div>
 </td>
 <% if !current_usuario.has_role?:regular%>
 <td class="actions">

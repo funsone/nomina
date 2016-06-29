@@ -11,15 +11,15 @@ class RegistrosController < ApplicationController
     when 0
       return concepto_path(reg.elemento)
       when 1
-          return conceptopersonal_path(reg.elemento)
+          return conceptospersonales_path
       when 2
-          return departamento_path(reg.elemento)
+          return departamentos_path
       when 3
-          return dependencia_path(reg.elemento)
+          return dependencias_path
       when 4
           return persona_path(reg.elemento)
       when 5
-          return tipo_path(reg.elemento)
+          return tipos_path
       when 6
           return cargo_path(reg.elemento)
     end

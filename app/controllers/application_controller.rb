@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
               'condiciones' => Hash['Ninguna' => 0, 'FAOV' => 1, 'IVSS' => 2,
                                     'TSS' => 3, 'CAJA DE AHORRO' => 4],
               'parentesco' => Hash['Hijo(a)' => 0, 'Padre' => 1, 'Madre' => 2,
-                                                          'Esposo(a)' => 3, 'otro' => 4]]
+                                                          'Esposo(a)' => 3]]
 
   def set_ahora
     $ahora = params[:ahora] ? Date.strptime(params[:ahora], '%d-%m-%Y')  : Time.current

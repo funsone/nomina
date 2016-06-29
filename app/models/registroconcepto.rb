@@ -71,6 +71,9 @@ class Registroconcepto < ActiveRecord::Base
 
   def puede_aplicar(condiciones)
     aplicar = false
+    if fecha_fin.nil? == false
+      return false if $ahora > fecha_fin
+    end
     case modalidad_de_pago
     when 0
       quincena = created_at.day <= 15 ? 0 : 1

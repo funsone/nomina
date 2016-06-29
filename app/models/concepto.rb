@@ -15,13 +15,15 @@ class Concepto < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
   def logc
+    if changes.include?(:nombre) || changes.include?(:modalidad_de_pago) || changes.include?(:tipo_de_concepto) || changes.include?(:tipos_id) || changes.include?(:condicion)
     log(id.to_s, changes.to_json.to_s, 0, 0)
+    end
   end
-
   def logu
+    if changes.include?(:nombre) || changes.include?(:modalidad_de_pago) || changes.include?(:tipo_de_concepto) || changes.include?(:tipos_id) || changes.include?(:condicion)
     log(id.to_s, changes.to_json.to_s, 0, 1)
+    end
   end
-
   def logd
     log(id.to_s, '{}'.to_json, 0, 2)
   end

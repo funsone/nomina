@@ -254,9 +254,9 @@
       <thead>
         <tr>
           <th>Parentesco</th>
-          <th>C.I</th>
+          <th>Cedula</th>
           <th>Nombres</th>
-          <th>Fecha de nacimiento</th>
+          <th>Fecha de Nacimiento</th>
             <th>Sexo</th>
         </tr>
       </thead>
@@ -265,9 +265,9 @@
         <%@persona.familiares.each do |familiar|%>
         <tr>
           <td><%=$dic["parentesco"].key(familiar.parentesco.to_i)%></td>
-          <td><%=familiar.cedula%></td>
-          <td><%="#{familiar.nombres} #{familiar.apellidos}"%></td>
-          <td><%=familiar.fecha_de_nacimiento%></td>
+          <td><%="#{$dic['tipos_de_cedula'].key(familiar.tipo_de_cedula)} #{familiar.cedula}"%></td>
+          <td><%="#{familiar.nombres.capitalize} #{familiar.apellidos.capitalize}"%></td>
+          <td><%=familiar.fecha_de_nacimiento.strftime("%d-%m-%Y")%></td>
           <td><%=$dic["sexos"].key(familiar.sexo.to_i)%></td>
         </tr>
         <%end%>
