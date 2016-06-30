@@ -105,7 +105,7 @@ class Concepto < ActiveRecord::Base
 
   def puede_aplicar(condiciones)
     if fecha_fin.nil? == false
-      return false if $ahora > fecha_fin
+      return false if $ahora >= fecha_fin
     end
     aplicar = false
     case modalidad_de_pago

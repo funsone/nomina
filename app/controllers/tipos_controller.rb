@@ -1,4 +1,5 @@
 class TiposController < ApplicationController
+  include ActionView::Helpers::DateHelper
   before_action :set_tipo, only: [:show, :edit, :update, :destroy]
 
   # GET /tipos
@@ -31,15 +32,15 @@ class TiposController < ApplicationController
         end
           send_data textf, :filename => "Familiares_#{@tipo.nombre}_#{$ahora}.csv"
         when '1'
-          textf="Cedula, Nombres, Apellidos, Status, Nomina, Cargo, Dependencia, Departamento, Fecha de Nacimiento, Sexo, Correo, Telefono Fijo, Telefono Movil, Cuenta, Direccion, A;os de Servicio\n"
+          textf="Cedula, Nombres, Apellidos, Status, Nomina, Cargo, Dependencia, Departamento, Fecha de Nacimiento, Sexo, Correo, Telefono Fijo, Telefono Movil, Cuenta, Direccion, Fecha de Contrato, Anos de Servicio\n"
 
           cargos=@tipo.cargos
           cargos.each do |cargo|
             next unless cargo.disponible == false
             persona=cargo.persona
-              textf+="\"#{$dic['tipos_de_cedula'].key(persona.tipo_de_cedula.to_i)}#{persona.cedula}\", \"#{persona.nombres.capitalize}\", \"#{persona.apellidos.capitalize}\",  \"#{persona.status}\", \"#{persona.cargo.tipo.nombre.capitalize}\", \"#{persona.cargo.nombre.capitalize}\", \"#{persona.cargo.departamento.dependencia.nombre.capitalize}\", \"#{persona.cargo.departamento.nombre.capitalize}\", \"#{persona.fecha_de_nacimiento.strftime("%d-%m-%Y")}\", \"#{$dic['sexos'].key(persona.sexo.to_i)}\", \"#{persona.correo}\", \"#{persona.telefono_fijo}\", \"#{persona.telefono_movil}\", \"#{persona.cuenta}\", \"#{persona.direccion}\", \"#{distance_of_time_in_words_hash(persona.contrato.fecha_inicio,Time.now)[:years]}\"\n"
+              textf+="\"#{$dic['tipos_de_cedula'].key(persona.tipo_de_cedula.to_i)}#{persona.cedula}\", \"#{persona.nombres.capitalize}\", \"#{persona.apellidos.capitalize}\",  \"#{persona.status}\", \"#{persona.cargo.tipo.nombre.capitalize}\", \"#{persona.cargo.nombre.capitalize}\", \"#{persona.cargo.departamento.dependencia.nombre.capitalize}\", \"#{persona.cargo.departamento.nombre.capitalize}\", \"#{persona.fecha_de_nacimiento.strftime("%d-%m-%Y")}\", \"#{$dic['sexos'].key(persona.sexo.to_i)}\", \"#{persona.correo}\", \"#{persona.telefono_fijo}\", \"#{persona.telefono_movil}\", \"#{persona.cuenta}\", \"#{persona.direccion}\", \"#{persona.contrato.fecha_inicio.strftime("%d-%m-%Y")}\", \"#{distance_of_time_in_words_hash(persona.contrato.fecha_inicio,Time.now)[:years]}\"\n"
           end
-            send_data textf, :filename => "Listado_empleados_#{$ahora}.csv"
+            send_data textf, :filename => "Empleados_#{@tipo.nombre}_#{$ahora}.csv"
         end
       end
 
