@@ -19,15 +19,24 @@
       </a>
       <ul class="dropdown-menu" style="width:100%;">
         <li class="text-center">
+          <%if @persona.status!='retirado'%>
           <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-            <%= link_to ' Recibo', persona_path(@persona,format: "pdf")+"?doc=0","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar último recibo de pago" %>
+            <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo", style:"width: 124px;" %>
+            <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
+          </div>
+          <%end%>
+        </li>
+        <li role="separator" style="margin:4px;"></li>
+        <li class="text-center">
+          <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
+            <%= link_to ' Recibo', persona_path(@persona,format: "pdf")+"?doc=0","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar último recibo de pago", style:"width: 85px;"%>
             <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=1","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
             <%= link_to '', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: 'Esta seguro?' },class: "btn btn-default fa fa-envelope reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar recibo al correo
             electrónico"%>
           </div>
         </li>
         <li role="separator" style="margin:4px;"></li>
-        <li class="text-center">
+        <li class="text-center" style="width: ;">
           <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
             <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">
               <i class="fa fa-cog">
@@ -35,18 +44,6 @@
             </button>
           </div>
         </li>
-        <li role="separator" style="margin:4px;"></li>
-
-        <li class="text-center">
-          <%if @persona.status!='retirado'%>
-          <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-            <%= link_to ' Constancia', persona_path(@persona,format: "pdf")+"?doc=2","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar constancia de trabajo" %>
-            <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=3","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
-
-          </div>
-          <%end%>
-        </li>
-
       </ul>
     </li>
     <% if can? :edit, Persona %>
@@ -65,8 +62,8 @@
         <li><%= link_to raw('<i class="fa fa-play-circle"></i> Reactivar'),  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
         <% when 'retirado'%>
         <li class="text-center">
-          <button class="btn-default" type="button" data-toggle="modal" data-target="#reingreso" style="border: 0px; width: 100%;">
-            Reingresar
+          <button class="btn-default" type="button" data-toggle="modal" data-target="#reingreso" style="border: 0px; width: 100%; font-size: 15px;">
+            <i class="fa fa-sign-in"> Reingresar</i>
           </button>
         </li>
         <%end%>
@@ -181,18 +178,18 @@
       <thead>
         <tr>
           <th>CONCEPTO</th>
-          <th>ASIGNACIÓN</th>
-          <th>DEDUCCIÓN</th>
-          <th>TOTAL</th>
+          <th class="text-right" style="width: 22%;">ASIGNACIÓN</th>
+          <th class="text-right" style="width: 22%;">DEDUCCIÓN</th>
+          <th class="text-right" style="width: 22%;">TOTAL</th>
         </tr>
       </thead>
       <%if @persona.status=='suspendido'%>
       <tbody>
         <tr>
           <td></td>
-          <td>0.00</td>
-          <td>0.00</td>
-          <td>0.00</td>
+          <td class="text-right">0.00</td>
+          <td class="text-right">0.00</td>
+          <td class="text-right">0.00</td>
         </tr>
       </tbody>
       <%else%>
@@ -200,7 +197,7 @@
       <tbody>
         <tr>
           <td><%= c['nombre'].upcase%></td>
-          <td><%=tr(c['valor'])%></td>
+          <td class="text-right"><%=tr(c['valor'])%></td>
           <td></td>
           <td></td>
         </tr>
@@ -211,19 +208,19 @@
         <tr>
           <td><%= c['nombre'].upcase%></td>
           <td></td>
-          <td><%=tr(c['valor'])%></td>
+          <td class="text-right"><%=tr(c['valor'])%></td>
           <td></td>
         </tr>
         <% end %>
 
         <tr>
           <th></th>
-          <th><%=
+          <th class="text-right"><%=
             tr(@persona.total_asignaciones)%></th>
-          <th><%=
+          <th class="text-right"><%=
             tr(@persona.total_deducciones)
             %></th>
-          <th><%= tr(@persona.total) %></th>
+          <th class="text-right"><%= tr(@persona.total) %></th>
         </tr>
       </tbody>
       <%end%>
@@ -257,7 +254,7 @@
           <th>Cedula</th>
           <th>Nombres</th>
           <th>Fecha de Nacimiento</th>
-            <th>Sexo</th>
+          <th>Sexo</th>
         </tr>
       </thead>
 
@@ -420,6 +417,6 @@ Reingresar</h4>
 <!--fin modal cambio de cargo-->
 <script type="text/javascript">
 function reingresar() {
-  $('#cargo_select').val() :
+  $('#cargo_select').val() ;
 }
 </script>

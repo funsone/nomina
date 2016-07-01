@@ -166,11 +166,11 @@ generar_historial
         if c.fecha_inicio.day<=15
           min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 1)
         else
-          min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 15)
+          min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 16)
         end
         max=0
         if c.fecha_fin.day<=15
-          max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, 16)
+          max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, 15)
         else
           max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, -1)
         end
@@ -181,10 +181,11 @@ generar_historial
     lunes = [1]
     inicio_mes = Date.civil($ahora.year, $ahora.month, 1)
     fin_mes = Date.civil($ahora.year, $ahora.month, -1)
-    fecha = ($quincena == 0) ? Date.civil($ahora.year, $ahora.month, 16) : fin_mes
-    sueldos = cargo.sueldos.where('created_at <= ? ', fecha)
-    if sueldos.empty?
+    fecha = ($quincena == 0) ? Date.civil($ahora.year, $ahora.month, 15) : fin_mes
+    sueldos = cargo.sueldos.where('created_at <= ? ', fecha+23.hours+59.minutes+59.seconds)
+    if sueldos.empty? ==true
       self.valido = false
+      throw Exception
       return 0
     end
     r = (inicio_mes..fin_mes).to_a.select { |k| lunes.include?(k.wday) }

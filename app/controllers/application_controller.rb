@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
                                                           'Esposo(a)' => 3]]
 
   def set_ahora
-    $ahora = params[:ahora] ? Date.strptime(params[:ahora], '%d-%m-%Y')  : Time.current
+    $ahora = params[:ahora] ? Date.strptime(params[:ahora], '%d-%m-%Y')  : Date.strptime("#{Time.now.day}-#{Time.now.mon}-#{Time.now.year}", '%d-%m-%Y')
     $quincena = ($ahora.day <= 15) ? 0  : 1
 
       Usuario.current = current_user if current_user

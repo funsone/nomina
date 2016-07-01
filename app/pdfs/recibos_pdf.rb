@@ -3,7 +3,11 @@ class RecibosPdf < Prawn::Document
     super(left_margin: 50)
     banner = 'app/assets/images/banner.png'
     if eco == 1
-      font 'public/fonts/eco.ttf'
+      font_families.update("eco" => {
+          :normal => "public/fonts/eco.ttf",
+          :bold => "public/fonts/eco.ttf"
+        })
+      font 'eco'
       banner = 'app/assets/images/banner_bn.png'
     end
     @cargos = tipo.cargos
@@ -15,7 +19,6 @@ class RecibosPdf < Prawn::Document
     table([[tipo.nombre.upcase]], cell_style: { border_width: 1, size: 8, borders: [:top, :bottom] }, width: 500)
     table([['SEDE FUNSONE']], cell_style: { border_width: 1, size: 8, borders: [:bottom] }, width: 500)
     table([['', "ASIGNACIÓN", "DEDUCCIÓN", 'TOTAL A PAGAR']], cell_style: { border_width: 0, size: 9, align: :right, font_style: :bold }, header: true, column_widths: [200, 100, 100, 100], width: 500)
-    # ele=1
     @cargos.each do |s|
       s.persona_ahora
       next unless s.d == false

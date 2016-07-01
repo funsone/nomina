@@ -5,7 +5,11 @@ class ConstanciaPdf < Prawn::Document
     banner_abajo = 'app/assets/images/banner_abajo.png'
     tam = 0
     if eco == 1
-      font 'public/fonts/eco.ttf'
+      font_families.update("eco" => {
+          :normal => "public/fonts/eco.ttf",
+          :bold => "public/fonts/eco.ttf"
+        })
+      font 'eco'
       tam = 2
       banner = 'app/assets/images/banner_bn.png'
       banner_abajo = 'app/assets/images/banner_abajo_bn.png'

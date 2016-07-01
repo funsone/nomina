@@ -105,7 +105,7 @@ class Concepto < ActiveRecord::Base
 
   def puede_aplicar(condiciones)
     if fecha_fin.nil? == false
-      return false if $ahora >= fecha_fin
+      return false if $ahora > fecha_fin
     end
     aplicar = false
     case modalidad_de_pago
@@ -164,7 +164,7 @@ class Concepto < ActiveRecord::Base
   end
 
   def calcular(fecha, sueldo, sueldo_integral, lunes_del_mes)
-    f = formulas.where('created_at < ?', fecha)
+    f = formulas.where('created_at < ?', fecha+23.hours+59.minutes+59.seconds)
     self.valido = false
     unless f.empty?
       calc = Dentaku::Calculator.new

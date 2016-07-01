@@ -4,7 +4,11 @@ class ConceptosPdf < Prawn::Document
     # Tipo.first.conceptos.last.tipos.last.cargos.last.persona
     banner = 'app/assets/images/banner.png'
     if eco == 1
-      font 'public/fonts/eco.ttf'
+      font_families.update("eco" => {
+          :normal => "public/fonts/eco.ttf",
+          :bold => "public/fonts/eco.ttf"
+        })
+      font 'eco'
       banner = 'app/assets/images/banner_bn.png'
     end
     conceptos = tipo.conceptos
