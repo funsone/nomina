@@ -20,9 +20,8 @@
 //= require_tree .
 
 var fun= function (){
-  $(function () {
+
     $('[data-toggle="popover"]').popover();
-  });
 
         $('#main-menu').metisMenu();
         var $this = $('#main-menu'),
@@ -30,12 +29,18 @@ var fun= function (){
           self = this;
         var initCollapse = function(el) {
           if ($(window).width() >= 768) {
-            this.find('li').has('ul').children('a').off('click');
-          }
+          $('#main-menu').find('li').has('ul').children('a').off('click');
+          $('#page-wrapper').css("margin-left","260px");
+          $(".sidebar-collapse").collapse('show');
+        }else {
+          $(".sidebar-collapse").collapse('hide');
+          $('#page-wrapper').css("margin-left","0px");
+
+        }
         };
         $(window).resize(function() {
           clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(self.initCollapse($this), 250);
+          resizeTimer = setTimeout(initCollapse($this), 250);
         });
 
 }
