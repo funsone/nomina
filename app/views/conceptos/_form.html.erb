@@ -93,13 +93,16 @@
       <% end %>
 
       <div class="col-xs-12">
-        <%= label_tag 'Nóminas' %><br/>
+        <%= f.label :tipo_ids %><br/>
+        <%  d =(Concepto._attr_readonly.include?("tipo_ids") and f.object.id.nil? == false) ? "disabled" : " "%>
+        <div data-toggle="popover" data-trigger="hover" data-placement="top" title= "Nominas" data-content="Este campo no podrá ser editado despúes de guardar.">
         <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
         <div class="collection-check-box form-group checkbox-inline boton">
-          <%= b.check_box class: ""%>
+          <%= b.check_box class: "", "#{d}": true%>
           <%= b.label class: "" %>
         </div>
         <% end %>
+        </div>
       </div>
       <%= render 'layouts/botones', p: conceptos_path  %>
     </div>

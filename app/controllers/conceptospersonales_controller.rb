@@ -12,7 +12,7 @@ class ConceptospersonalesController < ApplicationController
   # GET /conceptospersonales/1.json
   def show
     respond_to do |format|
-      format.html { redirect_to conceptospersonales_path, notice: 'Ruta no disponible.' }
+      format.html { redirect_to conceptospersonales_path, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Ruta no disponible.' }
     end
   end
 
@@ -37,7 +37,7 @@ class ConceptospersonalesController < ApplicationController
       if @conceptopersonal.save
 
 
-        format.html { redirect_to conceptospersonales_path, notice: 'El concepto fue creado exitosamente.' }
+        format.html { redirect_to conceptospersonales_path, notice: '<i class="fa fa-check-square fa-lg"></i> El concepto fue creado exitosamente.' }
         format.json { render :show, status: :created, location: @conceptopersonal }
       else
         format.html { render :new }
@@ -54,7 +54,7 @@ class ConceptospersonalesController < ApplicationController
       if @conceptopersonal.update(conceptopersonal_params)
 
 
-        format.html { redirect_to conceptospersonales_path, notice: 'Los datos del concepto fueron actualizados exitosamente.' }
+        format.html { redirect_to conceptospersonales_path, notice: '<i class="fa fa-check-square fa-lg"></i> Los datos del concepto fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @conceptopersonal }
       else
         format.html { render :edit }
@@ -68,10 +68,10 @@ class ConceptospersonalesController < ApplicationController
   def destroy
     authorize! :destroy, Conceptopersonal
     @conceptopersonal.destroy
-    
+
 
     respond_to do |format|
-      format.html { redirect_to conceptospersonales_url, notice: 'El concepto fue eliminado exitosamente.' }
+      format.html { redirect_to conceptospersonales_url, notice: '<i class="fa fa-check-square fa-lg"></i> El concepto fue eliminado exitosamente.' }
       format.json { head :no_content }
     end
   end
@@ -84,7 +84,7 @@ class ConceptospersonalesController < ApplicationController
         @lt = '<a href="' + conceptopersonal_path(@conceptopersonal) + '"> ' + @conceptopersonal.nombre + '</a>'
       else
         respond_to do |format|
-          format.html { redirect_to conceptospersonales_url, alert: 'Concepto no encontrado en la base de datos.' }
+          format.html { redirect_to conceptospersonales_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Concepto no encontrado en la base de datos.' }
         end
       end
     end

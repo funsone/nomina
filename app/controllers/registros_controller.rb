@@ -36,7 +36,7 @@ class RegistrosController < ApplicationController
         authorize! :destroy, Registro
     Registro.destroy_all
     respond_to do |format|
-      format.html { redirect_to registros_url, notice: 'Registro limpiado exitosamente.' }
+      format.html { redirect_to registros_url, notice: '<i class="fa fa-check-square fa-lg"></i> Registro limpiado exitosamente.' }
       format.json { head :no_content }
     end
   end
@@ -85,7 +85,7 @@ end
 
     else
       respond_to do |format|
-          format.html { redirect_to personas_url, alert: 'El registro no se encuentra en la base de datos.' }
+          format.html { redirect_to personas_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> El registro no se encuentra en la base de datos.' }
         end
     end
   end

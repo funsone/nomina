@@ -24,6 +24,18 @@ class CargosController < ApplicationController
     # GET /cargos/new
     def new
         authorize! :create, Cargo
+        if Departamento.all.length <= 0
+            respond_to do |format|
+                format.html { redirect_to departamentos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Es necesario agregar departamento.' }
+            end
+            return 0
+          end
+        if Tipo.all.length <= 0
+            respond_to do |format|
+                format.html { redirect_to tipos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Es necesario agregar nomina.' }
+            end
+              return 0
+        end
         @cargo = Cargo.new
         @cargo.sueldos.build
     end
@@ -42,7 +54,7 @@ class CargosController < ApplicationController
         respond_to do |format|
             if @cargo.save
 
-                format.html { redirect_to @cargo, notice: 'El cargo fue creado exitosamente.' }
+                format.html { redirect_to @cargo, notice: '<i class="fa fa-check-square fa-lg"></i> El cargo fue creado exitosamente.' }
                 format.json { render :show, status: :created, location: @cargo }
             #  @sueldo.save
             else
@@ -61,7 +73,7 @@ class CargosController < ApplicationController
             if @cargo.update(cargo_params)
 
 
-                format.html { redirect_to @cargo, notice: 'Los datos del cargo fueron actualizados exitosamente.' }
+                format.html { redirect_to @cargo, notice: '<i class="fa fa-check-square fa-lg"></i> Los datos del cargo fueron actualizados exitosamente.' }
                 format.json { render :show, status: :ok, location: @cargo }
             else
                 format.html { render :edit }
@@ -75,10 +87,10 @@ class CargosController < ApplicationController
     def destroy
         authorize! :destroy, Cargo
         @cargo.destroy
-        
+
 
         respond_to do |format|
-            format.html { redirect_to cargos_url, notice: 'El cargo fue eliminado exitosamente.' }
+            format.html { redirect_to cargos_url, notice: '<i class="fa fa-check-square fa-lg"></i> El cargo fue eliminado exitosamente.' }
             format.json { head :no_content }
         end
     end
@@ -92,7 +104,7 @@ class CargosController < ApplicationController
 
         else
             respond_to do |format|
-                format.html { redirect_to cargos_url, alert: 'Cargo no encontrado en la base de datos.' }
+                format.html { redirect_to cargos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Cargo no encontrado en la base de datos.' }
             end
         end
     end

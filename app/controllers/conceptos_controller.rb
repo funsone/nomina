@@ -16,11 +16,11 @@ class ConceptosController < ApplicationController
         respond_to do |format|
           if params["destroy"].nil? ==false and @concepto.eliminable
             @concepto.destroy
-            format.html { redirect_to @concepto, notice: 'El concepto fue eliminado.' }
+            format.html { redirect_to @concepto, notice: '<i class="fa fa-check-square fa-lg"></i> El concepto fue eliminado exitosamente.' }
 
           elsif params["disable"].nil? ==false  and @concepto.desactivable
             @concepto.desactivar
-            format.html { redirect_to @concepto, notice: 'El concepto fue desactivado exitosamente' }
+            format.html { redirect_to @concepto, notice: '<i class="fa fa-check-square fa-lg"></i> El concepto fue desactivado exitosamente.' }
           else
             format.html
           end
@@ -31,6 +31,11 @@ class ConceptosController < ApplicationController
     # GET /conceptos/new
     def new
         authorize! :create, Concepto
+        if Tipo.all.length <= 0
+            respond_to do |format|
+                format.html { redirect_to tipos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Es necesario agregar nomina.' }
+            end
+        end
         @concepto = Concepto.new
         @concepto.formulas.build
     end
@@ -56,7 +61,7 @@ class ConceptosController < ApplicationController
             if @concepto.save
 
 
-                format.html { redirect_to @concepto, notice: 'El concepto fue creado exitosamente.' }
+                format.html { redirect_to @concepto, notice: '<i class="fa fa-check-square fa-lg"></i> El concepto fue creado exitosamente.' }
                 format.json { render :show, status: :created, location: @concepto }
             else
                 format.html { render :new }
@@ -79,7 +84,7 @@ class ConceptosController < ApplicationController
             if @concepto.update(concepto_params)
 
 
-                format.html { redirect_to @concepto, notice: 'Los datos del concepto fueron actualizados exitosamente.' }
+                format.html { redirect_to @concepto, notice: '<i class="fa fa-check-square fa-lg"></i> Los datos del concepto fueron actualizados exitosamente.' }
                 format.json { render :show, status: :ok, location: @concepto }
             else
                 format.html { render :edit } if params[:concepto][:tipo_ids]
@@ -96,7 +101,7 @@ class ConceptosController < ApplicationController
 
 
         respond_to do |format|
-            format.html { redirect_to conceptos_url, notice: 'El concepto fue eliminado exitosamente.' }
+            format.html { redirect_to conceptos_url, notice: '<i class="fa fa-check-square fa-lg"></i> El concepto fue eliminado exitosamente.' }
             format.json { head :no_content }
         end
     end
@@ -110,7 +115,7 @@ class ConceptosController < ApplicationController
             @lt = '<a href="' + concepto_path(@concepto) + '"> ' + @concepto.nombre + '</a>'
         else
             respond_to do |format|
-                format.html { redirect_to conceptos_url, alert: 'Concepto no encontrado en la base de datos.' }
+                format.html { redirect_to conceptos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Concepto no encontrado en la base de datos.' }
             end
         end
     end

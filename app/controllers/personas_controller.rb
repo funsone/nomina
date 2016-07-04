@@ -59,7 +59,7 @@ class PersonasController < ApplicationController
           end
 
         rescue Exception => e
-          msg="Recibo no enviado, verifique su conexion a internet."
+          msg='<i class="fa fa-exclamation-triangle fa-lg"></i> Recibo no enviado, verifique su conexion a internet.'
           errorm=true
         end
 
@@ -75,7 +75,7 @@ class PersonasController < ApplicationController
         else
             respond_to do |format|
               if msg==''
-                format.html { redirect_to @persona, notice: 'Recibo enviado.' }
+                format.html { redirect_to @persona, notice: '<i class="fa fa-check-square fa-lg"></i> Recibo enviado.' }
               else
                 format.html { redirect_to @persona, alert: msg }
               end
@@ -89,7 +89,7 @@ class PersonasController < ApplicationController
         respond_to do |format|
             format.html do
                 if @persona.valido == false
-                redirect_to @persona, notice: 'La persona no tiene registros para esa fecha.'
+                redirect_to @persona, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> La persona no tiene registros para esa fecha.'
                 end
             end
 
@@ -120,7 +120,7 @@ class PersonasController < ApplicationController
         if c.desactivable
         c.desactivar
         respond_to do |format|
-          format.html { redirect_to persona_path(@persona), notice: "El concepto personal fue desactivado exitosamente" }
+          format.html { redirect_to persona_path(@persona), notice: '<i class="fa fa-check-square fa-lg"></i> El concepto personal fue desactivado exitosamente.' }
 
         end
         end
@@ -149,13 +149,13 @@ class PersonasController < ApplicationController
              @persona.generar_historial
              end
             @persona.reingresar!
-            msg = 'El empleado a sido recontratado'
+            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado a sido recontratado'
           else
-            msg = 'el cargo ya esta ocupado, edite el empleado y seleccione otro.'
+            msg = '<i class="fa fa-exclamation-triangle fa-lg"></i> El cargo ya esta ocupado, edite el empleado y seleccione otro.'
           end
         when '3'
             @persona.suspender!
-            msg = 'El empleado a sido suspendido'
+            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado a sido suspendido.'
         end
         respond_to do |format|
             format.html { redirect_to @persona, notice: msg }
@@ -169,8 +169,8 @@ class PersonasController < ApplicationController
         @editable = true
         if Cargo.where('disponible=true').length <= 0
             respond_to do |format|
-                format.html { redirect_to personas_url, alert: 'No hay cargo disponibles.' }
-                format.json { render json: @persona.errors, status: 'No hay cargos disponibles' }
+                format.html { redirect_to cargos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> No hay cargo disponibles.' }
+                format.json { render json: @persona.errors, status: 'No hay cargos disponibles.' }
             end
 
 
@@ -185,7 +185,7 @@ class PersonasController < ApplicationController
       authorize! :update, Persona
       if @persona.status=='retirado'
         respond_to do |format|
-            format.html { redirect_to @persona, alert: 'El empleado esta retirado, no es posible editar los datos.' }
+            format.html { redirect_to @persona, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> El empleado esta retirado, no es posible editar los datos.' }
             format.json { head :no_content }
         end
       end
@@ -204,7 +204,7 @@ class PersonasController < ApplicationController
 
                 @persona.cargo.save
                 #  Cargo.where(id: params[:cargo_id]).update_all(disponible: false);
-                format.html { redirect_to @persona, notice: 'La persona fue contratada exitosamente.' }
+                format.html { redirect_to @persona, notice: '<i class="fa fa-check-square fa-lg"></i> La persona fue contratada exitosamente.' }
                 format.json { render :show, status: :created, location: @persona }
             else
                 format.html { render :new }
@@ -222,7 +222,7 @@ class PersonasController < ApplicationController
         respond_to do |format|
             if @persona.update(persona_params)
 
-                format.html { redirect_to @persona, notice: 'Los datos del empleado fueron actualizados exitosamente.' }
+                format.html { redirect_to @persona, notice: '<i class="fa fa-check-square fa-lg"></i> Los datos del empleado fueron actualizados exitosamente.' }
                 format.json { render :show, status: :ok, location: @persona }
             else
                 format.html { render :edit }
@@ -239,7 +239,7 @@ class PersonasController < ApplicationController
         @persona.destroy
 
         respond_to do |format|
-            format.html { redirect_to personas_url, notice: 'El empleado fue despedido.' }
+            format.html { redirect_to personas_url, notice: '<i class="fa fa-check-square fa-lg"></i> El empleado fue despedido.' }
             format.json { head :no_content }
         end
     end
@@ -252,7 +252,7 @@ class PersonasController < ApplicationController
       @persona = Persona.find(params[:id])
       else
         respond_to do |format|
-            format.html { redirect_to personas_url, alert: 'Persona no encontrada en la base de datos.' }
+            format.html { redirect_to personas_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Persona no encontrada en la base de datos.' }
           end
       end
     end

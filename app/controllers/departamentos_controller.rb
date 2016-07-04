@@ -13,7 +13,7 @@ class DepartamentosController < ApplicationController
   # GET /departamentos/1.json
   def show
     respond_to do |format|
-      format.html { redirect_to departamentos_path, notice: 'Ruta no disponible.' }
+      format.html { redirect_to departamentos_path, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Ruta no disponible.' }
     end
   end
 
@@ -22,8 +22,7 @@ class DepartamentosController < ApplicationController
     authorize! :create, Departamento
     if Dependencia.all.length <=0
     respond_to do |format|
-      format.html { redirect_to dependencias_url, notice: 'Es necesario agregar dependencia.'  }
-      format.json { render json: @persona.errors, status: "Es necesario agregar dependencia." }
+      format.html { redirect_to dependencias_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Es necesario agregar dependencia.'  }
     end
   else
     @departamento = Departamento.new
@@ -60,7 +59,7 @@ class DepartamentosController < ApplicationController
     respond_to do |format|
       if @departamento.update(departamento_params)
 
-        format.html { redirect_to departamentos_path, notice: 'Los datos del departamento fueron actualizados exitosamente.' }
+        format.html { redirect_to departamentos_path, notice: '<i class="fa fa-check-square fa-lg"></i> Los datos del departamento fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @departamento }
       else
         format.html { render :edit }
@@ -75,7 +74,7 @@ class DepartamentosController < ApplicationController
     authorize! :destroy, Departamento
     @departamento.destroy
     respond_to do |format|
-      format.html { redirect_to departamentos_url, notice: 'El departamento fue eliminado exitosamente.' }
+      format.html { redirect_to departamentos_url, notice: '<i class="fa fa-check-square fa-lg"></i> El departamento fue eliminado exitosamente.' }
       format.json { head :no_content }
     end
   end
@@ -88,7 +87,7 @@ class DepartamentosController < ApplicationController
         @lt = '<a href="' + departamentos_path + '"> ' + @departamento.nombre + '</a>'
       else
         respond_to do |format|
-          format.html { redirect_to departamentos_url, alert: 'Departamento no encontrado en la base de datos.' }
+          format.html { redirect_to departamentos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Departamento no encontrado en la base de datos.' }
         end
       end
     end

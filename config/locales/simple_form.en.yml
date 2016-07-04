@@ -15,6 +15,7 @@ en:
             patrono: 'Fórmula (Aporte Patronal)'
       concepto:
         condicion: 'Condición'
+        tipo_ids: 'Nóminas'
         formulas:
           empleado: 'Fórmula'
           patrono: 'Fórmula (Aporte Patronal)'

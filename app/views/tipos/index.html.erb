@@ -154,9 +154,9 @@ Generar</button>
 <table class="table table-hover table-bordered table-condensed table-striped">
 <thead>
 <th class="actions">Nombre</th>
-
-<th class="actions" style="width: 330px;">Reportes</th>
-<th class="actions" style="width: 190px;">Listados</th>
+<th class="actions">Personas</th>
+<th class="actions" style="width: 32%;">Reportes</th>
+<th class="actions" style="width: 18%;">Listados</th>
 <% if !current_usuario.has_role?:regular%>
 <th class="actions" style="width: 100px;">Acciones</th>
 <%end%>
@@ -168,6 +168,7 @@ Generar</button>
 
 <tr>
 <td><%= tipo.nombre.upcase %></td>
+<td><%= Cargo.where("tipo_id=#{tipo.id} and disponible=false").length %></td>
 <td class="actions">
 <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 <%= link_to ' Recibos', tipo_path(tipo,format: "pdf")+"?doc=0&cp=&c=","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar recibos de pago" %>

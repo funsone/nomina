@@ -15,7 +15,7 @@ class TiposController < ApplicationController
   # GET /tipos/1.json
   def show
     respond_to do |format|
-      format.html { redirect_to tipos_path, notice: 'Ruta no disponible.' }
+      format.html { redirect_to tipos_path, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Ruta no disponible.' }
       format.json
       format.csv do
         case params[:csv]
@@ -38,7 +38,7 @@ class TiposController < ApplicationController
           cargos.each do |cargo|
             next unless cargo.disponible == false
             persona=cargo.persona
-              textf+="\"#{$dic['tipos_de_cedula'].key(persona.tipo_de_cedula.to_i)}#{persona.cedula}\", \"#{persona.nombres.capitalize}\", \"#{persona.apellidos.capitalize}\",  \"#{persona.status}\", \"#{persona.cargo.tipo.nombre.capitalize}\", \"#{persona.cargo.nombre.capitalize}\", \"#{persona.cargo.departamento.dependencia.nombre.capitalize}\", \"#{persona.cargo.departamento.nombre.capitalize}\", \"#{persona.fecha_de_nacimiento.strftime("%d-%m-%Y")}\", \"#{$dic['sexos'].key(persona.sexo.to_i)}\", \"#{persona.correo}\", \"#{persona.telefono_fijo}\", \"#{persona.telefono_movil}\", \"#{persona.cuenta}\", \"#{persona.direccion}\", \"#{persona.contrato.fecha_inicio.strftime("%d-%m-%Y")}\", \"#{distance_of_time_in_words_hash(persona.contrato.fecha_inicio,Time.now)[:years]}\"\n"
+              textf+="\"#{$dic['tipos_de_cedula'].key(persona.tipo_de_cedula.to_i)}#{persona.cedula}\", \"#{persona.nombres.capitalize}\", \"#{persona.apellidos.capitalize}\",  \"#{persona.status}\", \"#{persona.cargo.tipo.nombre.capitalize}\", \"#{persona.cargo.nombre.capitalize}\", \"#{persona.cargo.departamento.dependencia.nombre.capitalize}\", \"#{persona.cargo.departamento.nombre.capitalize}\", \"#{persona.fecha_de_nacimiento.strftime("%d-%m-%Y")}\", \"#{$dic['sexos'].key(persona.sexo.to_i)}\", \"#{persona.correo}\", \"#{persona.telefono_fijo}\", \"#{persona.telefono_movil}\", \"##{persona.cuenta}\", \"#{persona.direccion}\", \"#{persona.contrato.fecha_inicio.strftime("%d-%m-%Y")}\", \"#{distance_of_time_in_words_hash(persona.contrato.fecha_inicio,Time.now)[:years]}\"\n"
           end
             send_data textf, :filename => "Empleados_#{@tipo.nombre}_#{$ahora}.csv"
         end
@@ -90,7 +90,7 @@ class TiposController < ApplicationController
 
     respond_to do |format|
       if @tipo.save
-        format.html { redirect_to tipos_path, notice: 'La nómina fue creada exitosamente.' }
+        format.html { redirect_to tipos_path, notice: '<i class="fa fa-check-square fa-lg"></i> La nómina fue creada exitosamente.' }
         format.json { render :show, status: :created, location: @tipo }
       else
         format.html { render :new }
@@ -105,7 +105,7 @@ class TiposController < ApplicationController
     authorize! :update, Tipo
     respond_to do |format|
       if @tipo.update(tipo_params)
-        format.html { redirect_to tipos_path, notice: 'Los datos de la nómina fueron actualizados exitosamente.' }
+        format.html { redirect_to tipos_path, notice: '<i class="fa fa-check-square fa-lg"></i> Los datos de la nómina fueron actualizados exitosamente.' }
         format.json { head :no_content }
       end
     end
@@ -115,7 +115,7 @@ class TiposController < ApplicationController
     authorize! :destroy, Tipo
     @tipo.destroy
     respond_to do |format|
-      format.html { redirect_to tipos_url, notice: 'La nómina fue eliminada exitosamente.' }
+      format.html { redirect_to tipos_url, notice: '<i class="fa fa-check-square fa-lg"></i> La nómina fue eliminada exitosamente.' }
       format.json { head :no_content }
     end
   end
@@ -133,7 +133,7 @@ end
       @lt= '<a href="'+tipos_path+'"> '+@tipo.nombre+'</a>'
     else
       respond_to do |format|
-          format.html { redirect_to tipos_url, alert: 'Nomina no encontrada en la base de datos.' }
+          format.html { redirect_to tipos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Nomina no encontrada en la base de datos.' }
       end
     end
   end

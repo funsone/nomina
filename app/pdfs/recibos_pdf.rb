@@ -11,6 +11,9 @@ class RecibosPdf < Prawn::Document
       banner = 'app/assets/images/banner_bn.png'
     end
     @cargos = tipo.cargos
+    contador_c={}
+    contador_cp=[]
+    c_hash=Hash['nombre'=>"",'total'=>0,'personas'=>0]
     image banner, scale: 0.40, at: [37, 720]
     move_down 100
     text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 14, leading: 2
@@ -41,8 +44,8 @@ class RecibosPdf < Prawn::Document
       next unless p.status != 'retirado'
       next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
 
-      table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.nombres},#{p.apellidos}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]], cell_style: { border_width: 1, size: 8, borders: [:top] }, header: true, column_widths: [80, 280, 140], width: 500)
-      table([["CARGO: #{p.cargo.nombre.upcase}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 1, size: 8, borders: [:bottom] }, header: true, width: 500, column_widths: { 0 => 170, 2 => 120 })
+      table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]], cell_style: { border_width: 1, size: 8, borders: [:top] }, header: true, column_widths: [80, 280, 140], width: 500)
+      table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 1, size: 8, borders: [:bottom], :padding => [0, 5, 5, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 140 })
       data = []
       p.asignaciones.each do |c|
         condicion = false
@@ -59,6 +62,12 @@ class RecibosPdf < Prawn::Document
         end
         next unless condicion
         if p.status == 'activo'
+          if(!contador_c.include?(c['id']))
+            contador_c[c['id']]=c_hash
+            contador_c[c['id']]['nombre']=c['nombre']
+          end
+          contador_c[c['id']]['personas']+=1
+          contador_c[c['id']]['total']+=c['valor'].to_f
           data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
           total_asignaciones += c['valor'].to_f
         end
@@ -101,13 +110,16 @@ class RecibosPdf < Prawn::Document
     text 'RESUMEN GENERAL', align: :center, size: 14, leading: 2
     move_down 10
     table([["CONCEPTO","NRO.", "ASIGNACIÓN", "DEDUCCIÓN", 'TOTAL A PAGAR']], cell_style: { border_width: 1, borders: [:bottom], size: 9, align: :center, font_style: :bold }, header: true, width:500, column_widths: [150, 50, 100, 100, 100])
-    data3= [['', '', '', '', '']]
+    data3= []
+  contador_c.each do |key,value|
+      data3+= [[value['nombre'], value['personas'], value['total'], '', '']]
+end
     data4 = [['TOTAL GENERAL', '', '', '']]
     data5 = [['Elaborado por:            Coord. RRHH','','Revisado por:         Coord. Admon. y Finanzas','','Aprobado por: Presidencia']]
-    table(data3, header: true, width: 500, cell_style: { size: 9, border_width: 0, align: :enter, padding: [2, 5, 2, 5] }, column_widths: [150, 50, 100, 100, 100] )
-    table(data4, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:top], font_style: :bold} , column_widths: [200, 100, 100, 100], width: 500)
+    table(data3, header: true, width: 500, cell_style: { size: 10, border_width: 0, align: :center, padding: [2, 5, 2, 5] }, column_widths: [150, 50, 100, 100, 100] )
+    table(data4, header: true, cell_style: {border_width: 1, size: 10, align: :center, :borders =>[:top], font_style: :bold} , column_widths: [200, 100, 100, 100], width: 500)
     move_down 20
-    table(data5, header: true, cell_style: {border_width: 1, size: 9, align: :center, font_style: :bold} , column_widths: [120, 70, 120, 70, 120], width: 500) do
+    table(data5, header: true, cell_style: {border_width: 1, size: 10, align: :center, font_style: :bold} , column_widths: [120, 70, 120, 70, 120], width: 500) do
        column(0).borders = [:top]
       column(1).borders = []
        column(2).borders = [:top]

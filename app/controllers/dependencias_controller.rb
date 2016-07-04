@@ -13,7 +13,7 @@ class DependenciasController < ApplicationController
   # GET /dependencias/1.json
   def show
     respond_to do |format|
-      format.html { redirect_to dependencias_path, notice: 'Ruta no disponible.' }
+      format.html { redirect_to dependencias_path, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Ruta no disponible.' }
     end
   end
 
@@ -53,7 +53,7 @@ class DependenciasController < ApplicationController
     respond_to do |format|
       if @dependencia.update(dependencia_params)
 
-        format.html { redirect_to dependencias_path, notice: 'Los datos de la dependencia fueron actualizados exitosamente.' }
+        format.html { redirect_to dependencias_path, notice: '<i class="fa fa-check-square fa-lg"></i> Los datos de la dependencia fueron actualizados exitosamente.' }
         format.json { render :show, status: :ok, location: @dependencia }
       else
         format.html { render :edit }
@@ -67,9 +67,9 @@ class DependenciasController < ApplicationController
   def destroy
     authorize! :destroy, Dependencia
     @dependencia.destroy
-            
+
     respond_to do |format|
-      format.html { redirect_to dependencias_url, notice: 'La dependencia fue eliminada exitosamente.' }
+      format.html { redirect_to dependencias_url, notice: '<i class="fa fa-check-square fa-lg"></i> La dependencia fue eliminada exitosamente.' }
       format.json { head :no_content }
     end
   end
@@ -82,7 +82,7 @@ class DependenciasController < ApplicationController
         @lt = '<a href="' + dependencias_path + '"> ' + @dependencia.nombre + '</a>'
       else
         respond_to do |format|
-          format.html { redirect_to dependencias_url, alert: 'Dependencia no encontrada en la base de datos.' }
+          format.html { redirect_to dependencias_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Dependencia no encontrada en la base de datos.' }
         end
       end
     end
