@@ -62,10 +62,15 @@
       <div class="panel-body">
         <i class="fa fa-envelope fa-5x"></i>
         <h4>
-          <a href="#" class="btn btn-default bg-color-red btn-xs " id="enviar_recibos" >Enviar a todos</a></h4>
+          <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+          <a href="#" class="btn btn-default bg-color-red btn-xs " id="enviar_recibos" >Quincena Actual</a>
+
+          <a href="#" class="btn btn-default bg-color-red btn-xs " id="enviar_recibos_pasada" >Pasada</a>
+</div>
+        </h4>
       </div>
       <div class="panel-footer back-footer-red">
-        Reporte de Pago
+        <div>Enviar Reporte a todos.</div>
       </div>
     </div>
   </div>
@@ -105,18 +110,32 @@
   </div>
 </div>
 </div>
+<%
+fecha=""
+if $quincena==0
+
+if $ahora.mon==1
+fecha="24-12-#{$ahora.year-1}"
+else
+  fecha="24-#{$ahora.mon-1}-#{$ahora.year}"
+end
+else
+fecha="11-#{$ahora.mon}-#{$ahora.year}"
+end
+
+%>
 <script type="text/javascript">
 
-function s(x) {
+function s(x,y) {
   $("#progreso").html("progreso: " + x + "/" + $('.persona').length)
   $.ajax({
     method: "POST",
-    url: "/personas/" + $('.persona')[x].value + "/enviar"
+    url: "/personas/" + $('.persona')[x].value + "/enviar?ahora="+y
   }).done(function () {
     x = x + 1
     if (x < $('.persona').length) {
 
-      s(x);
+      s(x,y);
     } else {
 
       $('#enviar').modal("hide");
@@ -124,10 +143,17 @@ function s(x) {
   });
 }
 $(function () {
+  $('#enviar_recibos_pasada').click(function () {
+
+    $('#enviar').modal({backdrop: false});
+
+    s(0,"<%= fecha%>");
+
+  });
   $('#enviar_recibos').click(function () {
 
     $('#enviar').modal({backdrop: false});
-    s(0);
+    s(0,'<%="#{$ahora.day}-#{$ahora.mon}-#{$ahora.year}" %>');
 
   });
 });

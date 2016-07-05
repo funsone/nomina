@@ -13,6 +13,7 @@ class Ability
             alias_action :create, :update, destroy: :cud
             alias_action :create, :update, to: :cu
             can :cu, Dependencia
+            can :cu, Requisito
             can :cu, Departamento
             can :cu, Persona
             can :cu, Conceptopersonal
@@ -41,7 +42,7 @@ cannot :read, Usuario
         end
           cannot :read, Dependencia
           cannot :edit, Registro
-
+cannot :read, Requisito
           cannot :read, Departamento
           cannot :read, Tipo
           cannot :read, Conceptopersonal

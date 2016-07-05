@@ -124,7 +124,7 @@ class Registroconcepto < ActiveRecord::Base
       self.valor = calc.evaluate(f.empleado, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes).to_d
       self.valor_patrono = calc.evaluate(f.patrono, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes).to_d
       extra = (modalidad_de_pago == 6 || modalidad_de_pago == 5) ? true : false
-      self.para_mostrar = Hash['nombre', conceptopersonal.nombre, 'valor', truncar(valor).to_s, 'valor_patrono', truncar(valor_patrono).to_s, 'clase_de_concepto', 1, 'extra', extra]
+      self.para_mostrar = Hash['nombre', conceptopersonal.nombre, 'valor', truncar(valor).to_s, 'valor_patrono', truncar(valor_patrono).to_s, 'clase_de_concepto', 1, 'extra', extra,'id',id]
     end
   end
 

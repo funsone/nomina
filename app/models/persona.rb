@@ -99,6 +99,7 @@ generar_historial
     end
   end
   belongs_to :cargo
+    has_and_belongs_to_many :requisitos
   has_one :contrato, dependent: :destroy
   has_many :familiares, dependent: :destroy
   has_many :registrosconceptos, dependent: :destroy

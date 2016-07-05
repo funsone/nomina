@@ -6,5 +6,7 @@
 <%= link_to '', y,class: "btn btn-primary fa fa-pencil","data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Modificar" %>
 <% end%>
 <% if can? :destroy, x %>
-<%= link_to '', z,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: '¿Está seguro que desea eliminar?' },"data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Eliminar" %></div></td>
+<%= link_to '', z,class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: '¿Está seguro que desea eliminar?' },"data-toggle"=>"tooltip", "data-placement"=>"top", "title"=>"Eliminar" %>
+</div>
 <% end%>
+</div>

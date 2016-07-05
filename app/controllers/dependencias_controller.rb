@@ -37,7 +37,7 @@ class DependenciasController < ApplicationController
 
     respond_to do |format|
       if @dependencia.save
-        format.html { redirect_to dependencias_path, notice: 'La dependencia fue creada exitosamente.' }
+        format.html { redirect_to dependencias_path, notice: '<i class="fa fa-check-square fa-lg"></i> La dependencia fue creada exitosamente.' }
         format.json { render :show, status: :created, location: @dependencia }
       else
         format.html { render :new }
@@ -79,7 +79,6 @@ class DependenciasController < ApplicationController
     def set_dependencia
       if !Dependencia.where(id: params[:id]).empty?
         @dependencia = Dependencia.find(params[:id])
-        @lt = '<a href="' + dependencias_path + '"> ' + @dependencia.nombre + '</a>'
       else
         respond_to do |format|
           format.html { redirect_to dependencias_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Dependencia no encontrada en la base de datos.' }

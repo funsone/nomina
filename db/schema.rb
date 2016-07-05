@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607184659) do
+ActiveRecord::Schema.define(version: 20160705180652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,11 @@ ActiveRecord::Schema.define(version: 20160607184659) do
 
   add_index "personas", ["cargo_id"], name: "index_personas_on_cargo_id", using: :btree
 
+  create_table "personas_requisitos", id: false, force: :cascade do |t|
+    t.integer "requisito_id", null: false
+    t.integer "persona_id",   null: false
+  end
+
   create_table "registros", force: :cascade do |t|
     t.integer  "elemento"
     t.jsonb    "cambios",        default: {}, null: false
@@ -176,6 +181,12 @@ ActiveRecord::Schema.define(version: 20160607184659) do
     t.date     "fecha_fin"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+  end
+
+  create_table "requisitos", force: :cascade do |t|
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|

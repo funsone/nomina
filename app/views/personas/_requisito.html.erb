@@ -1,0 +1,34 @@
+<br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Lista de requisitos
+
+  </div>
+
+<div class="panel-body">
+  <div class="col-xs-12">
+    <button type="button" name="unselectAll" id="unselectAll" class="btn btn-default boton pull-right">Deseleccionar todo</button>
+    <button type="button" name="selectAll" id="selectAll" class="btn btn-default boton pull-right">Seleccionar todo</button>
+
+  </div>
+  <div class="col-xs-12">
+
+    <div>
+    <%= f.collection_check_boxes :requisito_ids, Requisito.all, :id, :nombre do |b| %>
+    <div class="collection-check-box form-group checkbox-inline boton">
+      <%= b.check_box class: ""%>
+      <%= b.label class: "" %>
+    </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+  </div>
+<script type="text/javascript">
+  $("#selectAll").click(function (){
+    $("[name='persona[requisito_ids][]']" ).prop('checked', true);
+  });
+  $("#unselectAll").click(function (){
+    $("[name='persona[requisito_ids][]']" ).prop('checked', false);
+  });
+</script>

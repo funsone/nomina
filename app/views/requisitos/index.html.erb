@@ -1,0 +1,44 @@
+<div class="page-header">
+  <%= render 'layouts/nuevo', msg: "Nuevo Requisito", path: new_requisito_path ,x: Requisito %>
+
+  <h1><i class="fa fa-building-o"></i> Requisitos</h1>
+</div>
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false">Lista de Requisitos</li>
+
+  <li class="list-group-item text-center ">
+    <%if Requisito.all.length>0%>
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-condensed table-striped">
+        <thead>
+          <tr>
+            <th class="actions">Nombre</th>
+            <% if !current_usuario.has_role?:regular %>
+            <th class="actions" style="width: 100px;">Acciones</th>
+            <%end%>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <% @requisitos.each do |requisito| %>
+          <tr>
+            <td><%= requisito.nombre.upcase %></td>
+<% if !current_usuario.has_role?:regular %>
+            <td class="actions">
+              <%= render 'layouts/actions', x: Requisito, y: edit_requisito_path(requisito), z: requisito %>
+            </td>
+              <%end%>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </li>
+  <%else%>
+  <div class="actions">
+    <h4>"No hay requisitos disponibles"</h4>
+  </div>
+  <%end%>
+</ul>

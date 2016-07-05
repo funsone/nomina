@@ -1,0 +1,22 @@
+<%= simple_form_for(@requisito, html: {  role: "form"})   do |f| %>
+<%= render 'layouts/errores', x: @requisito %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Datos
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.label :nombre %><br>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-align-justify"></span>
+          </span>
+          <%= f.text_field :nombre, class: "form-control", autofocus: "" %>
+        </div>
+      </div>
+      <%= render 'layouts/botones', p: requisitos_path  %>
+    </div>
+  </div>
+</div>
+<% end %>

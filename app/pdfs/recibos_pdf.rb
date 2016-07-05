@@ -12,8 +12,8 @@ class RecibosPdf < Prawn::Document
     end
     @cargos = tipo.cargos
     contador_c={}
-    contador_cp=[]
-    c_hash=Hash['nombre'=>"",'total'=>0,'personas'=>0]
+    contador_cp={}
+
     image banner, scale: 0.40, at: [37, 720]
     move_down 100
     text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 14, leading: 2
@@ -62,12 +62,18 @@ class RecibosPdf < Prawn::Document
         end
         next unless condicion
         if p.status == 'activo'
-          if(!contador_c.include?(c['id']))
-            contador_c[c['id']]=c_hash
-            contador_c[c['id']]['nombre']=c['nombre']
+          contador=contador_cp
+          if c['clase_de_concepto']==0
+          contador=contador_c
+            end
+
+          if(contador.include?(c['id']) == false)
+            contador[c['id']]=Hash['nombre'=>"",'asignacion'=>0,'deduccion'=>0,'personas'=>0]
+
           end
-          contador_c[c['id']]['personas']+=1
-          contador_c[c['id']]['total']+=c['valor'].to_f
+            contador[c['id']]['nombre']=c['nombre']
+          contador[c['id']]['personas']+=1
+          contador[c['id']]['asignacion']+=c['valor'].to_f
           data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
           total_asignaciones += c['valor'].to_f
         end
@@ -88,6 +94,19 @@ class RecibosPdf < Prawn::Document
         end
         next unless condicion
         if p.status == 'activo'
+          contador=contador_cp
+          if c['clase_de_concepto']==0
+          contador=contador_c
+            end
+
+          if(contador.include?(c['id']) == false)
+            contador[c['id']]=Hash['nombre'=>"",'asignacion'=>0,'deduccion'=>0,'personas'=>0]
+
+          end
+            contador[c['id']]['nombre']=c['nombre']
+          contador[c['id']]['personas']+=1
+          contador[c['id']]['deduccion']+=c['valor'].to_f
+
           data += [[c['nombre'].upcase, '', tr(c['valor']), '']]
           total_deducciones += c['valor'].to_f
         end
@@ -111,14 +130,34 @@ class RecibosPdf < Prawn::Document
     move_down 10
     table([["CONCEPTO","NRO.", "ASIGNACIÓN", "DEDUCCIÓN", 'TOTAL A PAGAR']], cell_style: { border_width: 1, borders: [:bottom], size: 9, align: :center, font_style: :bold }, header: true, width:500, column_widths: [150, 50, 100, 100, 100])
     data3= []
-  contador_c.each do |key,value|
-      data3+= [[value['nombre'], value['personas'], value['total'], '', '']]
+    tdeduc=0
+    tasign=0;
+
+
+contadores=[contador_c,contador_cp]
+contadores.each do |contador|
+contador.each do |key,value|
+  tdeduc+=value['deduccion']
+  tasign+=value['asignacion']
+  value['asignacion'] = if value['asignacion']==0
+    ""
+  else
+    tr(value['asignacion'])
+  end
+value['deduccion']= if value['deduccion']==0
+  ""
+else
+  tr(value['deduccion'])
 end
-    data4 = [['TOTAL GENERAL', '', '', '']]
+    data3+= [[value['nombre'], value['personas'], value['asignacion'], value['deduccion'], '']]
+end
+end
+
+    data4 = [['TOTAL GENERAL',tr(tasign), tr(tdeduc), tr(tasign-tdeduc)]]
     data5 = [['Elaborado por:            Coord. RRHH','','Revisado por:         Coord. Admon. y Finanzas','','Aprobado por: Presidencia']]
     table(data3, header: true, width: 500, cell_style: { size: 10, border_width: 0, align: :center, padding: [2, 5, 2, 5] }, column_widths: [150, 50, 100, 100, 100] )
     table(data4, header: true, cell_style: {border_width: 1, size: 10, align: :center, :borders =>[:top], font_style: :bold} , column_widths: [200, 100, 100, 100], width: 500)
-    move_down 20
+    move_down 40
     table(data5, header: true, cell_style: {border_width: 1, size: 10, align: :center, font_style: :bold} , column_widths: [120, 70, 120, 70, 120], width: 500) do
        column(0).borders = [:top]
       column(1).borders = []
