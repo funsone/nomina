@@ -13,7 +13,7 @@
             <span class="input-group-addon">
               <span class="fa fa-align-justify"></span>
             </span>
-            <%= f.text_field :nombre, class: "form-control input-text", autofocus:"", hint:"Sueldo basico que se gana en este cargo."%>
+            <%= f.text_field :nombre, class: "form-control input-text", autofocus:""%>
           </div>
         </div>
         <div class="col-xs-6">
@@ -24,7 +24,7 @@
             </span>
             <%  d =(Cargo._attr_readonly.include?("departamento_id") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-            <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre, s.id]}, f.object.departamento_id),{include_blank:'Seleccione un departamento...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Departamento",
+            <%= f.select(:departamento_id, options_for_select(Departamento.all.map{|s|[s.nombre.capitalize, s.id]}, f.object.departamento_id),{include_blank:'Seleccione un departamento...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Departamento",
             "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true)  %>
           </div>
         </div>
@@ -36,7 +36,7 @@
             </span>
             <%  d =(Cargo._attr_readonly.include?("tipo_id") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-            <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}, f.object.tipo_id),{include_blank:'Seleccione una nómina...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Nómina",
+            <%= f.select(:tipo_id, options_for_select(Tipo.all.map{|s|[s.nombre.capitalize, s.id]}, f.object.tipo_id),{include_blank:'Seleccione una nómina...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Nómina",
             "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true)  %>
           </div>
         </div>

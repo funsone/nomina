@@ -18,7 +18,7 @@ end
       <%end%>
       <% if desactivar==true and f.object.fecha_fin.nil? ==true
   %>
-      <%=link_to raw('<i class="fa fa-ban"></i>'), disablecp_persona_path(@persona)+"?cp=#{f.object.id}","data-method": "get", "data-confirm": "¿Está seguro que desea realizar esta acción? Una vez desactivado el concepto, no podrá ser habilidato nuevamente?\n   *Este concepto aplicará hasta la quincena pasada." %>
+      <%=link_to raw('<i class="fa fa-ban"></i>'), disablecp_persona_path(@persona)+"?cp=#{f.object.id}","data-method": "get", "data-confirm": "¿Está seguro que desea realizar esta acción? Una vez desactivado el concepto, no podrá ser habilitado nuevamente?\n   *Este concepto aplicará hasta la quincena pasada." %>
       <%end%>
     </div>
     <%
@@ -39,7 +39,7 @@ end
                    f.object.fecha_fin.strftime("%d-%m-%Y")
                     end
       %>
-      <b>Vigencia: <%= vigencia%></b> 
+      <b>Vigencia: <%= vigencia%></b>
 
     </div>
   </div>

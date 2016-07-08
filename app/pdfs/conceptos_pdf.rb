@@ -89,7 +89,12 @@ class ConceptosPdf < Prawn::Document
     conceptosp = Conceptopersonal.all
 
     conceptosp.each do |conceptop|
+    begin
       next unless Conceptopersonal.find(conper).nombre==conceptop.nombre
+
+    rescue Exception 
+
+    end
       registros = conceptop.registrosconceptos
       conceptoExtra = conceptop
       next if conper == '0'
@@ -100,6 +105,7 @@ class ConceptosPdf < Prawn::Document
       data = []
       registros.each do |registro|
         p = registro.persona
+        next unless p.cargo.tipo==tipo
         if conper != ''
           p.calculo true
         else

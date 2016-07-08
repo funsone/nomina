@@ -1,7 +1,7 @@
 <div class="page-header">
   <div class="pull-right">
     <% if can? :destroy, Registro %>
-    <%= link_to " Limpiar todos los registros", registro_path(0),class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: 'Esta seguro?' } %>
+    <%= link_to " Limpiar todos los registros", registro_path(0),class: "btn btn-danger fa fa-trash", method: :delete, data: { confirm: '¿Está seguro que desea realizar esta acción?' } %>
     <%end%>
   </div>
   <h1><i class="fa fa-book"></i> Registros</h1>
