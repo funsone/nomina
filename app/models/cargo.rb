@@ -1,12 +1,12 @@
 class Cargo < ActiveRecord::Base
   resourcify
   belongs_to :departamento
-  has_one :persona,  dependent: :destroy
+  has_one :persona, dependent: :destroy
   belongs_to :tipo
-  has_many :sueldos ,  dependent: :destroy
-  has_many :historiales ,  dependent: :destroy
+  has_many :sueldos, dependent: :destroy
+  has_many :historiales, dependent: :destroy
   accepts_nested_attributes_for :sueldos
-  validates :nombre, uniqueness: { case_sensitive: false }, presence: true
+  validates :nombre, presence: true
   validates :departamento_id, presence: true
   validates :tipo_id, presence: true
   self.per_page = 10
@@ -14,64 +14,59 @@ class Cargo < ActiveRecord::Base
   after_create :logc
   after_destroy :logd
   after_update :logu
-    attr_accessor :p,:d
-include Rails.application.routes.url_helpers
-def persona_ahora
-  personas= Historial.where("cargo_id = ? ", id)
+  attr_accessor :p, :d
+  include Rails.application.routes.url_helpers
+  def persona_ahora
+    personas = Historial.where('cargo_id = ? ', id)
 
-  if personas.length>0
-    personas.each do |c|
-      min=0
-      c.fecha_fin=$ahora if c.fecha_fin.nil?
-      if c.fecha_inicio.day<=15
-        min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 1)
-      else
-        min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 16)
-      end
-      max=0
-      if c.fecha_fin.day<=15
-        max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, 15)
-      else
-        max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, -1)
-      end
-
-      if (min..max).cover?($ahora)
-          self.p=c.persona
-          self.d=false
-      else
-        self.d=true
-
+    unless personas.empty?
+      personas.each do |c|
+        min = 0
+        c.fecha_fin = $ahora if c.fecha_fin.nil?
+        min = if c.fecha_inicio.day <= 15
+                Date.civil(c.fecha_inicio.year, c.fecha_inicio.mon, 1)
+              else
+                Date.civil(c.fecha_inicio.year, c.fecha_inicio.mon, 16)
+              end
+        max = 0
+        max = if c.fecha_fin.day <= 15
+                Date.civil(c.fecha_fin.year, c.fecha_fin.mon, 15)
+              else
+                Date.civil(c.fecha_fin.year, c.fecha_fin.mon, -1)
+              end
+        if (min..max).cover?($ahora)
+          self.p = c.persona
+          self.d = false
+        else
+          self.d = true
+        end
       end
     end
   end
-end
 
-def logc
-  log(id.to_s,changes.to_json.to_s, 6, 0)
-end
+  def logc
+    if changes.include?(:nombre) || changes.include?(:tipo_id) || changes.include?(:departamento_id)
+      log(id.to_s, changes.to_json.to_s, 6, 0)
+    end
+  end
 
-def logu
-  log(id.to_s, changes.to_json.to_s, 6, 1)
-end
+  def logu
+    if changes.include?(:nombre) || changes.include?(:tipo_id) || changes.include?(:departamento_id)
+      log(id.to_s, changes.to_json.to_s, 6, 1)
+    end
+  end
 
-def logd
-  log(id.to_s,"{}".to_json, 6, 2)
-end
+  def logd
+    log(id.to_s, '{}'.to_json, 6, 2)
+  end
 
   def truncar_sueldo
-    sueldos.last.monto=truncar(sueldos.last.monto)
-    sueldos.last.sueldo_integral=truncar(sueldos.last.sueldo_integral)
+    sueldos.last.monto = truncar(sueldos.last.monto)
+    sueldos.last.sueldo_integral = truncar(sueldos.last.sueldo_integral)
   end
 
-
   def actualizar
-    if Sueldo.where(cargo_id: id).length>0
-      Cargo.skip_callback(:create, :after, :logc)
-    end
-    if  !nombre_changed?   and !tipo_id_changed? and !departamento_id_changed?
-    Cargo.skip_callback(:save, :after, :logu)
-
-    end
+    return unless sueldos.last.monto_changed? || sueldos.last.sueldo_integral_changed?
 
     nuevo = false
     if $quincena == 0
@@ -95,20 +90,16 @@ end
     end
   end
 
-  def self.search(search,dep)
-  search=search.downcase
-  if dep=="" and search==""
-    order(:nombre)
-  elsif dep and dep!="" and search==""
-    where('departamento_id = CAST(? AS INTEGER)',dep)
-  elsif dep and dep!=""
-
-where('(LOWER(nombre) LIKE ? ) AND departamento_id = CAST(? AS INTEGER)', "%#{search}%",dep)
-  elsif search and search!=""
-
-  where('LOWER(nombre) LIKE ? ', "%#{search}%")
+  def self.search(search, dep)
+    search = search.downcase
+    if dep == '' && search == ''
+      order(:nombre)
+    elsif dep && dep != '' && search == ''
+      where('departamento_id = CAST(? AS INTEGER)', dep)
+    elsif dep && dep != ''
+      where('(LOWER(nombre) LIKE ? ) AND departamento_id = CAST(? AS INTEGER)', "%#{search}%", dep)
+    elsif search && search != ''
+      where('LOWER(nombre) LIKE ? ', "%#{search}%")
+    end
   end
-  end
-
-
 end

@@ -26,7 +26,9 @@
 </td>
       <td><%= registro.usuario.email %></td>
       <td>
-        <%= render 'layouts/actions', x: Registro, y: edit_registro_path(registro), z: registro %>
+        <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+<a class="btn btn-default fa fa-eye " data-toggle="tooltip" data-placement="top" title="Ver más" href="<%= registro_path(registro.id)%>"></a>
+
       </td>
     </tr>
   <% end %>
