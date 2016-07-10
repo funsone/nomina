@@ -8,7 +8,7 @@ throw Exception
       end
 
     rescue Exception => e
-  record.errors[:empleado] << " es invalida."
+  record.errors[:empleado] << " es invalida"
     end
 
     calculator = Dentaku::Calculator.new
@@ -17,7 +17,7 @@ throw Exception
 throw Exception
   end
     rescue Exception => e
-  record.errors[:patrono] << " es invalida."
+  record.errors[:patrono] << " es invalida"
     end
 
   end

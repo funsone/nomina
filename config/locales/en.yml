@@ -19,6 +19,14 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 en:
+  formulas:
+    empleado: Fórmula
+    patrono: Fórmula (Aporte Patronal)
+  condicion: Condición
+  tipo_ids: Nóminas
+  nombre: Nombre
+  modalidad_de_pago: Modalidad de Pago
+  tipo_de_concepto: Tipo de Concepto
   will_paginate:
     next_label: Siguiente →
     page_entries_info:

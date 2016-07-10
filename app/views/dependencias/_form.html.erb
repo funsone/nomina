@@ -6,8 +6,8 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-12">
-        <%= f.label :nombre %><br>
+      <div class="col-md-12 <%='has-error' if @dependencia.errors.keys.include?(:nombre) ==true %>">
+        <%= f.label :nombre,class: "control-label" %><br>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-align-justify"></span>

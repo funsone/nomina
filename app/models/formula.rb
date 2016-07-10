@@ -8,7 +8,7 @@ class MyValidator < ActiveModel::Validator
       end
 
     rescue Exception => e
-      record.errors[:empleado] << ' es invalida.'
+      record.errors[:empleado] << 'Es invalida'
     end
 
     calculator = Dentaku::Calculator.new
@@ -17,7 +17,7 @@ class MyValidator < ActiveModel::Validator
         throw Exception
       end
     rescue Exception => e
-      record.errors[:patrono] << ' es invalida.'
+      record.errors[:patrono] << 'Es invalida'
     end
   end
 end

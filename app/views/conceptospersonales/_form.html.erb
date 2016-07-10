@@ -6,8 +6,8 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-xs-6">
-        <%= f.label :nombre %><br>
+      <div class="col-xs-6 <%='has-error' if @conceptopersonal.errors.keys.include?(:nombre) ==true %>">
+        <%= f.label :nombre,class: "control-label"  %><br>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-align-justify"></span>
@@ -18,8 +18,8 @@
         </div>
       </div>
 
-      <div class="col-xs-6">
-        <%= f.label :tipo_de_concepto  %>
+      <div class="col-xs-6 <%='has-error' if @conceptopersonal.errors.keys.include?(:tipo_de_concepto) ==true %>">
+        <%= f.label :tipo_de_concepto,class: "control-label"   %>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-arrow-up"></span>

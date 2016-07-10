@@ -6,8 +6,8 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-xs-6">
-        <%= f.label :nombre %><br>
+      <div class="col-xs-6 <%='has-error' if @concepto.errors.keys.include?(:nombre) ==true %> <%='has-success' if (@concepto.errors.keys.include?(:nombre) ==false and @concepto.errors.any?)%> ">
+        <%= f.label :nombre,class: "control-label"  %><br>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-align-justify"></span>
@@ -18,8 +18,8 @@
         </div>
       </div>
 
-      <div class="col-xs-6">
-        <%= f.label :modalidad_de_pago%>
+      <div class="col-xs-6 <%='has-error' if @concepto.errors.keys.include?(:modalidad_de_pago) ==true %> <%='has-success' if (@concepto.errors.keys.include?(:modalidad_de_pago) ==false and @concepto.errors.any?)%> ">
+        <%= f.label :modalidad_de_pago,class: "control-label" %>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-calendar-o"></span>
@@ -29,8 +29,8 @@
           "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true) %>
         </div>
       </div>
-      <div class="col-xs-6">
-        <%= f.label :tipo_de_concepto  %>
+      <div class="col-xs-6 <%='has-error' if @concepto.errors.keys.include?(:tipo_de_concepto) ==true %> <%='has-success' if (@concepto.errors.keys.include?(:tipo_de_concepto) ==false and @concepto.errors.any?)%> ">
+        <%= f.label :tipo_de_concepto,class: "control-label"   %>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-exchange fa-rotate-90"></span>
@@ -42,8 +42,8 @@
         </div>
 
       </div>
-      <div class="col-xs-6">
-        <%= f.label :condicion  %>
+      <div class="col-xs-6 <%='has-error' if @concepto.errors.keys.include?(:condicion) ==true %> <%='has-success' if (@concepto.errors.keys.include?(:condicion) ==false and @concepto.errors.any?)%>">
+        <%= f.label :condicion,class: "control-label"   %>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-check-square-o"></span>
@@ -59,8 +59,8 @@
       <%= f.fields_for :formulas do |formula_builder|  %>
       <% if formula_builder.object.activo? %>
 
-      <div class="col-xs-6">
-        <%= formula_builder.label :empleado %><br>
+      <div class="col-xs-6 <%='has-error' if @concepto.errors.keys.include?(:"formulas.empleado") ==true%> <%='has-success' if (@concepto.errors.keys.include?(:"formulas.empleado") ==false and @concepto.errors.any?) %>">
+        <%= formula_builder.label :empleado,class: "control-label"  %><br>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-calculator"></span>
@@ -74,8 +74,8 @@
           </span>
         </div>
       </div>
-      <div class="col-xs-6">
-        <%= formula_builder.label :patrono %><br>
+      <div class="col-xs-6 <%='has-error' if @concepto.errors.keys.include?(:"formulas.patrono") ==true %> <%='has-success' if (@concepto.errors.keys.include?(:"formulas.patrono") ==false and @concepto.errors.any?) %>">
+        <%= formula_builder.label :patrono,class: "control-label"  %><br>
         <div class="form-group input-group">
           <span class="input-group-addon">
             <span class="fa fa-calculator"></span>
@@ -92,8 +92,8 @@
       <% end %>
       <% end %>
 
-      <div class="col-xs-12">
-        <%= f.label :tipo_ids %><br/>
+      <div class="col-xs-12 <%='has-error' if @concepto.errors.keys.include?(:tipo_ids) ==true %> <%='has-success' if (@concepto.errors.keys.include?(:tipo_ids) ==false and @concepto.errors.any?) %>">
+        <%= f.label :tipo_ids,class: "control-label"  %><br/>
         <%  d =(Concepto._attr_readonly.include?("tipo_ids") and f.object.id.nil? == false) ? "disabled" : " "%>
         <div data-toggle="popover" data-trigger="hover" data-placement="top" title= "Nominas" data-content="Este campo no podrá ser editado despúes de guardar.">
         <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>

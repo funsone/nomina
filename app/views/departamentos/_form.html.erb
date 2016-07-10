@@ -7,8 +7,8 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
-        <div class="col-md-6">
-          <%= f.label :nombre %><br>
+        <div class="col-md-6 <%='has-error' if @departamento.errors.keys.include?(:nombre) ==true %>">
+          <%= f.label :nombre,class: "control-label" %><br>
           <div class="form-group input-group">
             <span class="input-group-addon">
               <span class="fa fa-align-justify"></span>
@@ -16,8 +16,8 @@
             <%= f.text_field :nombre, class: "form-control", autofocus: "" %>
           </div>
         </div>
-        <div class="col-md-6">
-          <%= f.label :dependencia_id %><br>
+        <div class="col-md-6 <%='has-error' if @departamento.errors.keys.include?(:dependencia_id) ==true %>">
+          <%= f.label :dependencia_id,class: "control-label" %><br>
           <div class="form-group input-group">
             <span class="input-group-addon">
               <span class="fa fa-building-o"></span>

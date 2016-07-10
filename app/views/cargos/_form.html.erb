@@ -7,8 +7,8 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12">
-        <div class="col-xs-6">
-          <%= f.label :nombre %><br>
+        <div class="col-xs-6 <%='has-error' if @cargo.errors.keys.include?(:nombre) ==true %>">
+          <%= f.label :nombre,class: "control-label"  %><br>
           <div class="form-group input-group">
             <span class="input-group-addon">
               <span class="fa fa-align-justify"></span>
@@ -16,8 +16,8 @@
             <%= f.text_field :nombre, class: "form-control input-text", autofocus:""%>
           </div>
         </div>
-        <div class="col-xs-6">
-          <%= f.label :departamento_id %><br>
+        <div class="col-xs-6 <%='has-error' if @cargo.errors.keys.include?(:departamento_id) ==true %>">
+          <%= f.label :departamento_id,class: "control-label"  %><br>
           <div class="form-group input-group">
             <span class="input-group-addon">
               <span class="fa fa-building-o"></span>
@@ -28,8 +28,8 @@
             "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true)  %>
           </div>
         </div>
-        <div class="col-xs-6">
-          <%= f.label :tipo_id %><br>
+        <div class="col-xs-6 <%='has-error' if @cargo.errors.keys.include?(:tipo_id) ==true %>">
+          <%= f.label :tipo_id,class: "control-label"  %><br>
           <div class="form-group input-group">
             <span class="input-group-addon">
               <span class="fa fa-align-justify"></span>
@@ -42,9 +42,8 @@
         </div>
         <%= f.fields_for :sueldos  do |sueldo_builder|  %>
         <% if sueldo_builder.object.activo? %>
-
-        <div class="col-xs-6">
-          <%= sueldo_builder.label :monto %>
+        <div class="col-xs-6 <%='has-error' if @cargo.errors.keys.include?(:'sueldos.monto') ==true %>">
+          <%= sueldo_builder.label :monto,class: "control-label"  %>
           <div class="form-group input-group">
             <span class="input-group-addon">
               <span class="fa fa-money"></span>
@@ -52,8 +51,8 @@
             <%= sueldo_builder.text_field :monto,class: "form-control"%>
           </div>
         </div>
-        <div class="col-xs-6">
-          <%= sueldo_builder.label :sueldo_integral %>
+        <div class="col-xs-6 <%='has-error' if @cargo.errors.keys.include?(:'sueldos.sueldo_integral') ==true %>">
+          <%= sueldo_builder.label :sueldo_integral,class: "control-label"  %>
           <div class="form-group input-group">
             <span class="input-group-addon">
               <span class="fa fa-money"></span>
