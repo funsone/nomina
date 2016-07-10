@@ -14,7 +14,6 @@ class ConceptosPdf < Prawn::Document
     conceptos = tipo.conceptos
 
     conceptos.each do |concepto|
-      tipos = concepto.tipos
 
       conceptoExtra = concepto
       next if con == '0'
@@ -52,9 +51,9 @@ class ConceptosPdf < Prawn::Document
               if p.status == 'activo'
                 acu_aporte_e += c['valor'].to_d
                 acu_aporte_p += c['valor_patrono'].to_d
-                data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", tr(c['valor']), tr(c['valor_patrono']), tr((c['valor'].to_d + c['valor_patrono'].to_d))]]
+                data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", tr(c['valor']), tr(c['valor_patrono']), tr((c['valor'].to_d + c['valor_patrono'].to_d))]]
               else
-                data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", '0.00', '0.00', '0.00']]
+                data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", '0.00', '0.00', '0.00']]
               end
             end
           end
@@ -72,14 +71,30 @@ class ConceptosPdf < Prawn::Document
       table([[concepto.nombre.upcase]], cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom]}, header: true, :width => 500, :position=> :center )
       data1= [['', concepto.nombre.upcase, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
       data2 = [['', "Nro. Empleados", pc ,'' , '']]
-      table(data, header: true, cell_style: {border_width: 0, size: 8, align: :center} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
-      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:top], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
-      table(data2, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:bottom], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
+      if data!=[]
+      table(data, header: true, cell_style: {border_width: 0, size: 8, align: :right} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
+        style(row(0..200).column(2..4), padding: [5, 20, 5, 5])
+        style(row(0..200).column(1), align: :left)
+      end
+      end
+      if data1!=[]
+      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :right, :borders =>[:top], font_style: :bold} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
+        style(row(0).column(2..4), padding: [5, 20, 5, 5])
+        style(row(0).column(1), align: :center)
+      end
+      end
+      table(data2, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:bottom], font_style: :bold} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center )
       start_new_page
     end
     conceptosp = Conceptopersonal.all
 
     conceptosp.each do |conceptop|
+    begin
+      next unless Conceptopersonal.find(conper).nombre==conceptop.nombre
+
+    rescue Exception 
+
+    end
       registros = conceptop.registrosconceptos
       conceptoExtra = conceptop
       next if conper == '0'
@@ -90,6 +105,7 @@ class ConceptosPdf < Prawn::Document
       data = []
       registros.each do |registro|
         p = registro.persona
+        next unless p.cargo.tipo==tipo
         if conper != ''
           p.calculo true
         else
@@ -104,9 +120,9 @@ class ConceptosPdf < Prawn::Document
             if p.status == 'activo'
               acu_aporte_e += c['valor'].to_d
               acu_aporte_p += c['valor_patrono'].to_d
-              data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", tr(c['valor']), tr(c['valor_patrono']), tr(c['valor'].to_d + c['valor_patrono'].to_d)]]
+              data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", tr(c['valor']), tr(c['valor_patrono']), tr(c['valor'].to_d + c['valor_patrono'].to_d)]]
             else
-              data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", '0.00', '0.00', '0.00']]
+              data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", '0.00', '0.00', '0.00']]
             end
           end
         end
@@ -123,9 +139,19 @@ class ConceptosPdf < Prawn::Document
       table([[conceptop.nombre.upcase]], cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom]}, header: true, :width => 500, :position=> :center )
       data1 = [['', conceptop.nombre.upcase, tr(acu_aporte_e), tr(acu_aporte_p), tr(acu_aporte_p + acu_aporte_e)]]
       data2 = [['', "Nro. Empleados", pc ,'' , '']]
-      table(data, header: true, cell_style: {border_width: 0, size: 8, align: :center} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
-      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:top], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
-      table(data2, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:bottom], font_style: :bold} , column_widths: [80, 210, 70, 70, 70], width: 500, :position=> :center )
+      if data!=[]
+      table(data, header: true, cell_style: {border_width: 0, size: 8, align: :right} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
+        style(row(0..200).column(2..4), padding: [5, 20, 5, 5])
+        style(row(0..200).column(1), align: :left)
+      end
+      end
+      if data1!=[]
+      table(data1, header: true, cell_style: {border_width: 1, size: 9, align: :right, :borders =>[:top], font_style: :bold} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
+      style(row(0).column(2..4), padding: [5, 20, 5, 5])
+      style(row(0).column(1), align: :center)
+      end
+      end
+      table(data2, header: true, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:bottom], font_style: :bold} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center )
       start_new_page
     end
   end

@@ -75,10 +75,10 @@ class BancariosPdf < Prawn::Document
       total = total_asignaciones - total_deducciones
       pc=pc+1
       if p.status == 'activo'
-        data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], tr(total)]]
-        ptotal += p.total
+        data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], tr(total)]]
+        ptotal += total
       else
-        data += [[p.cedula.to_s, "#{p.nombres} #{p.apellidos}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], "0.00"]]
+        data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], "0.00"]]
       end
     end
 return unless pc>0
@@ -90,8 +90,18 @@ return unless pc>0
     move_down 20
     table([["CÉDULA","NOMBRES", "CUENTA", "MONTO"]],cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom], font_style: :bold}, header: true, column_widths: [80,260, 80, 80], :width => 500, :position => :center)
     data1 = [['', 'TOTAL GENERAL', '',tr(ptotal)]]
-    table(data, header: true, cell_style: { size: 8, border_width:1, :borders=>[:bottom] }, width: 500, column_widths: [80, 260, 80, 80], :position => :center)
+    if data!=[]
+    table(data, header: true, cell_style: { size: 8, border_width:1, :borders=>[:bottom], align: :right }, width: 500, column_widths: [80, 260, 80, 80], :position => :center) do
+    style(row(0..200).column(3), padding: [5, 20, 5, 5])
+    style(row(0..200).column(1..2), align: :left)
+    end
+    end
     move_down 5
-    table(data1, header: true, width: 500, cell_style: { size: 9, align: :left, border_width: 1, :borders => [:top], font_style: :bold}, column_widths: [80, 260, 80, 80], :position => :center)
+    if data1!=[]
+    table(data1, header: true, width: 500, cell_style: { size: 9, align: :left, border_width: 1, :borders => [:top], font_style: :bold}, column_widths: [80, 260, 80, 80], :position => :center) do
+    style(row(0).column(3), padding: [5, 20, 5, 5])
+    style(row(0).column(3), align: :right)
+    end
+    end
   end
 end

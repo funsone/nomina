@@ -23,7 +23,7 @@
         c=@conceptos.where(tipo_de_concepto: x).order("created_at")
         c.each do |concepto| %>
                     <tr>
-                        <td><%= concepto.nombre.capitalize %></td>
+                        <td><%= concepto.nombre.upcase %></td>
                         <td>
                             <var><%= concepto.formulas.last.empleado %></var>
                         </td>

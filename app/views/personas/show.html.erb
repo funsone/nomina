@@ -31,7 +31,7 @@
           <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
             <%= link_to ' Recibo', persona_path(@persona,format: "pdf")+"?doc=0","target": "_blank",class: "btn btn-default fa fa-file-pdf-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar último recibo de pago", style:"width: 85px;"%>
             <%= link_to '', persona_path(@persona,format: "pdf")+"?doc=1","target": "_blank",class: "btn btn-default fa fa-leaf reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar versión ecológica (ahorro de tinta)" %>
-            <%= link_to '', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: 'Esta seguro?' },class: "btn btn-default fa fa-envelope reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar recibo al correo
+            <%= link_to '', enviar_persona_path(@persona)+"?redir=1", method: :post, data: { confirm: '¿Está seguro que desea enviar?' },class: "btn btn-default fa fa-envelope reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Enviar recibo al correo
             electrónico"%>
           </div>
         </li>
@@ -56,10 +56,10 @@
         <% case @persona.status
       when 'activo'
     %>
-        <li><%= link_to raw('<i class="fa fa-pause-circle fa-fw"></i> Suspender'), cambiarestado_persona_path(@persona, estado: 3), method: :post, data: { confirm: 'Esta seguro?' } %></li>
-        <li><%= link_to raw('<i class="fa fa-stop-circle fa-fw "></i> Retirar'),  cambiarestado_persona_path(@persona, estado: 0), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+        <li><%= link_to raw('<i class="fa fa-pause-circle fa-fw"></i> Suspender'), cambiarestado_persona_path(@persona, estado: 3), method: :post, data: { confirm: '¿Está seguro que desea realizar esta acción?' } %></li>
+        <li><%= link_to raw('<i class="fa fa-stop-circle fa-fw "></i> Retirar'),  cambiarestado_persona_path(@persona, estado: 0), method: :post, data: { confirm: '¿Está seguro que desea realizar esta acción?' } %></li>
         <% when 'suspendido'%>
-        <li><%= link_to raw('<i class="fa fa-play-circle"></i> Reactivar'),  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: 'Esta seguro?' } %></li>
+        <li><%= link_to raw('<i class="fa fa-play-circle"></i> Reactivar'),  cambiarestado_persona_path(@persona, estado: 1), method: :post, data: { confirm: '¿Está seguro que desea realizar esta acción?' } %></li>
         <% when 'retirado'%>
         <li class="text-center">
           <button class="btn-default" type="button" data-toggle="modal" data-target="#reingreso" style="border: 0px; width: 100%; font-size: 15px;">
@@ -96,7 +96,7 @@
       <%= @persona.cargo.nombre.capitalize%></li>
     <li class="list-group-item text-right">
       <span class="pull-left">
-        <strong class="">Sueldo Normal</strong>
+        <strong class="">Sueldo Básico</strong>
       </span>
       <%= tr(@persona.cargo.sueldos.last.monto)%></li>
     <li class="list-group-item text-right">

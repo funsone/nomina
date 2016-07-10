@@ -25,7 +25,7 @@
             <% if f.object.dependencia_id=f.object.dependencia_id ? f.object.dependencia_id : 0%>
             <%  d =(Departamento._attr_readonly.include?("dependencia_id") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-            <%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre, s.id]}, f.object.dependencia_id),{include_blank:'Seleccione una Dependencia...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Dependencia",
+            <%= f.select(:dependencia_id, options_for_select(Dependencia.all.map{|s|[s.nombre.capitalize, s.id]}, f.object.dependencia_id),{include_blank:'Seleccione una dependencia...'},class: "form-control","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Dependencia",
             "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true)  %></span>
           <%end%>
         </div>

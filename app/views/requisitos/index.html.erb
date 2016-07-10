@@ -1,7 +1,7 @@
 <div class="page-header">
   <%= render 'layouts/nuevo', msg: "Nuevo Requisito", path: new_requisito_path ,x: Requisito %>
 
-  <h1><i class="fa fa-building-o"></i> Requisitos</h1>
+  <h1><i class="fa fa-list-alt"></i> Requisitos</h1>
 </div>
 <ul class="list-group">
   <li class="list-group-item text-muted" contenteditable="false">Lista de Requisitos</li>
@@ -42,3 +42,6 @@
   </div>
   <%end%>
 </ul>
+<div  class="col-xs-12 actions">
+<%= link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), personas_path, class: "btn btn-default btn-md boton" %>
+</div>
