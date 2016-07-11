@@ -4,7 +4,7 @@
     Datos Personales
   </div>
   <div class="panel-body">
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:cedula) ==true or @persona.errors.keys.include?(:tipo_de_cedula) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:cedula) ==true or @persona.errors.keys.include?(:tipo_de_cedula) ==true %> <%='has-success' if ((@persona.errors.keys.include?(:cedula) ==false and @persona.errors.keys.include?(:tipo_de_cedula) ==false) and @persona.errors.any?)%>">
       <%= f.label :cedula,class: "control-label" %>
       <div class="input-group form-inline">
 
@@ -30,7 +30,7 @@
         <%= f.file_field  :avatar, class: "form-control" %>
       </div>
     </div>
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:nombres) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:nombres) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:nombres) ==false and @persona.errors.any?)%>">
       <%= f.label :nombres,class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -38,7 +38,7 @@
         </span>
         <%= f.text_field :nombres,class: "form-control",maxlength: "50" %></div>
     </div>
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:apellidos) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:apellidos) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:apellidos) ==false and @persona.errors.any?)%>">
       <%= f.label :apellidos,class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -47,7 +47,7 @@
         <%= f.text_field :apellidos ,class: "form-control",maxlength: "50" %>
       </div>
     </div>
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:telefono_fijo) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:telefono_fijo) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:telefono_fijo) ==false and @persona.errors.any?)%>">
       <%= f.label "Teléfono fijo",class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -57,7 +57,7 @@
         "data-content"=>"El formato debe ser el siguiente: 0295XXXXXXX." %>
       </div>
     </div>
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:telefono_movil) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:telefono_movil) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:telefono_movil) ==false and @persona.errors.any?)%>">
       <%= f.label "Teléfono móvil",class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -67,7 +67,7 @@
         "data-content"=>"El formato debe ser el siguiente: (0424, 0414, 0426, 0416 ó 0412)XXXXXXX."  %>
       </div>
     </div>
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:correo) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:correo) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:correo) ==false and @persona.errors.any?)%>">
       <%= f.label :correo,class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">@</span>
@@ -75,7 +75,7 @@
         "data-content"=>"El formato debe ser el siguiente: correo@mail.com" %>
       </div>
     </div>
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:fecha_de_nacimiento) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:fecha_de_nacimiento) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:fecha_de_nacimiento) ==false and @persona.errors.any?)%>">
       <%= f.label :fecha_de_nacimiento,class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -84,7 +84,7 @@
         <%= f.date_field :fecha_de_nacimiento ,class: "form-control" %>
       </div>
     </div>
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:sexo) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:sexo) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:sexo) ==false and @persona.errors.any?)%>">
       <%= f.label :sexo,class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -93,7 +93,7 @@
         <%= f.select(:sexo, options_for_select($dic["sexos"],@persona.sexo),{include_blank: 'Seleccione un sexo...'},class: "form-control" )  %>
       </div>
     </div>
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:cargo_id) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:cargo_id) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:cargo_id) ==false and @persona.errors.any?)%>">
       <%= f.label :cargo_id,class: "control-label" %><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -105,7 +105,7 @@
       </div>
     </div>
 
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:cuenta) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:cuenta) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:cuenta) ==false and @persona.errors.any?)%>">
       <%= f.label :cuenta,class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -115,7 +115,7 @@
         "data-content"=>"El número de cuenta debe tener exactamente 20 dígitos."%>
       </div>
     </div>
-    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:direccion) ==true %>">
+    <div class="col-xs-6 form-group <%='has-error' if @persona.errors.keys.include?(:direccion) ==true %>  <%='has-success' if (@persona.errors.keys.include?(:direccion) ==false and @persona.errors.any?)%>">
       <%= f.label :direccion,class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -154,7 +154,7 @@
   </div>
   <div class="panel-body">
     <%= f.fields_for :contrato  do |contrato_builder|  %>
-    <div class="col-xs-6 <%='has-error' if @persona.errors.keys.include?(:"contrato.tipo_de_contrato") ==true %>">
+    <div class="col-xs-6 <%='has-error' if @persona.errors.keys.include?(:"contrato.tipo_de_contrato") ==true %>  <%='has-success' if (@persona.errors.keys.include?(:"contrato.tipo_de_contrato") ==false and @persona.errors.any?)%>">
       <%= contrato_builder.label :tipo_de_contrato,class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
@@ -163,7 +163,7 @@
         <%= contrato_builder.select(:tipo_de_contrato, options_for_select($dic["tipos_de_contrato"], @persona.contrato.tipo_de_contrato),{include_blank: 'Seleccione un tipo de contrato...'},class: "form-control" ) %>
       </div>
     </div>
-    <div class="col-xs-6 <%='has-error' if @persona.errors.keys.include?(:"contrato.fecha_inicio") ==true %>">
+    <div class="col-xs-6 <%='has-error' if @persona.errors.keys.include?(:"contrato.fecha_inicio") ==true %>  <%='has-success' if (@persona.errors.keys.include?(:'contrato.fecha_inicio') ==false and @persona.errors.any?)%>">
       <%= contrato_builder.label :fecha_inicio,class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">

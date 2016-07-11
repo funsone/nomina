@@ -3,9 +3,7 @@ class Registroconcepto < ActiveRecord::Base
   accepts_nested_attributes_for :formulaspersonales
   belongs_to :persona
   belongs_to :conceptopersonal
-  validates :conceptopersonal_id, presence: true
-  validates :modalidad_de_pago, presence: true
-
+  validates :conceptopersonal_id, :modalidad_de_pago, presence: true
   attr_readonly :modalidad_de_pago, :conceptopersonal_id
   before_update :actualizar
   before_create :poner_fecha_fin
@@ -16,7 +14,14 @@ class Registroconcepto < ActiveRecord::Base
 
     ($quincena == quincena && Time.now.month == created_at.month) ? true : false
   end
-
+  def self.valid_attribute?(attr, value)
+    mock = self.new(attr => value)
+    if mock.valid?
+      true
+    else
+      !mock.errors.has_key?(attr)
+    end
+  end
   def desactivable
     case modalidad_de_pago
     when 0..1

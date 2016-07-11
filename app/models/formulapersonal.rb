@@ -8,7 +8,7 @@ throw Exception
       end
 
     rescue Exception => e
-  record.errors[:empleado] << " es invalida"
+  record.errors[:empleado] << "Es inválida"
     end
 
     calculator = Dentaku::Calculator.new
@@ -17,13 +17,23 @@ throw Exception
 throw Exception
   end
     rescue Exception => e
-  record.errors[:patrono] << " es invalida"
+  record.errors[:patrono] << "Es inválida"
     end
 
   end
+
 end
 class Formulapersonal < ActiveRecord::Base
   include ActiveModel::Validations
   belongs_to :registroconcepto
   validates_with MyValidator
+  validates :empleado, :patrono, presence: true
+  def self.valid_attribute?(attr, value)
+    mock = self.new(attr => value)
+    if mock.valid?
+      true
+    else
+      !mock.errors.has_key?(attr)
+    end
+  end
 end

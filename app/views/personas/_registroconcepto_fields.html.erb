@@ -44,8 +44,8 @@ end
     </div>
   </div>
   <div class="panel-body">
-    <div class="col-xs-6">
-      <%= f.label "Concepto Personal" %>
+    <div class="col-xs-6 <%='has-error' if @persona.errors.keys.include?(:"registrosconceptos.conceptopersonal_id") ==true and !Registroconcepto.valid_attribute?(:conceptopersonal_id,f.object.conceptopersonal_id) %>  <%='has-success' if (@persona.errors.any? and Registroconcepto.valid_attribute?(:conceptopersonal_id,f.object.conceptopersonal_id) )%>">
+      <%= f.label "Concepto Personal", class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-align-justify"></span>
@@ -56,8 +56,8 @@ end
         "data-placement"=>"top", title: "Nombre", "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true) %>
       </div>
     </div>
-    <div class="col-xs-6">
-      <%= f.label "Modalidad de Pago" %>
+    <div class="col-xs-6 <%='has-error' if @persona.errors.keys.include?(:"registrosconceptos.modalidad_de_pago") ==true and !Registroconcepto.valid_attribute?(:modalidad_de_pago,f.object.modalidad_de_pago) %>  <%='has-success' if (@persona.errors.any? and Registroconcepto.valid_attribute?(:modalidad_de_pago,f.object.modalidad_de_pago) )%>">
+      <%= f.label "Modalidad de Pago", class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calendar-o"></span>
@@ -75,8 +75,8 @@ end
     <%= f.fields_for :formulaspersonales  do |formula_builder|
        %>
     <% if formula_builder.object.activo? %>
-    <div class="col-xs-6">
-      <%= formula_builder.label "Fórmula"%><br>
+    <div class="col-xs-6 <%='has-error' if @persona.errors.keys.include?(:"registrosconceptos.formulaspersonales.empleado") ==true and !Formulapersonal.valid_attribute?(:empleado,formula_builder.object.empleado) %>  <%='has-success' if (@persona.errors.any? and Formulapersonal.valid_attribute?(:empleado,formula_builder.object.empleado) )%>">
+      <%= formula_builder.label "Fórmula", class: "control-label" %><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
@@ -85,8 +85,8 @@ end
         <%= formula_builder.text_area :empleado, class: "form-control code","#{d}": true%>
       </div>
     </div>
-    <div class="col-xs-6">
-      <%= formula_builder.label "Fórmula patrono" %><br>
+    <div class="col-xs-6 <%='has-error' if @persona.errors.keys.include?(:"registrosconceptos.formulaspersonales.patrono") ==true and !Formulapersonal.valid_attribute?(:patrono,formula_builder.object.patrono) %>  <%='has-success' if (@persona.errors.any? and Formulapersonal.valid_attribute?(:patrono,formula_builder.object.patrono) )%>">
+      <%= formula_builder.label "Fórmula patrono", class: "control-label"  %><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>

@@ -19,6 +19,27 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 en:
+  sueldos:
+    monto: Sueldo Básico
+    sueldo_integral: Sueldo Integral
+  departamento_id: Departamento
+  dependencia_id: Dependencia
+  cargo_id: Cargo
+  tipo_id: Nómina
+  contrato:
+    fecha_inicio: Fecha contrato
+    tipo_de_contrato: Tipo de contrato
+  telefono_fijo: Teléfono fijo
+  telefono_movil: Teléfono móvil
+  correo: Correo
+  cuenta: Cuenta
+  cedula: Cédula
+  direccion: Dirección
+  tipo_de_cedula: Tipo de cédula
+  nombres: Nombre
+  apellidos: Apellido
+  fecha_de_nacimiento: Fecha de nacimiento
+  sexo: Sexo
   formulas:
     empleado: Fórmula
     patrono: Fórmula (Aporte Patronal)
@@ -27,8 +48,22 @@ en:
   nombre: Nombre
   modalidad_de_pago: Modalidad de Pago
   tipo_de_concepto: Tipo de Concepto
+  registrosconceptos:
+    conceptopersonal_id: Nombre (Concepto personal)
+    modalidad_de_pago: Modalidad de pago (Concepto personal)
+    formulaspersonales:
+      empleado: Fórmula
+      patrono: Fórmula (Aporte Patronal)
+  familiares:
+    nombres: Nombre (Familiar)
+    apellidos: Apellido (Familiar)
+    fecha_de_nacimiento: Fecha de nacimiento (familiar)
+    sexo: Sexo (familiar)
+    direccion: Dirección (familiar)
+    cedula: Cédula (familiar)
+    parentesco: Parentesco (familiar)
   will_paginate:
-    next_label: Siguiente →
+    next_label: "Siguiente →"
     page_entries_info:
       multi_page: Mostrando %{model} %{from} - %{to} de %{count} en total
       multi_page_html: Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b> en total

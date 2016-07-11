@@ -1,33 +1,27 @@
 <% if x.errors.any? %>
 <div class="alert alert-danger alert-dismissible row" role="alert">
     <div class="col-md-12">
-      <button type="button" class="close pull-right" data-dismiss="alert">
-          <span aria-hidden="true">&times;</span>
-          <span class="sr-only">Close</span>
-      </button>
+        <button type="button" class="close pull-right" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
         <h3>
             <i class="fa fa-exclamation-triangle"></i>
             No ha podido ser guardado por:
             <%= pluralize(x.errors.count, "error") %>.</h3>
-
     </div>
 
     <% x.errors.to_hash.each do |key,value| %>
     <div class="col-md-6">
-
-
-           <i class="fa fa-exclamation"></i>
-           <b><%= t(key).capitalize %></b>
-
-<ul>
-        <%  value.each do |mensaje|%>
-        <li >
-            <%=mensaje.capitalize%>.</li>
-        <% end %>
-</ul>
+        <i class="fa fa-exclamation"></i>
+        <b><%= t(key).capitalize %></b>
+        <ul>
+            <%  value.each do |mensaje|%>
+            <li>
+                <%=mensaje.capitalize%>.</li>
+            <% end %>
+        </ul>
     </div>
-
     <% end %>
-
 </div>
 <% end %>

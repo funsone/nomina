@@ -6,7 +6,7 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-12 <%='has-error' if @dependencia.errors.keys.include?(:nombre) ==true %>">
+      <div class="col-md-12 <%='has-error' if @dependencia.errors.keys.include?(:nombre) ==true %>  <%='has-success' if (@dependencia.errors.keys.include?(:nombre) ==false and @dependencia.errors.any?)%>">
         <%= f.label :nombre,class: "control-label" %><br>
         <div class="form-group input-group">
           <span class="input-group-addon">

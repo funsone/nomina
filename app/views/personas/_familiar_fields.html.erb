@@ -1,17 +1,16 @@
 <div class="panel panel-default nested-fields">
   <div class="panel-heading">
     Familiar
-    <%=@persona.errors.keys%>
     <div class="pull-right"><%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%></div>
   </div>
   <div class="panel-body">
-    <div class="col-sm-4 form-group">
-      <%= f.label :cedula %>
+    <div class="col-sm-4 form-group  <%='has-error' if @persona.errors.keys.include?(:"familiares.cedula") ==true and Familiar.valid_attribute?(:cedula,f.object.cedula) != true%>  <%='has-success' if (@persona.errors.any? and Familiar.valid_attribute?(:cedula,f.object.cedula))%>">
+      <%= f.label :cedula, class: "control-label" %>
       <div class="input-group form-inline">
         <span class="input-group-btn" >
           <%  d =(Familiar._attr_readonly.include?("tipo_de_cedula") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-          <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], @persona.tipo_de_cedula),{},class: "btn btn-default dropdown-toggle",style: "padding:5.5px 12px;width:60px;","#{d}": true) %>
+          <%= f.select(:tipo_de_cedula, options_for_select($dic["tipos_de_cedula"], f.object.tipo_de_cedula),{},class: "btn btn-default dropdown-toggle form-control",style: "padding:5.5px 12px;width:60px;","#{d}": true) %>
         </span>
         <%  d =(Familiar._attr_readonly.include?("cedula") and f.object.id.nil? == false) ? "disabled" : " "%>
         <%= f.telephone_field :cedula ,class: "form-control",label: false, error: "Campo obligarotio.",maxlength: "8", pattern:"[0-9]{8}","data-toggle"=>"popover", "data-trigger"=>"focus", "data-placement"=>"top", title: "Número de Cédula",
@@ -21,8 +20,8 @@
         </span>
     </div>
     </div>
-    <div class="col-sm-4">
-      <%= f.label :nombres %>
+    <div class="col-sm-4 <%='has-error' if @persona.errors.keys.include?(:"familiares.nombres") ==true and !Familiar.valid_attribute?(:nombres,f.object.nombres) %>  <%='has-success' if (@persona.errors.any? and Familiar.valid_attribute?(:nombres,f.object.nombres) )%>">
+      <%= f.label :nombres, class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-align-justify"></span>
@@ -30,8 +29,8 @@
         <%= f.text_field :nombres,class: "form-control"  %>
       </div>
     </div>
-    <div class="col-sm-4">
-      <%= f.label :apellidos %>
+    <div class="col-sm-4 <%='has-error' if @persona.errors.keys.include?(:"familiares.apellidos") ==true and !Familiar.valid_attribute?(:apellidos,f.object.apellidos) %>  <%='has-success' if (@persona.errors.any? and Familiar.valid_attribute?(:apellidos,f.object.apellidos) )%>">
+      <%= f.label :apellidos, class: "control-label"  %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-align-justify"></span>
@@ -39,8 +38,8 @@
         <%= f.text_field :apellidos,class: "form-control"  %>
       </div>
     </div>
-    <div class="col-sm-4">
-      <%= f.label :parentesco %>
+    <div class="col-sm-4  <%='has-error' if @persona.errors.keys.include?(:"familiares.parentesco") ==true and !Familiar.valid_attribute?(:parentesco,f.object.parentesco) %>  <%='has-success' if (@persona.errors.any? and Familiar.valid_attribute?(:parentesco,f.object.parentesco) )%>">
+      <%= f.label :parentesco, class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-user"></span>
@@ -48,8 +47,8 @@
         <%= f.select(:parentesco, options_for_select($dic["parentesco"],f.object.parentesco),{include_blank: 'Seleccione el parentesco...'},class: "form-control" )  %>
       </div>
     </div>
-    <div class="col-sm-4">
-      <%= f.label :fecha_de_nacimiento %>
+    <div class="col-sm-4 <%='has-error' if @persona.errors.keys.include?(:"familiares.fecha_de_nacimiento") ==true and !Familiar.valid_attribute?(:fecha_de_nacimiento,f.object.fecha_de_nacimiento) %>  <%='has-success' if (@persona.errors.any? and Familiar.valid_attribute?(:fecha_de_nacimiento,f.object.fecha_de_nacimiento) )%>">
+      <%= f.label :fecha_de_nacimiento, class: "control-label"  %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calendar"></span>
@@ -57,8 +56,8 @@
         <%= f.date_field :fecha_de_nacimiento,class: "form-control"  %>
       </div>
     </div>
-    <div class="col-sm-4">
-      <%= f.label :sexo %>
+    <div class="col-sm-4  <%='has-error' if @persona.errors.keys.include?(:"familiares.sexo") ==true and !Familiar.valid_attribute?(:sexo,f.object.sexo) %>  <%='has-success' if (@persona.errors.any? and Familiar.valid_attribute?(:sexo,f.object.sexo) )%>">
+      <%= f.label :sexo, class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-venus-mars"></span>
@@ -66,8 +65,8 @@
         <%= f.select(:sexo, options_for_select($dic["sexos"],f.object.sexo ),{include_blank: 'Seleccione un sexo...'},class: "form-control"  ) %>
       </div>
     </div>
-    <div class="col-sm-12">
-      <%= f.label :direccion %>
+    <div class="col-sm-12  <%='has-error' if @persona.errors.keys.include?(:"familiares.direccion") ==true and !Familiar.valid_attribute?(:direccion,f.object.direccion) %>  <%='has-success' if (@persona.errors.any? and Familiar.valid_attribute?(:direccion,f.object.direccion) )%>">
+      <%= f.label :direccion, class: "control-label" %>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-home"></span>

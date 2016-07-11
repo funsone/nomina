@@ -10,14 +10,14 @@
         <a href="#datos" data-toggle="tab">Principal
         </a>
       </li>
-      <li class="">
-        <a href="#familiares" data-toggle="tab">Familia</a>
-      </li>
       <% if Requisito.all.length>0%>
       <li class="">
         <a href="#requisitos" data-toggle="tab">Requisitos</a>
       </li>
       <%end%>
+      <li class="">
+        <a href="#familiares" data-toggle="tab">Familia</a>
+      </li>
       <% if Conceptopersonal.all.length>0%>
       <li class="">
         <a href="#conceptospersonales" data-toggle="tab">Conceptos Personales</a>
@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="tab-pane fade" id="requisitos">
-      
+
           <%= render 'requisito',f: f  %>
       </div>
       <div class="tab-pane fade" id="conceptospersonales">
