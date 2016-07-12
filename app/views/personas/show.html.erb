@@ -26,6 +26,7 @@
           </div>
           <%end%>
         </li>
+          <%if @persona.status!='retirado'%>
         <li role="separator" style="margin:4px;"></li>
         <li class="text-center">
           <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
@@ -36,6 +37,7 @@
           </div>
         </li>
         <li role="separator" style="margin:4px;"></li>
+        <%end%>
         <li class="text-center" style="width: ;">
           <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
             <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">
@@ -149,17 +151,12 @@
       <strong class="">Fecha de inicio</strong>
     </span>
     <%= @persona.contrato.fecha_inicio.strftime("%d/#{$dic["meses"].key(@persona.contrato.fecha_inicio.month).capitalize}/%Y")%></li>
-  <li class="list-group-item text-right">
-    <span class="pull-left">
-      <strong class="">Años de servicio</strong>
-    </span>
-    <%= distance_of_time_in_words_hash(@persona.contrato.fecha_inicio,Time.now)[:years]%></li>
-  <% if @persona.contrato.tipo_de_contrato == 1%>
+  <% if @persona.contrato.tipo_de_contrato == 1 or @persona.status== 'retirado'%>
   <li class="list-group-item text-right">
     <span class="pull-left">
       <strong class="">Fecha de fin</strong>
     </span>
-    <%= @persona.contrato.fecha_fin%></li>
+    <%= @persona.contrato.fecha_fin.strftime("%d/#{$dic["meses"].key(@persona.contrato.fecha_fin.month).capitalize}/%Y")%></li>
   <%elsif @persona.contrato.tipo_de_contrato == 2%>
   <li class="list-group-item text-right">
     <span class="pull-left">
@@ -167,6 +164,13 @@
     </span>
     <%= tr(@persona.contrato.sueldo_externo)%></li>
   <%end%>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Años de servicio</strong>
+    </span>
+    <%= "0" if @persona.contrato.fecha_inicio.year == $ahora.year %>
+    <%= (@persona.status == 'retirado') ? distance_of_time_in_words_hash(@persona.contrato.fecha_inicio,@persona.contrato.fecha_fin)[:years] : distance_of_time_in_words_hash(@persona.contrato.fecha_inicio,Time.now)[:years]%>
+  </li>
 </ul>
 </div>
 <% if @persona.status!='retirado' %>
@@ -247,14 +251,14 @@
 <ul class="list-group">
   <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-users"></i> Familiar (es)</li>
   <li class="list-group-item">
-    <table class="table table-hover table-condensed">
+    <table class="table table-hover table-condensed text-center">
       <thead>
         <tr>
-          <th>Parentesco</th>
-          <th>Cedula</th>
-          <th>Nombres</th>
-          <th>Fecha de Nacimiento</th>
-          <th>Sexo</th>
+          <th class="actions">Parentesco</th>
+          <th class="actions" style="width:16%;">Cédula</th>
+          <th class="actions">Nombres</th>
+          <th class="actions" style="width:17%;">Fecha de Nacimiento</th>
+          <th class="actions" style="width:10%;">Sexo</th>
         </tr>
       </thead>
 
@@ -263,7 +267,7 @@
         <tr>
           <td><%=$dic["parentesco"].key(familiar.parentesco.to_i)%></td>
           <td><%="#{$dic['tipos_de_cedula'].key(familiar.tipo_de_cedula)} #{familiar.cedula}"%></td>
-          <td><%="#{familiar.nombres.capitalize} #{familiar.apellidos.capitalize}"%></td>
+          <td class="text-capitalize"><%="#{familiar.nombres} #{familiar.apellidos}"%></td>
           <td><%=familiar.fecha_de_nacimiento.strftime("%d-%m-%Y")%></td>
           <td><%=$dic["sexos"].key(familiar.sexo.to_i)%></td>
         </tr>
@@ -311,7 +315,9 @@
           <%
 sueldo=Sueldo.first.created_at
 i=1
-while sueldo<$ahora
+limite = $ahora
+limite= @persona.contrato.fecha_fin if @persona.status== 'retirado'
+while sueldo<limite
   quincena=(sueldo.day<=15)? 0:1
 dia= (quincena==0) ? 11 : 17
 fecha="#{dia}-#{sueldo.month}-#{sueldo.year}"

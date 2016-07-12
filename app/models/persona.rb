@@ -55,6 +55,9 @@ generar_historial
     transitions from: :activo, to: :retirado
       after do
         h_viejo = Historial.where('persona_id = ? ', id).last
+
+        self.contrato.fecha_fin= $ahora
+        self.save
         unless h_viejo.nil?
           h_viejo.cargo.disponible = true
           h_viejo.cargo.save
@@ -86,6 +89,9 @@ generar_historial
     event :reingresar do
       transitions from: :retirado, to: :activo
       before do
+          self.contrato.fecha_inicio = $ahora
+          self.contrato.fecha_fin= ""
+          self.save
         if cargo.disponible = true
           cargo.disponible= false
         end

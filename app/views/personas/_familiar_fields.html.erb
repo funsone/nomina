@@ -4,7 +4,7 @@
     <div class="pull-right"><%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%></div>
   </div>
   <div class="panel-body">
-    <div class="col-sm-4 form-group  <%='has-error' if @persona.errors.keys.include?(:"familiares.cedula") ==true and Familiar.valid_attribute?(:cedula,f.object.cedula) != true%>  <%='has-success' if (@persona.errors.any? and Familiar.valid_attribute?(:cedula,f.object.cedula))%>">
+    <div class="col-sm-4 form-group  <%='has-error' if @persona.errors.keys.include?(:"familiares.cedula") and f.object.id.nil?%>  <%='has-success' if (@persona.errors.any? and f.object.id.nil? ==false)%>">
       <%= f.label :cedula, class: "control-label" %>
       <div class="input-group form-inline">
         <span class="input-group-btn" >
