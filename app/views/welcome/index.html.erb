@@ -110,7 +110,8 @@
   </div>
 </div>
 </div>
-<%
+</input>
+<!--<%
 fecha=""
 if $quincena==0
 
@@ -127,7 +128,7 @@ end
 <script type="text/javascript">
 
 function s(x,y) {
-  $('#enviar').modal("show");
+//  $('#enviar').modal("show");
   $("#progreso").html("progreso: " + x + "/" + $('.persona').length)
   $.ajax({
     method: "POST",
@@ -155,6 +156,32 @@ $(function () {
 
   });
 });
-</script>
+</script>-->
 
-</div>
+<script type="text/javascript">
+
+function s(x) {
+  $("#progreso").html("progreso: " + x + "/" + $('.persona').length)
+  $.ajax({
+    method: "POST",
+    url: "/personas/" + $('.persona')[x].value + "/enviar"
+  }).done(function () {
+    x = x + 1
+    if (x < $('.persona').length) {
+
+      s(x);
+    } else {
+
+      $('#enviar').modal("hide");
+    }
+  });
+}
+$(function () {
+  $('#enviar_recibos').click(function () {
+
+    $('#enviar').modal({backdrop: false});
+    s(0);
+
+  });
+});
+</script>
