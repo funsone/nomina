@@ -128,14 +128,14 @@ class PersonasController < ApplicationController
     end
 
     def cambiarestado
-        msg = 'El cambio de estado no puede ser procesado'
+        msg = '<i class="fa fa-exclamation-triangle fa-lg"></i> El cambio de estado no puede ser procesado.'
         case params[:estado]
         when '0'
             @persona.retirar!
-            msg = 'El empleado se ha retirado'
+            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado se ha retirado.'
         when '1'
             @persona.reactivar!
-            msg = 'El empleado a sido reactivado'
+            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado a sido reactivado.'
         when '2'
           ncargo=Cargo.find(params[:cargo_id]);
           gh=false
@@ -149,7 +149,7 @@ class PersonasController < ApplicationController
              @persona.generar_historial
              end
             @persona.reingresar!
-            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado a sido recontratado'
+            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado a sido recontratado.'
           else
             msg = '<i class="fa fa-exclamation-triangle fa-lg"></i> El cargo ya esta ocupado, edite el empleado y seleccione otro.'
           end

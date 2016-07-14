@@ -1,91 +1,91 @@
 <div class="row">
-  <div class="col-md-3">
-    <div class="panel panel-primary text-center no-boder bg-color-red">
-      <div class="panel-body">
-        <i class="fa fa-building-o fa-5x"></i>
-        <h3><%= Dependencia.all.length%></h3>
-      </div>
-      <div class="panel-footer back-footer-red">
-        Dependencias
-      </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary text-center no-boder bg-color-red">
+            <div class="panel-body">
+                <i class="fa fa-building-o fa-5x"></i>
+                <h3><%= Dependencia.all.length%></h3>
+            </div>
+            <div class="panel-footer back-footer-red">
+                Dependencias
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="panel panel-primary text-center no-boder bg-color-red">
-      <div class="panel-body">
-        <i class="fa fa-building-o fa-5x"></i>
-        <h3><%= Departamento.all.length%></h3>
-      </div>
-      <div class="panel-footer back-footer-red">
-        Departamentos
-      </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary text-center no-boder bg-color-red">
+            <div class="panel-body">
+                <i class="fa fa-building-o fa-5x"></i>
+                <h3><%= Departamento.all.length%></h3>
+            </div>
+            <div class="panel-footer back-footer-red">
+                Departamentos
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="panel panel-primary text-center no-boder bg-color-red">
-      <div class="panel-body">
-        <span class="fa-stack  fa-fw," style="font-size: 2.5em;">
-            <i class="fa fa-user fa-stack-2x" style="color:white;"></i>
-            <i class="fa fa-money fa-stack-1x" style="color:grey; margin-top:0.5em; margin-left:0.3em;"></i>
-          </span>
-        <h3><%= Tipo.all.length%></h3>
-      </div>
-      <div class="panel-footer back-footer-red">
-        Nóminas
-      </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary text-center no-boder bg-color-red">
+            <div class="panel-body">
+                <span class="fa-stack  fa-fw," style="font-size: 2.5em;">
+                    <i class="fa fa-user fa-stack-2x" style="color:white;"></i>
+                    <i class="fa fa-money fa-stack-1x" style="color:grey; margin-top:0.5em; margin-left:0.3em;"></i>
+                </span>
+                <h3><%= Tipo.all.length%></h3>
+            </div>
+            <div class="panel-footer back-footer-red">
+                Nóminas
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="panel panel-primary text-center no-boder bg-color-red">
-      <div class="panel-body">
-        <i class="fa fa-briefcase fa-5x"></i>
-          <h3><%= Cargo.all.where(disponible:true).length%></h3>
-      </div>
-      <div class="panel-footer back-footer-red">
-        Cargos Disponibles
-      </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary text-center no-boder bg-color-red">
+            <div class="panel-body">
+                <i class="fa fa-briefcase fa-5x"></i>
+                <h3><%= Cargo.all.where(disponible:true).length%></h3>
+            </div>
+            <div class="panel-footer back-footer-red">
+                Cargos Disponibles
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="panel panel-primary text-center no-boder bg-color-red">
-      <div class="panel-body">
-        <i class="fa fa-users fa-5x"></i>
-        <h3><%= Persona.all.length%></h3>
-      </div>
-      <div class="panel-footer back-footer-red">
-        Empleados
-      </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary text-center no-boder bg-color-red">
+            <div class="panel-body">
+                <i class="fa fa-users fa-5x"></i>
+                <h3><%= Persona.all.length%></h3>
+            </div>
+            <div class="panel-footer back-footer-red">
+                Empleados
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="panel panel-primary text-center no-boder bg-color-red">
-      <div class="panel-body">
-        <i class="fa fa-envelope fa-5x"></i>
-        <h4>
-          <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-          <a href="#" class="btn btn-default bg-color-red btn-xs " id="enviar_recibos" >Quincena Actual</a>
+    <div class="col-md-3">
+        <div class="panel panel-primary text-center no-boder bg-color-red">
+            <div class="panel-body">
+                <i class="fa fa-envelope fa-5x"></i>
+                <h4>
+                    <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                        <a href="#" class="btn btn-default bg-color-red btn-xs " id="enviar_recibos">Quincena Actual</a>
 
-          <a href="#" class="btn btn-default bg-color-red btn-xs " id="enviar_recibos_pasada" >Pasada</a>
-</div>
-        </h4>
-      </div>
-      <div class="panel-footer back-footer-red">
-        <div>Enviar Reporte a Todos</div>
-      </div>
+                        <a href="#" class="btn btn-default bg-color-red btn-xs " id="enviar_recibos_pasada">Pasada</a>
+                    </div>
+                </h4>
+            </div>
+            <div class="panel-footer back-footer-red">
+                <div>Enviar Reporte a Todos</div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="panel panel-primary text-center no-boder bg-color-red">
-      <div class="panel-body">
-        <i class="fa fa-chrome fa-5x"></i>
-        <h4>
-          <%= link_to raw("Descargar"), "/GoogleChromeApp.crx", class:"btn btn-default bg-color-red btn-xs"%></h4>
-      </div>
-      <div class="panel-footer back-footer-red">
-        Extensión de Chrome
-      </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary text-center no-boder bg-color-red">
+            <div class="panel-body">
+                <i class="fa fa-chrome fa-5x"></i>
+                <h4>
+                    <%= link_to raw("Descargar"), "/GoogleChromeApp.crx", class:"btn btn-default bg-color-red btn-xs"%></h4>
+            </div>
+            <div class="panel-footer back-footer-red">
+                Extensión de Chrome
+            </div>
+        </div>
     </div>
-  </div>
 
 </div>
 <hr/>
@@ -98,17 +98,17 @@
 <input type="hidden" class="persona" value="<%=persona.id%>">
 <%end%>
 <div class="modal fade" id="enviar" tabindex="-1" role="dialog" aria-labelledby="enviar" style="margin-top: 200px;">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header  text-center">
-      <i class="fa fa-refresh fa-spin fa-5x fa-fw margin-bottom"></i>
-      <span class="sr-only">Loading...</span>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header  text-center">
+                <i class="fa fa-refresh fa-spin fa-5x fa-fw margin-bottom"></i>
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="modal-footer">
+                <div id="progreso" class="text-center"></div>
+            </div>
+        </div>
     </div>
-    <div class="modal-footer">
-      <div id="progreso" class="text-center"></div>
-    </div>
-  </div>
-</div>
 </div>
 </input>
 <!--<%
@@ -161,27 +161,27 @@ $(function () {
 <script type="text/javascript">
 
 function s(x) {
-  $("#progreso").html("progreso: " + x + "/" + $('.persona').length)
-  $.ajax({
-    method: "POST",
-    url: "/personas/" + $('.persona')[x].value + "/enviar"
-  }).done(function () {
-    x = x + 1
-    if (x < $('.persona').length) {
+    $("#progreso").html("progreso: " + x + "/" + $('.persona').length)
+    $.ajax({
+        method: "POST",
+        url: "/personas/" + $('.persona')[x].value + "/enviar"
+    }).done(function () {
+        x = x + 1
+        if (x < $('.persona').length) {
 
-      s(x);
-    } else {
+            s(x);
+        } else {
 
-      $('#enviar').modal("hide");
-    }
-  });
+            $('#enviar').modal("hide");
+        }
+    });
 }
 $(function () {
-  $('#enviar_recibos').click(function () {
+    $('#enviar_recibos').click(function () {
 
-    $('#enviar').modal({backdrop: false});
-    s(0);
+        $('#enviar').modal({backdrop: false});
+        s(0);
 
-  });
+    });
 });
 </script>
