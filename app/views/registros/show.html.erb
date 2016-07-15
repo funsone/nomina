@@ -44,7 +44,7 @@
           </tr>
         </thead>
         <tbody>
-<%@registro.cambios.each do |key,value|
+<%@cambios.each do |key,value|
 next unless key!="created_at" and key!="id" and key!="updated_at"
 %>
 <% value[0]="Ninguno" if value[0].nil?%>
