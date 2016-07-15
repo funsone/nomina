@@ -127,7 +127,10 @@ GEM
       mime-types
       mimemagic (= 0.3.0)
     pdf-core (0.6.1)
+    pg (0.18.4)
     pkg-config (1.1.7)
+    postgresql (1.0.0)
+      pg
     prawn (2.1.0)
       pdf-core (~> 0.6.1)
       ttfunk (~> 1.4.0)
@@ -247,6 +250,7 @@ DEPENDENCIES
   jquery-turbolinks
   mysql2
   paperclip (~> 4.2)
+  postgresql
   prawn
   prawn-table
   puma
