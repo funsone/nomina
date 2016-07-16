@@ -82,7 +82,7 @@ end
   def set_registro
     if(Registro.where(id: params[:id] ).length>0)
     @registro = Registro.find(params[:id])
-    @cambios=eval(@registro.cambios.gsub("null","nil"))
+
     else
       respond_to do |format|
           format.html { redirect_to personas_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> El registro no se encuentra en la base de datos.' }

@@ -5,16 +5,15 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: mysql2
+  adapter: postgresql
   pool: 5
   database: nomina
-
 development:
   <<: *default
   host: localhost
   timeout: 5000
-  username: pos
-  password: "0"
+  user: pos
+  password: 0
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
@@ -24,5 +23,4 @@ test:
 
 production:
   <<: *default
-  adapter: postgresql
   #database: db/production.sqlite3
