@@ -17,7 +17,7 @@
     <%= f.collection_check_boxes :requisito_ids, Requisito.all, :id, :nombre do |b| %>
     <div class="collection-check-box form-group checkbox-inline boton">
       <%= b.check_box class: ""%>
-      <%= b.label class: "" %>
+      <%= b.label class: "text-capitalize" %>
     </div>
     <% end %>
     </div>

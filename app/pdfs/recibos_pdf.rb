@@ -45,7 +45,8 @@ class RecibosPdf < Prawn::Document
       next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
 
       table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]], cell_style: { border_width: 1, size: 8, borders: [:top] }, header: true, column_widths: [80, 280, 140], width: 500)
-      table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 1, size: 8, borders: [:bottom], :padding => [0, 5, 5, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 140 })
+      table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 140 })
+      table([["ESTADO: #{p.status.capitalize}"]], cell_style: { border_width: 1, size: 8, borders: [:bottom]}, header: true, width: 500)
       data = []
       p.asignaciones.each do |c|
         condicion = false
@@ -113,7 +114,7 @@ class RecibosPdf < Prawn::Document
       end
       data1 = [['', tr(total_asignaciones), tr(total_deducciones), tr(total_asignaciones - total_deducciones)]]
       if data != []
-        table(data, header: true, width: 500, cell_style: { size: 8, border_width: 0, align: :right, padding: [2, 5, 2, 5] }, column_widths: [200, 100, 100, 100]) do
+        table(data, header: true, width: 500, cell_style: { size: 8, border_width: 0, align: :right, padding: [2, 5, 2, 25] }, column_widths: [200, 100, 100, 100]) do
           style(row(0..10).column(0), align: :left)
         end
       end
@@ -128,7 +129,9 @@ class RecibosPdf < Prawn::Document
     move_down 100
     text 'RESUMEN GENERAL', align: :center, size: 14, leading: 2
     move_down 10
-    table([["CONCEPTO","NRO.", "ASIGNACIÓN", "DEDUCCIÓN", 'TOTAL A PAGAR']], cell_style: { border_width: 1, borders: [:bottom], size: 9, align: :center, font_style: :bold }, header: true, width:500, column_widths: [150, 50, 100, 100, 100])
+    table([["CONCEPTO","NRO.", "ASIGNACIÓN", "DEDUCCIÓN", 'TOTAL A PAGAR']], cell_style: { border_width: 1, borders: [:bottom], size: 9, align: :right, font_style: :bold }, header: true, width:500, column_widths: [150, 50, 100, 100, 100]) do
+        style(row(0).column(0), align: :left)
+    end
     data3= []
     tdeduc=0
     tasign=0;
@@ -149,14 +152,18 @@ value['deduccion']= if value['deduccion']==0
 else
   tr(value['deduccion'])
 end
-    data3+= [[value['nombre'], value['personas'], value['asignacion'], value['deduccion'], '']]
+    data3+= [["#{value['nombre'].upcase}", value['personas'], value['asignacion'], value['deduccion'], '']]
 end
 end
 
-    data4 = [['TOTAL GENERAL',tr(tasign), tr(tdeduc), tr(tasign-tdeduc)]]
+    data4 = [['TOTAL GENERAL', '',tr(tasign), tr(tdeduc), tr(tasign-tdeduc)]]
     data5 = [['Elaborado por:            Coord. RRHH','','Revisado por:         Coord. Admon. y Finanzas','','Aprobado por: Presidencia']]
-    table(data3, header: true, width: 500, cell_style: { size: 10, border_width: 0, align: :center, padding: [2, 5, 2, 5] }, column_widths: [150, 50, 100, 100, 100] )
-    table(data4, header: true, cell_style: {border_width: 1, size: 10, align: :center, :borders =>[:top], font_style: :bold} , column_widths: [200, 100, 100, 100], width: 500)
+    if data3!=[]
+      table(data3, header: true, width: 500, cell_style: { size: 10, border_width: 0, align: :right, padding: [2, 5, 2, 15] }, column_widths: [150, 50, 100, 100, 100] ) do
+        style(row(0..10).column(0), align: :left)
+      end
+    end
+    table(data4, header: true, cell_style: {border_width: 1, size: 10, align: :right, :borders =>[:top], font_style: :bold} , column_widths: [150, 50, 100, 100, 100], width: 500)
     move_down 40
     table(data5, header: true, cell_style: {border_width: 1, size: 10, align: :center, font_style: :bold} , column_widths: [120, 70, 120, 70, 120], width: 500) do
        column(0).borders = [:top]

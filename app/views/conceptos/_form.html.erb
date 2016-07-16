@@ -99,7 +99,7 @@
         <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
         <div class="collection-check-box form-group checkbox-inline boton">
           <%= b.check_box class: "", "#{d}": true%>
-          <%= b.label class: "" %>
+          <%= b.label class: "text-uppercase" %>
         </div>
         <% end %>
         </div>
