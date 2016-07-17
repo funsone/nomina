@@ -114,17 +114,16 @@
 <%
 fecha=""
 if $quincena==0
-
-if $ahora.mon==1
-fecha="24-12-#{$ahora.year-1}"
+  if $ahora.mon==1
+    fecha="24-12-#{$ahora.year-1}"
+  else
+    fecha="24-#{$ahora.mon-1}-#{$ahora.year}"
+  end
 else
-  fecha="24-#{$ahora.mon-1}-#{$ahora.year}"
+  fecha="11-#{$ahora.mon}-#{$ahora.year}"
 end
-else
-fecha="11-#{$ahora.mon}-#{$ahora.year}"
-end
-
 %>
+
 <script type="text/javascript">
 
 function s(x,y) {
@@ -133,7 +132,7 @@ $('#enviar').modal("show");
   $.ajax({
     statusCode: {
     500: function() {
-      $("#progreso").html("Error interno!");
+      $("#progreso").html("¡Error interno!");
       $("#progreso_icon").attr("class","fa fa-ban fa-5x");
     }
   },
@@ -142,12 +141,10 @@ $('#enviar').modal("show");
   }).done(function () {
     x = x + 1
     if (x < $('.persona').length) {
-
       s(x,y);
     } else {
-      $("#progreso").html("Todos los recibos enviados!");
+      $("#progreso").html("¡Todos los recibos han sido enviados!");
       $("#progreso_icon").attr("class","fa fa-check fa-5x");
-
     }
   });
 }
@@ -156,12 +153,10 @@ $(function () {
 
 $("#progreso_icon").attr("class","fa fa-refresh fa-spin fa-5x fa-fw margin-bottom");
     s(0,"<%= fecha%>");
-
   });
   $('#enviar_recibos').click(function () {
 $("#progreso_icon").attr("class","fa fa-refresh fa-spin fa-5x fa-fw margin-bottom");
     s(0,'<%="#{$ahora.day}-#{$ahora.mon}-#{$ahora.year}" %>');
-
   });
 });
 </script>
