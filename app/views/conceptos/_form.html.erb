@@ -94,11 +94,11 @@
 
       <div class="col-xs-12 <%='has-error' if @concepto.errors.keys.include?(:tipo_ids) ==true %> <%='has-success' if (@concepto.errors.keys.include?(:tipo_ids) ==false and @concepto.errors.any?) %>">
         <%= f.label :tipo_ids,class: "control-label"  %><br/>
-        <%  d =(Concepto._attr_readonly.include?("tipo_ids") and f.object.id.nil? == false) ? "disabled" : " "%>
-        <div data-toggle="popover" data-trigger="hover" data-placement="top" title= "Nominas" data-content="Este campo no podrá ser editado despúes de guardar.">
+        <%  d =(Concepto._attr_readonly.include?("tipo_ids") and f.object.id.nil? == false) ? 'onclick="return false"' : " "%>
+        <div data-toggle="popover" data-trigger="hover" data-placement="top" title= "Nóminas" data-content="Este campo no podrá ser editado despúes de guardar.">
         <%= f.collection_check_boxes :tipo_ids, Tipo.all, :id, :nombre do |b| %>
         <div class="collection-check-box form-group checkbox-inline boton">
-          <%= b.check_box class: "", "#{d}": true%>
+          <%= b.check_box class: "", "#{d}": " "%>
           <%= b.label class: "text-uppercase" %>
         </div>
         <% end %>

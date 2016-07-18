@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
               'tipo_de_accion' => Hash['success' => 0, 'info' => 1, 'danger' => 2],
               'tipo_de_accion_def' => Hash['fa fa-star' => 0, 'fa fa-pencil' => 1, 'fa fa-trash' => 2],
               'clases' => Hash['Concepto' => 0, 'Concepto Personal' => 1, 'Departamento' => 2,
-                              'Dependencia' => 3, 'Empleado' => 4, 'Nomina' => 5,
+                              'Dependencia' => 3, 'Empleado' => 4, 'Nómina' => 5,
                               'Cargo' => 6
               ],
               'meses' => Hash['ENERO' => 1, 'FEBRERO' => 2, 'MARZO' => 3,

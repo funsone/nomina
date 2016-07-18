@@ -32,7 +32,7 @@ class TiposController < ApplicationController
         end
           send_data textf, :filename => "Familiares_#{@tipo.nombre}_#{$ahora}.csv"
         when '1'
-          textf="Cedula, Nombres, Apellidos, Status, Nomina, Cargo, Dependencia, Departamento, Fecha de Nacimiento, Sexo, Correo, Telefono Fijo, Telefono Movil, Cuenta, Direccion, Fecha de Contrato, Anos de Servicio\n"
+          textf="Cedula, Nombres, Apellidos, Status, Nomina, Cargo, Dependencia, Departamento, Fecha de Nacimiento, Sexo, Correo, Telefono Fijo, Telefono Movil, Cuenta, Direccion, Fecha de Contrato, Anios de Servicio\n"
 
           cargos=@tipo.cargos
           cargos.each do |cargo|
@@ -133,7 +133,7 @@ end
       @lt= '<a href="'+tipos_path+'"> '+@tipo.nombre+'</a>'
     else
       respond_to do |format|
-          format.html { redirect_to tipos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Nomina no encontrada en la base de datos.' }
+          format.html { redirect_to tipos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Nómina no encontrada en la base de datos.' }
       end
     end
   end

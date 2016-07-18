@@ -33,7 +33,7 @@ class ConceptosController < ApplicationController
         authorize! :create, Concepto
         if Tipo.all.length <= 0
             respond_to do |format|
-                format.html { redirect_to tipos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Es necesario agregar nomina.' }
+                format.html { redirect_to tipos_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Es necesario agregar nómina.' }
             end
         end
         @concepto = Concepto.new

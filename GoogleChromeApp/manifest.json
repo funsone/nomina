@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "FUNSONE nomina",
-    "description": "Sistema de gestión de nomina",
+    "name": "FUNSONE nómina",
+    "description": "Sistema de gestión de nómina",
     "version": "1.1",
     "icons": {
         "128": "logo.png"

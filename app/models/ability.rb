@@ -31,7 +31,6 @@ class Ability
             can :read, Persona
             cannot :destroy, Registro
             can :read, Concepto
-            can :read, Conceptopersonal
             can :read, Cargo
             can :read, Tipo
             can :read, Registroconcepto
@@ -46,6 +45,8 @@ cannot :read, Requisito
           cannot :read, Departamento
           cannot :read, Tipo
           cannot :read, Conceptopersonal
+          cannot :edit, Conceptopersonal
+          cannot :update, Conceptopersonal
         #
         # The first argument to `can` is the action you are giving the user
         # permission to do.

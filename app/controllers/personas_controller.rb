@@ -151,7 +151,7 @@ class PersonasController < ApplicationController
             @persona.reingresar!
             msg = '<i class="fa fa-check-square fa-lg"></i> El empleado a sido recontratado.'
           else
-            msg = '<i class="fa fa-exclamation-triangle fa-lg"></i> El cargo ya esta ocupado, edite el empleado y seleccione otro.'
+            msg = '<i class="fa fa-exclamation-triangle fa-lg"></i> El cargo se encuentra ocupado, edite el empleado y seleccione otro.'
           end
         when '3'
             @persona.suspender!
@@ -185,7 +185,7 @@ class PersonasController < ApplicationController
       authorize! :update, Persona
       if @persona.status=='retirado'
         respond_to do |format|
-            format.html { redirect_to @persona, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> El empleado esta retirado, no es posible editar los datos.' }
+            format.html { redirect_to @persona, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> El empleado está retirado, no es posible editar los datos.' }
             format.json { head :no_content }
         end
       end
