@@ -17,6 +17,7 @@
 //= require codemirror
 //= require codemirror/modes/ruby
 //= require turbolinks
+//= require Chart
 //= require_tree .
 
 var fun= function (){

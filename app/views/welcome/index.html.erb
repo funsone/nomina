@@ -87,7 +87,143 @@
         </div>
     </div>
 
+    <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Estadisticas (ultimos 5 meses)
+
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                              <canvas id="myChart"  height="65px"></canvas>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+
+
+  <script>
+var ctx = document.getElementById("myChart");
+var data = {
+  <%
+
+label=[5]
+data=[5]
+data_cp=[5]
+data_c=[5]
+data_cargo=[5]
+5.times do |x|
+fecha=$ahora - (x).month
+ini=DateTime.civil(fecha.year,fecha.mon,1,00,00,00)
+fin=DateTime.civil(fecha.year,fecha.mon,-1,00,00,00)
+label[x]=$dic["meses"].key(fecha.mon)
+condicion="created_at >= '#{ini}' AND created_at <= '#{fin}'"
+data[x]=Persona.all.where(condicion).length
+data_cp[x]=Conceptopersonal.all.where(condicion).length
+data_c[x]=Concepto.all.where(condicion).length
+data_cargo[x]=Cargo.all.where(condicion).length
+end
+
+    %>
+    labels: ["<%=label[4]%>", "<%=label[3]%>", "<%=label[2]%>", "<%=label[1]%>","<%=label[0]%>"],
+    datasets: [
+        {
+            label: "Contrataciones",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [<%="#{data[4]},#{data[3]},#{data[2]},#{data[1]},#{data[0]}"%>],
+        },
+        {
+            label: "Cargos",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,19,0.4)",
+            borderColor: "rgba(75,192,19,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,19,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,19,1)",
+            pointHoverBorderColor: "rgba(220,220,22,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [<%="#{data_cargo[4]},#{data_cargo[3]},#{data_cargo[2]},#{data_cargo[1]},#{data_cargo[0]}"%>],
+        },
+        {
+            label: "Conceptos Globales",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(175,92,92,0.4)",
+            borderColor: "rgba(175,92,92,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(175,92,92,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(175,92,92,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [<%="#{data_c[4]},#{data_c[3]},#{data_c[2]},#{data_c[1]},#{data_c[0]}"%>],
+        },
+        {
+            label: "Conceptos personales",
+            fill: false,
+            lineTension: 0.1,
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,19,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,19,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [<%="#{data_cp[4]},#{data_cp[3]},#{data_cp[2]},#{data_cp[1]},#{data_cp[0]}"%>],
+        },
+    ]
+};
+var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options:  {
+        scales: {
+            xAxes: [{
+                display: false
+            }]
+        }
+    }
+});
+</script>
 </div>
+
 <hr/>
 </br>
 <%

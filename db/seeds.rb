@@ -29,12 +29,12 @@ prng = Random.new
 prng.rand(100)
 require 'securerandom'
 h = Hash['activo' =>1, 'suspendido' =>2,'retirado'=>3]
-10.times do |x|
+200.times do |x|
   x=x+1
 
     Cargo.create!( nombre: 'fds1' + x.to_s, departamento_id: prng.rand(1..3), tipo_id: prng.rand(1..3), disponible: true, sueldos_attributes: [cargo_id:x, monto: 11, activo: true, sueldo_integral: 222])
-    Persona.create!(cedula: '241100' + x.to_s, tipo_de_cedula: 1, nombres: SecureRandom.hex,
-    apellidos: SecureRandom.hex, telefono_fijo: '38886743345', telefono_movil: '', fecha_de_nacimiento: '1991-04-11',
+    Persona.create!(cedula: '241100' + x.to_s, tipo_de_cedula: 1, nombres: SecureRandom.hex[1..6],
+    apellidos: SecureRandom.hex[1..6], telefono_fijo: '38886743345', telefono_movil: '', fecha_de_nacimiento: '1991-04-11',
     correo: x.to_s + 'myjuwek@yahoo.com', direccion: 'Quia doloremque ',
     sexo: 1, status: h.key(1), cargo_id: x,
     avatar_file_name: nil, avatar_content_type: nil, avatar_file_size: nil, avatar_updated_at: nil, cuenta: '92604294834535345345',

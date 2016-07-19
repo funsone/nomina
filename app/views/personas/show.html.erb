@@ -171,6 +171,43 @@
     <%= "0" if @persona.contrato.fecha_inicio.year == $ahora.year %>
     <%= (@persona.status == 'retirado') ? distance_of_time_in_words_hash(@persona.contrato.fecha_inicio,@persona.contrato.fecha_fin)[:years] : distance_of_time_in_words_hash(@persona.contrato.fecha_inicio,Time.now)[:years]%>
   </li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">
+      <strong class="">Requisitos Consignados</strong>
+    </span>
+    <br>
+    <br>
+    <div class="progress">
+      <%
+porcentaje=0;
+porcentaje=(@persona.requisitos.length*100)/(Requisito.all.length) if(Requisito.all.length>0)
+color="";
+case porcentaje
+when 1..24
+  color="danger";
+when 25..49
+    color="warning";
+when 50..99
+    color="info";
+when 50..100
+    color="success";
+end
+if(Requisito.all.length==0)
+  color="danger"
+  porcentaje=100
+end
+      %>
+
+    <div class="progress-bar progress-bar-<%=color%>" role="progressbar" aria-valuenow="<%=porcentaje%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=porcentaje%>%">
+      <span class="sr-only"></span>
+      <%=porcentaje%>%
+    </div>
+  </div>
+    <div class="text-center">
+      <%="#{@persona.requisitos.length}/#{Requisito.all.length}"%>
+    </div>
+  </li>
+
 </ul>
 </div>
 <% if @persona.status!='retirado' %>
