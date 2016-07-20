@@ -40,13 +40,17 @@
               <select class="form-control" id="quincena">
                 <option value="">Seleccione la quincena...</option>
                 <%
-sueldo=Sueldo.first.created_at if Sueldo.all.length>0
+                sueldo=0
+if Sueldo.all.length>0
+  if Sueldo.first.created_at.day<=15
+    sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,1)
+  else
+        sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,16)
+  end
+end
 sueldo = Date.today - 1.day if !sueldo
-
 i=1
-
-while sueldo<$ahora
-
+while sueldo<=$ahora
 %>
                 <%
 

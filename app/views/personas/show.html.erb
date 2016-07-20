@@ -350,11 +350,18 @@ end
         <select class="form-control" id="quincena">
           <option value="">Seleccione la quincena...</option>
           <%
-sueldo=Sueldo.first.created_at
+          sueldo=$ahora-1.day
+if Sueldo.all.length>0
+if Sueldo.first.created_at.day<=15
+sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,1)
+else
+  sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,16)
+end
+end
 i=1
 limite = $ahora
 limite= @persona.contrato.fecha_fin if @persona.status== 'retirado'
-while sueldo<limite
+while sueldo<=limite
   quincena=(sueldo.day<=15)? 0:1
 dia= (quincena==0) ? 11 : 17
 fecha="#{dia}-#{sueldo.month}-#{sueldo.year}"
