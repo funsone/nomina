@@ -283,6 +283,47 @@ end
 </div>
 <%end%>
 
+<!--<% if @persona.status!='retirado'%>
+<% @persona.asignaciones.each do |c| %>
+<% next unless c['extra'] %>
+<div class="col-sm-8">
+<ul class="list-group">
+<li class="list-group-item text-muted" contenteditable="false">
+    <i class="fa fa-file-text-o"></i>
+    Extras</li>
+<li class="list-group-item">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>CONCEPTO</th>
+                <th class="text-right" style="width: 22%;">ASIGNACIÓN</th>
+                <th class="text-right" style="width: 22%;">DEDUCCIÓN</th>
+                <th class="text-right" style="width: 22%;">TOTAL</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><%= c['nombre'].upcase%></td>
+                <td class="text-right"><%=tr(c['valor'])%></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th></th>
+                <th class="text-right"><%=tr(c['valor'])%></th>
+                <th></th>
+                <th class="text-right"><%=tr(c['valor'])%></th>
+            </tr>
+        </tbody>
+    </table>
+</li>
+</ul>
+</div>
+<%end%>
+<%end%>-->
+
 <% if @persona.familiares.length>0 %>
 <div class="col-sm-8">
 <ul class="list-group">
