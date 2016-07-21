@@ -95,6 +95,11 @@ class Registroconcepto < ActiveRecord::Base
         aplicar = true
 
       end
+      if quincena != $quincena && (created_at.month ==12 && $ahora.year == created_at.year+1 && $ahora.mon==1 )
+
+        aplicar = true
+
+      end
     when 2..4
       if modalidad_de_pago == $quincena + 2 || modalidad_de_pago == 4
         aplicar = true
@@ -110,6 +115,11 @@ class Registroconcepto < ActiveRecord::Base
       if condiciones[4]
         quincena = created_at.day <= 15 ? 0 : 1
         if quincena != $quincena && (created_at.month == $ahora.month || created_at.month == $ahora.month - 1)
+
+          aplicar = true
+
+        end
+        if quincena != $quincena && (created_at.month ==12 && $ahora.year == created_at.year+1 && $ahora.mon==1 )
 
           aplicar = true
 
