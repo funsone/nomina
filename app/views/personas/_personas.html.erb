@@ -6,7 +6,7 @@
     <thead>
       <tr>
         <th class= "actions" style="width: 120px;">Cédula</th>
-        <th class= "actions text-capitalize">Nombres Completo</th>
+        <th class= "actions">Nombre Completo</th>
         <th class= "actions">Cargo</th>
         <th class= "actions">Departamento</th>
         <th class= "actions">Nómina</th>
@@ -20,7 +20,7 @@
       <% p.each do |persona| %>
       <tr>
         <td><%= $dic["tipos_de_cedula"].key(persona.tipo_de_cedula) + persona.cedula%></td>
-        <td class="text-capitalize"><%= persona.nombres+" "+persona.apellidos %></td>
+        <td class="text-capitalize" ><%= persona.nombres.capitalize+" "+persona.apellidos.capitalize %></td>
         <td><%= persona.cargo.nombre.upcase %></td>
         <td><%= persona.cargo.departamento.nombre.upcase %></td>
         <td><%= persona.cargo.tipo.nombre.upcase %></td>
