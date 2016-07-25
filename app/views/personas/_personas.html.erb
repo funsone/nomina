@@ -20,7 +20,7 @@
       <% p.each do |persona| %>
       <tr>
         <td><%= $dic["tipos_de_cedula"].key(persona.tipo_de_cedula) + persona.cedula%></td>
-        <td class="text-capitalize" ><%= persona.nombres.capitalize+" "+persona.apellidos.capitalize %></td>
+        <td class="text-capitalize" ><%= persona.nombres.downcase+" "+persona.apellidos.downcase %></td>
         <td><%= persona.cargo.nombre.upcase %></td>
         <td><%= persona.cargo.departamento.nombre.upcase %></td>
         <td><%= persona.cargo.tipo.nombre.upcase %></td>
