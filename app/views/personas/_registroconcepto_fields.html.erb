@@ -86,7 +86,7 @@ end
       </div>
     </div>
     <div class="col-xs-6 <%='has-error' if @persona.errors.keys.include?(:"registrosconceptos.formulaspersonales.patrono") ==true and !Formulapersonal.valid_attribute?(:patrono,formula_builder.object.patrono) %>  <%='has-success' if (@persona.errors.any? and Formulapersonal.valid_attribute?(:patrono,formula_builder.object.patrono) )%>">
-      <%= formula_builder.label "Fórmula patrono", class: "control-label"  %><br>
+      <%= formula_builder.label "Fórmula (Aporte patronal)", class: "control-label text-capitalize"  %><br>
       <div class="form-group input-group">
         <span class="input-group-addon">
           <span class="fa fa-calculator"></span>
