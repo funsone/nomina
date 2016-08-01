@@ -118,13 +118,13 @@ generar_historial
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   attr_readonly :tipo_de_cedula, :cedula
   validates :tipo_de_cedula, :cedula, :nombres, :apellidos, :correo, :fecha_de_nacimiento, :sexo, :cuenta, :direccion, :cargo_id, presence: true
-  validates :correo, uniqueness: { case_sensitive: false, message: 'El correo ingresado ya existe' }, format: { with: VALID_EMAIL_REGEX, message: 'El formato del correo es invalido' }
+  validates :correo, uniqueness: { case_sensitive: false, message: 'El correo ingresado ya existe' }, format: { with: VALID_EMAIL_REGEX, message: 'El formato del correo es inválido' }
   validates :cedula, uniqueness: { case_sensitive: false, message: 'Ya se encuentra registrada' }, numericality: { only_integer: true }
   validates :nombres, :apellidos, length: { in: 0..50 }
   validates :cuenta, numericality: { only_integer: true }
   validates :telefono_fijo, :telefono_movil, length: { is: 11 }, allow_blank: true, numericality: { only_integer: true }
   validates :cuenta, length: { is: 20 }
-  validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es invalida, la persona debe ser mayor de edad' }
+  validates :fecha_de_nacimiento, date: { before: proc { Time.now - 18.year }, message: 'es inválida, la persona debe ser mayor de edad' }
 
   attr_accessor :asignaciones, :deducciones, :total, :total_asignaciones, :total_deducciones, :valido
   def self.search(search, dep, tipo)

@@ -59,7 +59,7 @@ class PersonasController < ApplicationController
           end
 
         rescue Exception => e
-          msg='<i class="fa fa-exclamation-triangle fa-lg"></i> Recibo no enviado, verifique su conexion a internet.'
+          msg='<i class="fa fa-exclamation-triangle fa-lg"></i> Recibo no enviado, verifique su conexión a internet.'
           errorm=true
         end
 
@@ -136,7 +136,7 @@ class PersonasController < ApplicationController
             msg = '<i class="fa fa-check-square fa-lg"></i> El empleado se ha retirado.'
         when '1'
             @persona.reactivar!
-            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado a sido reactivado.'
+            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado ha sido reactivado.'
         when '2'
           ncargo=Cargo.find(params[:cargo_id]);
           gh=false
@@ -150,13 +150,13 @@ class PersonasController < ApplicationController
              @persona.generar_historial
              end
             @persona.reingresar!
-            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado a sido recontratado.'
+            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado ha sido recontratado.'
           else
             msg = '<i class="fa fa-exclamation-triangle fa-lg"></i> El cargo se encuentra ocupado, edite el empleado y seleccione otro.'
           end
         when '3'
             @persona.suspender!
-            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado a sido suspendido.'
+            msg = '<i class="fa fa-check-square fa-lg"></i> El empleado ha sido suspendido.'
         end
         respond_to do |format|
             format.html { redirect_to @persona, notice: msg }
