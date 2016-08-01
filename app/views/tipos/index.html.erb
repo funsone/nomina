@@ -48,7 +48,7 @@ if Sueldo.all.length>0
         sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,16)
   end
 end
-sueldo = Date.today if !sueldo
+sueldo = $ahora if !sueldo
 i=1
 while sueldo<=$ahora
 %>
