@@ -44,8 +44,8 @@ class RecibosPdf < Prawn::Document
       next unless p.status != 'retirado'
       next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
 
-      table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]], cell_style: { border_width: 1, size: 8, borders: [:top] }, header: true, column_widths: [80, 280, 140], width: 500)
-      table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 140 })
+      table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio.strftime("%d-%m-%Y")}"]], cell_style: { border_width: 1, size: 8, borders: [:top] }, header: true, column_widths: [85, 270, 145], width: 500)
+      table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 145 })
       table([["ESTADO: #{p.status.capitalize}"]], cell_style: { border_width: 1, size: 8, borders: [:bottom]}, header: true, width: 500)
       data = []
       p.asignaciones.each do |c|

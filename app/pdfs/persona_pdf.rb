@@ -17,8 +17,8 @@ class PersonaPdf < Prawn::Document
     text 'NÓMINA PERSONAL ' + p.cargo.tipo.nombre.upcase, align: :center, size: 14, leading: 2
     text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 14
     move_down 10
-    table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]], cell_style: { border_width: 1, size: 8, :borders => [:top] }, header: true, column_widths: [80, 280, 140], width: 500)
-    table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 140 })
+    table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio.strftime("%d-%m-%Y")}"]], cell_style: { border_width: 1, size: 8, :borders => [:top] }, header: true, column_widths: [85, 270, 145], width: 500)
+    table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 145 })
     table([["UBICACIÓN: Sede FUNSONE", "ESTADO EMPLEADO: #{p.status.capitalize}", "", ""]], cell_style: { border_width: 1, size: 8, :borders => [:bottom]  }, header: true, width: 500)
     move_down 10
     table([["","ASIGNACIÓN", "DEDUCCIÓN", "TOTAL A PAGAR"]],cell_style: { border_width: 1, size: 10, align: :right, :borders => [:bottom], font_style: :bold}, header: true, column_widths: [200,100, 100, 100], :width => 500)
@@ -48,8 +48,8 @@ class PersonaPdf < Prawn::Document
         text 'NÓMINA PERSONAL ' + p.cargo.tipo.nombre.upcase, align: :center, size: 14, leading: 2
         text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 14
         move_down 10
-        table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio}"]], cell_style: { border_width: 1, size: 8, :borders => [:top]}, header: true, column_widths: [80, 280, 140], width: 500)
-        table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 140 })
+        table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio.strftime("%d-%m-%Y")}"]], cell_style: { border_width: 1, size: 8, :borders => [:top]}, header: true, column_widths: [85, 270, 145], width: 500)
+        table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 145 })
         table([["UBICACIÓN: Sede FUNSONE", "ESTADO EMPLEADO: #{p.status.capitalize}", "", ""]], cell_style: { border_width: 1, size: 8, :borders => [:bottom]}, header: true, width: 500)
         move_down 10
         table([["","ASIGNACIÓN", "DEDUCCIÓN", "TOTAL A PAGAR"]],cell_style: { border_width: 1, size: 10, align: :right, :borders => [:bottom], font_style: :bold}, header: true, column_widths: [200,100, 100, 100], :width => 500)

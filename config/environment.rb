@@ -1,5 +1,5 @@
 # Load the Rails application.
-ENV['RAILS_ENV'] = 'production'
+
 require File.expand_path('../application', __FILE__)
 def truncar(n)
   require 'bigdecimal'
@@ -18,4 +18,3 @@ end
 
 # Initialize the Rails application.
 Rails.application.initialize!
-ENV['RAILS_ENV'] = 'production'

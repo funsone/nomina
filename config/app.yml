@@ -4,10 +4,8 @@ defaults: &defaults
   nombres_coordinador: "Alejandro Luis Rodriguez"
   cedula_coordinador: "V-8.397.611"
   jornada_de_trabajo_inicio: "8:00 a.m"
-  jornada_de_trabajo_fin: "3:00 p.m"
+  jornada_de_trabajo_fin: "3:30 p.m"
   email_admin: "admin@admin.com"
-  gmail_username: "pruebarailsmailer@gmail.com"
-  gmail_password: "pruebarails"
 
 development:
   <<: *defaults
