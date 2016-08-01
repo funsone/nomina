@@ -40,7 +40,7 @@
               <select class="form-control" id="quincena">
                 <option value="">Seleccione la quincena...</option>
                 <%
-                sueldo=0
+                sueldo=false
 if Sueldo.all.length>0
   if Sueldo.first.created_at.day<=15
     sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,1)
