@@ -85,6 +85,7 @@ class PersonasController < ApplicationController
 
     def show
         @persona.calculo false
+        @empleado.calculo true
 
         respond_to do |format|
             format.html do
@@ -250,6 +251,7 @@ class PersonasController < ApplicationController
     def set_persona
       if(Persona.where(id: params[:id] ).length>0)
       @persona = Persona.find(params[:id])
+      @empleado = Persona.find(params[:id])
       else
         respond_to do |format|
             format.html { redirect_to personas_url, alert: '<i class="fa fa-exclamation-triangle fa-lg"></i> Persona no encontrada en la base de datos.' }
