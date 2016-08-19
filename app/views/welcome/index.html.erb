@@ -82,7 +82,7 @@
           <%= link_to raw("Descargar"), "/GoogleChromeApp.crx", class:"btn btn-default bg-color-red btn-xs"%></h4>
       </div>
       <div class="panel-footer back-footer-red">
-        Extension de Chrome
+        Extensión de Chrome
       </div>
     </div>
   </div>
@@ -92,7 +92,7 @@
 </br>
 <%
 #pruebaaa
-  @personas= Persona.all
+  @personas= Persona.activo
 @personas.each do |persona|
   %>
 <input type="hidden" class="persona" value="<%=persona.id%>">
@@ -127,6 +127,7 @@ end
 <script type="text/javascript">
 
 function s(x,y) {
+  $('#enviar').modal("show");
   $("#progreso").html("progreso: " + x + "/" + $('.persona').length)
   $.ajax({
     method: "POST",
@@ -137,7 +138,6 @@ function s(x,y) {
 
       s(x,y);
     } else {
-
       $('#enviar').modal("hide");
     }
   });
@@ -145,14 +145,12 @@ function s(x,y) {
 $(function () {
   $('#enviar_recibos_pasada').click(function () {
 
-    $('#enviar').modal({backdrop: false});
 
     s(0,"<%= fecha%>");
 
   });
   $('#enviar_recibos').click(function () {
 
-    $('#enviar').modal({backdrop: false});
     s(0,'<%="#{$ahora.day}-#{$ahora.mon}-#{$ahora.year}" %>');
 
   });

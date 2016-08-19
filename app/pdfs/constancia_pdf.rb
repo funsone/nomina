@@ -18,7 +18,7 @@ class ConstanciaPdf < Prawn::Document
     move_down 40
     text 'CONSTANCIA DE TRABAJO', align: :center, size: 16 - tam
     move_down 40
-    titulo = p.sexo ? 'el ciudadano' : 'la ciudadana'
+    titulo = p.sexo==0 ? 'el ciudadano' : 'la ciudadana'
     nombres = (p.nombres + ' ' + p.apellidos).upcase
     fecha = p.contrato.fecha_inicio.strftime('%d de ' + $dic['meses'].key(p.contrato.fecha_inicio.month).capitalize + ' de %Y')
     cedula = $dic['tipos_de_cedula'].key(p.tipo_de_cedula) + p.cedula.to_s
