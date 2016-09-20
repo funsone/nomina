@@ -23,6 +23,7 @@ es:
         tipo_id: 'Nómina'
         sueldos:
           monto: 'Sueldo Básico'
+          normal: 'Sueldo Normal'
 
     required:
       text: 'Campo Requerido'
