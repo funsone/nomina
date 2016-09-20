@@ -47,7 +47,7 @@ class TiposController < ApplicationController
       format.pdf do
         case params[:doc]
         when '0'
-          pdf = RecibosPdf.new(@tipo, 0, params[:c],params[:cp])
+          pdf = RecibosPdf.new(@tipo, 0, params[:c],params[:cp],params[:modo],params[:ini],params[:fin])
           file = "Recibos_#{@tipo.nombre}"
         when '1'
           pdf = RecibosPdf.new(@tipo, 1, params[:c],params[:cp])

@@ -59,6 +59,14 @@
             </span>
             <%= sueldo_builder.text_field :sueldo_integral,class: "form-control" %>
           </div>
+          <div class="col-xs-6 <%='has-error' if @cargo.errors.keys.include?(:'sueldos.sueldo_integral') ==true %> <%='has-success' if (@cargo.errors.keys.include?(:'sueldos.sueldo_integral') ==false and @cargo.errors.any?)%>">
+            <%= sueldo_builder.label "Sueldo Normal",class: "control-label"  %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-money"></span>
+              </span>
+              <%= sueldo_builder.text_field :normal,class: "form-control" %>
+            </div>
         </div>
         <% end %>
         <% end %>

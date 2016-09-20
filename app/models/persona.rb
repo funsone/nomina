@@ -198,6 +198,7 @@ generar_historial
     r = (inicio_mes..fin_mes).to_a.select { |k| lunes.include?(k.wday) }
 
     @SUELDO = sueldos.last.monto
+    @NORMAL = sueldos.last.normal
     @SUELDO_INTEGRAL = sueldos.last.sueldo_integral
     @LUNES_DEL_MES = r.length
     @CONDICIONES = [self.FAOV,self.IVSS, self.TSS, caja_de_ahorro, extras]
@@ -209,7 +210,7 @@ generar_historial
     asig.each do |a|
       a.each do |j|
         next unless j.puede_aplicar @CONDICIONES
-        j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL, @LUNES_DEL_MES
+        j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL, @LUNES_DEL_MES, @NORMAL
         next unless j.valido
         self.total_asignaciones += j.valor
         asignaciones[i] = j.para_mostrar
@@ -220,7 +221,7 @@ generar_historial
     dedu.each do |d|
       d.each do |j|
         next unless j.puede_aplicar @CONDICIONES
-        j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL, @LUNES_DEL_MES
+        j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL, @LUNES_DEL_MES, @NORMAL
         next unless j.valido
         self.total_deducciones += j.valor
         deducciones[i] = j.para_mostrar

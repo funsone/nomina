@@ -86,6 +86,37 @@ end
 
             </div>
           </div>
+          <div class="col-xs-12 form-group">
+            <%= label_tag "Módo de pago" %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-file fa-fw"></span>
+              </span>
+
+              <%= select_tag("modo_de_pago",options_for_select($dic["modo_de_pago"]),{include_blank:'Seleccione modo de pago...',class: "form-control" }) %>
+
+            </div>
+          </div>
+          <div class="col-xs-6 form-group">
+            <%= label_tag "Desde" %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-file fa-fw"></span>
+              </span>
+
+<input type="date" name="name" class="form-control" id="ini" value=""  disabled=true%>>
+            </div>
+          </div>
+          <div class="col-xs-6 form-group">
+            <%= label_tag "hasta" %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-file fa-fw"></span>
+              </span>
+
+          <input type="date" name="name" class="form-control" id="fin" value=""  disabled=true%>>
+            </div>
+          </div>
           <div class="col-xs-12">
             <div class="col-xs-6 form-group">
             <%= label_tag "Conceptos Globales" %>
@@ -162,6 +193,7 @@ Generar</button>
 <th class="actions" style="width: 34%;">Reportes</th>
 <th class="actions" style="width: 20%;">Listados</th>
 <% if !current_usuario.has_role?:regular%>
+<th class="actions" style="">Enviar Correos</th>
 <th class="actions" style="width: 100px;">Acciones</th>
 <%end%>
 </tr>
@@ -195,12 +227,20 @@ Generar</button>
   <%= link_to ' Empleados', tipo_path(tipo,format: "csv")+"?csv=1","target": "_blank",class: "btn btn-default fa fa-file-excel-o reportes","data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"Descargar lista de empleados  (formato excel)" %>
   </div>
 </td>
+<td>
+  <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+      <div class="btn btn-default btn-xs enviar_recibos" value="<%= tipo.id%>"><i class="fa fa-calendar"></i> Quincena Actual</div>
+
+      <div class="btn btn-default btn-xs enviar_recibos_pasada" value="<%= tipo.id%>"><i class="fa fa-step-backward"></i> Pasada</div>
+  </div>
+</td>
 <% if !current_usuario.has_role?:regular%>
 <td class="actions">
 <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
 <%= render 'layouts/actions', x: Tipo, y: edit_tipo_path(tipo), z: tipo %>
 </td>
 <%end%>
+
 </tr>
 
 <% end %>
@@ -211,8 +251,92 @@ Generar</button>
 </li>
 </br>
 </ul>
+  <input type="hidden" id="filtro" value="">
+<%
+#pruebaaa
+  @personas= Persona.where('status = ? OR status = ?',"activo","suspendido").order(:id)
+@personas.each do |persona|
+  %>
+
+
+<input type="hidden" class="persona<%=persona.cargo.tipo.id%>" value="<%=persona.id%>">
+<%end%>
+<div class="modal fade" id="enviar" tabindex="-1" role="dialog" aria-labelledby="enviar" style="margin-top: 200px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header  text-center">
+                <i class="fa fa-refresh fa-spin fa-5x fa-fw margin-bottom" id="progreso_icon"></i>
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="modal-footer">
+                <div id="progreso" class="text-center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</input>
+<%
+fecha=""
+if $quincena==0
+  if $ahora.mon==1
+    fecha="24-12-#{$ahora.year-1}"
+  else
+    fecha="24-#{$ahora.mon-1}-#{$ahora.year}"
+  end
+else
+  fecha="11-#{$ahora.mon}-#{$ahora.year}"
+end
+%>
 
 <script type="text/javascript">
+function se() {
+  var v = $("#modo_de_pago").val();
+
+  switch (v) {
+    case '0':
+      {
+
+        $("#fin").attr('disabled', true);
+        $("#ini").attr('disabled', true);
+
+      };
+      break;
+    case '1':
+      {
+
+$("#fin").attr('disabled', false);
+$("#ini").attr('disabled', false);
+      };
+
+
+      break;
+  }
+}
+function s(x,y) {
+$('#enviar').modal({
+  show: true, backdrop:false
+});
+  $("#progreso").html("progreso: " + x + "/" + $('.persona'+$("#filtro").attr("value")).length)
+  $.ajax({
+    statusCode: {
+    500: function() {
+      $("#progreso").html("¡Error interno!");
+      $("#progreso_icon").attr("class","fa fa-ban fa-5x");
+    }
+  },
+    method: "POST",
+    url: "/personas/" + $('.persona'+$("#filtro").attr("value"))[x].value + "/enviar?ahora="+y
+  }).done(function () {
+    x = x + 1
+    if (x < $('.persona'+$("#filtro").attr("value")).length) {
+      s(x,y);
+    } else {
+      $("#progreso").html("¡Todos los recibos han sido enviados!");
+      $("#progreso_icon").attr("class","fa fa-check fa-5x");
+    }
+  });
+}
+
 
 function generar(eco) {
 
@@ -232,7 +356,7 @@ function generar(eco) {
 
   var conceptopersonal = "&cp=" + $('#Conceptopersonal').val();
 
-  var params = '?doc=' + (parseInt($('#tipo_de_reporte').val()) + eco) + conceptopersonal + concepto + '&ahora=' + $('#quincena').val();
+  var params = '?doc=' + (parseInt($('#tipo_de_reporte').val()) + eco) + conceptopersonal + concepto + '&ahora=' + $('#quincena').val()+ '&modo=' + $('#modo_de_pago').val()+ '&semana=' + $('#semana').val();
   var win = window.open('<%=tipos_path%>/' + $('#Tipo').val() + '.pdf' + params, '_blank');
   if (win) {
     //Browser has allowed it to be opened
@@ -244,12 +368,26 @@ function generar(eco) {
 }
 
 $(function () {
+
+  $('#modo_de_pago').change(se);
   $('[data-toggle="tooltip"]').tooltip();
   $('#generar_boton').click(function () {
     generar(0);
   });
   $('#generar_boton_eco').click(function () {
     generar(1);
+  });
+  $('.enviar_recibos_pasada').click(function () {
+
+$('#filtro').attr("value", $(this).attr("value"));
+$("#progreso_icon").attr("class","fa fa-refresh fa-spin fa-5x fa-fw margin-bottom");
+    s(0,"<%= fecha%>");
+  });
+  $('.enviar_recibos').click(function () {
+    $('#filtro').attr("value", $(this).attr("value"));
+
+$("#progreso_icon").attr("class","fa fa-refresh fa-spin fa-5x fa-fw margin-bottom");
+    s(0,'<%="#{$ahora.day}-#{$ahora.mon}-#{$ahora.year}" %>');
   });
 });
 </script>

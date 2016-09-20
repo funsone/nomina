@@ -3,7 +3,7 @@ class MyValidator < ActiveModel::Validator
     calculator = Dentaku::Calculator.new
     begin
 
-      if calculator.evaluate(record.empleado, sueldo: 1, sueldo_integral: 1, lunes_del_mes: 1).nil?
+      if calculator.evaluate(record.empleado, sueldo: 1, sueldo_integral: 1, lunes_del_mes: 1,sueldo_normal: 1).nil?
         throw Exception
       end
 
@@ -13,7 +13,7 @@ class MyValidator < ActiveModel::Validator
 
     calculator = Dentaku::Calculator.new
     begin
-      if calculator.evaluate(record.patrono, sueldo: 1, sueldo_integral: 1, lunes_del_mes: 1).nil?
+      if calculator.evaluate(record.patrono, sueldo: 1, sueldo_integral: 1, lunes_del_mes: 1,sueldo_normal: 1).nil?
         throw Exception
       end
     rescue Exception => e

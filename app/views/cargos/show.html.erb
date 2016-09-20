@@ -25,6 +25,7 @@
         <thead>
           <tr>
             <th class="actions">Sueldo Base</th>
+            <th class="actions">Sueldo Normal</th>
             <th class="actions">Sueldo Integral</th>
             <th class="actions">Fecha de vigencia</th>
             <th class="actions" style="width:20px">Activo</th>
@@ -35,6 +36,7 @@
           <% @cargo.sueldos.order('activo DESC').each do |sueldo| %>
           <tr class="<%= sueldo.activo ? 'success': 'danger'%>">
             <td><%= tr(sueldo.monto) %></td>
+            <td><%= tr(sueldo.normal) %></td>
             <td><%= tr(sueldo.sueldo_integral) %></td>
             <%
             quincena=(sueldo.created_at.day<=15)? 0 : 1

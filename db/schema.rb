@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160705180652) do
+ActiveRecord::Schema.define(version: 20160915141550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,6 +218,7 @@ ActiveRecord::Schema.define(version: 20160705180652) do
     t.float    "sueldo_integral"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.float    "normal",          default: 0.0
   end
 
   add_index "sueldos", ["cargo_id"], name: "index_sueldos_on_cargo_id", using: :btree

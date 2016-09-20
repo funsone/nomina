@@ -129,15 +129,15 @@ class Registroconcepto < ActiveRecord::Base
     aplicar
   end
 
-  def calcular(fecha, sueldo, sueldo_integral, lunes_del_mes)
+  def calcular(fecha, sueldo, sueldo_integral, lunes_del_mes,normal)
     f = formulaspersonales.where('created_at < ?', fecha+23.hours+59.minutes+59.seconds)
     self.valido = false
     unless f.empty?
       calc = Dentaku::Calculator.new
       self.valido = true
       f = f.last
-      self.valor = calc.evaluate(f.empleado, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes).to_d
-      self.valor_patrono = calc.evaluate(f.patrono, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes).to_d
+      self.valor = calc.evaluate(f.empleado, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes,sueldo_normal: normal).to_d
+      self.valor_patrono = calc.evaluate(f.patrono, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes,sueldo_normal: normal).to_d
       extra = (modalidad_de_pago == 6 || modalidad_de_pago == 5) ? true : false
       self.para_mostrar = Hash['nombre', conceptopersonal.nombre, 'valor', truncar(valor).to_s, 'valor_patrono', truncar(valor_patrono).to_s, 'clase_de_concepto', 1, 'extra', extra,'id',id]
     end

@@ -64,10 +64,12 @@ class Cargo < ActiveRecord::Base
   def truncar_sueldo
     sueldos.last.monto = truncar(sueldos.last.monto)
     sueldos.last.sueldo_integral = truncar(sueldos.last.sueldo_integral)
+    sueldos.last.normal = truncar(sueldos.last.normal)
+
   end
 
   def actualizar
-    return unless sueldos.last.monto_changed? || sueldos.last.sueldo_integral_changed?
+    return unless sueldos.last.monto_changed? || sueldos.last.sueldo_integral_changed?|| sueldos.last.normal_changed?
 
     nuevo = false
     if $quincena == 0
@@ -80,12 +82,15 @@ class Cargo < ActiveRecord::Base
       viejo = Sueldo.where(cargo_id: id).where(activo: true).last
       nmonto = sueldos.last.monto
       nsueldo_integral = sueldos.last.sueldo_integral
+      nnormal = sueldos.last.normal
       sueldos.last.activo = false
       sueldos.last.monto = viejo.monto
       sueldos.last.sueldo_integral = viejo.sueldo_integral
+      sueldos.last.normal = viejo.normal
       crear = sueldos.new
       crear.monto = truncar(nmonto)
       crear.sueldo_integral = truncar(nsueldo_integral)
+      crear.normal = truncar(nnormal)
     else
       truncar_sueldo
     end

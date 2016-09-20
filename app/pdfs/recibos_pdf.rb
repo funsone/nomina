@@ -1,5 +1,5 @@
 class RecibosPdf < Prawn::Document
-  def initialize(tipo, eco, con, conper)
+  def initialize(tipo, eco, con, conper,modo,ini,fin)
     super(left_margin: 50)
     banner = 'app/assets/images/banner.png'
     if eco == 1
@@ -17,7 +17,12 @@ class RecibosPdf < Prawn::Document
     image banner, scale: 0.40, at: [37, 720]
     move_down 100
     text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 14, leading: 2
-    text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 14
+    if modo=="0"
+    text $dic['quincena'].key($quincena).upcase + ' DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 14
+  else
+    text "SEMANA DESDE #{ini} HASTA #{fin} DE " + $dic['meses'].key($ahora.month) + $ahora.strftime(' DEL %Y'), align: :center, size: 14
+
+  end
     move_down 10
     table([[tipo.nombre.upcase]], cell_style: { border_width: 1, size: 8, borders: [:top, :bottom] }, width: 500)
     table([['SEDE FUNSONE']], cell_style: { border_width: 1, size: 8, borders: [:bottom] }, width: 500)
