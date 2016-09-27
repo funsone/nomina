@@ -86,37 +86,6 @@ end
 
             </div>
           </div>
-          <div class="col-xs-12 form-group">
-            <%= label_tag "Módo de pago" %>
-            <div class="form-group input-group">
-              <span class="input-group-addon">
-                <span class="fa fa-file fa-fw"></span>
-              </span>
-
-              <%= select_tag("modo_de_pago",options_for_select($dic["modo_de_pago"]),{include_blank:'Seleccione modo de pago...',class: "form-control" }) %>
-
-            </div>
-          </div>
-          <div class="col-xs-6 form-group">
-            <%= label_tag "Desde" %>
-            <div class="form-group input-group">
-              <span class="input-group-addon">
-                <span class="fa fa-file fa-fw"></span>
-              </span>
-
-<input type="date" name="name" class="form-control" id="ini" value=""  disabled=true%>>
-            </div>
-          </div>
-          <div class="col-xs-6 form-group">
-            <%= label_tag "hasta" %>
-            <div class="form-group input-group">
-              <span class="input-group-addon">
-                <span class="fa fa-file fa-fw"></span>
-              </span>
-
-          <input type="date" name="name" class="form-control" id="fin" value=""  disabled=true%>>
-            </div>
-          </div>
           <div class="col-xs-12">
             <div class="col-xs-6 form-group">
             <%= label_tag "Conceptos Globales" %>
@@ -289,29 +258,7 @@ end
 %>
 
 <script type="text/javascript">
-function se() {
-  var v = $("#modo_de_pago").val();
 
-  switch (v) {
-    case '0':
-      {
-
-        $("#fin").attr('disabled', true);
-        $("#ini").attr('disabled', true);
-
-      };
-      break;
-    case '1':
-      {
-
-$("#fin").attr('disabled', false);
-$("#ini").attr('disabled', false);
-      };
-
-
-      break;
-  }
-}
 function s(x,y) {
 $('#enviar').modal({
   show: true, backdrop:false
@@ -356,7 +303,7 @@ function generar(eco) {
 
   var conceptopersonal = "&cp=" + $('#Conceptopersonal').val();
 
-  var params = '?doc=' + (parseInt($('#tipo_de_reporte').val()) + eco) + conceptopersonal + concepto + '&ahora=' + $('#quincena').val()+ '&modo=' + $('#modo_de_pago').val()+ '&semana=' + $('#semana').val();
+  var params = '?doc=' + (parseInt($('#tipo_de_reporte').val()) + eco) + conceptopersonal + concepto + '&ahora=' + $('#quincena').val();
   var win = window.open('<%=tipos_path%>/' + $('#Tipo').val() + '.pdf' + params, '_blank');
   if (win) {
     //Browser has allowed it to be opened
@@ -369,7 +316,6 @@ function generar(eco) {
 
 $(function () {
 
-  $('#modo_de_pago').change(se);
   $('[data-toggle="tooltip"]').tooltip();
   $('#generar_boton').click(function () {
     generar(0);
