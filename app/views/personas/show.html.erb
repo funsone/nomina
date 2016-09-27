@@ -100,17 +100,17 @@
       <span class="pull-left">
         <strong class="">Sueldo Básico</strong>
       </span>
-      <%= tr(@persona.cargo.sueldos.last.monto)%></li>
+      <%= tr(@persona.cargo.sueldos.last.monto).gsub!('.', ',' )%></li>
       <li class="list-group-item text-right">
         <span class="pull-left">
           <strong class="">Sueldo Normal</strong>
         </span>
-        <%= tr(@persona.cargo.sueldos.last.normal)%></li>
+        <%= tr(@persona.cargo.sueldos.last.normal).gsub!('.', ',' )%></li>
     <li class="list-group-item text-right">
       <span class="pull-left">
         <strong class="">Sueldo Integral</strong>
       </span>
-      <%=tr(@persona.cargo.sueldos.last.sueldo_integral)%></li>
+      <%=tr(@persona.cargo.sueldos.last.sueldo_integral).gsub!('.', ',' )%></li>
     <li class="list-group-item text-right">
       <span class="pull-left">
         <strong class="">Cédula</strong>
@@ -233,9 +233,9 @@ end
       <tbody>
         <tr>
           <td></td>
-          <td class="text-right">0.00</td>
-          <td class="text-right">0.00</td>
-          <td class="text-right">0.00</td>
+          <td class="text-right">0,00</td>
+          <td class="text-right">0,00</td>
+          <td class="text-right">0,00</td>
         </tr>
       </tbody>
       <%else%>
@@ -243,7 +243,7 @@ end
       <tbody>
         <tr>
           <td><%= c['nombre'].upcase%></td>
-          <td class="text-right"><%=tr(c['valor'])%></td>
+          <td class="text-right"><%=tr(c['valor']).gsub!('.', ',' )%></td>
           <td></td>
           <td></td>
         </tr>
@@ -254,7 +254,7 @@ end
         <tr>
           <td><%= c['nombre'].upcase%></td>
           <td></td>
-          <td class="text-right"><%=tr(c['valor'])%></td>
+          <td class="text-right"><%=tr(c['valor']).gsub!('.', ',' )%></td>
           <td></td>
         </tr>
         <% end %>
@@ -262,11 +262,11 @@ end
         <tr>
           <th></th>
           <th class="text-right"><%=
-            tr(@persona.total_asignaciones)%></th>
+            tr(@persona.total_asignaciones).gsub!('.', ',' )%></th>
           <th class="text-right"><%=
-            tr(@persona.total_deducciones)
+            tr(@persona.total_deducciones).gsub!('.', ',' )
             %></th>
-          <th class="text-right"><%= tr(@persona.total) %></th>
+          <th class="text-right"><%= tr(@persona.total).gsub!('.', ',' ) %></th>
         </tr>
       </tbody>
       <%end%>
@@ -310,16 +310,16 @@ end
         <tbody>
             <tr>
                 <td><%= c['nombre'].upcase%></td>
-                <td class="text-right"><%=tr(c['valor'])%></td>
+                <td class="text-right"><%=tr(c['valor']).gsub!('.', ',' )%></td>
                 <td></td>
                 <td></td>
             </tr>
 
             <tr>
                 <th></th>
-                <th class="text-right"><%=tr(c['valor'])%></th>
-                <th class="text-right">0.00</th>
-                <th class="text-right"><%=tr(c['valor'])%></th>
+                <th class="text-right"><%=tr(c['valor']).gsub!('.', ',' )%></th>
+                <th class="text-right">0,00</th>
+                <th class="text-right"><%=tr(c['valor']).gsub!('.', ',' )%></th>
             </tr>
         </tbody>
     </table>
@@ -349,15 +349,15 @@ end
             <tr>
                 <td><%= c['nombre'].upcase%></td>
                 <td></td>
-                <td class="text-right"><%=tr(c['valor'])%></td>
+                <td class="text-right"><%=tr(c['valor']).gsub!('.', ',' )%></td>
                 <td></td>
             </tr>
 
             <tr>
                 <th></th>
-                <th class="text-right">0.00</th>
-                <th class="text-right"><%=tr(c['valor'])%></th>
-                <th class="text-right"><%=tr(c['valor'])%></th>
+                <th class="text-right">0,00</th>
+                <th class="text-right"><%=tr(c['valor']).gsub!('.', ',' )%></th>
+                <th class="text-right"><%=tr(c['valor']).gsub!('.', ',' )%></th>
             </tr>
         </tbody>
     </table>

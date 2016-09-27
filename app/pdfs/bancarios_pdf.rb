@@ -75,10 +75,10 @@ class BancariosPdf < Prawn::Document
       total = total_asignaciones - total_deducciones
       pc=pc+1
       if p.status == 'activo'
-        data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], tr(total)]]
+        data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], tr(total).gsub!('.', ',' )]]
         ptotal += total
       else
-        data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], "0.00"]]
+        data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], "0,00"]]
       end
     end
 return unless pc>0
@@ -89,7 +89,7 @@ return unless pc>0
       text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y')+' - FUNSONE', align: :center, size: 14, leading: 2
     move_down 20
     table([["CÉDULA","NOMBRES", "CUENTA", "MONTO"]],cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom], font_style: :bold}, header: true, column_widths: [80,260, 80, 80], :width => 500, :position => :center)
-    data1 = [['', 'TOTAL GENERAL', '',tr(ptotal)]]
+    data1 = [['', 'TOTAL GENERAL', '',tr(ptotal).gsub!('.', ',' )]]
     if data!=[]
     table(data, header: true, cell_style: { size: 8, border_width:1, :borders=>[:bottom], align: :right }, width: 500, column_widths: [80, 260, 80, 80], :position => :center) do
     style(row(0..200).column(3), padding: [5, 20, 5, 5])

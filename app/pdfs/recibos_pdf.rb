@@ -45,7 +45,7 @@ class RecibosPdf < Prawn::Document
       next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
 
       table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio.strftime("%d-%m-%Y")}"]], cell_style: { border_width: 1, size: 8, borders: [:top] }, header: true, column_widths: [85, 270, 145], width: 500)
-      table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto)}"]], cell_style: { border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 145 })
+      table([["CARGO: #{p.cargo.nombre.capitalize}", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto).gsub!('.', ',' )}"]], cell_style: { border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: true, width: 500, column_widths: { 0 => 170, 2 => 145 })
       table([["ESTADO: #{p.status.capitalize}"]], cell_style: { border_width: 1, size: 8, borders: [:bottom]}, header: true, width: 500)
       data = []
       p.asignaciones.each do |c|
@@ -73,7 +73,7 @@ class RecibosPdf < Prawn::Document
             contador[c['id']]['nombre']=c['nombre']
           contador[c['id']]['personas']+=1
           contador[c['id']]['asignacion']+=c['valor'].to_f
-          data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
+          data += [[c['nombre'].upcase, tr(c['valor']).gsub!('.', ',' ), '', '']]
           total_asignaciones += c['valor'].to_f
         else
           contador=contador_cp
@@ -84,7 +84,7 @@ class RecibosPdf < Prawn::Document
             contador[c['nombre']]['nombre']=c['nombre']
           contador[c['nombre']]['personas']+=1
           contador[c['nombre']]['asignacion']+=c['valor'].to_f
-          data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
+          data += [[c['nombre'].upcase, tr(c['valor']).gsub!('.', ',' ), '', '']]
           total_asignaciones += c['valor'].to_f
         end
 
@@ -116,7 +116,7 @@ class RecibosPdf < Prawn::Document
             contador[c['id']]['nombre']=c['nombre']
           contador[c['id']]['personas']+=1
           contador[c['id']]['deduccion']+=c['valor'].to_f
-          data += [[c['nombre'].upcase,'' , tr(c['valor']), '']]
+          data += [[c['nombre'].upcase,'' , tr(c['valor']).gsub!('.', ',' ), '']]
           total_deducciones += c['valor'].to_f
         else
           contador=contador_cp
@@ -127,12 +127,12 @@ class RecibosPdf < Prawn::Document
             contador[c['nombre']]['nombre']=c['nombre']
           contador[c['nombre']]['personas']+=1
           contador[c['nombre']]['deduccion']+=c['valor'].to_f
-          data += [[c['nombre'].upcase, '', tr(c['valor']), '']]
+          data += [[c['nombre'].upcase, '', tr(c['valor']).gsub!('.', ',' ), '']]
           total_deducciones += c['valor'].to_f
         end
         end
       end
-      data1 = [['', tr(total_asignaciones), tr(total_deducciones), tr(total_asignaciones - total_deducciones)]]
+      data1 = [['', tr(total_asignaciones).gsub!('.', ',' ), tr(total_deducciones).gsub!('.', ',' ), tr(total_asignaciones - total_deducciones).gsub!('.', ',' )]]
       if data != []
         table(data, header: true, width: 500, cell_style: { size: 8, border_width: 0, align: :right, padding: [2, 5, 2, 25] }, column_widths: [200, 100, 100, 100]) do
           style(row(0..10).column(0), align: :left)
@@ -172,11 +172,11 @@ value['deduccion']= if value['deduccion']==0
 else
   tr(value['deduccion'])
 end
-    data3+= [["#{value['nombre'].upcase}", value['personas'], value['asignacion'], value['deduccion'], '']]
+    data3+= [["#{value['nombre'].upcase}", value['personas'], value['asignacion'].gsub!('.', ',' ), value['deduccion'].gsub!('.', ',' ), '']]
 end
 end
 
-    data4 = [['TOTAL GENERAL', '',tr(tasign), tr(tdeduc), tr(tasign-tdeduc)]]
+    data4 = [['TOTAL GENERAL', '',tr(tasign).gsub!('.', ',' ), tr(tdeduc).gsub!('.', ',' ), tr(tasign-tdeduc).gsub!('.', ',' )]]
     data5 = [['Elaborado por:            Coord. RRHH','','Revisado por:         Coord. Admon. y Finanzas','','Aprobado por: Presidencia']]
     if data3!=[]
       table(data3, header: true, width: 500, cell_style: { size: 10, border_width: 0, align: :right, padding: [2, 5, 2, 15] }, column_widths: [150, 50, 100, 100, 100] ) do
