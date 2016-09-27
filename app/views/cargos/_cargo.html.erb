@@ -8,6 +8,7 @@
         <tr>
           <th class="actions">Nombre</th>
           <th class="actions">Departamento</th>
+          <th class= "actions">Empleado</th>
           <th class="actions">Sueldo Básico</th>
           <th class="actions">Sueldo Normal</th>
           <th class="actions">Sueldo Integral</th>
@@ -18,9 +19,16 @@
       </thead>
       <tbody>
         <% p.each do |cargo| %>
+
         <tr>
           <td><%= cargo.nombre.upcase %></td>
           <td><%= cargo.departamento.nombre.upcase %></td>
+          <td>
+            <%if cargo.disponible%>
+              Libre
+            <%else%>
+              <%= Persona.where("cargo_id=#{cargo.id}").last.nombres %></td>
+            <%end%>
           <td><%= tr(cargo.sueldos.last.monto) %></td>
           <td><%= tr(cargo.sueldos.last.normal) %></td>
           <td><%= tr(cargo.sueldos.last.sueldo_integral) %></td>

@@ -68,11 +68,9 @@ class RecibosPdf < Prawn::Document
         end
         next unless condicion
         if p.status == 'activo'
-          contador=contador_cp
+
           if c['clase_de_concepto']==0
           contador=contador_c
-            end
-
           if(contador.include?(c['id']) == false)
             contador[c['id']]=Hash['nombre'=>"",'asignacion'=>0,'deduccion'=>0,'personas'=>0]
 
@@ -82,6 +80,20 @@ class RecibosPdf < Prawn::Document
           contador[c['id']]['asignacion']+=c['valor'].to_f
           data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
           total_asignaciones += c['valor'].to_f
+        else
+          contador=contador_cp
+          if(contador.include?(c['nombre']) == false)
+            contador[c['nombre']]=Hash['nombre'=>"",'asignacion'=>0,'deduccion'=>0,'personas'=>0]
+
+          end
+            contador[c['nombre']]['nombre']=c['nombre']
+          contador[c['nombre']]['personas']+=1
+          contador[c['nombre']]['asignacion']+=c['valor'].to_f
+          data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
+          total_asignaciones += c['valor'].to_f
+        end
+
+
         end
       end
       p.deducciones.each do |c|
@@ -100,11 +112,8 @@ class RecibosPdf < Prawn::Document
         end
         next unless condicion
         if p.status == 'activo'
-          contador=contador_cp
           if c['clase_de_concepto']==0
           contador=contador_c
-            end
-
           if(contador.include?(c['id']) == false)
             contador[c['id']]=Hash['nombre'=>"",'asignacion'=>0,'deduccion'=>0,'personas'=>0]
 
@@ -112,9 +121,20 @@ class RecibosPdf < Prawn::Document
             contador[c['id']]['nombre']=c['nombre']
           contador[c['id']]['personas']+=1
           contador[c['id']]['deduccion']+=c['valor'].to_f
-
-          data += [[c['nombre'].upcase, '', tr(c['valor']), '']]
+          data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
           total_deducciones += c['valor'].to_f
+        else
+          contador=contador_cp
+          if(contador.include?(c['nombre']) == false)
+            contador[c['nombre']]=Hash['nombre'=>"",'asignacion'=>0,'deduccion'=>0,'personas'=>0]
+
+          end
+            contador[c['nombre']]['nombre']=c['nombre']
+          contador[c['nombre']]['personas']+=1
+          contador[c['nombre']]['deduccion']+=c['valor'].to_f
+          data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
+          total_deducciones += c['valor'].to_f
+        end
         end
       end
       data1 = [['', tr(total_asignaciones), tr(total_deducciones), tr(total_asignaciones - total_deducciones)]]
@@ -139,7 +159,7 @@ class RecibosPdf < Prawn::Document
     end
     data3= []
     tdeduc=0
-    tasign=0;
+    tasign=0
 
 
 contadores=[contador_c,contador_cp]
