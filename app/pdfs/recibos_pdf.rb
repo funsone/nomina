@@ -116,7 +116,7 @@ class RecibosPdf < Prawn::Document
             contador[c['id']]['nombre']=c['nombre']
           contador[c['id']]['personas']+=1
           contador[c['id']]['deduccion']+=c['valor'].to_f
-          data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
+          data += [[c['nombre'].upcase,'' , tr(c['valor']), '']]
           total_deducciones += c['valor'].to_f
         else
           contador=contador_cp
@@ -127,7 +127,7 @@ class RecibosPdf < Prawn::Document
             contador[c['nombre']]['nombre']=c['nombre']
           contador[c['nombre']]['personas']+=1
           contador[c['nombre']]['deduccion']+=c['valor'].to_f
-          data += [[c['nombre'].upcase, tr(c['valor']), '', '']]
+          data += [[c['nombre'].upcase, '', tr(c['valor']), '']]
           total_deducciones += c['valor'].to_f
         end
         end
