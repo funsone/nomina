@@ -1,6 +1,6 @@
 <div class="page-header">
   <h2><%= @cargo.nombre.upcase %></h2>
-  <% ocupado_por=Persona.where("cargo_id=#{@cargo.id}").first%>
+  <% ocupado_por=Persona.where("cargo_id=#{@cargo.id}").last%>
   <h4>
     <b>Departamento:</b>
     <%= @cargo.departamento.nombre.upcase %>

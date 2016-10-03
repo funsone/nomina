@@ -3,7 +3,6 @@
 require File.expand_path('../application', __FILE__)
 def truncar(n)
   require 'bigdecimal'
-
   BigDecimal(n.to_s).truncate(2).to_f
 end
 def tr(n)

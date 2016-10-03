@@ -212,7 +212,7 @@ generar_historial
         next unless j.puede_aplicar @CONDICIONES
         j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL, @LUNES_DEL_MES, @NORMAL
         next unless j.valido
-        self.total_asignaciones += j.valor
+        self.total_asignaciones += BigDecimal.new(j.valor.to_s)
         asignaciones[i] = j.para_mostrar
         i += 1
       end
@@ -223,7 +223,7 @@ generar_historial
         next unless j.puede_aplicar @CONDICIONES
         j.calcular fecha, @SUELDO, @SUELDO_INTEGRAL, @LUNES_DEL_MES, @NORMAL
         next unless j.valido
-        self.total_deducciones += j.valor
+        self.total_deducciones += BigDecimal.new(j.valor.to_s)
         deducciones[i] = j.para_mostrar
         i += 1
       end
@@ -231,11 +231,11 @@ generar_historial
     tipo_de_contrato = contrato.tipo_de_contrato
     if tipo_de_contrato == 2
       deducciones[i] = Hash['nombre', 'COMISION DE SERVICIO', 'valor', truncar(contrato.sueldo_externo).to_s]
-      self.total_deducciones += contrato.sueldo_externo
+      self.total_deducciones += BigDecimal.new(contrato.sueldo_externo.to_s)
     end
-    self.total_deducciones = truncar(self.total_deducciones)
-    self.total_asignaciones = truncar(self.total_asignaciones)
-    self.total = truncar(self.total_asignaciones - self.total_deducciones)
+    self.total_deducciones = self.total_deducciones
+    self.total_asignaciones = self.total_asignaciones
+    self.total = BigDecimal.new(self.total_asignaciones.to_s) - BigDecimal.new(self.total_deducciones.to_s)
     self.total = 0 if tipo_de_contrato == 2 && total < 0
   end
 end

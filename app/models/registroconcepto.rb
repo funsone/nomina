@@ -136,10 +136,10 @@ class Registroconcepto < ActiveRecord::Base
       calc = Dentaku::Calculator.new
       self.valido = true
       f = f.last
-      self.valor = calc.evaluate(f.empleado, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes,sueldo_normal: normal).to_d
-      self.valor_patrono = calc.evaluate(f.patrono, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes,sueldo_normal: normal).to_d
+      self.valor = truncar(calc.evaluate(f.empleado, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes,sueldo_normal: normal))
+      self.valor_patrono = truncar(calc.evaluate(f.patrono, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes,sueldo_normal: normal))
       extra = (modalidad_de_pago == 6 || modalidad_de_pago == 5) ? true : false
-      self.para_mostrar = Hash['nombre', conceptopersonal.nombre, 'valor', truncar(valor).to_s, 'valor_patrono', truncar(valor_patrono).to_s, 'clase_de_concepto', 1, 'extra', extra,'id',id]
+      self.para_mostrar = Hash['nombre', conceptopersonal.nombre, 'valor', tr(valor), 'valor_patrono', tr(valor_patrono), 'clase_de_concepto', 1, 'extra', extra,'id',id]
     end
   end
 
