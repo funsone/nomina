@@ -75,8 +75,10 @@ class BancariosPdf < Prawn::Document
       total = (BigDecimal.new(total_asignaciones.to_s) - BigDecimal.new(total_deducciones.to_s))
       pc=pc+1
       if p.status == 'activo'
+if total != 0.0
         data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], tr(total.to_f).gsub!('.', ',' )]]
         ptotal += BigDecimal.new(total.to_s)
+     end
       else
         data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], "0,00"]]
       end

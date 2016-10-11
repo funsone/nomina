@@ -42,11 +42,10 @@ class RecibosPdf < Prawn::Document
       end
       next unless p.valido == true
       next unless p.status != 'retirado'
+
       next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
 
-      table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio.strftime("%d-%m-%Y")}"]], cell_style: { border_width: 1, size: 8, borders: [:top] }, header: false, column_widths: [85, 270, 145], width: 500)
-      table([["CARGO: <font size='7'>#{p.cargo.nombre.upcase}</font>", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto).gsub!('.', ',' )}"]], cell_style: { :inline_format => true, border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: false, width: 500, column_widths: { 0 => 170, 2 => 145 })
-      table([["ESTADO: #{p.status.capitalize}"]], cell_style: { border_width: 1, size: 8, borders: [:bottom]}, header: false, width: 500)
+
       data = []
       p.asignaciones.each do |c|
         condicion = false
@@ -132,6 +131,10 @@ class RecibosPdf < Prawn::Document
           end
         end
       end
+      if !((BigDecimal.new(total_asignaciones.to_s) - BigDecimal.new(total_deducciones.to_s)).to_f == 0)
+        table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio.strftime("%d-%m-%Y")}"]], cell_style: { border_width: 1, size: 8, borders: [:top] }, header: false, column_widths: [85, 270, 145], width: 500)
+        table([["CARGO: <font size='7'>#{p.cargo.nombre.upcase}</font>", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto).gsub!('.', ',' )}"]], cell_style: { :inline_format => true, border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: false, width: 500, column_widths: { 0 => 170, 2 => 145 })
+        table([["ESTADO: #{p.status.capitalize}"]], cell_style: { border_width: 1, size: 8, borders: [:bottom]}, header: false, width: 500)
       data1 = [['', tr(total_asignaciones.to_f).gsub!('.', ',' ), tr(total_deducciones.to_f).gsub!('.', ',' ), tr((BigDecimal.new(total_asignaciones.to_s) - BigDecimal.new(total_deducciones.to_s)).to_f).gsub!('.', ',' )]]
       if data != []
         table(data, header: false, width: 500, cell_style: { size: 8, border_width: 0, align: :right, padding: [2, 5, 2, 25] }, column_widths: [200, 100, 100, 100]) do
@@ -139,6 +142,7 @@ class RecibosPdf < Prawn::Document
         end
       end
       table(data1, header: false, width: 500, cell_style: { size: 8, align: :right, border_width: 1, borders: [:top, :bottom] }, column_widths: [200, 100, 100, 100])
+      end
       # if ele.modulo(3)==0
       #  start_new_page
       # end
