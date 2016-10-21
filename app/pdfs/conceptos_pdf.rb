@@ -72,7 +72,7 @@ class ConceptosPdf < Prawn::Document
       data1= [['', concepto.nombre.upcase, tr(acu_aporte_e.to_f).gsub!('.', ',' ), tr(acu_aporte_p.to_f).gsub!('.', ',' ), tr((BigDecimal.new(acu_aporte_p.to_s)+ BigDecimal.new(acu_aporte_e.to_s)).to_f).gsub!('.', ',' )]]
       data2 = [['', "Nro. Empleados", pc ,'' , '']]
       if data!=[]
-      table(data, header: false, cell_style: {border_width: 0, size: 8, align: :right} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
+      table(data.sort_by{|x| x[0].to_i}, header: false, cell_style: {border_width: 0, size: 8, align: :right} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
         style(row(0..200).column(2..4), padding: [5, 20, 5, 5])
         style(row(0..200).column(1), align: :left)
       end
@@ -140,7 +140,7 @@ class ConceptosPdf < Prawn::Document
       data1 = [['', conceptop.nombre.upcase, tr(acu_aporte_e.to_f).gsub!('.', ',' ), tr(acu_aporte_p.to_f).gsub!('.', ',' ), tr((BigDecimal.new(acu_aporte_p.to_s)+ BigDecimal.new(acu_aporte_e.to_s)).to_f).gsub!('.', ',' )]]
       data2 = [['', "Nro. Empleados", pc ,'' , '']]
       if data!=[]
-      table(data, header: false, cell_style: {border_width: 0, size: 8, align: :right} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
+      table(data.sort_by{|x| x[0].to_i}, header: false, cell_style: {border_width: 0, size: 8, align: :right} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
         style(row(0..200).column(2..4), padding: [5, 20, 5, 5])
         style(row(0..200).column(1), align: :left)
       end

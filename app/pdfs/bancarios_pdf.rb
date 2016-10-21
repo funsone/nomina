@@ -93,7 +93,7 @@ return unless pc>0
     table([["CÉDULA","NOMBRES", "CUENTA", "MONTO"]],cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom], font_style: :bold}, header: false, column_widths: [80,260, 80, 80], :width => 500, :position => :center)
     data1 = [['', 'TOTAL GENERAL', '',tr(ptotal.to_f).gsub!('.', ',' )]]
     if data!=[]
-    table(data, header: false, cell_style: { size: 8, border_width:1, :borders=>[:bottom], align: :right }, width: 500, column_widths: [80, 260, 80, 80], :position => :center) do
+    table(data.sort_by{|x| x[0].to_i}, header: false, cell_style: { size: 8, border_width:1, :borders=>[:bottom], align: :right }, width: 500, column_widths: [80, 260, 80, 80], :position => :center) do
     style(row(0..200).column(3), padding: [5, 20, 5, 5])
     style(row(0..200).column(1..2), align: :left)
     end
