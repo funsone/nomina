@@ -10,7 +10,7 @@ class RecibosPdf < Prawn::Document
       font 'eco'
       banner = 'app/assets/images/banner_bn.png'
     end
-    @cargos = tipo.cargos
+    @cargos = tipo.cargos.joins(:persona).select('personas.cedula, cargos.*').order("CAST(personas.cedula AS INT)")
     contador_c={}
     contador_cp={}
 
