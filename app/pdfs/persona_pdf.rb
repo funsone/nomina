@@ -71,5 +71,19 @@ class PersonaPdf < Prawn::Document
       end
       i += 1
     end
+      move_down 100
+    if p.cargo.tipo.nombre == 'contratados'
+        data2 = [['Elaborado por:            Coord. RRHH','','Revisado por:         Coord. Admon. y Finanzas','','Aprobado por: Presidencia', '', 'Firmado por: Empleado']]
+      table(data2, header: false, cell_style: {border_width: 1, size: 10, align: :center, font_style: :bold} , column_widths: [120, 6, 122, 6, 120, 6, 120], width: 500) do
+         column(0).borders = [:top]
+        column(1).borders = []
+         column(2).borders = [:top]
+         column(3).borders = []
+        column(4).borders = [:top]
+        column(5).borders = []
+        column(6).borders = [:top]
+      end
+
+    end
   end
 end
