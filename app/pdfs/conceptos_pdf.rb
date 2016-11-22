@@ -86,14 +86,13 @@ class ConceptosPdf < Prawn::Document
       table(data2, header: false, cell_style: {border_width: 1, size: 9, align: :center, :borders =>[:bottom], font_style: :bold} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center )
       start_new_page
     end
+
     conceptosp = Conceptopersonal.all
 
     conceptosp.each do |conceptop|
     begin
       next unless Conceptopersonal.find(conper).nombre==conceptop.nombre
-
-    rescue Exception
-
+      rescue Exception
     end
       registros = conceptop.registrosconceptos
       conceptoExtra = conceptop
@@ -106,6 +105,7 @@ class ConceptosPdf < Prawn::Document
       registros.each do |registro|
         p = registro.persona
         next unless p.cargo.tipo==tipo
+        next unless p.status != 'retirado'
         if conper != ''
           p.calculo true
         else
