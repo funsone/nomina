@@ -77,10 +77,7 @@ class Registroconcepto < ActiveRecord::Base
   def puede_aplicar(condiciones)
     aplicar = false
     if fecha_fin.nil? == false
-
       return false if $ahora>fecha_fin
-
-
     end
     case modalidad_de_pago
     when 0
@@ -139,7 +136,7 @@ class Registroconcepto < ActiveRecord::Base
       self.valor = truncar(calc.evaluate(f.empleado, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes,sueldo_normal: normal))
       self.valor_patrono = truncar(calc.evaluate(f.patrono, sueldo: sueldo, sueldo_integral: sueldo_integral, lunes_del_mes: lunes_del_mes,sueldo_normal: normal))
       extra = (modalidad_de_pago == 6 || modalidad_de_pago == 5) ? true : false
-      self.para_mostrar = Hash['nombre', conceptopersonal.nombre, 'valor', tr(valor), 'valor_patrono', tr(valor_patrono), 'clase_de_concepto', 1, 'extra', extra,'id',id]
+      self.para_mostrar = Hash['nombre', conceptopersonal.nombre, 'valor', tr(valor), 'valor_patrono', tr(valor_patrono), 'clase_de_concepto', 1, 'extra', extra,'id', id]
     end
   end
 

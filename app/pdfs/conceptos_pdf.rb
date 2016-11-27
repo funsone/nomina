@@ -37,7 +37,6 @@ class ConceptosPdf < Prawn::Document
           if con != ''
             p.calculo true
           else
-
             p.calculo false
           end
           next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
@@ -104,7 +103,7 @@ class ConceptosPdf < Prawn::Document
       data = []
       registros.each do |registro|
         p = registro.persona
-        next unless p.cargo.tipo==tipo
+        next unless p.cargo.tipo == tipo
         next unless p.status != 'retirado'
         if conper != ''
           p.calculo true
@@ -114,16 +113,23 @@ class ConceptosPdf < Prawn::Document
         next unless p.valido == true
         cc = [p.asignaciones, p.deducciones]
         cc.each do |ccc|
+          a=[]
+          x=0
           ccc.each do |c|
             next unless c['nombre'].casecmp(conceptop.nombre.upcase).zero? && c['clase_de_concepto'] == 1
-            pc += 1
-            if p.status == 'activo'
-              acu_aporte_e += BigDecimal.new(c['valor'].to_s)
-              acu_aporte_p += BigDecimal.new(c['valor_patrono'].to_s)
-              data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", tr(c['valor']).gsub!('.', ',' ), tr(c['valor_patrono']).gsub!('.', ',' ), tr((BigDecimal.new(c['valor'].to_s) + BigDecimal.new(c['valor_patrono'].to_s)).to_f).gsub!('.', ',' )]]
-            else
-              data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", '0,00', '0,00', '0,00']]
-            end
+            a[x]= c
+            x += 1
+          end
+          aaa= a.uniq { |h| [ h[:id], h[:nombre]] }
+          aaa.each do |aa|
+          pc += 1
+          if p.status == 'activo'
+            acu_aporte_e += BigDecimal.new(aa['valor'].to_s)
+            acu_aporte_p += BigDecimal.new(aa['valor_patrono'].to_s)
+            data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}",tr(aa['valor']).gsub!('.', ',' ), tr(aa['valor_patrono']).gsub!('.', ',' ), tr((BigDecimal.new(aa['valor'].to_s) + BigDecimal.new(aa['valor_patrono'].to_s)).to_f).gsub!('.', ',' )]]
+          else
+            data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}",'0,00', '0,00', '0,00']]
+          end
           end
         end
       end
