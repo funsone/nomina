@@ -25,7 +25,7 @@
                 <span class="fa fa-bars fa-fw"></span>
               </span>
 
-              <%= select_tag("Tipo",options_for_select(Tipo.all.map{|s|[s.nombre, s.id]}),{include_blank:'Seleccione una nómina...',class: "form-control" }) %>
+              <%= select_tag("Tipo",options_for_select(Tipo.all.map{|s|[s.nombre.capitalize, s.id]}),{include_blank:'Seleccione una nómina...',class: "form-control" }) %>
 
             </div>
           </div>
@@ -78,7 +78,7 @@ end
                 <span class="fa fa-file fa-fw"></span>
               </span>
 
-              <%= select_tag("tipo_de_reporte",options_for_select($dic["tipos_de_reporte"]),{include_blank:'Seleccione un tipo de Reporte ...',class: "form-control" }) %>
+              <%= select_tag("tipo_de_reporte",options_for_select($dic["tipos_de_reporte"]),{include_blank:'Seleccione un tipo de reporte ...',class: "form-control" }) %>
 
             </div>
           </div>
@@ -90,7 +90,7 @@ end
                 <span class="fa fa-money fa-fw"></span>
               </span>
 
-              <%= select_tag("Concepto",options_for_select(Concepto.all.map{|s|[s.nombre, s.id]}.prepend([t('Ninguno'), 0])),{include_blank:'Todos (Excepto extras)',class: "form-control" }) %>
+              <%= select_tag("Concepto",options_for_select(Concepto.all.map{|s|[s.nombre.upcase, s.id]}.prepend([t('Ninguno'), 0])),{include_blank:'Todos (Excepto extras)',class: "form-control" }) %>
 
             </div>
           </div>
@@ -101,7 +101,7 @@ end
                 <span class="fa fa-money fa-fw"></span>
               </span>
 
-              <%= select_tag("Conceptopersonal",options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]}.prepend([t('Ninguno'), 0])),{include_blank:'Todos (Excepto extras)',class: "form-control" }) %>
+              <%= select_tag("Conceptopersonal",options_for_select(Conceptopersonal.all.map{|s|[s.nombre.upcase, s.id]}.prepend([t('Ninguno'), 0])),{include_blank:'Todos (Excepto extras)',class: "form-control" }) %>
 
             </div>
           </div>

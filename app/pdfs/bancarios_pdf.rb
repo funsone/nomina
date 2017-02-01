@@ -76,7 +76,7 @@ class BancariosPdf < Prawn::Document
       pc=pc+1
       if p.status == 'activo'
         data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], tr(total)]]
-        ptotal += p.total
+        ptotal += total
       else
         data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20], "0.00"]]
       end

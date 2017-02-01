@@ -11,9 +11,7 @@ else
     desactivar=true
   end
 end
-
  %>
-
     <div class="pull-right" style="margin-left:10px;">
       <% if mostrar==true%>
       <%=link_to_remove_association raw('<i class="fa fa-times"></i>'), f%>
@@ -23,12 +21,7 @@ end
       <%=link_to raw('<i class="fa fa-ban"></i>'), disablecp_persona_path(@persona)+"?cp=#{f.object.id}","data-method": "get", "data-confirm": "¿Está seguro que desea realizar esta acción? Una vez desactivado el concepto, no podrá ser habilidato nuevamente?\n   *Este concepto aplicará hasta la quincena pasada." %>
       <%end%>
     </div>
-
-    Concepto
-    <div class="pull-right">
     <%
-
-
     created_at=""
     if f.object.id.nil?
       created_at=$ahora
@@ -37,7 +30,18 @@ end
     end
         quincena=(created_at.day <=15)?0:1
       %>
-      <%= $dic["quincena"].key(quincena).capitalize+'('+created_at.strftime("#{$dic["meses"].key(created_at.month)}-%Y")+') '%></div>
+      <%= $dic["quincena"].key(quincena).capitalize+'('+created_at.strftime("#{$dic["meses"].key(created_at.month)}-%Y")+') '%>
+    <div class="pull-right">
+      <%
+          vigencia= if f.object.fecha_fin.nil? ==true
+          "Indefinido"
+                    else
+                   f.object.fecha_fin.strftime("%d-%m-%Y")
+                    end
+      %>
+      <b>Vigencia: <%= vigencia%></b> 
+
+    </div>
   </div>
   <div class="panel-body">
     <div class="col-xs-6">
@@ -48,7 +52,7 @@ end
         </span>
         <%  d =(Registroconcepto._attr_readonly.include?("conceptopersonal_id") and f.object.id.nil? == false) ? "disabled" : " "%>
 
-        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control text-capitalize',"data-toggle"=>"popover", "data-trigger"=>"focus",
+        <%= f.select(:conceptopersonal_id, options_for_select(Conceptopersonal.all.map{|s|[s.nombre.capitalize, s.id]},f.object.conceptopersonal_id),{include_blank:'Seleccione un concepto...'}, class: 'form-control',"data-toggle"=>"popover", "data-trigger"=>"focus",
         "data-placement"=>"top", title: "Nombre", "data-content"=>"Este campo no podrá ser editado despúes de guardar.","#{d}": true) %>
       </div>
     </div>

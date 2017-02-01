@@ -89,6 +89,7 @@ class ConceptosPdf < Prawn::Document
     conceptosp = Conceptopersonal.all
 
     conceptosp.each do |conceptop|
+      next unless Conceptopersonal.find(conper).nombre==conceptop.nombre
       registros = conceptop.registrosconceptos
       conceptoExtra = conceptop
       next if conper == '0'
