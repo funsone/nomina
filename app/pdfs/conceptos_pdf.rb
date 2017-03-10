@@ -41,13 +41,12 @@ class ConceptosPdf < Prawn::Document
           end
           next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
           next unless p.valido == true
-          next unless p.status != 'retirado'
           cc = [p.asignaciones, p.deducciones]
           cc.each do |ccc|
             ccc.each do |c|
               next unless c['nombre'] == concepto.nombre && c['clase_de_concepto'] == 0
               pc += 1
-              if p.status == 'activo'
+              if p.status != 'suspendido'
                 acu_aporte_e += BigDecimal.new(c['valor'].to_s)
                 acu_aporte_p += BigDecimal.new(c['valor_patrono'].to_s)
                 data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", tr(c['valor']).gsub!('.', ',' ), tr(c['valor_patrono']).gsub!('.', ',' ), tr((BigDecimal.new(c['valor'].to_s) + BigDecimal.new(c['valor_patrono'].to_s)).to_f).gsub!('.', ',' )]]
@@ -107,7 +106,7 @@ class ConceptosPdf < Prawn::Document
         end
         p = registro.persona
         next unless p.cargo.tipo == tipo
-        next unless p.status != 'retirado'
+        next unless p.status != 'suspendido'
         if conper != ''
           p.calculo true
         else
@@ -119,7 +118,7 @@ class ConceptosPdf < Prawn::Document
           ccc.each do |c|
             next unless c['nombre'].casecmp(conceptop.nombre.upcase).zero? && c['clase_de_concepto'] == 1
           pc += 1
-          if p.status == 'activo'
+          if p.status != 'suspendido'
             acu_aporte_e += BigDecimal.new(c['valor'].to_s)
             acu_aporte_p += BigDecimal.new(c['valor_patrono'].to_s)
             data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}",tr(c['valor']).gsub!('.', ',' ), tr(c['valor_patrono']).gsub!('.', ',' ), tr((BigDecimal.new(c['valor'].to_s) + BigDecimal.new(c['valor_patrono'].to_s)).to_f).gsub!('.', ',' )]]

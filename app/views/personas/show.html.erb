@@ -435,32 +435,33 @@ end
           <option value="">Seleccione la quincena...</option>
           <%
           sueldo=$ahora-1.day
-if Sueldo.all.length>0
-if Sueldo.first.created_at.day<=15
-sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,1)
-else
-  sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,16)
-end
-end
-i=1
-limite = $ahora
-limite= @persona.contrato.fecha_fin if @persona.status== 'retirado'
-while sueldo<=limite
-  quincena=(sueldo.day<=15)? 0:1
-dia= (quincena==0) ? 11 : 17
-fecha="#{dia}-#{sueldo.month}-#{sueldo.year}"
-%>
-          <option value="<%=fecha %>"><%= $dic['quincena'].key(quincena) + $dic["meses"].key(sueldo.month) +" del #{sueldo.year}"%></option>
-        <%  if quincena==0
-sueldo= Date.strptime("16-#{sueldo.mon}-#{sueldo.year}", '%d-%m-%Y')
-else
-if sueldo.mon==12
-sueldo=Date.strptime("1-1-#{sueldo.year+1}", '%d-%m-%Y')
-else
-sueldo= Date.strptime("1-#{sueldo.mon+1}-#{sueldo.year}", '%d-%m-%Y')
-end
-end
-end%>
+          if Sueldo.all.length>0
+            if Sueldo.first.created_at.day<=15
+              sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,1)
+            else
+              sueldo=Date.civil(Sueldo.first.created_at.year,Sueldo.first.created_at.mon,16)
+            end
+          end
+          i=1
+          limite = $ahora
+          limite = @persona.contrato.fecha_fin if @persona.status== 'retirado'
+          while sueldo<=limite
+            quincena=(sueldo.day<=15)? 0:1
+            dia= (quincena==0) ? 11 : 17
+            fecha="#{dia}-#{sueldo.month}-#{sueldo.year}"
+            %>
+              <option value="<%=fecha %>"><%= $dic['quincena'].key(quincena) + $dic["meses"].key(sueldo.month) +" del #{sueldo.year}"%></option>
+            <%
+            if quincena==0
+              sueldo= Date.strptime("16-#{sueldo.mon}-#{sueldo.year}", '%d-%m-%Y')
+            else
+              if sueldo.mon==12
+              sueldo=Date.strptime("1-1-#{sueldo.year+1}", '%d-%m-%Y')
+              else
+              sueldo= Date.strptime("1-#{sueldo.mon+1}-#{sueldo.year}", '%d-%m-%Y')
+              end
+            end
+          end%>
         </select>
       </div>
     </div>

@@ -17,29 +17,50 @@ class Cargo < ActiveRecord::Base
   after_update :logu
   attr_accessor :p, :d
   include Rails.application.routes.url_helpers
+
   def persona_ahora
     personas = Historial.where('cargo_id = ? ', id)
-
     unless personas.empty?
       personas.each do |c|
-        min = 0
-        c.fecha_fin = $ahora if c.fecha_fin.nil?
-        min = if c.fecha_inicio.day <= 15
-                Date.civil(c.fecha_inicio.year, c.fecha_inicio.mon, 1)
-              else
-                Date.civil(c.fecha_inicio.year, c.fecha_inicio.mon, 16)
-              end
-        max = 0
-        max = if c.fecha_fin.day <= 15
-                Date.civil(c.fecha_fin.year, c.fecha_fin.mon, 15)
-              else
-                Date.civil(c.fecha_fin.year, c.fecha_fin.mon, -1)
-              end
-        if (min..max).cover?($ahora)
-          self.p = c.persona
-          self.d = false
+        if c.fecha_fin.nil? == false
+          min = 0
+          min = if c.fecha_inicio.day <= 15
+                  Date.civil(c.fecha_inicio.year, c.fecha_inicio.mon, 1)
+                else
+                  Date.civil(c.fecha_inicio.year, c.fecha_inicio.mon, 16)
+                end
+          max = 0
+          max = if c.fecha_fin.day <= 15
+                  Date.civil(c.fecha_fin.year, c.fecha_fin.mon, 15)
+                else
+                  Date.civil(c.fecha_fin.year, c.fecha_fin.mon, -1)
+                end
+
+                if (min..max).cover?($ahora)
+                   self.p = c.persona
+                   self.d = false
+                end
+        elsif c.fecha_fin.nil? == true
+          c.fecha_fin = $ahora
+          min = 0
+          min = if c.fecha_inicio.day <= 15
+                  Date.civil(c.fecha_inicio.year, c.fecha_inicio.mon, 1)
+                else
+                  Date.civil(c.fecha_inicio.year, c.fecha_inicio.mon, 16)
+                end
+          max = 0
+          max = if c.fecha_fin.day <= 15
+                  Date.civil(c.fecha_fin.year, c.fecha_fin.mon, 15)
+                else
+                  Date.civil(c.fecha_fin.year, c.fecha_fin.mon, -1)
+                end
+
+                if (min..max).cover?($ahora)
+                  self.p = c.persona
+                  self.d = false
+                end
         else
-          self.d = true
+           self.d = true
         end
       end
     end

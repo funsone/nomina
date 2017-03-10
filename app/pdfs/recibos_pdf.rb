@@ -41,7 +41,7 @@ class RecibosPdf < Prawn::Document
         p.calculo false
       end
       next unless p.valido == true
-      next unless p.status != 'retirado'
+      next unless p.status != 'suspendido'
 
       next unless (p.contrato.tipo_de_contrato != 2) || (p.total > 0 && p.contrato.tipo_de_contrato == 2)
 
@@ -61,9 +61,9 @@ class RecibosPdf < Prawn::Document
           condicion = true if conper == '' && c['extra'] == false
         end
         next unless condicion
-        if p.status == 'activo'
+        if p.status != 'suspendido'
 
-          if c['clase_de_concepto']==0
+        if c['clase_de_concepto']==0
           contador=contador_c
           if(contador.include?(c['id']) == false)
             contador[c['id']]=Hash['nombre'=>"",'asignacion'=>0,'deduccion'=>0,'personas'=>0]
@@ -87,7 +87,6 @@ class RecibosPdf < Prawn::Document
           total_asignaciones += BigDecimal.new(c['valor'].to_s)
         end
 
-
         end
       end
       p.deducciones.each do |c|
@@ -105,7 +104,7 @@ class RecibosPdf < Prawn::Document
           condicion = true if conper == '' && c['extra'] == false
         end
         next unless condicion
-        if p.status == 'activo'
+        if p.status != 'suspendido'
           if c['clase_de_concepto']==0
           contador=contador_c
           if(contador.include?(c['id']) == false)
@@ -184,17 +183,17 @@ end
     data5 = [['Elaborado por:            Coord. RRHH','','Revisado por:         Coord. Admon. y Finanzas','','Aprobado por: Presidencia']]
     if data3!=[]
       table(data3, header: false, width: 500, cell_style: { size: 10, border_width: 0, align: :right, padding: [2, 5, 2, 15] }, column_widths: [150, 50, 100, 100, 100] ) do
-        style(row(0..10).column(0), align: :left)
+        style(row(0..100).column(0), align: :left)
       end
     end
     table(data4, header: false, cell_style: {border_width: 1, size: 10, align: :right, :borders =>[:top], font_style: :bold} , column_widths: [150, 50, 100, 100, 100], width: 500)
     move_down 40
     table(data5, header: false, cell_style: {border_width: 1, size: 10, align: :center, font_style: :bold} , column_widths: [120, 70, 120, 70, 120], width: 500) do
        column(0).borders = [:top]
-      column(1).borders = []
+       column(1).borders = []
        column(2).borders = [:top]
        column(3).borders = []
-      column(4).borders = [:top]
+       column(4).borders = [:top]
     end
   end
 end

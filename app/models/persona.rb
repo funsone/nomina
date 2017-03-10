@@ -51,58 +51,72 @@ generar_historial
     state :activo, initial: true
     state :suspendido
     state :retirado
+
     event :retirar do
-    transitions from: :activo, to: :retirado
-      after do
-        h_viejo = Historial.where('persona_id = ? ', id).last
-
-        self.contrato.fecha_fin= $ahora
-        self.save
-        unless h_viejo.nil?
-          h_viejo.cargo.disponible = true
-          h_viejo.cargo.save
-          if (h_viejo.fecha_inicio.day <= 15 && Time.now.day > 15 && Time.now.month == h_viejo.fecha_inicio.month) || (Time.now.month != h_viejo.fecha_inicio.month)
-            max = 0
-            if Time.now.day <= 15
-              max = if Time.now.mon == 1
-                      Date.civil(Time.now.year - 1 - year, 12, -1)
-                    else
-                      Date.civil(Time.now.year, Time.now.month - 1, -1)
-                    end
-
-            else
-
-              max = Date.civil(Time.now.year, Time.now.mon, 15)
-
+      transitions from: :activo, to: :retirado
+        after do
+          registros = Registroconcepto.where('persona_id = ? ', id).all
+          registros.each do |r|
+            if r.fecha_fin.nil?
+              max = 0
+              if Time.now.day <= 15
+                max = if Time.now.mon == 1
+                        Date.civil(Time.now.year - 1 - year, 12, -1)
+                      else
+                        Date.civil(Time.now.year, Time.now.month - 1, -1)
+                      end
+              else
+                max = Date.civil(Time.now.year, Time.now.mon, 15)
+              end
+              r.fecha_fin = max
             end
-
-            h_viejo.fecha_fin = max
-            h_viejo.save
-
-          else
-            h_viejo.destroy
-            h_viejo.save
+          r.save
+          end
+        end
+        after do
+          h_viejo = Historial.where('persona_id = ? ', id).last
+          self.contrato.fecha_fin= $ahora
+          self.save
+          unless h_viejo.nil?
+            h_viejo.cargo.disponible = true
+            h_viejo.cargo.save
+            if (h_viejo.fecha_inicio.day <= 15 && Time.now.day > 15 && Time.now.month == h_viejo.fecha_inicio.month) || (Time.now.month != h_viejo.fecha_inicio.month)
+              max = 0
+              if Time.now.day <= 15
+                max = if Time.now.mon == 1
+                        Date.civil(Time.now.year - 1 - year, 12, -1)
+                      else
+                        Date.civil(Time.now.year, Time.now.month - 1, -1)
+                      end
+              else
+                max = Date.civil(Time.now.year, Time.now.mon, 15)
+              end
+              h_viejo.fecha_fin = max
+              h_viejo.save
+            else
+              h_viejo.destroy
+              h_viejo.save
+            end
           end
         end
       end
-    end
-    event :reingresar do
-      transitions from: :retirado, to: :activo
-      before do
-          self.contrato.fecha_inicio = $ahora
-          self.contrato.fecha_fin= ""
-          self.save
-        if cargo.disponible = true
-          cargo.disponible= false
+      event :reingresar do
+        transitions from: :retirado, to: :activo
+        before do
+            self.contrato.fecha_inicio = $ahora
+            self.contrato.fecha_fin= ""
+            self.save
+          if cargo.disponible = true
+            cargo.disponible= false
+          end
         end
       end
-    end
-    event :suspender do
-      transitions from: :activo, to: :suspendido
-    end
-    event :reactivar do
-      transitions from: :suspendido, to: :activo
-    end
+      event :suspender do
+        transitions from: :activo, to: :suspendido
+      end
+      event :reactivar do
+        transitions from: :suspendido, to: :activo
+      end
   end
   belongs_to :cargo
     has_and_belongs_to_many :requisitos
@@ -168,21 +182,35 @@ generar_historial
 
     if cargos.length!=1 and cargos.length>0
       cargos.each do |c|
-        min=0
-        c.fecha_fin=$ahora if c.fecha_fin.nil?
-        if c.fecha_inicio.day<=15
-          min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 1)
+        if c.fecha_fin.nil? == false
+          min=0
+          if c.fecha_inicio.day<=15
+            min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 1)
+          else
+            min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 16)
+          end
+          max=0
+          if c.fecha_fin.day<=15
+            max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, 15)
+          else
+            max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, -1)
+          end
         else
-          min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 16)
+          c.fecha_fin=$ahora
+          min=0
+          if c.fecha_inicio.day<=15
+            min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 1)
+          else
+            min=Date.civil(c.fecha_inicio.year,c.fecha_inicio.mon, 16)
+          end
+          max=0
+          if c.fecha_fin.day<=15
+            max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, 15)
+          else
+            max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, -1)
+          end
         end
-        max=0
-        if c.fecha_fin.day<=15
-          max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, 15)
-        else
-          max=Date.civil(c.fecha_fin.year,c.fecha_fin.mon, -1)
-        end
-
-        self.cargo=c.cargo if(min..max).cover?($ahora)
+          self.cargo=c.cargo if(min..max).cover?($ahora)
       end
     end
     lunes = [1]
