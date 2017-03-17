@@ -24,7 +24,7 @@
 
           <% @requisitos.each do |requisito| %>
           <tr>
-            <td><%= requisito.nombre.upcase %></td>
+            <td><%= requisito.nombre.capitalize %></td>
 <% if !current_usuario.has_role?:regular %>
             <td class="actions">
               <%= render 'layouts/actions', x: Requisito, y: edit_requisito_path(requisito), z: requisito %>

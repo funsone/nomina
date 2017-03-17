@@ -24,8 +24,8 @@
         <tbody>
           <% @departamentos.each do |departamento| %>
           <tr>
-            <td><%= departamento.nombre.upcase %></td>
-            <td><%= departamento.dependencia.nombre.upcase %></td>
+            <td class="text-capitalize"><%= departamento.nombre%></td>
+            <td class="text-capitalize"><%= departamento.dependencia.nombre%></td>
             <td><%=Cargo.where("departamento_id=#{departamento.id} and disponible=false").length %></td>
 <% if !current_usuario.has_role?:regular %>
             <td>

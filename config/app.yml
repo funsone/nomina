@@ -1,8 +1,8 @@
 # config/app.yml for rails-settings-cached
 defaults: &defaults
-  titulo_coordinador: "T.S.U"
-  nombres_coordinador: "Alejandro Luis Rodriguez"
-  cedula_coordinador: "V-8.397.611"
+  titulo_coordinador: "Lcda."
+  nombres_coordinador: "Grecia Marcano"
+  cedula_coordinador: "V-16.932.173"
   jornada_de_trabajo_inicio: "8:00 a.m"
   jornada_de_trabajo_fin: "3:30 p.m"
   email_admin: "admin@admin.com"

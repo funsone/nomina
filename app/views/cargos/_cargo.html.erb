@@ -21,8 +21,8 @@
         <% p.each do |cargo| %>
 
         <tr>
-          <td><%= cargo.nombre.upcase %></td>
-          <td><%= cargo.departamento.nombre.upcase %></td>
+          <td class="text-capitalize"><%= cargo.nombre %></td>
+          <td class="text-capitalize"><%= cargo.departamento.nombre %></td>
           <td class="text-capitalize">
             <%if cargo.disponible%>
               Libre
@@ -32,7 +32,7 @@
           <td><%= tr(cargo.sueldos.last.monto).gsub!('.', ',' ) %></td>
           <td><%= tr(cargo.sueldos.last.normal).gsub!('.', ',' ) %></td>
           <td><%= tr(cargo.sueldos.last.sueldo_integral).gsub!('.', ',' ) %></td>
-          <td><%= cargo.tipo.nombre.upcase %></td>
+          <td class="text-capitalize"><%= cargo.tipo.nombre%></td>
           <td><%if cargo.disponible %>
             <span class="fa fa-check"></span>
             <%else%>
