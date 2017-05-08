@@ -1,4 +1,6 @@
 class RecibosPdf < Prawn::Document
+  include ActionView::Helpers::NumberHelper
+  extend ActionView::Helpers::NumberHelper
   def initialize(tipo, eco, con, conper)
     super(left_margin: 50)
     banner = 'app/assets/images/banner.png'
@@ -14,7 +16,7 @@ class RecibosPdf < Prawn::Document
     contador_c={}
     contador_cp={}
 
-    image banner, scale: 0.40, at: [37, 720]
+    image banner, scale: 0.50, at: [5, 720], aling: :center
     move_down 100
     text 'NÓMINA PERSONAL ' + tipo.nombre.upcase, align: :center, size: 14, leading: 2
     text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 14
@@ -72,7 +74,7 @@ class RecibosPdf < Prawn::Document
             contador[c['id']]['nombre']=c['nombre']
           contador[c['id']]['personas']+=1
           contador[c['id']]['asignacion']+= BigDecimal.new(c['valor'].to_s)
-          data += [[c['nombre'].upcase, tr(c['valor']).gsub!('.', ',' ), '', '']]
+          data += [[c['nombre'].upcase, number_with_delimiter(tr(c['valor'])), '', '']]
           total_asignaciones += BigDecimal.new(c['valor'].to_s)
         else
           contador=contador_cp
@@ -83,7 +85,7 @@ class RecibosPdf < Prawn::Document
             contador[c['nombre']]['nombre']=c['nombre']
           contador[c['nombre']]['personas']+=1
           contador[c['nombre']]['asignacion']+= BigDecimal.new(c['valor'].to_s)
-          data += [[c['nombre'].upcase, tr(c['valor']).gsub!('.', ',' ), '', '']]
+          data += [[c['nombre'].upcase, number_with_delimiter(tr(c['valor'])), '', '']]
           total_asignaciones += BigDecimal.new(c['valor'].to_s)
         end
 
@@ -114,7 +116,7 @@ class RecibosPdf < Prawn::Document
             contador[c['id']]['nombre']=c['nombre']
           contador[c['id']]['personas']+=1
           contador[c['id']]['deduccion']+= BigDecimal.new(c['valor'].to_s)
-          data += [[c['nombre'].upcase,'' , tr(c['valor']).gsub!('.', ',' ), '']]
+          data += [[c['nombre'].upcase,'' , number_with_delimiter(tr(c['valor'])), '']]
           total_deducciones += BigDecimal.new(c['valor'].to_s)
         else
           contador=contador_cp
@@ -125,16 +127,16 @@ class RecibosPdf < Prawn::Document
             contador[c['nombre']]['nombre']=c['nombre']
           contador[c['nombre']]['personas']+=1
           contador[c['nombre']]['deduccion']+= BigDecimal.new(c['valor'].to_s)
-          data += [[c['nombre'].upcase, '', tr(c['valor']).gsub!('.', ',' ), '']]
+          data += [[c['nombre'].upcase, '', number_with_delimiter(tr(c['valor'])), '']]
           total_deducciones += BigDecimal.new(c['valor'].to_s)
           end
         end
       end
       if !((BigDecimal.new(total_asignaciones.to_s) - BigDecimal.new(total_deducciones.to_s)).to_f == 0)
         table([["CÉDULA: #{p.cedula}", "NOMBRES: #{p.apellidos.upcase}, #{p.nombres.upcase}", "FECHA DE INGRESO: #{p.contrato.fecha_inicio.strftime("%d-%m-%Y")}"]], cell_style: { border_width: 1, size: 8, borders: [:top] }, header: false, column_widths: [85, 270, 145], width: 500)
-        table([["CARGO: <font size='7'>#{p.cargo.nombre.upcase}</font>", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{tr(p.cargo.sueldos.last.monto).gsub!('.', ',' )}"]], cell_style: { :inline_format => true, border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: false, width: 500, column_widths: { 0 => 170, 2 => 145 })
+        table([["CARGO: <font size='7'>#{p.cargo.nombre.upcase}</font>", "BANCO DE VENEZUELA: #{p.cuenta.to_s[10..12] + '-' + p.cuenta.to_s[13..20]}", "SUELDO BÁSICO: #{number_with_delimiter(tr(p.cargo.sueldos.last.monto))}"]], cell_style: { :inline_format => true, border_width: 0, size: 8, :padding => [0, 5, 0, 5]}, header: false, width: 500, column_widths: { 0 => 170, 2 => 145 })
         table([["ESTADO: #{p.status.capitalize}"]], cell_style: { border_width: 1, size: 8, borders: [:bottom]}, header: false, width: 500)
-      data1 = [['', tr(total_asignaciones.to_f).gsub!('.', ',' ), tr(total_deducciones.to_f).gsub!('.', ',' ), tr((BigDecimal.new(total_asignaciones.to_s) - BigDecimal.new(total_deducciones.to_s)).to_f).gsub!('.', ',' )]]
+      data1 = [['', number_with_delimiter(tr(total_asignaciones.to_f)), number_with_delimiter(tr(total_deducciones.to_f)), number_with_delimiter(tr((BigDecimal.new(total_asignaciones.to_s) - BigDecimal.new(total_deducciones.to_s)).to_f))]]
       if data != []
         table(data, header: false, width: 500, cell_style: { size: 8, border_width: 0, align: :right, padding: [2, 5, 2, 25] }, column_widths: [200, 100, 100, 100]) do
           style(row(0..10).column(0), align: :left)
@@ -148,7 +150,7 @@ class RecibosPdf < Prawn::Document
       #  ele=ele+1
     end
     start_new_page
-    image banner, scale: 0.40, at: [37, 720]
+    image banner, scale: 0.50, at: [5, 720]
     move_down 100
     text 'RESUMEN GENERAL', align: :center, size: 14, leading: 2
     move_down 10
@@ -175,11 +177,11 @@ value['deduccion']= if value['deduccion']==0
                     else
                       tr(value['deduccion'])
                     end
-    data3+= [["#{value['nombre'].upcase}", value['personas'], (value['asignacion'].to_s).gsub!('.', ',' ), (value['deduccion'].to_s).gsub!('.', ',' ), '']]
+    data3+= [["#{value['nombre'].upcase}", value['personas'], number_with_delimiter((value['asignacion'].to_s)), number_with_delimiter((value['deduccion'].to_s)), '']]
 end
 end
 
-    data4 = [['TOTAL GENERAL', '',tr(tasign.to_f).gsub!('.', ',' ), tr(tdeduc.to_f).gsub!('.', ',' ), tr((BigDecimal.new(tasign.to_s) - BigDecimal.new(tdeduc.to_s)).to_f).gsub!('.', ',' )]]
+    data4 = [['TOTAL GENERAL', '',number_with_delimiter(tr(tasign.to_f)), number_with_delimiter(tr(tdeduc.to_f)), number_with_delimiter(tr((BigDecimal.new(tasign.to_s) - BigDecimal.new(tdeduc.to_s)).to_f))]]
     data5 = [['Elaborado por:            Coord. RRHH','','Revisado por:         Coord. Admon. y Finanzas','','Aprobado por: Presidencia']]
     if data3!=[]
       table(data3, header: false, width: 500, cell_style: { size: 10, border_width: 0, align: :right, padding: [2, 5, 2, 15] }, column_widths: [150, 50, 100, 100, 100] ) do

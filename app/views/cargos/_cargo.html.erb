@@ -29,9 +29,9 @@
             <%else%>
               <%= Persona.where("cargo_id=#{cargo.id}").last.nombres %></td>
             <%end%>
-          <td><%= tr(cargo.sueldos.last.monto).gsub!('.', ',' ) %></td>
-          <td><%= tr(cargo.sueldos.last.normal).gsub!('.', ',' ) %></td>
-          <td><%= tr(cargo.sueldos.last.sueldo_integral).gsub!('.', ',' ) %></td>
+          <td><%= number_with_delimiter(tr(cargo.sueldos.last.monto)) %></td>
+          <td><%= number_with_delimiter(tr(cargo.sueldos.last.normal)) %></td>
+          <td><%= number_with_delimiter(tr(cargo.sueldos.last.sueldo_integral)) %></td>
           <td class="text-capitalize"><%= cargo.tipo.nombre%></td>
           <td><%if cargo.disponible %>
             <span class="fa fa-check"></span>

@@ -1,4 +1,6 @@
 class ConceptosPdf < Prawn::Document
+  include ActionView::Helpers::NumberHelper
+  extend ActionView::Helpers::NumberHelper
   def initialize(tipo, eco, con, conper)
     super(left_margin: 20, top_margin: 30, right_margin: 20)
     # Tipo.first.conceptos.last.tipos.last.cargos.last.persona
@@ -49,7 +51,7 @@ class ConceptosPdf < Prawn::Document
               if p.status != 'suspendido'
                 acu_aporte_e += BigDecimal.new(c['valor'].to_s)
                 acu_aporte_p += BigDecimal.new(c['valor_patrono'].to_s)
-                data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", tr(c['valor']).gsub!('.', ',' ), tr(c['valor_patrono']).gsub!('.', ',' ), tr((BigDecimal.new(c['valor'].to_s) + BigDecimal.new(c['valor_patrono'].to_s)).to_f).gsub!('.', ',' )]]
+                data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", number_with_delimiter(tr(c['valor'])), number_with_delimiter(tr(c['valor_patrono'])), number_with_delimiter(tr((BigDecimal.new(c['valor'].to_s) + BigDecimal.new(c['valor_patrono'].to_s)).to_f))]]
               else
                 data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", '0,00', '0,00', '0,00']]
               end
@@ -58,7 +60,7 @@ class ConceptosPdf < Prawn::Document
         end
 
       next unless pc > 0
-      image banner, scale: 0.40, at: [62, 720]
+      image banner, scale: 0.50, at: [35, 720]
       move_down 100
       text 'LISTADO DE DEDUCCIONES ', align: :center, size: 14, leading: 2
       text $dic['quincena'].key($quincena).upcase + 'DE ' + $dic['meses'].key($ahora.month) + $ahora.strftime(' DE %Y'), align: :center, size: 14, leading: 2
@@ -67,7 +69,7 @@ class ConceptosPdf < Prawn::Document
       move_down 10
       table([["", "", "APORTE EMPLEADO", "APORTE PATRONO", "MONTO TOTAL"]],cell_style: { border_width: 0, size: 9, align: :center, font_style: :bold}, header: false, column_widths: [80, 210, 70, 70, 70], :width => 500, :position=> :center )
       table([[concepto.nombre.upcase]], cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom]}, header: false, :width => 500, :position=> :center )
-      data1= [['', concepto.nombre.upcase, tr(acu_aporte_e.to_f).gsub!('.', ',' ), tr(acu_aporte_p.to_f).gsub!('.', ',' ), tr((BigDecimal.new(acu_aporte_p.to_s)+ BigDecimal.new(acu_aporte_e.to_s)).to_f).gsub!('.', ',' )]]
+      data1= [['', concepto.nombre.upcase, number_with_delimiter(tr(acu_aporte_e.to_f)), number_with_delimiter(tr(acu_aporte_p.to_f)), number_with_delimiter(tr((BigDecimal.new(acu_aporte_p.to_s)+ BigDecimal.new(acu_aporte_e.to_s)).to_f))]]
       data2 = [['', "Nro. Empleados", pc ,'' , '']]
       if data!=[]
       table(data.sort_by{|x| x[0].to_i}, header: false, cell_style: {border_width: 0, size: 8, align: :right} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
@@ -121,7 +123,7 @@ class ConceptosPdf < Prawn::Document
           if p.status != 'suspendido'
             acu_aporte_e += BigDecimal.new(c['valor'].to_s)
             acu_aporte_p += BigDecimal.new(c['valor_patrono'].to_s)
-            data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}",tr(c['valor']).gsub!('.', ',' ), tr(c['valor_patrono']).gsub!('.', ',' ), tr((BigDecimal.new(c['valor'].to_s) + BigDecimal.new(c['valor_patrono'].to_s)).to_f).gsub!('.', ',' )]]
+            data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}",number_with_delimiter(tr(c['valor'])), number_with_delimiter(tr(c['valor_patrono'])), number_with_delimiter(tr((BigDecimal.new(c['valor'].to_s) + BigDecimal.new(c['valor_patrono'].to_s)).to_f))]]
           else
             data += [[p.cedula.to_s, "#{p.apellidos.upcase} #{p.nombres.upcase}", '0,00', '0,00', '0,00']]
           end
@@ -138,7 +140,7 @@ class ConceptosPdf < Prawn::Document
       move_down 10
       table([["", "", "APORTE EMPLEADO", "APORTE PATRONO", "MONTO TOTAL"]],cell_style: { border_width: 0, size: 9, align: :center, font_style: :bold}, header: false, column_widths: [80, 210, 70, 70, 70], :width => 500, :position=> :center  )
       table([[conceptop.nombre.upcase]], cell_style: { border_width: 1, size: 9, align: :left, :borders=>[:top, :bottom]}, header: false, :width => 500, :position=> :center )
-      data1 = [['', conceptop.nombre.upcase, tr(acu_aporte_e.to_f).gsub!('.', ',' ), tr(acu_aporte_p.to_f).gsub!('.', ',' ), tr((BigDecimal.new(acu_aporte_p.to_s)+ BigDecimal.new(acu_aporte_e.to_s)).to_f).gsub!('.', ',' )]]
+      data1 = [['', conceptop.nombre.upcase, number_with_delimiter(tr(acu_aporte_e.to_f)), number_with_delimiter(tr(acu_aporte_p.to_f)), number_with_delimiter(tr((BigDecimal.new(acu_aporte_p.to_s)+ BigDecimal.new(acu_aporte_e.to_s)).to_f))]]
       data2 = [['', "Nro. Empleados", pc ,'' , '']]
       if data!=[]
       table(data.sort_by{|x| x[0].to_i}, header: false, cell_style: {border_width: 0, size: 8, align: :right} , column_widths: [70, 220, 70, 70, 70], width: 500, :position=> :center ) do
